@@ -43,6 +43,7 @@ GustoBot是一个企业级智能菜谱客服系统，采用**Multi-Agent**架构
 | 烹饪指导 | 详细的步骤讲解和技巧分享 | ✅ |
 | 闲聊交互 | 友好的对话体验 | ✅ |
 | 多轮对话 | 上下文理解和记忆 | ✅ |
+| 数据采集 | 智能爬虫自动采集菜谱数据 | ✅ |
 
 ### 技术特性
 
@@ -56,6 +57,8 @@ GustoBot是一个企业级智能菜谱客服系统，采用**Multi-Agent**架构
 | LLM集成 | OpenAI / Anthropic | 支持多种大模型 |
 | 容器化 | Docker + Docker Compose | 一键部署 |
 | 测试框架 | Pytest | 完整的单元测试覆盖 |
+| 智能爬虫 | httpx + Playwright | HTTP爬虫 + 浏览器自动化 |
+| 反爬机制 | Proxy Pool + Random UA | 代理池 + 随机UA + 请求延迟 |
 
 ---
 
@@ -248,6 +251,18 @@ GustoBot/
 │   │   ├── __init__.py
 │   │   ├── vector_store.py   # 向量数据库封装
 │   │   └── knowledge_service.py # 知识库业务逻辑
+│   ├── crawler/              # 🕷️ 爬虫模块(详见 docs/crawler_guide.md)
+│   │   ├── __init__.py       # 模块导出
+│   │   ├── base_crawler.py   # HTTP爬虫基类(httpx)
+│   │   ├── browser_crawler.py # 浏览器爬虫基类(Playwright)
+│   │   ├── proxy_pool.py     # 代理池管理(轮换+健康检查)
+│   │   ├── wikipedia_crawler.py # Wikipedia爬虫实现
+│   │   ├── recipe_crawler.py # 通用菜谱爬虫(Schema.org)
+│   │   ├── recipe_browser_crawler.py # 浏览器菜谱爬虫示例
+│   │   ├── data_validator.py # 数据验证与清洗(Pydantic)
+│   │   ├── cli.py            # 命令行工具
+│   │   ├── README.md         # 爬虫模块文档
+│   │   └── proxies.txt.example # 代理配置示例
 │   ├── models/               # 数据模型
 │   ├── services/             # 业务服务
 │   ├── utils/                # 工具函数
@@ -460,16 +475,97 @@ async def _call_llm(self, system_prompt: str, user_message: str) -> str:
 4. 在 `server/agents/__init__.py` 中导出
 5. 在 `SupervisorAgent` 中注册和路由
 
-### 数据导入
+### 📥 数据导入
 
-**方式一：通过API导入**
+GustoBot提供多种数据导入方式，满足不同场景需求。
+
+#### 方式一：使用智能爬虫自动采集 ⭐ 推荐
+
+智能爬虫模块支持从各类网站自动采集菜谱数据，内置反爬虫机制。
+
+**1. Wikipedia菜谱爬取**
+```bash
+# 基础用法
+python -m server.crawler.cli wikipedia --query "川菜" "粤菜" --import-kb
+
+# 指定数量和语言
+python -m server.crawler.cli wikipedia \
+  --query "中国菜" "西餐" \
+  --language zh \
+  --limit 20 \
+  --import-kb
+```
+
+**2. 通用网站爬取（支持Schema.org）**
+```bash
+# 爬取指定URL
+python -m server.crawler.cli urls \
+  --urls "https://example.com/recipe1" "https://example.com/recipe2" \
+  --import-kb
+
+# 使用代理池
+python -m server.crawler.cli urls \
+  --urls "https://example.com/recipes" \
+  --proxy proxies.txt \
+  --output recipes.json \
+  --import-kb
+```
+
+**3. 编写自定义爬虫（针对特定网站）**
+
+使用`BrowserCrawler`基类创建自己的爬虫：
+
+```python
+from server.crawler.browser_crawler import BrowserCrawler
+from lxml import etree
+
+class MyRecipeSiteCrawler(BrowserCrawler):
+    """自定义菜谱网站爬虫"""
+
+    async def parse(self, html_content: str, url: str):
+        tree = etree.HTML(html_content)
+        return [{
+            "name": tree.xpath('//h1[@class="title"]/text()')[0],
+            "ingredients": tree.xpath('//div[@class="ingredients"]//li/text()'),
+            "steps": tree.xpath('//div[@class="steps"]//p/text()'),
+            "url": url,
+            "source": "MyRecipeSite"
+        }]
+
+    async def run(self, urls):
+        recipes = []
+        for url in urls:
+            html = await self.fetch_page(
+                url,
+                scroll_count=2,  # 滚动2次加载更多
+                click_selectors=['//button[contains(text(), "展开")]']  # 点击展开
+            )
+            if html:
+                recipes.extend(await self.parse(html, url))
+        return recipes
+
+# 使用爬虫
+async def main():
+    from server.crawler.proxy_pool import ProxyPool
+
+    proxy_pool = ProxyPool.from_file("proxies.txt")
+    crawler = MyRecipeSiteCrawler(proxy_pool=proxy_pool, headless=True)
+
+    async with crawler:
+        recipes = await crawler.run(["https://example.com/recipe1"])
+        print(f"爬取了 {len(recipes)} 个菜谱")
+```
+
+> 📚 **详细文档**: [爬虫使用指南](docs/crawler_guide.md) | [爬虫示例](docs/crawler_examples.md) | [反爬虫最佳实践](docs/anti_scraping_guide.md)
+
+#### 方式二：通过API导入
 ```bash
 curl -X POST "http://localhost:8000/api/v1/knowledge/recipes" \
   -H "Content-Type: application/json" \
   -d @recipe.json
 ```
 
-**方式二：编写Python脚本**
+#### 方式三：编写Python脚本
 ```python
 import asyncio
 from server.knowledge_base import KnowledgeService
