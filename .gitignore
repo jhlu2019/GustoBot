@@ -168,12 +168,17 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-# PyCharm
+# PyCharm / IntelliJ IDEA
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
-#.idea/
+.idea/
+.idea/*
+*.iml
+*.iws
+*.ipr
+.idea_modules/
 
 # Abstra
 # Abstra is an AI-powered process automation framework.
@@ -205,3 +210,129 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# ============================================
+# GustoBot Project Specific Ignores
+# ============================================
+
+# Node.js / npm (前端依赖)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Frontend build output
+web/dist/
+web/build/
+web/.next/
+web/out/
+web/.nuxt/
+web/.cache/
+web/.vuepress/dist/
+web/.temp/
+web/.docusaurus/
+
+# ONNX 模型文件
+*.onnx
+*.onnx.json
+models/*.onnx
+**/*.onnx
+
+# ONNX Runtime
+onnxruntime/
+onnxruntime-*/
+
+# 其他机器学习模型文件
+*.pt
+*.pth
+*.h5
+*.pkl
+*.pickle
+*.joblib
+*.model
+*.bin
+*.safetensors
+
+# 数据文件
+data/
+*.csv
+*.json.gz
+*.parquet
+*.feather
+*.arrow
+
+# 向量数据库持久化文件
+chroma/
+milvus/
+data/chroma/
+data/milvus/
+data/vector_store/
+
+# 爬虫相关
+proxies.txt
+cookies.json
+*.html
+screenshots/
+downloads/
+crawled_data/
+
+# 临时文件
+tmp/
+temp/
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# IDE 配置（额外）
+.vscode/settings.json
+.vscode/launch.json
+.vscode/.ropeproject/
+*.swp
+*.swo
+*~
+
+# 日志文件
+logs/
+*.log.*
+*.log.gz
+
+# 数据库文件
+*.db
+*.sqlite
+*.sqlite3
+
+# 密钥和敏感信息
+secrets/
+*.pem
+*.key
+*.crt
+*.p12
+.env.local
+.env.*.local
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+.directory
+.Trash-*
+
+# 备份文件
+*.bak
+*.backup
+*~
