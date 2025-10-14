@@ -1,18 +1,10 @@
-"""
-Database model representing a conversation window.
-"""
-from __future__ import annotations
-
 import enum
-
 from sqlalchemy import Column, DateTime, Enum, ForeignKey, Integer, String, func
 from sqlalchemy.orm import relationship
-
 from app.core.database import Base
 from app.core.logger import get_logger
 
 logger = get_logger(service="conversation")
-
 
 class DialogueType(enum.Enum):
     """Conversation type enumeration."""

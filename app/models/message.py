@@ -1,11 +1,5 @@
-"""
-Database model storing individual conversation messages.
-"""
-from __future__ import annotations
-
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Text, func
 from sqlalchemy.orm import relationship
-
 from app.core.database import Base
 
 
