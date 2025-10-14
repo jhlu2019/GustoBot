@@ -1,50 +1,76 @@
-import requests
-from typing import List, Dict
-from app.core.config import settings
+from typing import Dict, List, Optional
+import httpx
+from app.config import settings
+from app.core import get_logger
+
+logger = get_logger(service="tool.search")
+
 
 class SearchTool:
-    def __init__(self):
-        self.api_key = settings.SERPAPI_KEY
+    """Wrapper around SerpAPI Google search results."""
+
+    def __init__(
+        self,
+        *,
+        api_key: Optional[str] = None,
+        endpoint: Optional[str] = None,
+        timeout: Optional[float] = None,
+        default_results: Optional[int] = None,
+    ) -> None:
+        self.api_key = api_key or settings.SERPAPI_KEY
         if not self.api_key:
-            raise ValueError("未设置SERPAPI_KEY环境变量")
+            raise RuntimeError("SERPAPI_KEY is not configured.")
 
-    def search(self, query: str, num_results: int = 3) -> List[Dict]:
+        self.endpoint = (endpoint or settings.SERPAPI_BASE_URL).rstrip("/")
+        self.timeout = timeout or settings.SERPAPI_TIMEOUT
+        self.default_results = default_results or settings.SEARCH_RESULT_COUNT
+
+    def search(self, query: str, *, num_results: Optional[int] = None) -> List[Dict]:
         """执行搜索并返回结构化结果"""
-        try:
-            # 使用配置中的结果数量，如果没有则默认为2
-            num_results = settings.SEARCH_RESULT_COUNT or num_results 
-            
-            params = {
-                "engine": "google",
-                "q": query,
-                "api_key": self.api_key,
-                "num": num_results,
-                "hl": "zh-CN",
-                "gl": "cn"
-            }
+        if not query:
+            raise ValueError("Search query must not be empty.")
 
-            response = requests.get(
-                "https://serpapi.com/search",
-                params=params,
-                timeout=15
-            )
-            response.raise_for_status()
-            
-            return self._parse_results(response.json())
-            
-        except Exception as e:
-            print(f"搜索失败: {str(e)}")
+        result_count = num_results or self.default_results
+
+        params = {
+            "engine": "google",
+            "q": query,
+            "api_key": self.api_key,
+            "num": result_count,
+            "hl": "zh-CN",
+            "gl": "cn",
+        }
+
+        try:
+            with httpx.Client(timeout=self.timeout) as client:
+                response = client.get(self.endpoint, params=params)
+                response.raise_for_status()
+        except httpx.HTTPError as exc:
+            logger.error("Search request failed: {}", exc)
             return []
-    
-    def _parse_results(self, data: dict) -> List[Dict]:
-        results = []
-        
-        if "organic_results" in data:
-            for item in data["organic_results"]:
-                results.append({
+
+        try:
+            payload = response.json()
+        except ValueError as exc:
+            logger.error("Failed to decode search response: {}", exc)
+            return []
+
+        return self._parse_results(payload, limit=result_count)
+
+    def _parse_results(self, data: Dict, *, limit: int) -> List[Dict]:
+        """Normalize SerpAPI payload."""
+        organic_results = data.get("organic_results") or []
+        results: List[Dict] = []
+
+        for item in organic_results:
+            results.append(
+                {
                     "title": item.get("title", ""),
                     "url": item.get("link", ""),
                     "snippet": item.get("snippet", ""),
-                })
-                
-        return results[:settings.SEARCH_RESULT_COUNT]  # 使用配置中的数量限制结果 
+                }
+            )
+            if len(results) >= limit:
+                break
+
+        return results

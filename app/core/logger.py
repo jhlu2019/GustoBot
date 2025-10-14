@@ -43,5 +43,5 @@ def get_logger(*, service: str, level: Optional[str] = None):
     """
     bound_logger = logger.bind(service=service)
     if level:
-        bound_logger = bound_logger.opt(level=level)
+        bound_logger = bound_logger.opt()
     return bound_logger

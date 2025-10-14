@@ -1,38 +1,50 @@
-"""工具描述定义文件"""
+from dataclasses import dataclass, field
+from typing import Any, Callable, Dict, Iterable, Mapping
 
-SEARCH_TOOL = {
-    "name": "search",
-    "description": "使用谷歌搜索从互联网获取更多的实时信息",
-    "parameters": {
-        "type": "object",
-        "properties": {
-            "query": {
-                "type": "string",
-                "description": "通过搜索从互联网获取的信息的问题、内容、关键词等"
-            }
-        },
-        "required": ["query"]
-    }
-}
+@dataclass(frozen=True, slots=True)
+class ToolSpec:
+    """Describe a tool so it can be surfaced to LLMs."""
 
-# # 可以添加更多工具定义
-# WEATHER_TOOL = {
-#     "name": "get_weather",
-#     "description": "获取天气信息",
-#     "parameters": {
-#         "type": "object",
-#         "properties": {
-#             "city": {
-#                 "type": "string",
-#                 "description": "城市名称"
-#             }
-#         },
-#         "required": ["city"]
-#     }
-# }
+    name: str
+    description: str
+    parameters: Dict[str, Any] = field(default_factory=dict)
 
-# 工具定义集合
-TOOL_DEFINITIONS = {
-    "search": SEARCH_TOOL,
-    # "weather": WEATHER_TOOL
-} 
+    def as_openai_function(self) -> Dict[str, Any]:
+        """
+        Return the spec formatted for OpenAI function calling.
+        """
+        return {
+            "name": self.name,
+            "description": self.description,
+            "parameters": self.parameters,
+        }
+
+
+class ToolRegistry:
+    """Keep track of tool specifications and factories."""
+
+    def __init__(self) -> None:
+        self._specs: Dict[str, ToolSpec] = {}
+        self._factories: Dict[str, Callable[[], Any]] = {}
+
+    def register(self, spec: ToolSpec, factory: Callable[[], Any]) -> None:
+        self._specs[spec.name] = spec
+        self._factories[spec.name] = factory
+
+    def get_spec(self, name: str) -> ToolSpec:
+        return self._specs[name]
+
+    def get_specs(self) -> Iterable[ToolSpec]:
+        return self._specs.values()
+
+    def has_tool(self, name: str) -> bool:
+        return name in self._specs
+
+    def create(self, name: str) -> Any:
+        factory = self._factories.get(name)
+        if factory is None:
+            raise KeyError(f"No tool registered under name '{name}'")
+        return factory()
+
+
+registry = ToolRegistry()

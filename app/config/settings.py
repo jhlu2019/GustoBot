@@ -47,6 +47,23 @@ class Settings(BaseSettings):
     RERANKER_API_URL: Optional[str] = None  # BGE provider需要
     RERANKER_TOP_K: int = 5
 
+    # 搜索工具配置
+    SERPAPI_KEY: Optional[str] = None
+    SERPAPI_BASE_URL: str = Field(
+        default="https://serpapi.com/search",
+        description="SerpAPI 基础地址"
+    )
+    SERPAPI_TIMEOUT: float = Field(
+        default=15.0,
+        description="SerpAPI 请求超时时间（秒）"
+    )
+    SEARCH_RESULT_COUNT: int = Field(
+        default=3,
+        ge=1,
+        le=10,
+        description="默认返回的搜索结果数量"
+    )
+
     # Redis配置
     REDIS_HOST: str = "localhost"
     REDIS_PORT: int = 6379
