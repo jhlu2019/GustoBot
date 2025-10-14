@@ -2,51 +2,25 @@
 聊天API端点
 Chat API Endpoints
 """
-from fastapi import APIRouter, HTTPException, Depends
-from pydantic import BaseModel, Field
-from typing import Optional, Dict, Any
-from loguru import logger
+from __future__ import annotations
 import uuid
+from typing import Any, Dict
+
+from fastapi import APIRouter, Depends, HTTPException
+from loguru import logger
+from redis.asyncio import Redis
+
+from ..agents import SupervisorAgent
+from ..config import settings
+from ..models.chat import ChatRequest, ChatResponse
+from ..services import RedisConversationHistory, RedisSemanticCache
+
 
 router = APIRouter(prefix="/chat", tags=["chat"])
 
-
-# 请求模型
-class ChatRequest(BaseModel):
-    """聊天请求"""
-    message: str = Field(..., description="用户消息", min_length=1)
-    session_id: Optional[str] = Field(None, description="会话ID")
-    user_id: Optional[str] = Field(None, description="用户ID")
-
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "message": "怎么做红烧肉？",
-                "session_id": "session_123",
-                "user_id": "user_456"
-            }
-        }
-
-
-class ChatResponse(BaseModel):
-    """聊天响应"""
-    answer: str = Field(..., description="回答")
-    session_id: str = Field(..., description="会话ID")
-    type: str = Field(..., description="响应类型：knowledge/chat/reject/error")
-    metadata: Optional[Dict[str, Any]] = Field(None, description="元数据")
-
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "answer": "红烧肉的做法是...",
-                "session_id": "session_123",
-                "type": "knowledge",
-                "metadata": {
-                    "route": "knowledge",
-                    "confidence": 0.95
-                }
-            }
-        }
+_redis_client = Redis.from_url(settings.REDIS_URL, decode_responses=False)
+_semantic_cache = RedisSemanticCache(redis_client=_redis_client, prefix="conversation")
+_history_store = RedisConversationHistory(redis_client=_redis_client, prefix="conversation")
 
 
 # 依赖注入：获取supervisor agent
@@ -65,7 +39,9 @@ def get_supervisor():
     supervisor = SupervisorAgent(
         router=router_agent,
         knowledge=knowledge_agent,
-        chat=chat_agent
+        chat=chat_agent,
+        semantic_cache=_semantic_cache,
+        history_store=_history_store
     )
 
     return supervisor

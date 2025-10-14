@@ -2,12 +2,14 @@
 监督Agent
 协调整个Multi-Agent流程，管理Agent之间的通信和状态
 """
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 from loguru import logger
+from redis.exceptions import RedisError
 from .base_agent import BaseAgent
 from .router_agent import RouterAgent
 from .knowledge_agent import KnowledgeAgent
 from .chat_agent import ChatAgent
+from app.services import RedisSemanticCache, RedisConversationHistory
 
 
 class SupervisorAgent(BaseAgent):
@@ -17,7 +19,9 @@ class SupervisorAgent(BaseAgent):
         self,
         router: RouterAgent,
         knowledge: KnowledgeAgent,
-        chat: ChatAgent
+        chat: ChatAgent,
+        semantic_cache: Optional[RedisSemanticCache] = None,
+        history_store: Optional[RedisConversationHistory] = None,
     ):
         super().__init__(
             name="SupervisorAgent",
@@ -26,8 +30,10 @@ class SupervisorAgent(BaseAgent):
         self.router = router
         self.knowledge = knowledge
         self.chat = chat
+        self.semantic_cache = semantic_cache
+        self.history_store = history_store
 
-        self.conversation_history = []
+        self.conversation_history: List[Dict[str, Any]] = []
 
     async def process(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -43,15 +49,53 @@ class SupervisorAgent(BaseAgent):
 
         user_message = input_data.get("message", "")
         session_id = input_data.get("session_id")
+        user_id = input_data.get("user_id")
 
         # 构建处理上下文
+        history = await self._get_recent_history(session_id, limit=5)
         context = {
             "session_id": session_id,
-            "user_id": input_data.get("user_id"),
-            "history": self._get_recent_history(session_id, limit=5)
+            "user_id": user_id,
+            "history": history
         }
 
         try:
+            # 预先检查语义缓存
+            cache_scope = self._cache_scope(session_id, user_id)
+            cache_history = self._prepare_cache_messages(history)
+            cache_messages = cache_history + [{"role": "user", "content": user_message}]
+            cached_answer: Optional[str] = None
+            if self.semantic_cache:
+                try:
+                    cached_answer = await self.semantic_cache.lookup(
+                        cache_messages,
+                        scope=cache_scope
+                    )
+                except RedisError as exc:
+                    logger.warning(
+                        "Semantic cache lookup skipped due to Redis error: {}",
+                        exc,
+                    )
+                except Exception as exc:
+                    logger.warning(
+                        "Semantic cache lookup failed unexpectedly: {}",
+                        exc,
+                    )
+
+            if cached_answer:
+                await self._add_to_history(session_id, user_message, cached_answer)
+                return {
+                    "answer": cached_answer,
+                    "type": "cache",
+                    "metadata": {
+                        "route": "cache",
+                        "confidence": 1.0,
+                        "agent": "cache",
+                        "timestamp": self._get_timestamp(),
+                        "cached": True
+                    }
+                }
+
             # 1. 路由阶段：判断问题类型
             route_result = await self.router.process({
                 "message": user_message,
@@ -81,7 +125,7 @@ class SupervisorAgent(BaseAgent):
                 result = {
                     "answer": "抱歉，这个问题超出了我的能力范围。我主要专注于菜谱和烹饪相关的问题。",
                     "type": "reject"
-                }
+            }
 
             # 3. 后处理：添加元数据和记录历史
             final_result = {
@@ -95,7 +139,25 @@ class SupervisorAgent(BaseAgent):
             }
 
             # 记录对话历史
-            self._add_to_history(session_id, user_message, final_result["answer"])
+            await self._add_to_history(session_id, user_message, final_result["answer"])
+
+            if self.semantic_cache and final_result.get("type") in {"knowledge", "chat"}:
+                try:
+                    await self.semantic_cache.update(
+                        cache_messages,
+                        final_result["answer"],
+                        scope=cache_scope
+                    )
+                except RedisError as exc:
+                    logger.warning(
+                        "Semantic cache update skipped due to Redis error: {}",
+                        exc,
+                    )
+                except Exception as exc:
+                    logger.warning(
+                        "Semantic cache update failed unexpectedly: {}",
+                        exc,
+                    )
 
             await self.log_action("Request processing completed")
 
@@ -112,7 +174,7 @@ class SupervisorAgent(BaseAgent):
                 }
             }
 
-    def _get_recent_history(self, session_id: Optional[str], limit: int = 5) -> list:
+    async def _get_recent_history(self, session_id: Optional[str], limit: int = 5) -> list:
         """
         获取最近的对话历史
 
@@ -126,14 +188,24 @@ class SupervisorAgent(BaseAgent):
         if not session_id:
             return []
 
-        # TODO: 从数据库或缓存中获取历史记录
-        # 这里返回内存中的临时历史
+        if self.history_store:
+            try:
+                history_records = await self.history_store.get_recent(
+                    session_id,
+                    limit=limit * 2
+                )
+                if history_records:
+                    return history_records
+            except Exception as exc:
+                logger.warning(f"Failed to load history from Redis: {exc}")
+
+        # 内存中的临时历史作为回退
         return [
             h for h in self.conversation_history
             if h.get("session_id") == session_id
-        ][-limit:]
+        ][-limit * 2:]
 
-    def _add_to_history(self, session_id: Optional[str], user_msg: str, bot_msg: str):
+    async def _add_to_history(self, session_id: Optional[str], user_msg: str, bot_msg: str):
         """
         添加对话到历史记录
 
@@ -145,16 +217,27 @@ class SupervisorAgent(BaseAgent):
         if not session_id:
             return
 
-        self.conversation_history.append({
-            "session_id": session_id,
-            "user_message": user_msg,
-            "bot_message": bot_msg,
-            "timestamp": self._get_timestamp()
-        })
+        timestamp = self._get_timestamp()
 
-        # 限制内存中的历史记录数量
-        if len(self.conversation_history) > 1000:
-            self.conversation_history = self.conversation_history[-1000:]
+        if self.history_store:
+            try:
+                await self.history_store.append(
+                    session_id,
+                    "user",
+                    user_msg,
+                    metadata={"source": "user"}
+                )
+                await self.history_store.append(
+                    session_id,
+                    "assistant",
+                    bot_msg,
+                    metadata={"source": "assistant"}
+                )
+            except Exception as exc:
+                logger.warning(f"Failed to persist history to Redis: {exc}")
+
+        self._append_local_history(session_id, "user", user_msg, timestamp)
+        self._append_local_history(session_id, "assistant", bot_msg, timestamp)
 
     def _get_timestamp(self) -> str:
         """获取当前时间戳"""
@@ -172,3 +255,42 @@ class SupervisorAgent(BaseAgent):
             },
             "history_size": len(self.conversation_history)
         }
+
+    def _append_local_history(
+        self,
+        session_id: str,
+        role: str,
+        content: str,
+        timestamp: str
+    ) -> None:
+        """维护内存中的历史记录以便在Redis不可用时回退。"""
+        self.conversation_history.append({
+            "session_id": session_id,
+            "role": role,
+            "content": content,
+            "timestamp": timestamp
+        })
+
+        if len(self.conversation_history) > 1000:
+            self.conversation_history = self.conversation_history[-1000:]
+
+    @staticmethod
+    def _cache_scope(session_id: Optional[str], user_id: Optional[str]) -> Optional[str]:
+        """确定语义缓存的命名空间。"""
+        return user_id or session_id
+
+    @staticmethod
+    def _prepare_cache_messages(history: List[Dict[str, Any]]) -> List[Dict[str, str]]:
+        """将历史记录转换为语义缓存需要的消息格式。"""
+        cache_messages: List[Dict[str, str]] = []
+        for record in history:
+            if "user_message" in record and "bot_message" in record:
+                cache_messages.append({"role": "user", "content": record["user_message"]})
+                cache_messages.append({"role": "assistant", "content": record["bot_message"]})
+                continue
+
+            role = record.get("role")
+            content = record.get("content")
+            if role in {"user", "assistant"} and content:
+                cache_messages.append({"role": role, "content": content})
+        return cache_messages

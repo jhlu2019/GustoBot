@@ -684,6 +684,14 @@ docker-compose up -d --build
 | `KB_SIMILARITY_THRESHOLD` | 否 | 0.7 | 相似度阈值 |
 | `REDIS_HOST` | 否 | localhost | Redis地址 |
 | `REDIS_PORT` | 否 | 6379 | Redis端口 |
+| `REDIS_URL` | 否 | redis://localhost:6379/0 | Redis连接URL |
+| `REDIS_CACHE_EXPIRE` | 否 | 43200 | 语义缓存过期时间(秒) |
+| `REDIS_CACHE_THRESHOLD` | 否 | 0.92 | 语义缓存命中相似度阈值 |
+| `REDIS_CACHE_MAX_SIZE` | 否 | 1000 | 每个命名空间的最大缓存条数 |
+| `CONVERSATION_HISTORY_TTL` | 否 | 259200 | 对话历史保留时间(秒) |
+| `CONVERSATION_HISTORY_MAX_MESSAGES` | 否 | 200 | 每个会话保留的最大消息数 |
+| `OLLAMA_BASE_URL` | 否 | http://localhost:11434 | Ollama服务地址 |
+| `OLLAMA_EMBEDDING_MODEL` | 否 | nomic-embed-text | 语义缓存使用的Embedding模型 |
 
 ---
 
