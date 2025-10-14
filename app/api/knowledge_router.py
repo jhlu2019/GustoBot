@@ -2,7 +2,7 @@
 知识库管理API端点
 Knowledge Base Management API
 """
-from fastapi import APIRouter, HTTPException, UploadFile, File
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
 from typing import List, Dict, Any, Optional
 from loguru import logger

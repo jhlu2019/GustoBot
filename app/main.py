@@ -9,7 +9,7 @@ from loguru import logger
 
 from .config import settings
 from .core import configure_logging
-from .api import chat, knowledge
+from .api import chat_router, knowledge_router
 
 # 配置日志
 configure_logging(debug=settings.DEBUG)
@@ -33,8 +33,8 @@ app.add_middleware(
 )
 
 # 注册路由
-app.include_router(chat.router, prefix=settings.API_V1_PREFIX)
-app.include_router(knowledge.router, prefix=settings.API_V1_PREFIX)
+app.include_router(chat_router.router, prefix=settings.API_V1_PREFIX)
+app.include_router(knowledge_router.router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get("/")
