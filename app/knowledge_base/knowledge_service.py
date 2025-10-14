@@ -7,7 +7,7 @@ from loguru import logger
 from .vector_store import VectorStore
 from .embedding_service import EmbeddingService
 from .reranker import Reranker
-from server.config import settings
+from app.config import settings
 
 
 class KnowledgeService:

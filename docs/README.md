@@ -214,7 +214,7 @@ GustoBot提供了强大的爬虫框架，支持HTTP和浏览器两种爬取模�
 
 ### 项目文档
 - [主README](../README.md) - 项目整体介绍
-- [爬虫模块README](../server/crawler/README.md) - 爬虫模块概览
+- [爬虫模块README](../app/crawler/README.md) - 爬虫模块概览
 
 ### 外部资源
 - [Playwright文档](https://playwright.dev/python/) - 浏览器自动化

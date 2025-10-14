@@ -11,11 +11,11 @@ services:
       - DEBUG=True
       - REDIS_HOST=redis
     volumes:
-      - ./server:/app/server
+      - ./app:/app/app
       - ./data:/app/data
     depends_on:
       - redis
-    command: uvicorn server.main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
   web:
     build:

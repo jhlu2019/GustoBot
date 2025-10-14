@@ -23,7 +23,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 pip install -r requirements.txt
 
 # Run server (development mode)
-python -m uvicorn server.main:app --reload --host 0.0.0.0 --port 8000
+python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 # Or use: make run-server
 
 # Run tests
@@ -31,9 +31,9 @@ pytest tests/ -v
 # Or use: make test
 
 # Code formatting and linting
-black server/
-flake8 server/ --max-line-length=100
-mypy server/
+black app/
+flake8 app/ --max-line-length=100
+mypy app/
 # Or use: make format and make lint
 ```
 
@@ -67,7 +67,7 @@ docker-compose up -d
 # Initialize data directories
 make init-data
 
-# Add recipes via API (see server/api/knowledge.py for endpoints)
+# Add recipes via API (see app/api/knowledge.py for endpoints)
 # POST /api/v1/knowledge/recipes
 # POST /api/v1/knowledge/recipes/batch
 ```
@@ -82,17 +82,17 @@ User Query → SupervisorAgent → RouterAgent → [KnowledgeAgent | ChatAgent]
             Conversation History
 ```
 
-1. **SupervisorAgent** (`server/agents/supervisor_agent.py`) - Orchestrates the entire flow
-2. **RouterAgent** (`server/agents/router_agent.py`) - Classifies user questions:
+1. **SupervisorAgent** (`app/agents/supervisor_agent.py`) - Orchestrates the entire flow
+2. **RouterAgent** (`app/agents/router_agent.py`) - Classifies user questions:
    - `knowledge`: Recipe/cooking related → use knowledge base
    - `chat`: General conversation → friendly chat response
    - `reject`: Unrelated questions → polite rejection
-3. **KnowledgeAgent** (`server/agents/knowledge_agent.py`) - RAG-based recipe assistant
-4. **ChatAgent** (`server/agents/chat_agent.py`) - Handles casual conversation
+3. **KnowledgeAgent** (`app/agents/knowledge_agent.py`) - RAG-based recipe assistant
+4. **ChatAgent** (`app/agents/chat_agent.py`) - Handles casual conversation
 
 ### Multi-Agent Coordination
 
-All agents inherit from `BaseAgent` (`server/agents/base_agent.py`) which provides:
+All agents inherit from `BaseAgent` (`app/agents/base_agent.py`) which provides:
 - Common interface: `async def process(input_data: Dict) -> Dict`
 - Logging utilities
 - Input validation
@@ -101,7 +101,7 @@ The **SupervisorAgent** maintains conversation history and coordinates agent exe
 
 ### Knowledge Base System
 
-Located in `server/knowledge_base/`:
+Located in `app/knowledge_base/`:
 
 - **VectorStore** (`vector_store.py`): Milvus vector database wrapper
   - Enterprise-grade vector search with IVF_FLAT indexing
@@ -126,7 +126,7 @@ Located in `server/knowledge_base/`:
 
 ### API Structure
 
-FastAPI endpoints in `server/api/`:
+FastAPI endpoints in `app/api/`:
 
 - **Chat API** (`chat.py`): Main conversational endpoint
   - `POST /api/v1/chat/` - Send user messages
@@ -151,7 +151,7 @@ API proxy configured in `vite.config.js` to route `/api` to server.
 
 ### Configuration
 
-- **Server Config**: `server/config/settings.py` using `pydantic-settings`
+- **Server Config**: `app/config/settings.py` using `pydantic-settings`
   - Environment-based configuration via `.env`
   - LLM API keys (OpenAI/Anthropic)
   - Milvus vector database settings (host, port, collection, index type)
@@ -188,7 +188,7 @@ API proxy configured in `vite.config.js` to route `/api` to server.
 - **Main Branch**: `develop` (not `main` or `master`)
 - **Python Version**: Requires Python 3.9+
 - **Directory Structure**:
-  - `server/` - Backend/server code (NOT `backend/`)
+  - `app/` - Backend/server code (NOT `backend/`)
   - `web/` - Frontend code (NOT `frontend/`)
   - `Dockerfile` - Server dockerfile (no `.backend` suffix)
 - **LLM Integration**: Currently has placeholder methods for LLM calls. Implement in:
@@ -203,9 +203,9 @@ API proxy configured in `vite.config.js` to route `/api` to server.
 
 ### Adding a New Agent
 
-1. Create agent class in `server/agents/` inheriting from `BaseAgent`
+1. Create agent class in `app/agents/` inheriting from `BaseAgent`
 2. Implement `async def process(input_data: Dict) -> Dict`
-3. Register in `server/agents/__init__.py`
+3. Register in `app/agents/__init__.py`
 4. Add to SupervisorAgent initialization
 5. Update routing logic if needed
 
@@ -214,7 +214,7 @@ API proxy configured in `vite.config.js` to route `/api` to server.
 Use the API or create a script:
 
 ```python
-from server.knowledge_base import KnowledgeService
+from app.knowledge_base import KnowledgeService
 
 service = KnowledgeService()
 await service.add_recipe("recipe_001", {
@@ -233,7 +233,7 @@ Replace `raise NotImplementedError("LLM integration pending")` in agent files wi
 ```python
 # Example for OpenAI
 from openai import AsyncOpenAI
-from server.config import settings
+from app.config import settings
 
 async def _call_llm(self, system_prompt: str, user_message: str) -> str:
     client = AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
@@ -264,7 +264,7 @@ async def _call_llm(self, system_prompt: str, user_message: str) -> str:
 
 ```
 GustoBot/
-├── server/                    # Server-side code
+├── app/                    # Server-side code
 │   ├── agents/               # Multi-Agent system
 │   │   ├── base_agent.py     # Agent base class
 │   │   ├── router_agent.py   # Routing agent
@@ -301,18 +301,18 @@ GustoBot/
 
 ## Common Pitfalls
 
-1. **Import Paths**: Always use `server.*` not `backend.*` in imports
+1. **Import Paths**: Always use `app.*` not `backend.*` in imports
 2. **Docker**: Dockerfile is named `Dockerfile` not `Dockerfile.backend`
 3. **Make Commands**: Use `run-server` and `run-web` not `run-backend` and `run-frontend`
-4. **Directory Names**: `server/` and `web/` are the correct directory names
+4. **Directory Names**: `app/` and `web/` are the correct directory names
 
 ## File References
 
 When working with the codebase, key file locations:
 
-- Agent implementations: `server/agents/`
-- API routes: `server/api/`
-- Knowledge base: `server/knowledge_base/`
-- Configuration: `server/config/settings.py`
+- Agent implementations: `app/agents/`
+- API routes: `app/api/`
+- Knowledge base: `app/knowledge_base/`
+- Configuration: `app/config/settings.py`
 - Frontend components: `web/src/components/`
 - Tests: `tests/unit/`

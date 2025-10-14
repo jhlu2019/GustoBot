@@ -29,7 +29,7 @@ pip install httpx beautifulsoup4 fake-useragent pydantic
 
 ```python
 import asyncio
-from server.crawler import WikipediaCrawler
+from app.crawler import WikipediaCrawler
 
 async def main():
     crawler = WikipediaCrawler(language="zh")
@@ -46,7 +46,7 @@ asyncio.run(main())
 
 ```python
 import asyncio
-from server.crawler import RecipeCrawler
+from app.crawler import RecipeCrawler
 
 async def main():
     crawler = RecipeCrawler()
@@ -61,7 +61,7 @@ asyncio.run(main())
 ### 3. 使用代理池
 
 ```python
-from server.crawler import ProxyPool, RecipeCrawler
+from app.crawler import ProxyPool, RecipeCrawler
 
 # 从文件加载代理
 proxy_pool = ProxyPool.from_file("proxies.txt")
@@ -86,39 +86,39 @@ crawler = RecipeCrawler(proxy_pool=proxy_pool)
 
 ```bash
 # 基础用法
-python -m server.crawler.cli wikipedia --query "川菜" "粤菜"
+python -m app.crawler.cli wikipedia --query "川菜" "粤菜"
 
 # 指定语言和数量
-python -m server.crawler.cli wikipedia --query "中国菜" --language zh --limit 10
+python -m app.crawler.cli wikipedia --query "中国菜" --language zh --limit 10
 
 # 使用代理
-python -m server.crawler.cli wikipedia --query "烘焙" --proxy proxies.txt
+python -m app.crawler.cli wikipedia --query "烘焙" --proxy proxies.txt
 
 # 保存到文件
-python -m server.crawler.cli wikipedia --query "家常菜" --output recipes.json
+python -m app.crawler.cli wikipedia --query "家常菜" --output recipes.json
 
 # 直接导入到知识库
-python -m server.crawler.cli wikipedia --query "甜品" --import-kb
+python -m app.crawler.cli wikipedia --query "甜品" --import-kb
 ```
 
 ### URL爬取
 
 ```bash
 # 爬取指定URL
-python -m server.crawler.cli urls --urls "https://example.com/recipe1" "https://example.com/recipe2"
+python -m app.crawler.cli urls --urls "https://example.com/recipe1" "https://example.com/recipe2"
 
 # 使用代理并保存
-python -m server.crawler.cli urls --urls "https://example.com/recipes" --proxy proxies.txt --output output.json
+python -m app.crawler.cli urls --urls "https://example.com/recipes" --proxy proxies.txt --output output.json
 
 # 直接导入知识库
-python -m server.crawler.cli urls --urls "https://example.com/recipe" --import-kb
+python -m app.crawler.cli urls --urls "https://example.com/recipe" --import-kb
 ```
 
 ### 从文件导入
 
 ```bash
 # 将JSON文件导入知识库
-python -m server.crawler.cli import --file recipes.json --batch-size 20
+python -m app.crawler.cli import --file recipes.json --batch-size 20
 ```
 
 ## 📝 代理配置
@@ -144,7 +144,7 @@ http://user:pass@proxy.example.com:8080
 ### 自定义爬虫
 
 ```python
-from server.crawler import BaseCrawler
+from app.crawler import BaseCrawler
 import httpx
 
 class MyCrawler(BaseCrawler):
@@ -171,7 +171,7 @@ class MyCrawler(BaseCrawler):
 
 ```python
 import asyncio
-from server.crawler import ProxyPool
+from app.crawler import ProxyPool
 
 async def main():
     proxy_pool = ProxyPool.from_file("proxies.txt")
@@ -192,7 +192,7 @@ asyncio.run(main())
 ### 数据验证和清洗
 
 ```python
-from server.crawler.data_validator import DataValidator, RecipeModel
+from app.crawler.data_validator import DataValidator, RecipeModel
 
 # 验证单个菜谱
 recipe_data = {

@@ -2,7 +2,7 @@
 知识库服务测试
 """
 import pytest
-from server.knowledge_base import KnowledgeService
+from app.knowledge_base import KnowledgeService
 
 
 @pytest.fixture

@@ -235,7 +235,7 @@ graph TD
 
 ```
 GustoBot/
-├── server/                    # 服务端代码
+├── app/                    # 服务端代码
 │   ├── agents/               # Multi-Agent系统
 │   │   ├── __init__.py       # Agent模块导出
 │   │   ├── base_agent.py     # Agent基类，定义通用接口
@@ -424,7 +424,7 @@ make help
 
 项目已预留LLM接口，需要实现以下方法：
 
-**1. RouterAgent - 问题分类** (`server/agents/router_agent.py`)
+**1. RouterAgent - 问题分类** (`app/agents/router_agent.py`)
 ```python
 async def _call_llm(self, system_prompt: str, user_message: str, context: Dict) -> Dict[str, Any]:
     """使用LLM进行问题分类"""
@@ -432,7 +432,7 @@ async def _call_llm(self, system_prompt: str, user_message: str, context: Dict) 
     pass
 ```
 
-**2. KnowledgeAgent - RAG回答生成** (`server/agents/knowledge_agent.py`)
+**2. KnowledgeAgent - RAG回答生成** (`app/agents/knowledge_agent.py`)
 ```python
 async def _call_llm(self, system_prompt: str, user_message: str) -> str:
     """基于检索文档生成回答"""
@@ -440,7 +440,7 @@ async def _call_llm(self, system_prompt: str, user_message: str) -> str:
     pass
 ```
 
-**3. ChatAgent - 闲聊回复** (`server/agents/chat_agent.py`)
+**3. ChatAgent - 闲聊回复** (`app/agents/chat_agent.py`)
 ```python
 async def _call_llm(self, system_prompt: str, user_message: str, context: Dict) -> str:
     """生成闲聊回复"""
@@ -451,7 +451,7 @@ async def _call_llm(self, system_prompt: str, user_message: str, context: Dict) 
 **集成示例（OpenAI）：**
 ```python
 from openai import AsyncOpenAI
-from server.config import settings
+from app.config import settings
 
 async def _call_llm(self, system_prompt: str, user_message: str) -> str:
     client = AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
@@ -469,10 +469,10 @@ async def _call_llm(self, system_prompt: str, user_message: str) -> str:
 
 ### 添加新Agent
 
-1. 在 `server/agents/` 创建新Agent文件
+1. 在 `app/agents/` 创建新Agent文件
 2. 继承 `BaseAgent` 类
 3. 实现 `async def process(input_data: Dict) -> Dict` 方法
-4. 在 `server/agents/__init__.py` 中导出
+4. 在 `app/agents/__init__.py` 中导出
 5. 在 `SupervisorAgent` 中注册和路由
 
 ### 📥 数据导入
@@ -486,10 +486,10 @@ GustoBot提供多种数据导入方式，满足不同场景需求。
 **1. Wikipedia菜谱爬取**
 ```bash
 # 基础用法
-python -m server.crawler.cli wikipedia --query "川菜" "粤菜" --import-kb
+python -m app.crawler.cli wikipedia --query "川菜" "粤菜" --import-kb
 
 # 指定数量和语言
-python -m server.crawler.cli wikipedia \
+python -m app.crawler.cli wikipedia \
   --query "中国菜" "西餐" \
   --language zh \
   --limit 20 \
@@ -499,12 +499,12 @@ python -m server.crawler.cli wikipedia \
 **2. 通用网站爬取（支持Schema.org）**
 ```bash
 # 爬取指定URL
-python -m server.crawler.cli urls \
+python -m app.crawler.cli urls \
   --urls "https://example.com/recipe1" "https://example.com/recipe2" \
   --import-kb
 
 # 使用代理池
-python -m server.crawler.cli urls \
+python -m app.crawler.cli urls \
   --urls "https://example.com/recipes" \
   --proxy proxies.txt \
   --output recipes.json \
@@ -516,7 +516,7 @@ python -m server.crawler.cli urls \
 使用`BrowserCrawler`基类创建自己的爬虫：
 
 ```python
-from server.crawler.browser_crawler import BrowserCrawler
+from app.crawler.browser_crawler import BrowserCrawler
 from lxml import etree
 
 class MyRecipeSiteCrawler(BrowserCrawler):
@@ -546,7 +546,7 @@ class MyRecipeSiteCrawler(BrowserCrawler):
 
 # 使用爬虫
 async def main():
-    from server.crawler.proxy_pool import ProxyPool
+    from app.crawler.proxy_pool import ProxyPool
 
     proxy_pool = ProxyPool.from_file("proxies.txt")
     crawler = MyRecipeSiteCrawler(proxy_pool=proxy_pool, headless=True)
@@ -568,7 +568,7 @@ curl -X POST "http://localhost:8000/api/v1/knowledge/recipes" \
 #### 方式三：编写Python脚本
 ```python
 import asyncio
-from server.knowledge_base import KnowledgeService
+from app.knowledge_base import KnowledgeService
 
 async def import_recipes():
     service = KnowledgeService()
@@ -604,7 +604,7 @@ pytest tests/unit/test_agents.py -v
 pytest tests/unit/test_agents.py::test_router_agent_initialization -v
 
 # 生成覆盖率报告
-pytest tests/ --cov=server --cov-report=html
+pytest tests/ --cov=app --cov-report=html
 
 # 查看HTML覆盖率报告
 open htmlcov/index.html

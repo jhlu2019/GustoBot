@@ -21,7 +21,7 @@ testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
-addopts = "-v --cov=server --cov-report=term-missing"
+addopts = "-v --cov=app --cov-report=term-missing"
 
 [tool.mypy]
 python_version = "3.9"

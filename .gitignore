@@ -222,9 +222,6 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
 
 # Frontend build output
 web/dist/

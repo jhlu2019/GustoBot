@@ -5,7 +5,7 @@ OpenAI Embedding服务
 from typing import List, Optional
 from loguru import logger
 from openai import AsyncOpenAI
-from server.config import settings
+from app.config import settings
 
 
 class EmbeddingService:

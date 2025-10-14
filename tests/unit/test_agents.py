@@ -2,7 +2,7 @@
 Agent单元测试
 """
 import pytest
-from server.agents import RouterAgent, KnowledgeAgent, ChatAgent
+from app.agents import RouterAgent, KnowledgeAgent, ChatAgent
 
 
 @pytest.mark.asyncio

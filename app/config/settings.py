@@ -2,8 +2,9 @@
 应用配置管理
 Configuration Management
 """
+from typing import Optional, List
+from pydantic import Field
 from pydantic_settings import BaseSettings
-from typing import Optional
 
 
 class Settings(BaseSettings):
@@ -64,7 +65,9 @@ class Settings(BaseSettings):
     KB_SIMILARITY_THRESHOLD: float = 0.7
 
     # CORS配置
-    CORS_ORIGINS: list = ["http://localhost:3000", "http://localhost:5173"]
+    CORS_ORIGINS: List[str] = Field(
+        default_factory=lambda: ["http://localhost:3000", "http://localhost:5173"]
+    )
 
     class Config:
         env_file = ".env"

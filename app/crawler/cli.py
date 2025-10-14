@@ -12,7 +12,7 @@ from .wikipedia_crawler import WikipediaCrawler
 from .recipe_crawler import RecipeCrawler
 from .proxy_pool import ProxyPool
 from .data_validator import DataValidator
-from server.knowledge_base import KnowledgeService
+from app.knowledge_base import KnowledgeService
 
 
 async def crawl_wikipedia(
@@ -180,19 +180,19 @@ def main():
         epilog="""
 Examples:
   # 爬取Wikipedia中文菜谱
-  python -m server.crawler.cli wikipedia --query "川菜" "粤菜" --limit 10
+  python -m app.crawler.cli wikipedia --query "川菜" "粤菜" --limit 10
 
   # 爬取指定URL
-  python -m server.crawler.cli urls --urls "https://example.com/recipe1" "https://example.com/recipe2"
+  python -m app.crawler.cli urls --urls "https://example.com/recipe1" "https://example.com/recipe2"
 
   # 使用代理
-  python -m server.crawler.cli wikipedia --query "中国菜" --proxy proxies.txt
+  python -m app.crawler.cli wikipedia --query "中国菜" --proxy proxies.txt
 
   # 直接导入到知识库
-  python -m server.crawler.cli wikipedia --query "家常菜" --import-kb
+  python -m app.crawler.cli wikipedia --query "家常菜" --import-kb
 
   # 保存到文件
-  python -m server.crawler.cli wikipedia --query "烘焙" --output recipes.json
+  python -m app.crawler.cli wikipedia --query "烘焙" --output recipes.json
         """
     )
 

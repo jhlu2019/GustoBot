@@ -14,11 +14,11 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 复制应用代码
-COPY server ./server
+COPY app ./app
 COPY data ./data
 
 # 暴露端口
 EXPOSE 8000
 
 # 运行应用
-CMD ["uvicorn", "server.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

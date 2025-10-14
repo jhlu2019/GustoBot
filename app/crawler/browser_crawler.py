@@ -17,7 +17,7 @@ Browser-Based Crawler with Playwright
   - 需要等待AJAX请求完成的页面
 
 示例:
-    from server.crawler.browser_crawler import BrowserCrawler
+    from app.crawler.browser_crawler import BrowserCrawler
 
     class MyRecipeCrawler(BrowserCrawler):
         async def parse(self, html_content: str, url: str):
