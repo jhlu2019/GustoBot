@@ -1,5 +1,6 @@
 """
 Multi-Agent System
+Language Graph Agent Package
 多智能体系统核心模块
 """
 from .base_agent import BaseAgent
