@@ -12,7 +12,8 @@ langchain-community==0.0.19
 langchain-openai==0.0.5
 
 # Agent Framework
-langgraph==0.0.25
+langgraph==0.2.60
+langgraph-checkpoint==2.0.8
 
 # Vector Database & Embeddings
 pymilvus==2.3.5

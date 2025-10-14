@@ -1,11 +1,13 @@
 """
-Pydantic models describing agent inputs and shared state.
+State models for LangGraph workflow.
+Uses TypedDict for better type safety and LangGraph integration.
 """
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, TypedDict
+from typing_extensions import NotRequired
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
 class ConversationInput(BaseModel):
@@ -16,31 +18,30 @@ class ConversationInput(BaseModel):
     user_id: Optional[str] = None
 
 
-class ConversationState(BaseModel):
-    """Mutable state passed between LangGraph nodes."""
+class ConversationState(TypedDict):
+    """Mutable state passed between LangGraph nodes using TypedDict."""
 
+    # Required fields
     message: str
-    session_id: Optional[str] = None
-    user_id: Optional[str] = None
 
-    history: List[Dict[str, Any]] = Field(default_factory=list)
-    cache_scope: Optional[str] = None
-    cache_messages: List[Dict[str, str]] = Field(default_factory=list)
+    # Optional fields
+    session_id: NotRequired[Optional[str]]
+    user_id: NotRequired[Optional[str]]
 
-    route: Optional[str] = None
-    confidence: float = 0.0
-    reason: Optional[str] = None
+    history: NotRequired[List[Dict[str, Any]]]
+    cache_scope: NotRequired[Optional[str]]
+    cache_messages: NotRequired[List[Dict[str, str]]]
 
-    answer: Optional[str] = None
-    answer_type: Optional[str] = None
-    metadata: Dict[str, Any] = Field(default_factory=dict)
+    route: NotRequired[Optional[str]]
+    confidence: NotRequired[float]
+    reason: NotRequired[Optional[str]]
 
-    cached: bool = False
-    error: Optional[str] = None
+    answer: NotRequired[Optional[str]]
+    answer_type: NotRequired[Optional[str]]
+    metadata: NotRequired[Dict[str, Any]]
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Convert to a plain dictionary for LangGraph."""
-        return self.model_dump(exclude_none=True)
+    cached: NotRequired[bool]
+    error: NotRequired[Optional[str]]
 
 
 class RouterResult(BaseModel):
