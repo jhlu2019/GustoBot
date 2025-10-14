@@ -19,6 +19,15 @@ class ToolSpec:
             "parameters": self.parameters,
         }
 
+    def as_openai_tool(self) -> Dict[str, Any]:
+        """
+        Return the spec wrapped in the format expected by OpenAI `tools`.
+        """
+        return {
+            "type": "function",
+            "function": self.as_openai_function(),
+        }
+
 
 class ToolRegistry:
     """Keep track of tool specifications and factories."""

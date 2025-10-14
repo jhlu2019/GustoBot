@@ -4,7 +4,7 @@ Unified access to application tools.
 from __future__ import annotations
 
 from functools import lru_cache
-from typing import Any, Dict, Iterable, List
+from typing import Any, Dict, List
 
 from .definitions import ToolSpec, registry
 from .search import SearchTool
@@ -37,7 +37,7 @@ registry.register(
 
 def list_tool_specs() -> List[Dict[str, Any]]:
     """
-    Return tool definitions formatted for OpenAI function calling.
+    Return tool function definitions formatted for OpenAI function calling.
     """
     return [spec.as_openai_function() for spec in registry.get_specs()]
 
@@ -47,6 +47,13 @@ def get_tool_spec(name: str) -> Dict[str, Any]:
     Retrieve a single tool spec formatted for OpenAI function calling.
     """
     return registry.get_spec(name).as_openai_function()
+
+
+def list_openai_tools() -> List[Dict[str, Any]]:
+    """
+    Return tool entries suitable for the OpenAI `tools` argument.
+    """
+    return [spec.as_openai_tool() for spec in registry.get_specs()]
 
 
 @lru_cache(maxsize=None)
