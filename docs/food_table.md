@@ -1,15 +1,15 @@
 # 菜谱管理系统设计 README.md
 
 ## 概述
-本项目设计一个菜谱管理系统，重点关注**烹饪执行过程**，包括详细的材料清单、步骤、时间控制、工具使用等实际操作信息。淡化作者信息，突出"怎么做"的核心内容。MySQL 用于存储结构化烹饪数据，知识图谱用于分析烹饪模式和相似菜谱推荐。新增食材明细设计，支持将食材分类为原料（主料）、辅料和调料，便于用户快速理解菜谱结构和采购准备。
+本项目设计一个菜谱管理系统，重点关注**烹饪执行过程**，包括详细的材料清单、步骤、时间控制、工具使用等实际操作信息。淡化作者信息，突出"怎么做"的核心内容。MySQL 用于存储结构化烹饪数据，知识图谱用于分析烹饪模式和相似菜谱推荐。新增食材明细设计，支持将食材分类为原料（主料）、辅料和调料，便于用户快速理解菜谱结构和采购准备。新增加视频支持，在菜谱中添加视频链接（如教程视频），以增强用户学习体验。
 
 项目使用 MySQL 8.0+，知识图谱使用 Neo4j。
 
 ## MySQL 表设计
-以下表设计已更新以支持食材分类：在 `ingredients` 表中扩展 `category` 以支持更细粒度的分类（如"原料"、"辅料"、"调料"），并在 `recipe_ingredients` 表中添加 `ingredient_type` 字段来指定在具体菜谱中的角色（原料、辅料、调料）。这允许全局成分库中定义通用类别，同时在菜谱层面自定义分类。
+以下表设计已更新以支持食材分类：在 `ingredients` 表中扩展 `category` 以支持更细粒度的分类（如"肉类-原料"），并在 `recipe_ingredients` 表中添加 `ingredient_type` 字段来指定在具体菜谱中的角色（原料、辅料、调料）。这允许全局成分库中定义通用类别，同时在菜谱层面自定义分类。新增加 `video_url` 字段到 `recipes` 表，支持嵌入菜谱视频链接。
 
 ### 1. 核心表：recipes (菜谱主表)
-存储菜谱核心信息和总时长、总营养汇总。
+存储菜谱核心信息和总时长、总营养汇总。新增加 `video_url` 字段，用于存储菜谱视频链接（如 YouTube 或本地视频 URL）。
 
 | 字段名          | 数据类型       | 描述                          | 约束                  | 示例值                  |
 |-----------------|----------------|-------------------------------|-----------------------|-------------------------|
@@ -17,6 +17,7 @@
 | name           | VARCHAR(255)   | 菜谱名称                     | NOT NULL              | "宫保鸡丁"             |
 | description    | TEXT           | 菜谱简介                     |                       | "经典川菜，辣味鸡丁..." |
 | image_url      | VARCHAR(500)   | 主图URL                      |                       | "https://example.com/img.jpg" |
+| video_url      | VARCHAR(500)   | 视频URL（可选）              |                       | "https://example.com/video.mp4" |
 | total_time     | INT            | 总用时（分钟）               | DEFAULT 0             | 35                     |
 | servings       | INT            | 份量                         | DEFAULT 4             | 4                      |
 | difficulty     | ENUM('easy', 'medium', 'hard') | 难度等级             | DEFAULT 'easy'        | 'medium'               |
@@ -35,6 +36,7 @@ CREATE TABLE recipes (
     name VARCHAR(255) NOT NULL,
     description TEXT,
     image_url VARCHAR(500),
+    video_url VARCHAR(500),
     total_time INT DEFAULT 0,
     servings INT DEFAULT 4,
     difficulty ENUM('easy', 'medium', 'hard') DEFAULT 'easy',
@@ -50,7 +52,7 @@ CREATE TABLE recipes (
 ```
 
 ### 2. 材料清单表：recipe_ingredients (菜谱材料)
-详细记录每个材料的用量、预处理要求、替换建议。新增加 `ingredient_type` 字段，用于区分原料、辅料、调料。
+详细记录每个材料的用量、预处理要求、替换建议。新增加 `ingredient_type` 字段，用于区分原料、辅料、调料。 
 
 | 字段名          | 数据类型       | 描述                          | 约束                  | 示例值                  |
 |-----------------|----------------|-------------------------------|-----------------------|-------------------------|
@@ -89,7 +91,7 @@ CREATE TABLE recipe_ingredients (
 ```
 
 ### 3. 成分库表：ingredients (标准成分库)
-存储标准成分的营养和特性信息。扩展 `category` 支持子分类，如"肉类-原料"，以便全局管理食材明细。
+存储标准成分的营养和特性信息。扩展 `category` 支持子分类，如"肉类-原料"，以便全局管理食材明细。（未变更）
 
 | 字段名          | 数据类型       | 描述                          | 约束                  | 示例值                  |
 |-----------------|----------------|-------------------------------|-----------------------|-------------------------|
@@ -120,7 +122,7 @@ CREATE TABLE ingredients (
 ```
 
 ### 4. 烹饪步骤表：recipe_steps (详细步骤)
-记录每个烹饪步骤的时间、动作、工具、技巧。（未变更，但可通过查询关联食材明细）
+记录每个烹饪步骤的时间、动作、工具、技巧。（未变更，但视频可与步骤关联显示）
 
 | 字段名          | 数据类型       | 描述                          | 约束                  | 示例值                  |
 |-----------------|----------------|-------------------------------|-----------------------|-------------------------|
@@ -244,7 +246,7 @@ ORDER BY
 ```
 
 ## 知识图谱设计
-知识图谱已更新以支持食材明细分类：在 `Ingredient` 实体添加 `ingredient_type` 属性，支持查询如“推荐主料为鸡肉的川菜”。
+知识图谱已更新以支持食材明细分类：在 `Ingredient` 实体添加 `ingredient_type` 属性，支持查询如“推荐主料为鸡肉的川菜”。新增加 `video_url` 到 `Recipe` 实体，支持视频关联查询。
 
 ### 实体类型
 - **Recipe**：完整菜谱
@@ -259,6 +261,7 @@ ORDER BY
 **Recipe 属性**：
 - name, total_time, difficulty, servings, total_calories
 - cooking_method (主烹饪方式，如"炒")
+- video_url (string，如"https://example.com/video.mp4")
 
 **Ingredient 属性**：
 - name, category, prep_method, quantity_needed
@@ -308,10 +311,10 @@ ORDER BY
 **REQUIRES_TOOL**：
 - tool_role (主锅/辅具), usage_duration
 
-**Cypher 示例**（包含食材分类）：
+**Cypher 示例**（包含食材分类和视频）：
 ```cypher
-// 创建烹饪流程并分类食材
-CREATE (r:Recipe {name: '宫保鸡丁'})
+// 创建烹饪流程并分类食材，添加视频
+CREATE (r:Recipe {name: '宫保鸡丁', video_url: 'https://example.com/video.mp4'})
 CREATE (s1:CookingStep {step_number: 1, action: '切配', duration: 10})
 CREATE (s2:CookingStep {step_number: 2, action: '爆炒', duration: 5})
 CREATE (i_main:Ingredient {name: '鸡胸肉', ingredient_type: 'main'})
@@ -328,10 +331,11 @@ CREATE (s2)-[:REQUIRES_TOOL {role: '主锅'}]->(t)
 CREATE (s1)-[:FOLLOWED_BY]->(s2);
 ```
 
-**查询示例**（查找主料为鸡肉的菜谱）：
+**查询示例**（查找有视频的主料为鸡肉的菜谱）：
 ```cypher
 MATCH (r:Recipe)-[:CONTAINS_STEP]->(s:CookingStep)-[:USES_INGREDIENT {ingredient_type: 'main'}]->(i:Ingredient {name: '鸡胸肉'})
-RETURN r.name, collect(s.step_number) as steps;
+WHERE r.video_url IS NOT NULL
+RETURN r.name, r.video_url, collect(s.step_number) as steps;
 ```
 
 ## 实施重点
@@ -341,11 +345,12 @@ RETURN r.name, collect(s.step_number) as steps;
 4. **动作标准化**：建立烹饪动作库，支持智能推荐（如调料适合的动作）
 5. **营养计算**：实时计算各步骤营养变化，按食材类型汇总（e.g., 主料贡献的主要热量）
 6. **食材明细优化**：应用层可生成分类列表，如“原料：鸡胸肉 200g；辅料：花生 50g；调料：辣椒酱 2勺”
+7. **视频集成**：支持嵌入视频播放（如前端使用 iframe），并在查询中过滤有视频的菜谱；可扩展为多视频（如步骤级视频）
 
 ## 查询示例
 ```sql
--- 获取包含具体步骤的菜谱，并按食材类型汇总
-SELECT r.name, rs.action, rs.duration, 
+-- 获取包含具体步骤的菜谱，并按食材类型汇总，包含视频URL
+SELECT r.name, r.video_url, rs.action, rs.duration, 
        GROUP_CONCAT(DISTINCT CASE WHEN ri.ingredient_type = 'main' THEN i.name END) AS main_ingredients,
        GROUP_CONCAT(DISTINCT CASE WHEN ri.ingredient_type = 'auxiliary' THEN i.name END) AS auxiliary_ingredients,
        GROUP_CONCAT(DISTINCT CASE WHEN ri.ingredient_type = 'seasoning' THEN i.name END) AS seasonings
@@ -353,7 +358,7 @@ FROM recipes r
 JOIN recipe_steps rs ON r.id = rs.recipe_id 
 LEFT JOIN recipe_ingredients ri ON r.id = ri.recipe_id
 LEFT JOIN ingredients i ON ri.ingredient_id = i.id
-WHERE rs.action = '爆炒' AND rs.duration <= 5
+WHERE rs.action = '爆炒' AND rs.duration <= 5 AND r.video_url IS NOT NULL
 GROUP BY r.id, rs.id;
 ```
 
