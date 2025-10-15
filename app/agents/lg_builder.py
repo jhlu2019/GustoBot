@@ -39,8 +39,7 @@ from pathlib import Path
 
 from typing import Literal
 from pydantic import BaseModel, Field
-
-
+from langchain_openai import ChatOpenAI
 class AdditionalGuardrailsOutput(BaseModel):
     """
     格式化输出，用于判断用户的问题是否与图谱内容相关
@@ -69,15 +68,9 @@ async def analyze_and_route_query(
     Returns:
         dict[str, Router]: A dictionary containing the 'router' key with the classification result (classification type and logic).
     """
-    # 选择模型实例，通过.env文件中的AGENT_SERVICE参数选择
-    if settings.AGENT_SERVICE == ServiceType.DEEPSEEK:
-        model = ChatDeepSeek(api_key=settings.DEEPSEEK_API_KEY, model_name=settings.DEEPSEEK_MODEL, temperature=0.7,
-                             tags=["router"])
-        logger.info(f"Using DeepSeek model: {settings.DEEPSEEK_MODEL}")
-    else:
-        model = ChatOllama(model=settings.OLLAMA_AGENT_MODEL, base_url=settings.OLLAMA_BASE_URL, temperature=0.7,
-                           tags=["router"])
-        logger.info(f"Using Ollama model: {settings.OLLAMA_AGENT_MODEL}")
+
+    model = ChatOpenAI(openai_api_key=settings.OPENAI_API_KEY,model_name=settings.OPENAI_MODEL,openai_api_base=settings.OPENAI_API_BASE, temperature=0.7,
+                       tags=["router"])
 
     # 拼接提示模版 + 用户的实时问题（包含历史上下文对话） 
     messages = [

@@ -8,7 +8,6 @@ from typing import Any, Dict, List, Optional, Sequence
 
 from loguru import logger
 from openai import AsyncOpenAI
-
 from app.config import settings
 
 ChatMessage = Dict[str, str]
@@ -35,6 +34,7 @@ class LLMClient:
             self._client = AsyncOpenAI(
                 api_key=self.api_key,
                 base_url=self.base_url,
+
             )
         else:
             logger.warning("LLMClient initialised without OPENAI_API_KEY; LLM features disabled.")
