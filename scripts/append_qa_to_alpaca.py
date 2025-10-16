@@ -1,14 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-append_qa_to_alpaca.py
-
-把 JSON/JSONL（含 src/tgt/context 字段）的问答样本，转换为 Alpaca 条目并追加到目标 JSONL 文件。
-映射规则：
-  instruction = src
-  input       = ""   （强制为空）
-  output      = tgt
-"""
 
 import argparse, json, os, sys
 from typing import Any, Dict, List
@@ -17,7 +8,7 @@ def read_any(path: str) -> List[Dict[str, Any]]:
     """读取 JSON 数组 或 JSONL；返回 list[dict]"""
     if path == "-":
         data = sys.stdin.read()
-        # 尝试按 JSON 数组解析；失败则当作 JSONL（逐行 JSON）
+        # 尝试按 JSON 数组解析；失败则当作JSONL
         try:
             arr = json.loads(data)
             if isinstance(arr, list):

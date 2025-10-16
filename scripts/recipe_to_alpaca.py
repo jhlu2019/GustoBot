@@ -1,19 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-recipe_to_alpaca_kw_desc.py
-
-将菜谱对象转换为 Alpaca 格式：
-- instruction: 根据 keywords 拼接成问句；无 keywords 时退化为“如何制作『菜名』？”
-- input: 使用 description（可为空）
-- output: 先配料（recipeIngredient），再空行，然后编号后的做法（recipeInstructions）
-
-输入文件可为：
-- JSON 数组（[ {...}, {...} ]）
-- JSONL（每行一个 JSON 对象）
-
-只处理含有 recipeIngredient/recipeInstructions 的“菜谱对象”，其他条目会被跳过。
-"""
 
 import json
 import argparse
