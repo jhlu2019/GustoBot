@@ -1,239 +1,239 @@
 """
-知识库管理API端点
-Knowledge Base Management API
+Knowledge base and Neo4j QA API endpoints.
 """
+from __future__ import annotations
+
+from functools import lru_cache
+from typing import Any, Dict, List, Optional
+
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel, Field
-from typing import List, Dict, Any, Optional
 from loguru import logger
+from pydantic import BaseModel, Field
 
 router = APIRouter(prefix="/knowledge", tags=["knowledge"])
 
 
-# 请求/响应模型
+# Vector store models ---------------------------------------------------------
 class RecipeModel(BaseModel):
-    """菜谱模型"""
-    id: Optional[str] = Field(None, description="菜谱ID")
-    name: str = Field(..., description="菜名")
-    category: Optional[str] = Field(None, description="分类")
-    difficulty: Optional[str] = Field(None, description="难度")
-    time: Optional[str] = Field(None, description="耗时")
-    ingredients: Optional[List[str]] = Field(None, description="食材列表")
-    steps: Optional[List[str]] = Field(None, description="步骤列表")
-    tips: Optional[str] = Field(None, description="小贴士")
-    nutrition: Optional[Dict[str, Any]] = Field(None, description="营养信息")
+    """Recipe payload stored in the vector knowledge base."""
 
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "id": "recipe_001",
-                "name": "红烧肉",
-                "category": "家常菜",
-                "difficulty": "中等",
-                "time": "1小时",
-                "ingredients": ["五花肉500g", "冰糖30g", "生抽2勺"],
-                "steps": [
-                    "五花肉切块，焯水",
-                    "炒糖色，加入五花肉上色",
-                    "加入调料，小火炖煮40分钟"
-                ],
-                "tips": "糖色不要炒过头，容易发苦"
-            }
-        }
+    id: Optional[str] = Field(None, description="Recipe identifier")
+    name: str = Field(..., description="Recipe name")
+    category: Optional[str] = Field(None, description="Category")
+    difficulty: Optional[str] = Field(None, description="Difficulty level")
+    time: Optional[str] = Field(None, description="Cooking time")
+    ingredients: Optional[List[str]] = Field(None, description="Ingredient list")
+    steps: Optional[List[str]] = Field(None, description="Preparation steps")
+    tips: Optional[str] = Field(None, description="Cooking tips")
+    nutrition: Optional[Dict[str, Any]] = Field(None, description="Nutrition facts")
 
 
 class SearchRequest(BaseModel):
-    """搜索请求"""
-    query: str = Field(..., description="搜索关键词")
-    top_k: Optional[int] = Field(5, description="返回结果数量", ge=1, le=20)
+    """Vector store search request."""
+
+    query: str = Field(..., description="Query text")
+    top_k: Optional[int] = Field(5, ge=1, le=20, description="Number of results to return")
 
 
 class SearchResponse(BaseModel):
-    """搜索响应"""
-    results: List[Dict[str, Any]] = Field(..., description="搜索结果")
-    count: int = Field(..., description="结果数量")
+    """Vector store search response."""
+
+    results: List[Dict[str, Any]] = Field(..., description="Matched documents")
+    count: int = Field(..., description="Result count")
 
 
-# 依赖注入
+class GraphResponse(BaseModel):
+    """Neo4j graph payload."""
+
+    nodes: List[Dict[str, Any]] = Field(..., description="List of nodes")
+    relationships: List[Dict[str, Any]] = Field(..., description="List of relationships")
+
+
+class QARequest(BaseModel):
+    """Neo4j QA request."""
+
+    query: str = Field(..., description="User question")
+    include_graph: bool = Field(False, description="Return the cached graph in the response")
+    refresh_graph: bool = Field(False, description="Refresh the cached graph before returning it")
+
+
+class QAResponse(BaseModel):
+    """Neo4j QA response."""
+
+    answer: str = Field(..., description="Natural language answer")
+    question_type: str = Field(..., description="Detected question type")
+    cypher: List[str] = Field(..., description="Generated Cypher queries")
+    graph: Optional[GraphResponse] = Field(None, description="Optional graph data")
+
+
+# Dependency helpers ----------------------------------------------------------
 def get_knowledge_service():
-    """获取知识库服务实例"""
+    """Return the vector knowledge base service."""
     from ..knowledge_base import KnowledgeService
+
     return KnowledgeService()
 
 
+@lru_cache
+def get_neo4j_qa_service():
+    """Return the Neo4j QA service."""
+    from ..knowledge_base.neo4j_kbqa import Neo4jQAService
+
+    return Neo4jQAService()
+
+
+# Vector store CRUD -----------------------------------------------------------
 @router.post("/recipes", status_code=201)
 async def add_recipe(
     recipe: RecipeModel,
-    service=Depends(get_knowledge_service)
+    service=Depends(get_knowledge_service),
 ) -> Dict[str, Any]:
-    """
-    添加单个菜谱到知识库
-
-    - **recipe**: 菜谱数据
-    """
+    """Add a single recipe to the vector knowledge base."""
     try:
-        # 生成ID（如果未提供）
         if not recipe.id:
             import uuid
+
             recipe.id = f"recipe_{uuid.uuid4().hex[:8]}"
 
-        # 添加到知识库
-        success = await service.add_recipe(
-            recipe_id=recipe.id,
-            recipe_data=recipe.dict()
-        )
+        success = await service.add_recipe(recipe_id=recipe.id, recipe_data=recipe.dict())
+        if not success:
+            raise HTTPException(status_code=500, detail="Failed to add recipe")
 
-        if success:
-            return {
-                "status": "success",
-                "message": "菜谱添加成功",
-                "recipe_id": recipe.id
-            }
-        else:
-            raise HTTPException(status_code=500, detail="添加菜谱失败")
-
-    except Exception as e:
-        logger.error(f"Error adding recipe: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        return {"status": "success", "message": "Recipe added", "recipe_id": recipe.id}
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.error(f"Error adding recipe: {exc}")
+        raise HTTPException(status_code=500, detail=str(exc))
 
 
 @router.post("/recipes/batch", status_code=201)
 async def add_recipes_batch(
     recipes: List[RecipeModel],
-    service=Depends(get_knowledge_service)
+    service=Depends(get_knowledge_service),
 ) -> Dict[str, Any]:
-    """
-    批量添加菜谱
-
-    - **recipes**: 菜谱列表
-    """
+    """Add recipes in batch."""
     try:
-        # 确保所有菜谱都有ID
+        import uuid
+
         for recipe in recipes:
             if not recipe.id:
-                import uuid
                 recipe.id = f"recipe_{uuid.uuid4().hex[:8]}"
 
-        # 批量添加
-        result = await service.add_recipes_batch(
-            [r.dict() for r in recipes]
-        )
-
+        result = await service.add_recipes_batch([recipe.dict() for recipe in recipes])
         return {
             "status": "success",
-            "message": f"成功添加 {result['success']} 个菜谱",
-            "statistics": result
+            "message": f"Inserted {result['success']} recipes",
+            "statistics": result,
         }
-
-    except Exception as e:
-        logger.error(f"Error in batch add: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception as exc:
+        logger.error(f"Error in batch add: {exc}")
+        raise HTTPException(status_code=500, detail=str(exc))
 
 
 @router.post("/search", response_model=SearchResponse)
 async def search_knowledge(
     request: SearchRequest,
-    service=Depends(get_knowledge_service)
+    service=Depends(get_knowledge_service),
 ) -> SearchResponse:
-    """
-    搜索知识库
-
-    - **query**: 搜索关键词
-    - **top_k**: 返回结果数量（默认5）
-    """
+    """Search the vector knowledge base."""
     try:
-        results = await service.search(
-            query=request.query,
-            top_k=request.top_k
-        )
-
-        return SearchResponse(
-            results=results,
-            count=len(results)
-        )
-
-    except Exception as e:
-        logger.error(f"Search error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        results = await service.search(query=request.query, top_k=request.top_k)
+        return SearchResponse(results=results, count=len(results))
+    except Exception as exc:
+        logger.error(f"Search error: {exc}")
+        raise HTTPException(status_code=500, detail=str(exc))
 
 
 @router.delete("/recipes/{recipe_id}")
 async def delete_recipe(
     recipe_id: str,
-    service=Depends(get_knowledge_service)
+    service=Depends(get_knowledge_service),
 ) -> Dict[str, Any]:
-    """
-    删除菜谱
-
-    - **recipe_id**: 菜谱ID
-    """
+    """Delete a recipe."""
     try:
         success = await service.delete_recipe(recipe_id)
+        if not success:
+            raise HTTPException(status_code=404, detail="Recipe not found or deletion failed")
 
-        if success:
-            return {
-                "status": "success",
-                "message": f"菜谱 {recipe_id} 已删除"
-            }
-        else:
-            raise HTTPException(status_code=404, detail="菜谱不存在或删除失败")
-
+        return {"status": "success", "message": f"Recipe {recipe_id} deleted"}
     except HTTPException:
         raise
-    except Exception as e:
-        logger.error(f"Delete error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception as exc:
+        logger.error(f"Delete error: {exc}")
+        raise HTTPException(status_code=500, detail=str(exc))
 
 
 @router.get("/stats")
 async def get_stats(
-    service=Depends(get_knowledge_service)
+    service=Depends(get_knowledge_service),
 ) -> Dict[str, Any]:
-    """
-    获取知识库统计信息
-
-    返回知识库中的文档数量等信息
-    """
+    """Return vector store statistics."""
     try:
         stats = await service.get_stats()
-        return {
-            "status": "success",
-            "data": stats
-        }
-    except Exception as e:
-        logger.error(f"Stats error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        return {"status": "success", "data": stats}
+    except Exception as exc:
+        logger.error(f"Stats error: {exc}")
+        raise HTTPException(status_code=500, detail=str(exc))
 
 
 @router.delete("/clear")
 async def clear_knowledge_base(
     confirm: bool = False,
-    service=Depends(get_knowledge_service)
+    service=Depends(get_knowledge_service),
 ) -> Dict[str, Any]:
-    """
-    清空知识库（危险操作）
-
-    - **confirm**: 必须设置为true才能执行
-    """
+    """Clear the vector store (dangerous operation)."""
     if not confirm:
-        raise HTTPException(
-            status_code=400,
-            detail="必须设置confirm=true才能清空知识库"
-        )
+        raise HTTPException(status_code=400, detail="confirm=true is required to clear the store")
 
     try:
         success = await service.clear()
-
-        if success:
-            return {
-                "status": "success",
-                "message": "知识库已清空"
-            }
-        else:
-            raise HTTPException(status_code=500, detail="清空失败")
-
+        if not success:
+            raise HTTPException(status_code=500, detail="Failed to clear the store")
+        return {"status": "success", "message": "Knowledge base cleared"}
     except HTTPException:
         raise
-    except Exception as e:
-        logger.error(f"Clear error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception as exc:
+        logger.error(f"Clear error: {exc}")
+        raise HTTPException(status_code=500, detail=str(exc))
+
+
+# Neo4j endpoints -------------------------------------------------------------
+@router.get("/graph", response_model=GraphResponse)
+async def get_default_graph(
+    refresh: bool = False,
+    service=Depends(get_neo4j_qa_service),
+) -> GraphResponse:
+    """Return the default Neo4j graph snapshot."""
+    try:
+        graph_payload = service.get_default_graph(refresh=refresh)
+        return GraphResponse(**graph_payload)
+    except Exception as exc:
+        logger.error(f"Graph retrieval error: {exc}")
+        raise HTTPException(status_code=500, detail=str(exc))
+
+
+@router.post("/graph/qa", response_model=QAResponse)
+async def qa_over_graph(
+    request: QARequest,
+    service=Depends(get_neo4j_qa_service),
+) -> QAResponse:
+    """Run natural-language QA over the Neo4j graph."""
+    try:
+        qa_payload = service.ask(request.query)
+        graph_payload = (
+            service.get_default_graph(refresh=request.refresh_graph)
+            if request.include_graph
+            else None
+        )
+
+        return QAResponse(
+            answer=qa_payload.get("answer", ""),
+            question_type=qa_payload.get("question_type", ""),
+            cypher=qa_payload.get("cypher", []),
+            graph=GraphResponse(**graph_payload) if graph_payload else None,
+        )
+    except Exception as exc:
+        logger.error(f"QA error: {exc}")
+        raise HTTPException(status_code=500, detail=str(exc))
+

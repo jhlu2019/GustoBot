@@ -6,10 +6,12 @@ from .vector_store import VectorStore
 from .embedding_service import EmbeddingService
 from .reranker import Reranker
 from .knowledge_service import KnowledgeService
+from .neo4j_kbqa import Neo4jQAService
 
 __all__ = [
     "VectorStore",
     "EmbeddingService",
     "Reranker",
-    "KnowledgeService"
+    "KnowledgeService",
+    "Neo4jQAService",
 ]
