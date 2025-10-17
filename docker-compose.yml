@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: server
     ports:
       - "8000:8000"
     environment:
@@ -22,7 +23,8 @@ services:
   neo4j:
     build:
       context: .
-      dockerfile: neo4j.Dockerfile
+      dockerfile: Dockerfile
+      target: neo4j_seeded
     ports:
       - "17474:7474"
       - "17687:7687"

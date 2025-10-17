@@ -1,21 +1,33 @@
 #!/usr/bin/env python3
-"""
-Convert recipe JSON datasets into Neo4j-admin compatible CSV files.
-"""
+"""Convert recipe JSON datasets into Neo4j-admin compatible CSV files."""
 from __future__ import annotations
 
 import argparse
 import csv
 import hashlib
+import importlib.util
+import sys
 from pathlib import Path
 from typing import Dict, List
 
-from app.knowledge_base.recipe_kg.parser import (
-    IngredientProfile,
-    RecipeRecord,
-    load_ingredient_profiles,
-    load_recipe_records,
-)
+
+def _load_parser_module():
+    project_root = Path(__file__).resolve().parent.parent
+    parser_path = project_root / "app" / "knowledge_base" / "recipe_kg" / "parser.py"
+    spec = importlib.util.spec_from_file_location("recipe_parser", parser_path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Failed to load recipe parser module from {parser_path}")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+parser_module = _load_parser_module()
+IngredientProfile = parser_module.IngredientProfile
+RecipeRecord = parser_module.RecipeRecord
+load_ingredient_profiles = parser_module.load_ingredient_profiles
+load_recipe_records = parser_module.load_recipe_records
 
 
 def main() -> None:
@@ -292,7 +304,12 @@ def _write_csv(output_dir: Path, assets: Dict[str, List[Dict[str, object]]]) -> 
         rows = assets.get(key, [])
         path = output_dir / filename
         with path.open("w", encoding="utf-8", newline="") as fp:
-            writer = csv.DictWriter(fp, fieldnames=headers, extrasaction="ignore")
+            writer = csv.DictWriter(
+                fp,
+                fieldnames=headers,
+                extrasaction="ignore",
+                quoting=csv.QUOTE_ALL,
+            )
             writer.writeheader()
             for row in rows:
                 writer.writerow(_encode_row(headers, row))
@@ -307,6 +324,8 @@ def _encode_row(headers: List[str], row: Dict[str, object]) -> Dict[str, object]
         elif header.startswith(":END_ID"):
             key = "end"
         elif header.endswith(":int"):
+            key = header.split(":")[0]
+        elif ":ID" in header:
             key = header.split(":")[0]
         value = row.get(key, "")
         encoded[header] = value if value is not None else ""

@@ -73,6 +73,6 @@
   - `NEO4J_BOOTSTRAP_FORCE` (`bool`, 默认 `false`): 置为 `true` 时导入前会清空现有图谱。
   - `NEO4J_RECIPE_JSON_PATH` / `NEO4J_INGREDIENT_JSON_PATH`: 自定义数据文件路径。
 - 导入流程位于 `app/knowledge_base/recipe_kg/importer.py`，会创建菜品、食材、烹饪步骤与营养功效等节点及其关系。
-- Docker 版本可通过 `neo4j.Dockerfile` 在 `docker compose build neo4j` 阶段预生成数据库：
+- Docker 版本可通过根目录 `Dockerfile` 的 `neo4j_seeded` 构建阶段在 `docker compose build neo4j` 时自动预生成数据库：
   1. `scripts/recipe_kg_to_csv.py` 先把 JSON 转换为 `neo4j-admin import` 所需的 CSV。
   2. 构建流程调用 `neo4j-admin database import` 离线生成 `neo4j` 库，容器启动后即可直接访问完整图谱。
