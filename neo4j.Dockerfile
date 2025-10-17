@@ -1,7 +1,9 @@
 FROM neo4j:5.18
 
 USER root
-RUN apt-get update && apt-get install -y --no-install-recommends python3 python3-pip && rm -rf /var/lib/apt/lists/*
+RUN sed -i 's@http://deb.debian.org@https://mirrors.tuna.tsinghua.edu.cn@g' /etc/apt/sources.list && \
+    sed -i 's@http://security.debian.org@https://mirrors.tuna.tsinghua.edu.cn@g' /etc/apt/sources.list && \
+    apt-get update && apt-get install -y --no-install-recommends python3 python3-pip && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/lib/neo4j/build
 COPY data ./data
@@ -41,4 +43,3 @@ RUN neo4j-admin database import full --overwrite-destination=true neo4j \
     --relationships=HAS_HEALTH_BENEFIT=import_generated/rel_has_benefit.csv
 
 WORKDIR /var/lib/neo4j
-ENV NEO4J_AUTH=none
