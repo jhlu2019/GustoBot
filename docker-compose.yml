@@ -46,7 +46,8 @@ services:
       - MYSQL_PASSWORD=recipepass
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./scripts/init_mysql.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./data/init_mysql.sql:/docker-entrypoint-initdb.d/00_init.sql
+      - ./data/insert_sample_data.sql:/docker-entrypoint-initdb.d/10_seed.sql
     command: --default-authentication-plugin=mysql_native_password
 
   redis:
