@@ -111,21 +111,21 @@ CREATE (ing_chicken:Ingredient {
     name: '鸡胸肉',
     category: '肉类-原料',
     ingredient_type: 'main',
-    nutritional_profile: {calories: 165.00, protein: 31.00, carbs: 0.00, fat: 3.60}
+    calories: 165.00, protein: 31.00, carbs: 0.00, fat: 3.60
 });
 
 CREATE (ing_pork_belly:Ingredient {
     name: '猪五花肉',
     category: '肉类-原料',
     ingredient_type: 'main',
-    nutritional_profile: {calories: 518.00, protein: 9.30, carbs: 0.00, fat: 53.00}
+    calories: 518.00, protein: 9.30, carbs: 0.00, fat: 53.00
 });
 
 CREATE (ing_fish:Ingredient {
     name: '鲈鱼',
     category: '海鲜-原料',
     ingredient_type: 'main',
-    nutritional_profile: {calories: 105.00, protein: 18.60, carbs: 0.00, fat: 3.40}
+    calories: 105.00, protein: 18.60, carbs: 0.00, fat: 3.40
 });
 
 // 辅料
@@ -133,42 +133,42 @@ CREATE (ing_green_pepper:Ingredient {
     name: '青椒',
     category: '蔬菜-辅料',
     ingredient_type: 'auxiliary',
-    nutritional_profile: {calories: 22.00, protein: 1.00, carbs: 4.90, fat: 0.20}
+    calories: 22.00, protein: 1.00, carbs: 4.90, fat: 0.20
 });
 
 CREATE (ing_red_pepper:Ingredient {
     name: '红椒',
     category: '蔬菜-辅料',
     ingredient_type: 'auxiliary',
-    nutritional_profile: {calories: 20.00, protein: 0.90, carbs: 4.60, fat: 0.20}
+    calories: 20.00, protein: 0.90, carbs: 4.60, fat: 0.20
 });
 
 CREATE (ing_scallion:Ingredient {
     name: '大葱',
     category: '蔬菜-辅料',
     ingredient_type: 'auxiliary',
-    nutritional_profile: {calories: 30.00, protein: 1.50, carbs: 6.50, fat: 0.30}
+    calories: 30.00, protein: 1.50, carbs: 6.50, fat: 0.30
 });
 
 CREATE (ing_ginger:Ingredient {
     name: '生姜',
     category: '蔬菜-辅料',
     ingredient_type: 'auxiliary',
-    nutritional_profile: {calories: 41.00, protein: 1.80, carbs: 9.00, fat: 0.70}
+    calories: 41.00, protein: 1.80, carbs: 9.00, fat: 0.70
 });
 
 CREATE (ing_garlic:Ingredient {
     name: '大蒜',
     category: '蔬菜-辅料',
     ingredient_type: 'auxiliary',
-    nutritional_profile: {calories: 128.00, protein: 4.50, carbs: 27.60, fat: 0.20}
+    calories: 128.00, protein: 4.50, carbs: 27.60, fat: 0.20
 });
 
 CREATE (ing_peanut:Ingredient {
     name: '花生',
     category: '坚果-辅料',
     ingredient_type: 'auxiliary',
-    nutritional_profile: {calories: 567.00, protein: 24.80, carbs: 21.70, fat: 48.70}
+    calories: 567.00, protein: 24.80, carbs: 21.70, fat: 48.70
 });
 
 // 调料
@@ -176,42 +176,42 @@ CREATE (ing_soy_sauce:Ingredient {
     name: '酱油',
     category: '调味-调料',
     ingredient_type: 'seasoning',
-    nutritional_profile: {calories: 63.00, protein: 5.60, carbs: 10.50, fat: 0.00}
+    calories: 63.00, protein: 5.60, carbs: 10.50, fat: 0.00
 });
 
 CREATE (ing_cooking_wine:Ingredient {
     name: '料酒',
     category: '调味-调料',
     ingredient_type: 'seasoning',
-    nutritional_profile: {calories: 60.00, protein: 0.20, carbs: 5.00, fat: 0.00}
+    calories: 60.00, protein: 0.20, carbs: 5.00, fat: 0.00
 });
 
 CREATE (ing_sugar:Ingredient {
     name: '白糖',
     category: '调味-调料',
     ingredient_type: 'seasoning',
-    nutritional_profile: {calories: 400.00, protein: 0.00, carbs: 100.00, fat: 0.00}
+    calories: 400.00, protein: 0.00, carbs: 100.00, fat: 0.00
 });
 
 CREATE (ing_oil:Ingredient {
     name: '食用油',
     category: '调味-调料',
     ingredient_type: 'seasoning',
-    nutritional_profile: {calories: 900.00, protein: 0.00, carbs: 0.00, fat: 100.00}
+    calories: 900.00, protein: 0.00, carbs: 0.00, fat: 100.00
 });
 
 CREATE (ing_sichuan_pepper:Ingredient {
     name: '花椒',
     category: '调味-调料',
     ingredient_type: 'seasoning',
-    nutritional_profile: {calories: 258.00, protein: 6.70, carbs: 51.80, fat: 8.90}
+    calories: 258.00, protein: 6.70, carbs: 51.80, fat: 8.90
 });
 
 CREATE (ing_chili_sauce:Ingredient {
     name: '辣椒酱',
     category: '调味-调料',
     ingredient_type: 'seasoning',
-    nutritional_profile: {calories: 60.00, protein: 2.00, carbs: 10.00, fat: 1.50}
+    calories: 60.00, protein: 2.00, carbs: 10.00, fat: 1.50
 });
 
 // ========== 5. 创建菜谱1: 宫保鸡丁 ==========

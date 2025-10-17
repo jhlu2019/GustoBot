@@ -88,7 +88,7 @@ VALUES
 (1, 7, '出锅', '最后加入炒香的花生米,翻炒均匀即可出锅', 1, '大火', '["炒锅", "锅铲"]', '花生米最后加入,保持酥脆口感');
 
 -- 步骤-工具关联
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
 (1, 4, '切配工具'),
 (2, 4, '切配工具'),
 (4, 1, '主烹饪锅'),
@@ -127,7 +127,7 @@ VALUES
 (2, 4, '出锅', '最后淋上蒸鱼豉油即可', 1, NULL, '[]', '也可用生抽代替');
 
 -- 步骤-工具关联
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
 (8, 4, '处理工具'),
 (9, 2, '主蒸锅'),
 (10, 1, '热油锅');
@@ -164,7 +164,7 @@ VALUES
 (3, 7, '出锅', '出锅装盘,撒上葱花点缀', 1, NULL, '[]', '');
 
 -- 步骤-工具关联
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
 (11, 5, '焯水锅'),
 (12, 1, '炒制锅'),
 (12, 7, '翻炒'),

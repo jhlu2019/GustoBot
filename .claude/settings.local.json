@@ -5,7 +5,19 @@
       "Bash(docker-compose down:*)",
       "Bash(docker-compose up:*)",
       "Bash(docker-compose ps:*)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(docker logs:*)",
+      "Bash(docker start:*)",
+      "Bash(netstat:*)",
+      "Bash(ss:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker exec:*)",
+      "Bash(docker restart:*)",
+      "Bash(docker volume rm:*)",
+      "Read(//data/temp27/**)",
+      "Bash(find:*)",
+      "Bash(cat:*)",
+      "Bash(docker volume:*)"
     ],
     "deny": [],
     "ask": []
