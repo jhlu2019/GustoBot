@@ -17,7 +17,9 @@
       "Read(//data/temp27/**)",
       "Bash(find:*)",
       "Bash(cat:*)",
-      "Bash(docker volume:*)"
+      "Bash(docker volume:*)",
+      "Bash(docker-compose stop:*)",
+      "Bash(docker-compose rm:*)"
     ],
     "deny": [],
     "ask": []

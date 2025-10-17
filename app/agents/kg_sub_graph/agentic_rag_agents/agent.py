@@ -19,10 +19,14 @@ neo4j_graph = Neo4jGraph(enhanced_schema=True)
 llm = ChatOpenAI()
 embedder = OpenAIEmbeddings(model="text-embedding-ada-002")
 
-neo4j_driver = GraphDatabase.driver(
-    uri=os.getenv("NEO4J_URI", ""),
-    auth=(os.getenv("NEO4J_USERNAME", ""), os.getenv("NEO4J_PASSWORD", "")),
-)
+neo4j_uri = os.getenv("NEO4J_URI", "")
+neo4j_username = os.getenv("NEO4J_USERNAME")
+neo4j_password = os.getenv("NEO4J_PASSWORD")
+auth = None
+if neo4j_username and neo4j_password:
+    auth = (neo4j_username, neo4j_password)
+
+neo4j_driver = GraphDatabase.driver(uri=neo4j_uri, auth=auth)
 vector_index_name = "cypher_query_vector_index"
 
 cypher_example_retriever = Neo4jVectorSearchCypherExampleRetriever(

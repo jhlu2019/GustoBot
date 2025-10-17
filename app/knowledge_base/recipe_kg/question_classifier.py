@@ -26,7 +26,7 @@ class QuestionClassifier:
 
     def __init__(self, dict_root=None) -> None:
         if dict_root is None:
-            dict_root = resources.files("app.knowledge_base.neo4j_kbqa") / "dicts"
+            dict_root = resources.files("app.knowledge_base.recipe_kg") / "dicts"
 
         self.recipe_words = _load_dict(dict_root / "recipe.txt")
         self.gongyi_words = _load_dict(dict_root / "gongyi.txt")
@@ -39,9 +39,10 @@ class QuestionClassifier:
         self.deny_words = _load_dict(dict_root / "deny.txt")
 
         self.relation_keywords: Dict[str, List[str]] = {
-            "主食材": ["主食材", "主要食材", "主要材料", "由什么做", "要多少", "主料", "要用多少", "有哪些"],
-            "辅料": ["辅料", "由什么做", "需要多少", "要用多少", "有哪些"],
+            "HAS_MAIN_INGREDIENT": ["主食材", "主要食材", "主要材料", "由什么做", "要多少", "主料", "要用多少", "有哪些"],
+            "HAS_AUX_INGREDIENT": ["辅料", "由什么做", "需要多少", "要用多少", "有哪些"],
         }
+        relation_terms: List[str] = [term for keywords in self.relation_keywords.values() for term in keywords]
 
         self.region_words: Set[str] = set(
             self.recipe_words
@@ -51,8 +52,7 @@ class QuestionClassifier:
             + self.leixing_words
             + self.caixi_words
             + self.material_words
-            + self.relation_keywords["主食材"]
-            + self.relation_keywords["辅料"]
+            + relation_terms
         )
 
         self.region_tree = self._build_actree(self.region_words)
@@ -80,7 +80,7 @@ class QuestionClassifier:
         for word in self.region_words:
             mapping[word] = []
             if word in self.recipe_words:
-                mapping[word].append("recipe")
+                mapping[word].append("Dish")
             elif word in self.gongyi_words:
                 mapping[word].append("工艺")
             elif word in self.haoshi_words:
@@ -92,8 +92,8 @@ class QuestionClassifier:
             elif word in self.caixi_words:
                 mapping[word].append("菜系")
             elif word in self.material_words:
-                mapping[word].append("material")
-            elif word in self.relation_keywords["主食材"] + self.relation_keywords["辅料"]:
+                mapping[word].append("Ingredient")
+            elif any(word in keywords for keywords in self.relation_keywords.values()):
                 mapping[word].append("relation")
         return mapping
 
@@ -107,26 +107,26 @@ class QuestionClassifier:
         matched_properties = self._match_keywords(self.property_keywords, question)
         matched_relations = self._match_keywords(self.relation_keywords, question)
 
-        if matched_properties and "recipe" in entity_types:
+        if matched_properties and "Dish" in entity_types:
             question_type = "recipe_property"
             args["nodes"] = entities
             args["properties"] = matched_properties
 
-        elif "recipe" not in entity_types and self._is_property_only(entity_types):
+        elif "Dish" not in entity_types and self._is_property_only(entity_types):
             question_type = "property_constraint"
             args["constraints"] = {labels[0]: name for name, labels in entities.items() if labels}
 
-        elif "recipe" in entity_types and "material" not in entity_types and matched_relations:
+        elif "Dish" in entity_types and "Ingredient" not in entity_types and matched_relations:
             question_type = "relationship_constraint"
             args["nodes"] = entities
             args["relationships"] = matched_relations
 
-        elif "recipe" in entity_types and "material" in entity_types and not matched_properties:
+        elif "Dish" in entity_types and "Ingredient" in entity_types and not matched_properties:
             question_type = "relationship_query"
             args["nodes"] = entities
-            args["relationships"] = matched_relations or ["主食材"]
+            args["relationships"] = matched_relations or ["HAS_MAIN_INGREDIENT"]
 
-        elif "recipe" not in entity_types and matched_relations:
+        elif "Dish" not in entity_types and matched_relations:
             question_type = "relationship_constraint"
             args["nodes"] = entities
             args["relationships"] = matched_relations

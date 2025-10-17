@@ -49,3 +49,6 @@ class GraphCache:
         with self.cache_path.open("w", encoding="utf-8") as fp:
             json.dump(graph, fp, ensure_ascii=False)
 
+    def invalidate(self) -> None:
+        if self.cache_path.is_file():
+            self.cache_path.unlink()

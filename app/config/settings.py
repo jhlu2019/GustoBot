@@ -93,11 +93,16 @@ class Settings(BaseSettings):
 
     # Neo4j configuration
     NEO4J_URI: str = "bolt://neo4j:7687"
-    NEO4J_USER: str = "neo4j"
-    NEO4J_PASSWORD: str = "recipepass"
+    NEO4J_USER: Optional[str] = None
+    NEO4J_PASSWORD: Optional[str] = None
+    NEO4J_DATABASE: str = "neo4j"
     NEO4J_DEFAULT_GRAPH_QUERY: str = "MATCH (a)-[r]-(b) RETURN a, r, b LIMIT 100"
     NEO4J_GRAPH_CACHE_PATH: str = "data/neo4j/graph.json"
     NEO4J_MAX_CONNECTION_LIFETIME: Optional[int] = None
+    NEO4J_BOOTSTRAP_JSON: bool = True
+    NEO4J_BOOTSTRAP_FORCE: bool = False
+    NEO4J_RECIPE_JSON_PATH: str = "data/recipe.json"
+    NEO4J_INGREDIENT_JSON_PATH: Optional[str] = "data/excipients.json"
 
     # Agent behaviour
     MAX_ITERATIONS: int = 10
@@ -126,6 +131,10 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         case_sensitive = True
+
+    @property
+    def NEO4J_USERNAME(self) -> Optional[str]:  # pragma: no cover - convenience alias
+        return self.NEO4J_USER
 
 
 settings = Settings()

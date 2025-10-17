@@ -28,10 +28,15 @@ class AnswerSearcher:
             return "抱歉，小助手暂时无法回答您的问题。"
 
         if question_type == "recipe_property":
-            return "\n".join(
-                "、".join(f"{key}: {value}" for key, value in answer.items())
-                for answer in answers
-            )
+            formatted_rows = []
+            for answer in answers:
+                cells = []
+                for key, value in answer.items():
+                    if isinstance(value, list):
+                        value = "、".join(str(item) for item in value if item)
+                    cells.append(f"{key}: {value}" if value not in (None, "") else f"{key}: 无")
+                formatted_rows.append("、".join(cells))
+            return "\n".join(formatted_rows)
 
         if question_type in {"property_constraint", "relationship_constraint"}:
             names = [answer.get("name") or answer.get("n.name") for answer in answers]
@@ -40,11 +45,10 @@ class AnswerSearcher:
                 return "、".join(filtered)
 
         if question_type == "relationship_query":
-            quantities = [answer.get("quantity") or answer.get("r.用量") for answer in answers]
+            quantities = [answer.get("amount_text") or answer.get("rel.amount_text") for answer in answers]
             filtered = [quantity for quantity in quantities if quantity]
             if filtered:
                 return "、".join(filtered)
 
         # fallback: return JSON representation
         return "\n".join(str(answer) for answer in answers)
-

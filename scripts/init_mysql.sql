@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS step_tools (
     id INT AUTO_INCREMENT PRIMARY KEY,
     step_id INT NOT NULL,
     tool_id INT NOT NULL,
-    usage VARCHAR(100) COMMENT '使用方式',
+    `usage` VARCHAR(100) COMMENT '使用方式',
     FOREIGN KEY (step_id) REFERENCES recipe_steps(id) ON DELETE CASCADE,
     FOREIGN KEY (tool_id) REFERENCES cooking_tools(id) ON DELETE RESTRICT,
     UNIQUE KEY unique_step_tool (step_id, tool_id),

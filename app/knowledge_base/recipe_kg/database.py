@@ -16,8 +16,18 @@ from neo4j.work.result import Result
 class Neo4jDatabase:
     """Thin wrapper around the neo4j driver."""
 
-    def __init__(self, uri: str, user: str, password: str, **driver_kwargs: Any) -> None:
-        self._driver = GraphDatabase.driver(uri, auth=(user, password), **driver_kwargs)
+    def __init__(
+        self,
+        uri: str,
+        user: Optional[str],
+        password: Optional[str],
+        **driver_kwargs: Any,
+    ) -> None:
+        auth = None
+        if user and password not in (None, ""):
+            auth = (user, password)
+
+        self._driver = GraphDatabase.driver(uri, auth=auth, **driver_kwargs)
 
     def close(self) -> None:
         """Close the underlying driver."""
@@ -61,4 +71,3 @@ class Neo4jDatabase:
         with self._session() as session:
             result: Result = session.run(query, parameters or {})
             return list(result)
-

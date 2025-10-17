@@ -65,4 +65,14 @@
 - `FoodCategory` 可扩展为多层级（如“蔬菜 > 叶菜类”），以满足食材分类检索及替换推荐需求。
 - 所有实体与关系均保留 `source` 属性，便于追溯数据来源与版本管理。后续接入更多菜谱/食材数据源时，可通过统一 ETL 对应到该模式。
 
-该模式可直接映射到 Neo4j 等图数据库，实现菜谱检索、食材替换、基于营养/功效的智能推荐等应用场景。*** End Patch
+该模式可直接映射到 Neo4j 等图数据库，实现菜谱检索、食材替换、基于营养/功效的智能推荐等应用场景。
+
+## 数据导入
+- 服务启动时默认从 `data/recipe.json` 与 `data/excipients.json` 构建知识图谱，行为可通过环境变量控制：
+  - `NEO4J_BOOTSTRAP_JSON` (`bool`, 默认 `true`): 是否启用 JSON 自动导入。
+  - `NEO4J_BOOTSTRAP_FORCE` (`bool`, 默认 `false`): 置为 `true` 时导入前会清空现有图谱。
+  - `NEO4J_RECIPE_JSON_PATH` / `NEO4J_INGREDIENT_JSON_PATH`: 自定义数据文件路径。
+- 导入流程位于 `app/knowledge_base/recipe_kg/importer.py`，会创建菜品、食材、烹饪步骤与营养功效等节点及其关系。
+- Docker 版本可通过 `neo4j.Dockerfile` 在 `docker compose build neo4j` 阶段预生成数据库：
+  1. `scripts/recipe_kg_to_csv.py` 先把 JSON 转换为 `neo4j-admin import` 所需的 CSV。
+  2. 构建流程调用 `neo4j-admin database import` 离线生成 `neo4j` 库，容器启动后即可直接访问完整图谱。

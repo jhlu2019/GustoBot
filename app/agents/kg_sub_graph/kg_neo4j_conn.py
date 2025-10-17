@@ -21,16 +21,20 @@ def get_neo4j_graph() -> Neo4jGraph:
     Returns:
         Neo4jGraph: 配置好的Neo4j图数据库连接实例
     """
-    logger.info(f"initialize Neo4j connection: {settings.NEO4J_URL}")
-    
+    logger.info(f"initialize Neo4j connection: {settings.NEO4J_URI}")
+
     try:
-        # 创建Neo4j图实例
-        neo4j_graph = Neo4jGraph(
-            url=settings.NEO4J_URL,
-            username=settings.NEO4J_USERNAME,
-            password=settings.NEO4J_PASSWORD,
-            database=settings.NEO4J_DATABASE
-        )
+        kwargs = {
+            "url": settings.NEO4J_URI,
+            "database": settings.NEO4J_DATABASE,
+        }
+        if settings.NEO4J_USER and settings.NEO4J_PASSWORD not in (None, ""):
+            kwargs.update({
+                "username": settings.NEO4J_USER,
+                "password": settings.NEO4J_PASSWORD,
+            })
+        
+        neo4j_graph = Neo4jGraph(**kwargs)
         return neo4j_graph
     except Exception as e:
         raise

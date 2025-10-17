@@ -13,6 +13,7 @@ from app.config import settings
 
 from .database import Neo4jDatabase
 from .graph_loader import GraphCache, convert_graph
+from .importer import RecipeGraphImporter
 from .pipeline import Neo4jQAPipeline
 
 
@@ -28,8 +29,9 @@ class Neo4jQAService:
             settings.NEO4J_PASSWORD,
             **driver_kwargs,
         )
-        self._pipeline = Neo4jQAPipeline(self._database)
         self._cache = GraphCache(Path(settings.NEO4J_GRAPH_CACHE_PATH))
+        self._bootstrap_graph()
+        self._pipeline = Neo4jQAPipeline(self._database)
         atexit.register(self.close)
 
     def close(self) -> None:
@@ -52,3 +54,27 @@ class Neo4jQAService:
     def ask(self, question: str) -> Dict[str, Any]:
         return self._pipeline.ask(question)
 
+    def _bootstrap_graph(self) -> None:
+        if not settings.NEO4J_BOOTSTRAP_JSON:
+            return
+
+        recipe_path = Path(settings.NEO4J_RECIPE_JSON_PATH)
+        ingredient_path = (
+            Path(settings.NEO4J_INGREDIENT_JSON_PATH)
+            if settings.NEO4J_INGREDIENT_JSON_PATH
+            else None
+        )
+
+        importer = RecipeGraphImporter(self._database)
+        try:
+            imported = importer.bootstrap_from_json(
+                recipe_path,
+                ingredient_path,
+                force=settings.NEO4J_BOOTSTRAP_FORCE,
+            )
+        except Exception as exc:  # pragma: no cover - defensive logging
+            logger.error(f"Failed to bootstrap Neo4j from JSON: {exc}")
+            return
+
+        if imported:
+            self._cache.invalidate()

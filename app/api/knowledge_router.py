@@ -77,7 +77,7 @@ def get_knowledge_service():
 @lru_cache
 def get_neo4j_qa_service():
     """Return the Neo4j QA service."""
-    from ..knowledge_base.neo4j_kbqa import Neo4jQAService
+    from ..knowledge_base.recipe_kg import Neo4jQAService
 
     return Neo4jQAService()
 
@@ -236,4 +236,3 @@ async def qa_over_graph(
     except Exception as exc:
         logger.error(f"QA error: {exc}")
         raise HTTPException(status_code=500, detail=str(exc))
-
