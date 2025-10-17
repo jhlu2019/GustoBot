@@ -1,78 +1,54 @@
 # 菜谱知识图谱设计方案
 
-本方案基于示例菜谱与食材 JSON 数据构建，参考医疗知识图谱的建模方式，为后续扩展到完整菜谱语料提供统一的实体、关系与属性定义。
+本文档描述当前项目中实际存在的 Neo4j 菜谱图谱模型，仅保留代码已经实现并导入的数据结构，便于后续维护和扩展。
 
 ## 实体类型
-| 实体类型 | 中文含义 | 实体数量（当前样例） | 举例 |
+| Label | 中文含义 | 主要属性 | 备注示例 |
 | --- | --- | --- | --- |
-| Dish | 菜品/菜谱 | 2 | 香肠炒菜干；土豆丝炒烧肉 |
-| Ingredient | 食材（含主辅料） | 17 | 香肠；菜干；茼蒿；蚝油 |
-| FoodCategory | 食材分类/原料类别 | 6 | 腌制肉类；干菜；叶类蔬菜 |
-| Flavor | 口味标签 | 2 | 酱香；咸鲜 |
-| CookingMethod | 烹饪工艺 | 1 | 炒 |
-| DishType | 菜品类型/菜式 | 1 | 热菜 |
-| CookingStep | 烹饪步骤节点 | 18 | “爆香蒜末、豆豉”；“土豆丝炒熟后放入茼蒿段” |
-| NutritionProfile | 食材营养档案 | 4 | 艾草营养信息；鹌鹑蛋营养信息 |
-| HealthBenefit | 食疗功效条目 | 4 | 艾草驱寒湿；鹌鹑蛋健脑 |
+| Dish | 菜品/菜谱 | `name`, `cook_time`, `instructions` | 香肠炒菜干；土豆丝炒烧肉 |
+| Ingredient | 食材（含主辅料、调味料） | `name` | 香肠；茼蒿；蚝油 |
+| Flavor | 口味标签 | `name` | 酱香；咸鲜 |
+| CookingMethod | 烹饪工艺 | `name` | 炒 |
+| DishType | 菜品类型/菜式 | `name` | 热菜 |
+| CookingStep | 烹饪步骤节点 | `name`, `dish_name`, `order`, `instruction` | “香肠炒菜干 - Step 3” |
+| NutritionProfile | 食材营养档案 | `name`, `description` | 鹌鹑蛋营养描述 |
+| HealthBenefit | 食疗功效条目 | `name` | “理气血，逐寒湿” |
 
-> 注：实体数量统计为当前示例数据中去重后的数量，实际上线时将依据全量菜谱数据动态增长。
+> 所有数值均由 `scripts/recipe_kg_to_csv.py` 自 `data/recipe.json` 与 `data/excipients.json` 中生成，实体标签与属性以 ASCII 命名，属性值保持原始中文。
 
 ## 关系类型
-| 关系类型 | 中文含义 | 关系数量（样例） | 举例 |
+| 类型 | 起点 → 终点 | 中文含义 | 主要属性 |
 | --- | --- | --- | --- |
-| has_main_ingredient | 菜品-主料 | 4 | <香肠炒菜干, 主料, 香肠> |
-| has_auxiliary_ingredient | 菜品-辅料 | 10 | <土豆丝炒烧肉, 辅料, 生抽> |
-| belongs_to_type | 菜品-菜品类型 | 2 | <香肠炒菜干, 属于, 热菜> |
-| has_flavor | 菜品-口味 | 2 | <香肠炒菜干, 口味, 酱香> |
-| uses_cooking_method | 菜品-烹饪工艺 | 2 | <土豆丝炒烧肉, 工艺, 炒> |
-| has_cooking_step | 菜品-步骤 | 18 | <香肠炒菜干, 包含步骤, “爆香蒜末、豆豉”> |
-| step_uses_ingredient | 步骤-涉及食材 | 22 | <步骤“爆香蒜末、豆豉”, 使用, 豆豉> |
-| ingredient_in_category | 食材-所属分类 | 17 | <香肠, 属于, 腌制肉类> |
-| enhances_flavor | 食材-强化口味 | 5 | <豆豉, 强化, 酱香> |
-| ingredient_health_benefit | 食材-功效 | 8 | <艾草, 具有, 驱寒湿> |
-| ingredient_links_nutrition | 食材-营养档案 | 4 | <鹌鹑蛋, 对应, NutritionProfile#鹌鹑蛋> |
+| `HAS_MAIN_INGREDIENT` | Dish → Ingredient | 菜品主要食材 | `amount_text`（用量文本） |
+| `HAS_AUX_INGREDIENT` | Dish → Ingredient | 菜品辅料/调味料 | `amount_text` |
+| `HAS_FLAVOR` | Dish → Flavor | 菜品口味 | — |
+| `USES_METHOD` | Dish → CookingMethod | 烹饪工艺 | — |
+| `BELONGS_TO_TYPE` | Dish → DishType | 菜品类型 | — |
+| `HAS_STEP` | Dish → CookingStep | 包含的烹饪步骤 | `order`（步骤顺序） |
+| `HAS_NUTRITION_PROFILE` | Ingredient → NutritionProfile | 食材营养描述 | — |
+| `HAS_HEALTH_BENEFIT` | Ingredient → HealthBenefit | 食材功效 | — |
 
-> 关系数量基于当前样例推算；`step_uses_ingredient` 可支持后续细粒度的烹饪过程查询与可视化。
+目前图谱不包含其他关系（如步骤与食材、分类层级等），若需要扩展，应同步更新 CSV 生成脚本和导入逻辑。
 
-## 属性类型
-| 属性名称 | 中文含义 | 适用实体 | 举例 |
-| --- | --- | --- | --- |
-| name | 名称 | 全部实体 | “香肠炒菜干”；“酱香” |
-| alias | 别名 | Dish, Ingredient | “腊肠炒菜干”；“腊肠” |
-| description | 简述 | Dish, Ingredient, FoodCategory | “传统客家腊味小炒” |
-| cook_time | 烹饪耗时 | Dish | “十分钟” |
-| taste_note | 风味说明 | Dish, Flavor | “酱香” |
-| cooking_method_text | 工艺说明 | Dish | “炒” |
-| dish_type_note | 菜品类型说明 | DishType | “热菜” |
-| ingredient_role | 食材角色 | Ingredient | “主料”；“辅料” |
-| quantity | 用量 | Ingredient（通过关系属性） | “2根”；“200g” |
-| nutrition_value | 营养价值文字 | NutritionProfile | “富含维生素A、B族...” |
-| health_effect | 食疗功效描述 | HealthBenefit | “理气血，逐寒湿” |
-| step_order | 步骤序号 | CookingStep | 1；2；... |
-| instruction | 操作说明 | CookingStep | “爆香蒜末、豆豉” |
-| tip | 小贴士/注意事项 | Dish, CookingStep | “豆豉勿炒糊” |
-| source | 数据来源 | 全部实体 | “示例 JSON；用户录入” |
+## 节点与关系属性
+- `Dish`：`name`（菜名），`cook_time`（耗时描述），`instructions`（原始做法全文）
+- `Ingredient` / `Flavor` / `CookingMethod` / `DishType` / `HealthBenefit`：`name`
+- `CookingStep`：`name`，`dish_name`（所属菜品名称），`order`（整数步序），`instruction`（步骤说明）
+- `NutritionProfile`：`name`（对应食材名），`description`（营养文字）
+- `HAS_MAIN_INGREDIENT` / `HAS_AUX_INGREDIENT`：`amount_text`（原始用量，如“2根”）
+- `HAS_STEP`：`order`（与步骤保持一致）
 
-### 关系属性
-- `has_main_ingredient` / `has_auxiliary_ingredient`：`quantity`（用量数值）、`unit`（单位）、`preprocess`（前处理，如“切片”“浸水”）、`is_optional`（布尔，标记可选料）。
-- `has_cooking_step`：`step_order`（顺序）、`is_core`（布尔，是否关键步骤）。
-- `step_uses_ingredient`：`action`（操作，例如“爆香”“调味”）、`amount_hint`（用量提示文本）。
-- `enhances_flavor`：`intensity`（枚举：弱/中/强），用于味型推荐。 
+除了上述属性外，无额外字段被写入 Neo4j。
 
-## 建模说明与扩展
-- 将营养与功效拆分为 `NutritionProfile` 与 `HealthBenefit`，支持标准化引用与面向健康场景的检索。示例 JSON 中艾草、鹌鹑及其蛋、安康鱼均映射到该设计。
-- 通过 `CookingStep` + `step_uses_ingredient` 的细粒度关系，可支持过程问答（Q&A）、可视化流程图及多模态生成等高级功能。
-- `FoodCategory` 可扩展为多层级（如“蔬菜 > 叶菜类”），以满足食材分类检索及替换推荐需求。
-- 所有实体与关系均保留 `source` 属性，便于追溯数据来源与版本管理。后续接入更多菜谱/食材数据源时，可通过统一 ETL 对应到该模式。
+## 数据导入流程
+1. `docker compose build neo4j`：利用 `Dockerfile` 中的 `neo4j_seeded` 构建阶段，执行以下动作  
+   - 运行 `scripts/recipe_kg_to_csv.py` 将 `data/recipe.json` 与 `data/excipients.json` 转换为 `neo4j-admin` 所需 CSV；  
+   - 调用 `neo4j-admin database import` 离线生成 `neo4j` 数据库文件。
+2. `docker compose up -d neo4j`：启动后即可直接访问预导入的图谱。
+3. 如需重新生成数据，更新 JSON 后重新执行 `docker compose build neo4j`。
 
-该模式可直接映射到 Neo4j 等图数据库，实现菜谱检索、食材替换、基于营养/功效的智能推荐等应用场景。
+此外，应用服务启动时仍保留运行时导入逻辑，可通过环境变量控制是否跳过（`NEO4J_BOOTSTRAP_JSON` 等，详见 `app/config/settings.py`）。
 
-## 数据导入
-- 服务启动时默认从 `data/recipe.json` 与 `data/excipients.json` 构建知识图谱，行为可通过环境变量控制：
-  - `NEO4J_BOOTSTRAP_JSON` (`bool`, 默认 `true`): 是否启用 JSON 自动导入。
-  - `NEO4J_BOOTSTRAP_FORCE` (`bool`, 默认 `false`): 置为 `true` 时导入前会清空现有图谱。
-  - `NEO4J_RECIPE_JSON_PATH` / `NEO4J_INGREDIENT_JSON_PATH`: 自定义数据文件路径。
-- 导入流程位于 `app/knowledge_base/recipe_kg/importer.py`，会创建菜品、食材、烹饪步骤与营养功效等节点及其关系。
-- Docker 版本可通过根目录 `Dockerfile` 的 `neo4j_seeded` 构建阶段在 `docker compose build neo4j` 时自动预生成数据库：
-  1. `scripts/recipe_kg_to_csv.py` 先把 JSON 转换为 `neo4j-admin import` 所需的 CSV。
-  2. 构建流程调用 `neo4j-admin database import` 离线生成 `neo4j` 库，容器启动后即可直接访问完整图谱。
+---
+
+该文档与实际代码保持一致，确保使用者在 Neo4j 中看到的实体、关系与属性均与描述准确对应。*** End Patch
