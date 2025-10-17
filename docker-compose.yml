@@ -24,13 +24,27 @@ services:
   neo4j:
     image: neo4j:5.18
     ports:
-      - "7474:7474"
-      - "7687:7687"
+      - "17474:7474"
+      - "17687:7687"
     environment:
       - NEO4J_AUTH=neo4j/recipepass
     volumes:
       - neo4j_data:/data
       - neo4j_logs:/logs
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_DATABASE=recipe_db
+      - MYSQL_USER=recipe_user
+      - MYSQL_PASSWORD=recipepass
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./scripts/init_mysql.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --default-authentication-plugin=mysql_native_password
 
   redis:
     image: redis:7-alpine
@@ -90,3 +104,4 @@ volumes:
   milvus_data:
   neo4j_data:
   neo4j_logs:
+  mysql_data:
