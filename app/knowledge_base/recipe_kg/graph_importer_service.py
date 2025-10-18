@@ -8,8 +8,13 @@ from typing import Any, Dict, Iterable, List, Optional
 
 from loguru import logger
 
-from .database import Neo4jDatabase
-from .parser import IngredientProfile, RecipeRecord, load_ingredient_profiles, load_recipe_records
+from .graph_database_client import Neo4jDatabase
+from .recipe_json_parser import (
+    IngredientProfile,
+    RecipeRecord,
+    load_ingredient_profiles,
+    load_recipe_records,
+)
 
 
 class RecipeGraphImporter:

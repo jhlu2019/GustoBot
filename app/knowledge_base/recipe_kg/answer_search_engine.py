@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, Iterable, List
 
-from .database import Neo4jDatabase
+from .graph_database_client import Neo4jDatabase
 
 
 class AnswerSearcher:

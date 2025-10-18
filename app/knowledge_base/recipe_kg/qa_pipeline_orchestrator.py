@@ -5,10 +5,10 @@ from __future__ import annotations
 
 from typing import Any, Dict
 
-from .answer_search import AnswerSearcher
-from .database import Neo4jDatabase
-from .question_classifier import QuestionClassifier
-from .question_parser import QuestionParser
+from .answer_search_engine import AnswerSearcher
+from .graph_database_client import Neo4jDatabase
+from .question_intent_classifier import QuestionClassifier
+from .query_parser_service import QuestionParser
 
 
 class Neo4jQAPipeline:

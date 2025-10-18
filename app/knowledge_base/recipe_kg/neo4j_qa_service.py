@@ -11,10 +11,10 @@ from loguru import logger
 
 from app.config import settings
 
-from .database import Neo4jDatabase
-from .graph_loader import GraphCache, convert_graph
-from .importer import RecipeGraphImporter
-from .pipeline import Neo4jQAPipeline
+from .graph_database_client import Neo4jDatabase
+from .graph_cache_loader import GraphCache, convert_graph
+from .graph_importer_service import RecipeGraphImporter
+from .qa_pipeline_orchestrator import Neo4jQAPipeline
 
 
 class Neo4jQAService:
