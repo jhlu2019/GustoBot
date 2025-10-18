@@ -257,6 +257,10 @@ onnxruntime-*/
 
 # 数据文件
 data/
+!data/
+data/*
+!data/init_mysql.sql
+!data/insert_sample_data.sql
 *.csv
 *.json.gz
 *.parquet
