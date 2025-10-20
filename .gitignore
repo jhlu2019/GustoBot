@@ -255,14 +255,7 @@ onnxruntime-*/
 *.bin
 *.safetensors
 
-# 数据文件
-data/
-!data/
-data/*
-!data/init_mysql.sql
-!data/insert_sample_data.sql
-!data/recipe.json
-!data/excipients.json
+# 数据文件 (只忽略特定的大文件格式和向量数据库目录)
 *.csv
 *.json.gz
 *.parquet
