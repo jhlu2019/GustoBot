@@ -137,12 +137,9 @@ async def respond_to_general_query(
     logger.info("-----generate general-query response-----")
 
     # 使用大模型生成回复
-    if settings.AGENT_SERVICE == ServiceType.DEEPSEEK:
-        model = ChatDeepSeek(api_key=settings.DEEPSEEK_API_KEY, model_name=settings.DEEPSEEK_MODEL, temperature=0.7,
-                             tags=["general_query"])
-    else:
-        model = ChatOllama(model=settings.OLLAMA_AGENT_MODEL, base_url=settings.OLLAMA_BASE_URL, temperature=0.7,
-                           tags=["general_query"])
+    model = ChatOpenAI(openai_api_key=settings.OPENAI_API_KEY, model_name=settings.OPENAI_MODEL,
+                       openai_api_base=settings.OPENAI_API_BASE, temperature=0.7,
+                       tags=["general_query"])
 
     system_prompt = GENERAL_QUERY_SYSTEM_PROMPT.format(
         logic=state.router["logic"]
@@ -170,14 +167,10 @@ async def get_additional_info(
     logger.info("------continue to get additional info------")
 
     # 使用大模型生成回复
-    if settings.AGENT_SERVICE == ServiceType.DEEPSEEK:
-        model = ChatDeepSeek(api_key=settings.DEEPSEEK_API_KEY, model_name=settings.DEEPSEEK_MODEL, temperature=0.7,
-                             tags=["additional_info"])
-    else:
-        model = ChatOllama(model=settings.OLLAMA_AGENT_MODEL, base_url=settings.OLLAMA_BASE_URL, temperature=0.7,
-                           tags=["additional_info"])
-
-    # 如果用户的问题是电商相关，但与自己的业务无关，则需要返回"无关问题"
+    model = ChatOpenAI(openai_api_key=settings.OPENAI_API_KEY, model_name=settings.OPENAI_MODEL,
+                       openai_api_base=settings.OPENAI_API_BASE, temperature=0.7,
+                       tags=["additional_info"])
+    # 如果用户的问题是菜谱相关，但与自己的业务无关，则需要返回"无关问题"
 
     # 首先连接 Neo4j 图数据库
     try:
@@ -186,17 +179,19 @@ async def get_additional_info(
     except Exception as e:
         logger.error(f"failed to get Neo4j graph database connection: {e}")
 
-    # 定义电商经营范围
+    # 定义菜谱管理系统范围
     scope_description = """
-    个人电商经营范围：智能家居产品，包括但不限于：
-    - 智能照明（灯泡、灯带、开关）
-    - 智能安防（摄像头、门锁、传感器）
-    - 智能控制（温控器、遥控器、集线器）
-    - 智能音箱（语音助手、音响）
-    - 智能厨电（电饭煲、冰箱、洗碗机）
-    - 智能清洁（扫地机器人、洗衣机）
+    菜谱管理系统范围：提供菜谱、食材、烹饪相关的信息服务，包括但不限于：
+    - 菜谱信息（菜名、食材、步骤、营养、热量）
+    - 食材分类（主料、辅料、调味料）
+    - 烹饪方法（炒、煮、蒸、烤、炸等）
+    - 营养信息（蛋白质、脂肪、碳水化合物、热量）
+    - 菜系分类（川菜、粤菜、鲁菜、浙菜等）
+    - 口味特点（麻辣、清淡、香甜、酸辣等）
+    - 烹饪工具（锅、刀、砧板、调料碗等）
+    - 健康功效（补气血、降血压、美容养颜等）
 
-    不包含：服装、鞋类、体育用品、化妆品、食品等非智能家居产品。
+    不包含：政治、娱乐、新闻、天气、购物、医疗等非菜谱相关内容。
     """
 
     scope_context = (
@@ -237,7 +232,7 @@ async def get_additional_info(
     # 根据格式化输出的结果，返回不同的响应
     if guardrails_output.decision == "end":
         logger.info("-----Fail to pass guardrails check-----")
-        return {"messages": [AIMessage(content="抱歉，我家暂时没有这方面的商品，可以在别家看看哦~")]}
+        return {"messages": [AIMessage(content="厨友您好～抱歉哦，这个问题不太属于我们的菜谱范围呢，我主要帮您解答菜谱和烹饪方面的问题～😊")]}
     else:
         logger.info("-----Pass guardrails check-----")
         system_prompt = GET_ADDITIONAL_SYSTEM_PROMPT.format(
@@ -323,7 +318,7 @@ async def create_image_query(
             "messages": [
                 {
                     "role": "system",
-                    "content": "你是一个专业的图像分析助手。请详细分析图片中的内容，特别关注产品细节、品牌、型号等信息。"
+                    "content": "你是一个专业的菜谱图像分析助手。请详细分析图片中的内容，特别关注菜品名称、食材、烹饪方法、摆盘等细节。"
                 },
                 {
                     "role": "user",
@@ -354,15 +349,12 @@ async def create_image_query(
                     image_description = result["choices"][0]["message"]["content"]
                     logger.info(f"Successfully processed image and generated description")
                     # 使用图片描述和用户问题生成最终回复
-                    # 从lg_prompts导入电商客服模板
+                    # 从lg_prompts导入菜谱助手模板
 
                     # 构建回复请求
-                    if settings.AGENT_SERVICE == ServiceType.DEEPSEEK:
-                        model = ChatDeepSeek(api_key=settings.DEEPSEEK_API_KEY, model_name=settings.DEEPSEEK_MODEL,
-                                             temperature=0.7, tags=["image_query"])
-                    else:
-                        model = ChatOllama(model=settings.OLLAMA_AGENT_MODEL, base_url=settings.OLLAMA_BASE_URL,
-                                           temperature=0.7, tags=["image_query"])
+                    model = ChatOpenAI(openai_api_key=settings.OPENAI_API_KEY, model_name=settings.OPENAI_MODEL,
+                                       openai_api_base=settings.OPENAI_API_BASE, temperature=0.7,
+                                       tags=["image_query"])
                     # 使用专门的图片查询提示模板
                     system_prompt = GET_IMAGE_SYSTEM_PROMPT.format(
                         image_description=image_description
@@ -408,12 +400,9 @@ async def create_research_plan(
     logger.info("------execute local knowledge base query------")
 
     # 使用大模型生成查询/多跳、并行查询计划
-    if settings.AGENT_SERVICE == ServiceType.DEEPSEEK:
-        model = ChatDeepSeek(api_key=settings.DEEPSEEK_API_KEY, model_name=settings.DEEPSEEK_MODEL, temperature=0.7,
-                             tags=["research_plan"])
-    else:
-        model = ChatOllama(model=settings.OLLAMA_AGENT_MODEL, base_url=settings.OLLAMA_BASE_URL, temperature=0.7,
-                           tags=["research_plan"])
+    model = ChatOpenAI(openai_api_key=settings.OPENAI_API_KEY, model_name=settings.OPENAI_MODEL,
+                       openai_api_base=settings.OPENAI_API_BASE, temperature=0.7,
+                       tags=["research_plan"])
 
     # 初始化必要参数
     # 1. Neo4j图数据库连接 - 使用配置中的连接信息
@@ -430,21 +419,23 @@ async def create_research_plan(
     from app.agents.kg_sub_graph.kg_tools_list import cypher_query, predefined_cypher, microsoft_graphrag_query
     tool_schemas: List[type[BaseModel]] = [cypher_query, predefined_cypher, microsoft_graphrag_query]
 
-    # 3. 预定义的Cypher查询 - 为电商场景定义有用的查询
+    # 3. 预定义的Cypher查询 - 为菜谱场景定义有用的查询
     from app.agents.kg_sub_graph.agentic_rag_agents.components.predefined_cypher.cypher_dict import \
         predefined_cypher_dict
 
-    # 定义电商经营范围
+    # 定义菜谱管理系统范围
     scope_description = """
-    个人电商经营范围：智能家居产品，包括但不限于：
-    - 智能照明（灯泡、灯带、开关）
-    - 智能安防（摄像头、门锁、传感器）
-    - 智能控制（温控器、遥控器、集线器）
-    - 智能音箱（语音助手、音响）
-    - 智能厨电（电饭煲、冰箱、洗碗机）
-    - 智能清洁（扫地机器人、洗衣机）
+    菜谱管理系统范围：提供菜谱、食材、烹饪相关的信息服务，包括但不限于：
+    - 菜谱信息（菜名、食材、步骤、营养、热量）
+    - 食材分类（主料、辅料、调味料）
+    - 烹饪方法（炒、煮、蒸、烤、炸等）
+    - 营养信息（蛋白质、脂肪、碳水化合物、热量）
+    - 菜系分类（川菜、粤菜、鲁菜、浙菜等）
+    - 口味特点（麻辣、清淡、香甜、酸辣等）
+    - 烹饪工具（锅、刀、砧板、调料碗等）
+    - 健康功效（补气血、降血压、美容养颜等）
 
-    不包含：服装、鞋类、体育用品、化妆品、食品等非智能家居产品。
+    不包含：政治、娱乐、新闻、天气、购物、医疗等非菜谱相关内容。
     """
 
     # 创建多工具工作流
@@ -487,12 +478,9 @@ async def check_hallucinations(
     Returns:
         dict[str, Router]: A dictionary containing the 'router' key with the classification result (classification type and logic).
     """
-    if settings.AGENT_SERVICE == ServiceType.DEEPSEEK:
-        model = ChatDeepSeek(api_key=settings.DEEPSEEK_API_KEY, model_name=settings.DEEPSEEK_MODEL, temperature=0.7,
-                             tags=["hallucinations"])
-    else:
-        model = ChatOllama(model=settings.OLLAMA_AGENT_MODEL, base_url=settings.OLLAMA_BASE_URL, temperature=0.7,
-                           tags=["hallucinations"])
+    model = ChatOpenAI(openai_api_key=settings.OPENAI_API_KEY, model_name=settings.OPENAI_MODEL,
+                       openai_api_base=settings.OPENAI_API_BASE, temperature=0.7,
+                       tags=["hallucinations"])
 
     system_prompt = CHECK_HALLUCINATIONS.format(
         documents=state.documents,
