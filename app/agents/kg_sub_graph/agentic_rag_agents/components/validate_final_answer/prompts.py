@@ -33,7 +33,7 @@ Graph Schema:
 
 Retrieved Data:
 {data}
-
+  
 """
                 ),
             ),

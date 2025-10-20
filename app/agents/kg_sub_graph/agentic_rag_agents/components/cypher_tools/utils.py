@@ -10,10 +10,12 @@ from typing import Annotated, Any, Dict, List, Optional, Callable, Coroutine
 from operator import add
 from pydantic import BaseModel, Field
 from langchain_core.language_models import BaseChatModel
-import regex as re
 from langchain_core.runnables.base import Runnable
 from langchain_neo4j.chains.graph_qa.cypher_utils import CypherQueryCorrector, Schema
 from neo4j.exceptions import CypherSyntaxError
+from app.agents.kg_sub_graph.agentic_rag_agents.components.utils.utils import (
+    retrieve_and_parse_schema_from_graph_for_prompts,
+)
 
 # 设置Neo4j驱动的日志级别为ERROR，禁止WARNING消息
 logging.getLogger("neo4j").setLevel(logging.ERROR)
@@ -138,50 +140,6 @@ def correct_cypher_query_relationship_direction(
     corrected_cypher: str = cypher_query_corrector(cypher_statement)
 
     return corrected_cypher
-
-
-def get_cypher_query_node_graph_schema() -> str:
-    # 以 "- CypherQuery" 开始的整个段落，直到 "Relationship properties" 或 "- " 为止
-    return r"^(- \*\*CypherQuery\*\*[\s\S]+?)(^Relationship properties|- \*)"
-
-def retrieve_and_parse_schema_from_graph_for_prompts(graph: Neo4jGraph) -> str:
-    
-    """
-    关键点：
-    schema 指的是 Neo4j 数据库的结构描述，包括：
-    - 节点类型：如 Product, Category, Supplier 等
-    - 节点属性：如 ProductName, UnitPrice, CategoryName 等
-    - 关系类型：如 BELONGS_TO, SUPPLIED_BY, CONTAINS 等
-    - 关系属性：关系上可能的属性（如有）
-
-    提取出来的Schema 大致如下：
-    Node properties:
-        - **Product**: ProductID, ProductName, UnitPrice, UnitsInStock...
-        - **Category**: CategoryID, CategoryName, Description...
-
-    Relationship properties:
-        - **BELONGS_TO**: 
-        - **SUPPLIED_BY**: 
-    
-    必要性：
-    1. 动态适应数据库变化：如果数据库结构变化（新增节点类型、关系或属性），系统无需修改代码即可适应
-    2. 提高查询准确性：通过向大语言模型提供准确的数据库结构，大大降低生成错误查询的可能性
-    3. 促进零样本学习：即使没有特定领域的示例，模型也能根据提供的结构信息生成符合语法的查询
-    """
-    
-    schema: str = graph.get_schema
-
-    # 过滤掉对用户查询不相关的内部结构信息
-    if "CypherQuery" in schema:
-        schema = re.sub(  
-            get_cypher_query_node_graph_schema(), r"\2", schema, flags=re.MULTILINE
-        )
-    
-    # 在这里添加一行：将所有花括号替换为方括号，避免模板变量冲突
-    # 因为 Schema 中包含 { } ，会与 ChatPromptTemplate 模版中的 input_variables 
-    schema = schema.replace("{", "[").replace("}", "]")
-    
-    return schema
 
 
 async def validate_cypher_query_with_llm(
