@@ -169,7 +169,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_gongbao_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_gongbao_1, @tool_board, '切丁'),
     (@step_gongbao_1, @tool_knife, '切丁'),
     (@step_gongbao_1, @tool_mix_bowl, '腌制');
@@ -184,7 +184,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_gongbao_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_gongbao_2, @tool_wok, '炸制'),
     (@step_gongbao_2, @tool_spatula, '翻炒');
 
@@ -198,7 +198,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_gongbao_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_gongbao_3, @tool_wok, '爆炒'),
     (@step_gongbao_3, @tool_spatula, '翻炒');
 
@@ -244,7 +244,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_bass_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_bass_1, @tool_board, '清理'),
     (@step_bass_1, @tool_knife, '改刀');
 
@@ -258,7 +258,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_bass_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_bass_2, @tool_marinade_bowl, '腌制');
 
 INSERT INTO recipe_steps (
@@ -271,7 +271,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_bass_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_bass_3, @tool_steamer, '蒸制'),
     (@step_bass_3, @tool_spatula, '淋油');
 
@@ -311,7 +311,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_brisket_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_brisket_1, @tool_soup_pot, '焯水');
 
 INSERT INTO recipe_steps (
@@ -324,7 +324,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_brisket_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_brisket_2, @tool_soup_pot, '炖煮');
 
 INSERT INTO recipe_steps (
@@ -337,7 +337,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_brisket_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_brisket_3, @tool_soup_pot, '收汁');
 
 INSERT INTO recipe_ingredients (
@@ -381,7 +381,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_broccoli_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_broccoli_1, @tool_soup_pot, '焯烫');
 
 INSERT INTO recipe_steps (
@@ -394,7 +394,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_broccoli_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_broccoli_2, @tool_mix_bowl, '调酱');
 
 INSERT INTO recipe_steps (
@@ -407,7 +407,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_broccoli_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_broccoli_3, @tool_wok, '翻炒'),
     (@step_broccoli_3, @tool_spatula, '翻炒');
 
@@ -446,7 +446,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_pork_pepper_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_pork_pepper_1, @tool_board, '切丝'),
     (@step_pork_pepper_1, @tool_knife, '切丝'),
     (@step_pork_pepper_1, @tool_mix_bowl, '腌制');
@@ -461,7 +461,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_pork_pepper_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_pork_pepper_2, @tool_wok, '滑炒'),
     (@step_pork_pepper_2, @tool_spatula, '翻炒');
 
@@ -475,7 +475,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_pork_pepper_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_pork_pepper_3, @tool_wok, '翻炒'),
     (@step_pork_pepper_3, @tool_spatula, '翻炒');
 
@@ -519,7 +519,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_ribs_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_ribs_1, @tool_soup_pot, '焯水');
 
 INSERT INTO recipe_steps (
@@ -532,7 +532,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_ribs_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_ribs_2, @tool_wok, '煸炒'),
     (@step_ribs_2, @tool_spatula, '翻炒');
 
@@ -546,7 +546,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_ribs_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_ribs_3, @tool_soup_pot, '焖煮'),
     (@step_ribs_3, @tool_spatula, '收汁');
 
@@ -587,7 +587,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_yuxiang_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_yuxiang_1, @tool_board, '切丝'),
     (@step_yuxiang_1, @tool_knife, '切丝'),
     (@step_yuxiang_1, @tool_mix_bowl, '腌制');
@@ -602,7 +602,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_yuxiang_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_yuxiang_2, @tool_mix_bowl, '调汁');
 
 INSERT INTO recipe_steps (
@@ -615,7 +615,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_yuxiang_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_yuxiang_3, @tool_wok, '翻炒'),
     (@step_yuxiang_3, @tool_spatula, '翻炒');
 
@@ -661,7 +661,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_mapo_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_mapo_1, @tool_board, '切块'),
     (@step_mapo_1, @tool_knife, '切块'),
     (@step_mapo_1, @tool_soup_pot, '焯烫');
@@ -676,7 +676,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_mapo_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_mapo_2, @tool_wok, '煸炒'),
     (@step_mapo_2, @tool_spatula, '翻炒');
 
@@ -690,7 +690,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_mapo_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_mapo_3, @tool_wok, '焖煮'),
     (@step_mapo_3, @tool_spatula, '勾芡');
 
@@ -733,7 +733,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_tomato_egg_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_tomato_egg_1, @tool_mix_bowl, '打蛋'),
     (@step_tomato_egg_1, @tool_board, '切块'),
     (@step_tomato_egg_1, @tool_knife, '切块');
@@ -748,7 +748,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_tomato_egg_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_tomato_egg_2, @tool_wok, '炒蛋'),
     (@step_tomato_egg_2, @tool_spatula, '翻炒');
 
@@ -762,7 +762,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_tomato_egg_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_tomato_egg_3, @tool_wok, '翻炒'),
     (@step_tomato_egg_3, @tool_spatula, '翻炒');
 
@@ -801,7 +801,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_suanla_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_suanla_1, @tool_board, '切丝'),
     (@step_suanla_1, @tool_knife, '切丝'),
     (@step_suanla_1, @tool_mix_bowl, '浸泡');
@@ -816,7 +816,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_suanla_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_suanla_2, @tool_wok, '炝锅'),
     (@step_suanla_2, @tool_spatula, '翻动');
 
@@ -830,7 +830,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_suanla_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_suanla_3, @tool_wok, '翻炒'),
     (@step_suanla_3, @tool_spatula, '翻炒');
 
@@ -871,7 +871,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_garlic_chicken_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_garlic_chicken_1, @tool_board, '去骨'),
     (@step_garlic_chicken_1, @tool_knife, '切块'),
     (@step_garlic_chicken_1, @tool_mix_bowl, '腌制');
@@ -886,7 +886,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_garlic_chicken_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_garlic_chicken_2, @tool_flat_pan, '煎制'),
     (@step_garlic_chicken_2, @tool_spatula, '翻面');
 
@@ -900,7 +900,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_garlic_chicken_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_garlic_chicken_3, @tool_flat_pan, '收汁'),
     (@step_garlic_chicken_3, @tool_spatula, '翻炒');
 
@@ -940,7 +940,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_blackpepper_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_blackpepper_1, @tool_board, '切条'),
     (@step_blackpepper_1, @tool_knife, '切条'),
     (@step_blackpepper_1, @tool_mix_bowl, '腌制');
@@ -955,7 +955,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_blackpepper_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_blackpepper_2, @tool_wok, '滑炒'),
     (@step_blackpepper_2, @tool_spatula, '翻炒');
 
@@ -969,7 +969,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_blackpepper_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_blackpepper_3, @tool_wok, '翻炒'),
     (@step_blackpepper_3, @tool_spatula, '翻炒');
 
@@ -1011,7 +1011,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_mushroom_greens_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_mushroom_greens_1, @tool_soup_pot, '焯烫');
 
 INSERT INTO recipe_steps (
@@ -1024,7 +1024,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_mushroom_greens_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_mushroom_greens_2, @tool_wok, '翻炒'),
     (@step_mushroom_greens_2, @tool_spatula, '翻炒');
 
@@ -1038,7 +1038,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_mushroom_greens_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_mushroom_greens_3, @tool_wok, '翻炒'),
     (@step_mushroom_greens_3, @tool_spatula, '翻炒');
 
@@ -1078,7 +1078,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_shrimp_corn_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_shrimp_corn_1, @tool_board, '处理'),
     (@step_shrimp_corn_1, @tool_knife, '切丁'),
     (@step_shrimp_corn_1, @tool_soup_pot, '焯水');
@@ -1093,7 +1093,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_shrimp_corn_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_shrimp_corn_2, @tool_wok, '滑炒'),
     (@step_shrimp_corn_2, @tool_spatula, '翻炒');
 
@@ -1107,7 +1107,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_shrimp_corn_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_shrimp_corn_3, @tool_wok, '翻炒'),
     (@step_shrimp_corn_3, @tool_spatula, '翻炒');
 
@@ -1148,7 +1148,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_shrimp_vermicelli_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_shrimp_vermicelli_1, @tool_mix_bowl, '泡发');
 
 INSERT INTO recipe_steps (
@@ -1161,7 +1161,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_shrimp_vermicelli_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_shrimp_vermicelli_2, @tool_mix_bowl, '调味');
 
 INSERT INTO recipe_steps (
@@ -1174,7 +1174,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_shrimp_vermicelli_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_shrimp_vermicelli_3, @tool_steamer, '蒸制');
 
 INSERT INTO recipe_ingredients (
@@ -1212,7 +1212,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_zucchini_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_zucchini_1, @tool_board, '切片'),
     (@step_zucchini_1, @tool_knife, '切配');
 
@@ -1226,7 +1226,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_zucchini_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_zucchini_2, @tool_wok, '爆香'),
     (@step_zucchini_2, @tool_spatula, '翻炒');
 
@@ -1240,7 +1240,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_zucchini_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_zucchini_3, @tool_wok, '翻炒'),
     (@step_zucchini_3, @tool_spatula, '翻炒');
 
@@ -1279,7 +1279,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_lemon_salmon_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_lemon_salmon_1, @tool_board, '切块'),
     (@step_lemon_salmon_1, @tool_knife, '切块'),
     (@step_lemon_salmon_1, @tool_marinade_bowl, '腌制');
@@ -1294,7 +1294,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_lemon_salmon_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_lemon_salmon_2, @tool_steamer, '蒸制');
 
 INSERT INTO recipe_steps (
@@ -1307,7 +1307,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_lemon_salmon_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_lemon_salmon_3, @tool_marinade_bowl, '调味');
 
 INSERT INTO recipe_ingredients (
@@ -1345,7 +1345,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_blackbean_ribs_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_blackbean_ribs_1, @tool_board, '切段'),
     (@step_blackbean_ribs_1, @tool_knife, '切段'),
     (@step_blackbean_ribs_1, @tool_marinade_bowl, '腌制');
@@ -1360,7 +1360,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_blackbean_ribs_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_blackbean_ribs_2, @tool_steamer, '蒸制');
 
 INSERT INTO recipe_steps (
@@ -1373,7 +1373,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_blackbean_ribs_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_blackbean_ribs_3, @tool_marinade_bowl, '调味');
 
 INSERT INTO recipe_ingredients (
@@ -1413,7 +1413,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_home_tofu_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_home_tofu_1, @tool_board, '切块'),
     (@step_home_tofu_1, @tool_knife, '切片'),
     (@step_home_tofu_1, @tool_soup_pot, '焯烫');
@@ -1428,7 +1428,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_home_tofu_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_home_tofu_2, @tool_flat_pan, '煎制'),
     (@step_home_tofu_2, @tool_spatula, '翻面');
 
@@ -1442,7 +1442,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_home_tofu_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_home_tofu_3, @tool_wok, '翻炒'),
     (@step_home_tofu_3, @tool_spatula, '翻炒');
 
@@ -1485,7 +1485,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_pepper_shrimp_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_pepper_shrimp_1, @tool_mix_bowl, '腌制');
 
 INSERT INTO recipe_steps (
@@ -1498,7 +1498,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_pepper_shrimp_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_pepper_shrimp_2, @tool_wok, '炝锅'),
     (@step_pepper_shrimp_2, @tool_spatula, '翻动');
 
@@ -1512,7 +1512,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_pepper_shrimp_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_pepper_shrimp_3, @tool_wok, '翻炒'),
     (@step_pepper_shrimp_3, @tool_spatula, '翻炒');
 
@@ -1558,7 +1558,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_ginger_beef_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_ginger_beef_1, @tool_board, '切条'),
     (@step_ginger_beef_1, @tool_knife, '切条'),
     (@step_ginger_beef_1, @tool_mix_bowl, '腌制');
@@ -1573,7 +1573,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_ginger_beef_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_ginger_beef_2, @tool_wok, '滑炒'),
     (@step_ginger_beef_2, @tool_spatula, '翻炒');
 
@@ -1587,7 +1587,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_ginger_beef_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_ginger_beef_3, @tool_wok, '翻炒'),
     (@step_ginger_beef_3, @tool_spatula, '翻炒');
 
@@ -1629,7 +1629,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_two_pepper_chicken_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_two_pepper_chicken_1, @tool_board, '切丁'),
     (@step_two_pepper_chicken_1, @tool_knife, '切丁'),
     (@step_two_pepper_chicken_1, @tool_mix_bowl, '腌制');
@@ -1644,7 +1644,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_two_pepper_chicken_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_two_pepper_chicken_2, @tool_wok, '滑炒'),
     (@step_two_pepper_chicken_2, @tool_spatula, '翻炒');
 
@@ -1658,7 +1658,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_two_pepper_chicken_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_two_pepper_chicken_3, @tool_wok, '翻炒'),
     (@step_two_pepper_chicken_3, @tool_spatula, '翻炒');
 
@@ -1703,7 +1703,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_broccoli_shrimp_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_broccoli_shrimp_1, @tool_soup_pot, '焯烫'),
     (@step_broccoli_shrimp_1, @tool_mix_bowl, '腌制');
 
@@ -1717,7 +1717,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_broccoli_shrimp_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_broccoli_shrimp_2, @tool_wok, '滑炒'),
     (@step_broccoli_shrimp_2, @tool_spatula, '翻炒');
 
@@ -1731,7 +1731,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_broccoli_shrimp_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_broccoli_shrimp_3, @tool_wok, '翻炒'),
     (@step_broccoli_shrimp_3, @tool_spatula, '翻炒');
 
@@ -1772,7 +1772,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_corn_pea_chicken_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_corn_pea_chicken_1, @tool_board, '切丁'),
     (@step_corn_pea_chicken_1, @tool_knife, '切丁'),
     (@step_corn_pea_chicken_1, @tool_mix_bowl, '腌制'),
@@ -1788,7 +1788,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_corn_pea_chicken_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_corn_pea_chicken_2, @tool_wok, '滑炒'),
     (@step_corn_pea_chicken_2, @tool_spatula, '翻炒');
 
@@ -1802,7 +1802,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_corn_pea_chicken_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_corn_pea_chicken_3, @tool_wok, '翻炒'),
     (@step_corn_pea_chicken_3, @tool_spatula, '翻炒');
 
@@ -1845,7 +1845,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_douban_potato_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_douban_potato_1, @tool_board, '切块'),
     (@step_douban_potato_1, @tool_knife, '切块'),
     (@step_douban_potato_1, @tool_mix_bowl, '浸泡');
@@ -1860,7 +1860,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_douban_potato_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_douban_potato_2, @tool_wok, '煸炒'),
     (@step_douban_potato_2, @tool_spatula, '翻炒');
 
@@ -1874,7 +1874,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_douban_potato_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_douban_potato_3, @tool_wok, '焖煮'),
     (@step_douban_potato_3, @tool_spatula, '收汁');
 
@@ -1916,7 +1916,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_bokchoy_tofu_soup_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_bokchoy_tofu_soup_1, @tool_board, '切配'),
     (@step_bokchoy_tofu_soup_1, @tool_knife, '切配');
 
@@ -1930,7 +1930,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_bokchoy_tofu_soup_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_bokchoy_tofu_soup_2, @tool_soup_pot, '煸香');
 
 INSERT INTO recipe_steps (
@@ -1943,7 +1943,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_bokchoy_tofu_soup_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_bokchoy_tofu_soup_3, @tool_soup_pot, '煮汤');
 
 INSERT INTO recipe_ingredients (
@@ -1982,7 +1982,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_pan_seared_salmon_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_pan_seared_salmon_1, @tool_board, '处理'),
     (@step_pan_seared_salmon_1, @tool_knife, '处理'),
     (@step_pan_seared_salmon_1, @tool_marinade_bowl, '腌制');
@@ -1997,7 +1997,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_pan_seared_salmon_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_pan_seared_salmon_2, @tool_flat_pan, '煎制'),
     (@step_pan_seared_salmon_2, @tool_spatula, '翻面');
 
@@ -2011,7 +2011,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_pan_seared_salmon_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_pan_seared_salmon_3, @tool_flat_pan, '调味');
 
 INSERT INTO recipe_ingredients (
@@ -2050,7 +2050,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_saucy_pork_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_saucy_pork_1, @tool_board, '切条'),
     (@step_saucy_pork_1, @tool_knife, '切条'),
     (@step_saucy_pork_1, @tool_mix_bowl, '腌制');
@@ -2065,7 +2065,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_saucy_pork_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_saucy_pork_2, @tool_flat_pan, '煎制'),
     (@step_saucy_pork_2, @tool_spatula, '翻面');
 
@@ -2079,7 +2079,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_saucy_pork_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_saucy_pork_3, @tool_wok, '裹酱'),
     (@step_saucy_pork_3, @tool_spatula, '翻炒');
 
@@ -2121,7 +2121,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_wood_ear_egg_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_wood_ear_egg_1, @tool_mix_bowl, '打蛋'),
     (@step_wood_ear_egg_1, @tool_board, '切丝'),
     (@step_wood_ear_egg_1, @tool_knife, '切丝');
@@ -2136,7 +2136,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_wood_ear_egg_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_wood_ear_egg_2, @tool_wok, '炒蛋'),
     (@step_wood_ear_egg_2, @tool_spatula, '翻炒');
 
@@ -2150,7 +2150,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_wood_ear_egg_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_wood_ear_egg_3, @tool_wok, '翻炒'),
     (@step_wood_ear_egg_3, @tool_spatula, '翻炒');
 
@@ -2191,7 +2191,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_potato_beef_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_potato_beef_1, @tool_board, '切丝'),
     (@step_potato_beef_1, @tool_knife, '切丝'),
     (@step_potato_beef_1, @tool_mix_bowl, '腌制');
@@ -2206,7 +2206,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_potato_beef_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_potato_beef_2, @tool_wok, '滑炒'),
     (@step_potato_beef_2, @tool_spatula, '翻炒');
 
@@ -2220,7 +2220,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_potato_beef_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_potato_beef_3, @tool_wok, '翻炒'),
     (@step_potato_beef_3, @tool_spatula, '翻炒');
 
@@ -2263,7 +2263,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_mushroom_chicken_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_mushroom_chicken_1, @tool_board, '切配'),
     (@step_mushroom_chicken_1, @tool_knife, '切配'),
     (@step_mushroom_chicken_1, @tool_mix_bowl, '腌制');
@@ -2278,7 +2278,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_mushroom_chicken_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_mushroom_chicken_2, @tool_wok, '滑炒'),
     (@step_mushroom_chicken_2, @tool_spatula, '翻炒');
 
@@ -2292,7 +2292,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_mushroom_chicken_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_mushroom_chicken_3, @tool_wok, '翻炒'),
     (@step_mushroom_chicken_3, @tool_spatula, '翻炒');
 
@@ -2334,7 +2334,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_beef_pepper_carrot_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_beef_pepper_carrot_1, @tool_board, '切丝'),
     (@step_beef_pepper_carrot_1, @tool_knife, '切丝'),
     (@step_beef_pepper_carrot_1, @tool_mix_bowl, '腌制');
@@ -2349,7 +2349,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_beef_pepper_carrot_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_beef_pepper_carrot_2, @tool_wok, '滑炒'),
     (@step_beef_pepper_carrot_2, @tool_spatula, '翻炒');
 
@@ -2363,7 +2363,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_beef_pepper_carrot_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_beef_pepper_carrot_3, @tool_wok, '翻炒'),
     (@step_beef_pepper_carrot_3, @tool_spatula, '翻炒');
 
@@ -2408,7 +2408,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_corn_pea_garlic_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_corn_pea_garlic_1, @tool_soup_pot, '焯烫');
 
 INSERT INTO recipe_steps (
@@ -2421,7 +2421,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_corn_pea_garlic_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_corn_pea_garlic_2, @tool_wok, '爆香'),
     (@step_corn_pea_garlic_2, @tool_spatula, '翻动');
 
@@ -2435,7 +2435,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_corn_pea_garlic_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_corn_pea_garlic_3, @tool_wok, '翻炒'),
     (@step_corn_pea_garlic_3, @tool_spatula, '翻炒');
 
@@ -2475,7 +2475,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_tomato_tofu_soup_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_tomato_tofu_soup_1, @tool_board, '切配'),
     (@step_tomato_tofu_soup_1, @tool_knife, '切配');
 
@@ -2489,7 +2489,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_tomato_tofu_soup_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_tomato_tofu_soup_2, @tool_soup_pot, '煸香');
 
 INSERT INTO recipe_steps (
@@ -2502,7 +2502,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_tomato_tofu_soup_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_tomato_tofu_soup_3, @tool_soup_pot, '煮汤');
 
 INSERT INTO recipe_ingredients (
@@ -2542,7 +2542,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_saucy_shrimp_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_saucy_shrimp_1, @tool_mix_bowl, '腌制');
 
 INSERT INTO recipe_steps (
@@ -2555,7 +2555,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_saucy_shrimp_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_saucy_shrimp_2, @tool_wok, '滑炒'),
     (@step_saucy_shrimp_2, @tool_spatula, '翻炒');
 
@@ -2569,7 +2569,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_saucy_shrimp_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_saucy_shrimp_3, @tool_wok, '翻炒'),
     (@step_saucy_shrimp_3, @tool_spatula, '翻炒');
 
@@ -2613,7 +2613,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_lemon_pan_chicken_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_lemon_pan_chicken_1, @tool_board, '处理'),
     (@step_lemon_pan_chicken_1, @tool_knife, '处理'),
     (@step_lemon_pan_chicken_1, @tool_marinade_bowl, '腌制');
@@ -2628,7 +2628,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_lemon_pan_chicken_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_lemon_pan_chicken_2, @tool_flat_pan, '煎制'),
     (@step_lemon_pan_chicken_2, @tool_spatula, '翻面');
 
@@ -2642,7 +2642,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_lemon_pan_chicken_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_lemon_pan_chicken_3, @tool_flat_pan, '调味');
 
 INSERT INTO recipe_ingredients (
@@ -2681,7 +2681,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_ginger_steam_chicken_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_ginger_steam_chicken_1, @tool_board, '切块'),
     (@step_ginger_steam_chicken_1, @tool_knife, '切块'),
     (@step_ginger_steam_chicken_1, @tool_marinade_bowl, '腌制');
@@ -2696,7 +2696,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_ginger_steam_chicken_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_ginger_steam_chicken_2, @tool_steamer, '蒸制');
 
 INSERT INTO recipe_steps (
@@ -2709,7 +2709,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_ginger_steam_chicken_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_ginger_steam_chicken_3, @tool_marinade_bowl, '调味');
 
 INSERT INTO recipe_ingredients (
@@ -2749,7 +2749,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_blackbean_steam_bass_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_blackbean_steam_bass_1, @tool_board, '改刀'),
     (@step_blackbean_steam_bass_1, @tool_knife, '改刀'),
     (@step_blackbean_steam_bass_1, @tool_marinade_bowl, '调酱');
@@ -2764,7 +2764,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_blackbean_steam_bass_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_blackbean_steam_bass_2, @tool_steamer, '蒸制');
 
 INSERT INTO recipe_steps (
@@ -2777,7 +2777,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_blackbean_steam_bass_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_blackbean_steam_bass_3, @tool_marinade_bowl, '调味');
 
 INSERT INTO recipe_ingredients (
@@ -2818,7 +2818,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_sichuan_potato_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_sichuan_potato_1, @tool_board, '切片'),
     (@step_sichuan_potato_1, @tool_knife, '切片'),
     (@step_sichuan_potato_1, @tool_mix_bowl, '浸泡');
@@ -2833,7 +2833,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_sichuan_potato_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_sichuan_potato_2, @tool_wok, '炝锅'),
     (@step_sichuan_potato_2, @tool_spatula, '翻动');
 
@@ -2847,7 +2847,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_sichuan_potato_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_sichuan_potato_3, @tool_wok, '翻炒'),
     (@step_sichuan_potato_3, @tool_spatula, '翻炒');
 
@@ -2888,7 +2888,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_steamed_broccoli_garlic_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_steamed_broccoli_garlic_1, @tool_soup_pot, '焯烫');
 
 INSERT INTO recipe_steps (
@@ -2901,7 +2901,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_steamed_broccoli_garlic_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_steamed_broccoli_garlic_2, @tool_steamer, '蒸制');
 
 INSERT INTO recipe_steps (
@@ -2914,7 +2914,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_steamed_broccoli_garlic_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_steamed_broccoli_garlic_3, @tool_wok, '调汁'),
     (@step_steamed_broccoli_garlic_3, @tool_spatula, '搅拌');
 
@@ -2953,7 +2953,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_double_pepper_beef_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_double_pepper_beef_1, @tool_board, '切丝'),
     (@step_double_pepper_beef_1, @tool_knife, '切丝'),
     (@step_double_pepper_beef_1, @tool_mix_bowl, '腌制');
@@ -2968,7 +2968,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_double_pepper_beef_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_double_pepper_beef_2, @tool_wok, '滑炒'),
     (@step_double_pepper_beef_2, @tool_spatula, '翻炒');
 
@@ -2982,7 +2982,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_double_pepper_beef_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_double_pepper_beef_3, @tool_wok, '翻炒'),
     (@step_double_pepper_beef_3, @tool_spatula, '翻炒');
 
@@ -3027,7 +3027,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_stirfried_bokchoy_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_stirfried_bokchoy_1, @tool_board, '切段'),
     (@step_stirfried_bokchoy_1, @tool_knife, '切段');
 
@@ -3041,7 +3041,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_stirfried_bokchoy_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_stirfried_bokchoy_2, @tool_wok, '爆香'),
     (@step_stirfried_bokchoy_2, @tool_spatula, '翻动');
 
@@ -3055,7 +3055,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_stirfried_bokchoy_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_stirfried_bokchoy_3, @tool_wok, '翻炒'),
     (@step_stirfried_bokchoy_3, @tool_spatula, '翻炒');
 
@@ -3093,7 +3093,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_sweet_sour_chicken_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_sweet_sour_chicken_1, @tool_board, '切丁'),
     (@step_sweet_sour_chicken_1, @tool_knife, '切丁'),
     (@step_sweet_sour_chicken_1, @tool_mix_bowl, '腌制');
@@ -3108,7 +3108,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_sweet_sour_chicken_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_sweet_sour_chicken_2, @tool_flat_pan, '煎制'),
     (@step_sweet_sour_chicken_2, @tool_spatula, '翻面');
 
@@ -3122,7 +3122,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_sweet_sour_chicken_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_sweet_sour_chicken_3, @tool_wok, '翻炒'),
     (@step_sweet_sour_chicken_3, @tool_spatula, '翻炒');
 
@@ -3165,7 +3165,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_carrot_egg_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_carrot_egg_1, @tool_mix_bowl, '打蛋'),
     (@step_carrot_egg_1, @tool_board, '切丝'),
     (@step_carrot_egg_1, @tool_knife, '切丝');
@@ -3180,7 +3180,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_carrot_egg_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_carrot_egg_2, @tool_wok, '炒蛋'),
     (@step_carrot_egg_2, @tool_spatula, '翻炒');
 
@@ -3194,7 +3194,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_carrot_egg_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_carrot_egg_3, @tool_wok, '翻炒'),
     (@step_carrot_egg_3, @tool_spatula, '翻炒');
 
@@ -3234,7 +3234,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_corn_pea_soup_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_corn_pea_soup_1, @tool_soup_pot, '焯水');
 
 INSERT INTO recipe_steps (
@@ -3247,7 +3247,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_corn_pea_soup_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_corn_pea_soup_2, @tool_soup_pot, '煮汤');
 
 INSERT INTO recipe_steps (
@@ -3260,7 +3260,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_corn_pea_soup_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_corn_pea_soup_3, @tool_soup_pot, '调味');
 
 INSERT INTO recipe_ingredients (
@@ -3299,7 +3299,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_pan_chicken_thigh_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_pan_chicken_thigh_1, @tool_board, '去骨'),
     (@step_pan_chicken_thigh_1, @tool_knife, '处理'),
     (@step_pan_chicken_thigh_1, @tool_marinade_bowl, '腌制');
@@ -3314,7 +3314,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_pan_chicken_thigh_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_pan_chicken_thigh_2, @tool_flat_pan, '煎制'),
     (@step_pan_chicken_thigh_2, @tool_spatula, '翻面');
 
@@ -3328,7 +3328,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_pan_chicken_thigh_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_pan_chicken_thigh_3, @tool_flat_pan, '调味');
 
 INSERT INTO recipe_ingredients (
@@ -3368,7 +3368,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_saucy_tofu_casserole_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_saucy_tofu_casserole_1, @tool_board, '切块'),
     (@step_saucy_tofu_casserole_1, @tool_knife, '切片'),
     (@step_saucy_tofu_casserole_1, @tool_mix_bowl, '腌制');
@@ -3383,7 +3383,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_saucy_tofu_casserole_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_saucy_tofu_casserole_2, @tool_wok, '煸香'),
     (@step_saucy_tofu_casserole_2, @tool_spatula, '翻炒');
 
@@ -3397,7 +3397,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_saucy_tofu_casserole_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_saucy_tofu_casserole_3, @tool_wok, '焖煮'),
     (@step_saucy_tofu_casserole_3, @tool_spatula, '翻拌');
 
@@ -3441,7 +3441,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_tomato_shrimp_egg_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_tomato_shrimp_egg_1, @tool_mix_bowl, '腌制/打蛋'),
     (@step_tomato_shrimp_egg_1, @tool_board, '切块'),
     (@step_tomato_shrimp_egg_1, @tool_knife, '切块');
@@ -3456,7 +3456,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_tomato_shrimp_egg_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_tomato_shrimp_egg_2, @tool_wok, '炒蛋'),
     (@step_tomato_shrimp_egg_2, @tool_spatula, '翻炒');
 
@@ -3470,7 +3470,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_tomato_shrimp_egg_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_tomato_shrimp_egg_3, @tool_wok, '翻炒'),
     (@step_tomato_shrimp_egg_3, @tool_spatula, '翻炒');
 
@@ -3512,7 +3512,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_pork_potato_pepper_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_pork_potato_pepper_1, @tool_board, '切丝'),
     (@step_pork_potato_pepper_1, @tool_knife, '切丝'),
     (@step_pork_potato_pepper_1, @tool_mix_bowl, '腌制');
@@ -3527,7 +3527,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_pork_potato_pepper_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_pork_potato_pepper_2, @tool_wok, '滑炒'),
     (@step_pork_potato_pepper_2, @tool_spatula, '翻炒');
 
@@ -3541,7 +3541,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_pork_potato_pepper_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_pork_potato_pepper_3, @tool_wok, '翻炒'),
     (@step_pork_potato_pepper_3, @tool_spatula, '翻炒');
 
@@ -3585,7 +3585,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_zucchini_shrimp_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_zucchini_shrimp_1, @tool_mix_bowl, '腌制'),
     (@step_zucchini_shrimp_1, @tool_board, '切片'),
     (@step_zucchini_shrimp_1, @tool_knife, '切片');
@@ -3600,7 +3600,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_zucchini_shrimp_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_zucchini_shrimp_2, @tool_wok, '滑炒'),
     (@step_zucchini_shrimp_2, @tool_spatula, '翻炒');
 
@@ -3614,7 +3614,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_zucchini_shrimp_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_zucchini_shrimp_3, @tool_wok, '翻炒'),
     (@step_zucchini_shrimp_3, @tool_spatula, '翻炒');
 
@@ -3657,7 +3657,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_pepper_beef_mushroom_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_pepper_beef_mushroom_1, @tool_board, '切条'),
     (@step_pepper_beef_mushroom_1, @tool_knife, '切条'),
     (@step_pepper_beef_mushroom_1, @tool_mix_bowl, '腌制');
@@ -3672,7 +3672,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_pepper_beef_mushroom_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_pepper_beef_mushroom_2, @tool_wok, '滑炒'),
     (@step_pepper_beef_mushroom_2, @tool_spatula, '翻炒');
 
@@ -3686,7 +3686,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_pepper_beef_mushroom_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_pepper_beef_mushroom_3, @tool_wok, '翻炒'),
     (@step_pepper_beef_mushroom_3, @tool_spatula, '翻炒');
 
@@ -3729,7 +3729,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_lemon_steam_shrimp_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_lemon_steam_shrimp_1, @tool_mix_bowl, '腌制');
 
 INSERT INTO recipe_steps (
@@ -3742,7 +3742,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_lemon_steam_shrimp_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_lemon_steam_shrimp_2, @tool_marinade_bowl, '摆盘');
 
 INSERT INTO recipe_steps (
@@ -3755,11 +3755,11 @@ INSERT INTO recipe_steps (
 );
 SET @step_lemon_steam_shrimp_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_lemon_steam_shrimp_3, @tool_steamer, '蒸制');
 
 INSERT INTO recipe_ingredients (
-    recipe_id, ingredient_id, quantity, unit, prep_method, prep时间,
+    recipe_id, ingredient_id, quantity, unit, prep_method, prep_time,
     is_main, substitute, adjusted_calories, ingredient_type
 ) VALUES
     (@recipe_lemon_steam_shrimp, @ing_shrimp, '240', 'g', '腌制', 5, 1, NULL, 228.00, 'main'),
@@ -3773,7 +3773,7 @@ INSERT INTO recipe_ingredients (
 
 -- Recipe 53: 香葱牛肉煎饼
 INSERT INTO recipes (
-    name, description, image_url, video_url, total time, servings, difficulty,
+    name, description, image_url, video_url, total_time, servings, difficulty,
     cuisine_id, total_calories, total_protein, total_carbs, total_fat
 ) VALUES (
     '香葱牛肉煎饼',
@@ -3795,7 +3795,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_beef_pancake_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_beef_pancake_1, @tool_mix_bowl, '调糊');
 
 INSERT INTO recipe_steps (
@@ -3808,7 +3808,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_beef_pancake_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_beef_pancake_2, @tool_flat_pan, '煎制'),
     (@step_beef_pancake_2, @tool_spatula, '翻面');
 
@@ -3822,7 +3822,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_beef_pancake_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_beef_pancake_3, @tool_flat_pan, '调味');
 
 INSERT INTO recipe_ingredients (
@@ -3863,7 +3863,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_broccoli_beef_cubes_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_broccoli_beef_cubes_1, @tool_board, '切块'),
     (@step_broccoli_beef_cubes_1, @tool_knife, '切块'),
     (@step_broccoli_beef_cubes_1, @tool_mix_bowl, '腌制'),
@@ -3879,7 +3879,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_broccoli_beef_cubes_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_broccoli_beef_cubes_2, @tool_wok, '滑炒'),
     (@step_broccoli_beef_cubes_2, @tool_spatula, '翻炒');
 
@@ -3893,7 +3893,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_broccoli_beef_cubes_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_broccoli_beef_cubes_3, @tool_wok, '翻炒'),
     (@step_broccoli_beef_cubes_3, @tool_spatula, '翻炒');
 
@@ -3935,7 +3935,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_peanut_potato_chicken_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_peanut_potato_chicken_1, @tool_board, '切丁'),
     (@step_peanut_potato_chicken_1, @tool_knife, '切丁'),
     (@step_peanut_potato_chicken_1, @tool_mix_bowl, '腌制');
@@ -3950,7 +3950,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_peanut_potato_chicken_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_peanut_potato_chicken_2, @tool_flat_pan, '煎制'),
     (@step_peanut_potato_chicken_2, @tool_spatula, '翻动');
 
@@ -3964,7 +3964,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_peanut_potato_chicken_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_peanut_potato_chicken_3, @tool_wok, '翻炒'),
     (@step_peanut_potato_chicken_3, @tool_spatula, '翻炒');
 
@@ -4010,7 +4010,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_spicy_pea_corn_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_spicy_pea_corn_1, @tool_soup_pot, '焯烫');
 
 INSERT INTO recipe_steps (
@@ -4023,7 +4023,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_spicy_pea_corn_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_spicy_pea_corn_2, @tool_wok, '爆香'),
     (@step_spicy_pea_corn_2, @tool_spatula, '翻动');
 
@@ -4037,7 +4037,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_spicy_pea_corn_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_spicy_pea_corn_3, @tool_wok, '翻炒'),
     (@step_spicy_pea_corn_3, @tool_spatula, '翻炒');
 
@@ -4080,7 +4080,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_tomato_shrimp_soup_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_tomato_shrimp_soup_1, @tool_mix_bowl, '腌制/打蛋'),
     (@step_tomato_shrimp_soup_1, @tool_board, '切丁'),
     (@step_tomato_shrimp_soup_1, @tool_knife, '切丁');
@@ -4095,7 +4095,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_tomato_shrimp_soup_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_tomato_shrimp_soup_2, @tool_soup_pot, '煸香');
 
 INSERT INTO recipe_steps (
@@ -4108,7 +4108,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_tomato_shrimp_soup_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_tomato_shrimp_soup_3, @tool_soup_pot, '煮汤');
 
 INSERT INTO recipe_ingredients (
@@ -4148,7 +4148,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_zucchini_tofu_casserole_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_zucchini_tofu_casserole_1, @tool_board, '切块'),
     (@step_zucchini_tofu_casserole_1, @tool_knife, '切块');
 
@@ -4162,7 +4162,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_zucchini_tofu_casserole_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_zucchini_tofu_casserole_2, @tool_wok, '翻炒'),
     (@step_zucchini_tofu_casserole_2, @tool_spatula, '翻炒');
 
@@ -4176,7 +4176,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_zucchini_tofu_casserole_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_zucchini_tofu_casserole_3, @tool_wok, '焖煮'),
     (@step_zucchini_tofu_casserole_3, @tool_spatula, '轻推');
 
@@ -4218,7 +4218,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_scallion_brisket_soup_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_scallion_brisket_soup_1, @tool_soup_pot, '焯水');
 
 INSERT INTO recipe_steps (
@@ -4231,7 +4231,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_scallion_brisket_soup_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_scallion_brisket_soup_2, @tool_soup_pot, '炖煮');
 
 INSERT INTO recipe_steps (
@@ -4244,7 +4244,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_scallion_brisket_soup_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_scallion_brisket_soup_3, @tool_soup_pot, '调味');
 
 INSERT INTO recipe_ingredients (
@@ -4282,7 +4282,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_lemon_braised_chicken_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_lemon_braised_chicken_1, @tool_board, '切块'),
     (@step_lemon_braised_chicken_1, @tool_knife, '切块'),
     (@step_lemon_braised_chicken_1, @tool_mix_bowl, '腌制');
@@ -4297,7 +4297,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_lemon_braised_chicken_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_lemon_braised_chicken_2, @tool_wok, '煸香'),
     (@step_lemon_braised_chicken_2, @tool_spatula, '翻面');
 
@@ -4311,7 +4311,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_lemon_braised_chicken_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_lemon_braised_chicken_3, @tool_wok, '炖煮'),
     (@step_lemon_braised_chicken_3, @tool_spatula, '轻推');
 
@@ -4354,7 +4354,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_pepper_potato_shrimp_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_pepper_potato_shrimp_1, @tool_board, '切片'),
     (@step_recipe_pepper_potato_shrimp_1, @tool_knife, '切片'),
     (@step_recipe_pepper_potato_shrimp_1, @tool_mix_bowl, '腌制');
@@ -4369,7 +4369,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_pepper_potato_shrimp_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_pepper_potato_shrimp_2, @tool_flat_pan, '煎制'),
     (@step_recipe_pepper_potato_shrimp_2, @tool_spatula, '翻面');
 
@@ -4383,7 +4383,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_pepper_potato_shrimp_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_pepper_potato_shrimp_3, @tool_wok, '翻炒'),
     (@step_recipe_pepper_potato_shrimp_3, @tool_spatula, '翻炒');
 
@@ -4426,7 +4426,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_douban_broccoli_brisket_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_douban_broccoli_brisket_1, @tool_soup_pot, '焯水');
 
 INSERT INTO recipe_steps (
@@ -4439,7 +4439,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_douban_broccoli_brisket_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_douban_broccoli_brisket_2, @tool_wok, '煸香'),
     (@step_recipe_douban_broccoli_brisket_2, @tool_spatula, '翻炒');
 
@@ -4453,7 +4453,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_douban_broccoli_brisket_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_douban_broccoli_brisket_3, @tool_wok, '翻炒'),
     (@step_recipe_douban_broccoli_brisket_3, @tool_spatula, '翻炒');
 
@@ -4494,7 +4494,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_shiitake_egg_soup_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_shiitake_egg_soup_1, @tool_board, '切丝'),
     (@step_recipe_shiitake_egg_soup_1, @tool_knife, '切丝'),
     (@step_recipe_shiitake_egg_soup_1, @tool_mix_bowl, '打蛋');
@@ -4509,7 +4509,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_shiitake_egg_soup_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_shiitake_egg_soup_2, @tool_soup_pot, '煸香');
 
 INSERT INTO recipe_steps (
@@ -4522,7 +4522,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_shiitake_egg_soup_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_shiitake_egg_soup_3, @tool_soup_pot, '煮汤');
 
 INSERT INTO recipe_ingredients (
@@ -4561,7 +4561,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_sichuan_pepper_chicken_shreds_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_sichuan_pepper_chicken_shreds_1, @tool_board, '切丝'),
     (@step_recipe_sichuan_pepper_chicken_shreds_1, @tool_knife, '切丝'),
     (@step_recipe_sichuan_pepper_chicken_shreds_1, @tool_mix_bowl, '腌制');
@@ -4576,7 +4576,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_sichuan_pepper_chicken_shreds_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_sichuan_pepper_chicken_shreds_2, @tool_wok, '炝锅'),
     (@step_recipe_sichuan_pepper_chicken_shreds_2, @tool_spatula, '翻动');
 
@@ -4590,7 +4590,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_sichuan_pepper_chicken_shreds_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_sichuan_pepper_chicken_shreds_3, @tool_wok, '翻炒'),
     (@step_recipe_sichuan_pepper_chicken_shreds_3, @tool_spatula, '翻炒');
 
@@ -4633,7 +4633,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_chilled_tofu_sesame_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_chilled_tofu_sesame_1, @tool_board, '切块'),
     (@step_recipe_chilled_tofu_sesame_1, @tool_knife, '切末'),
     (@step_recipe_chilled_tofu_sesame_1, @tool_mix_bowl, '冰水浸泡');
@@ -4648,7 +4648,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_chilled_tofu_sesame_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_chilled_tofu_sesame_2, @tool_mix_bowl, '调汁');
 
 INSERT INTO recipe_steps (
@@ -4661,7 +4661,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_chilled_tofu_sesame_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_chilled_tofu_sesame_3, @tool_mix_bowl, '调味');
 
 INSERT INTO recipe_ingredients (
@@ -4701,7 +4701,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_sweet_sour_shrimp_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_sweet_sour_shrimp_1, @tool_mix_bowl, '腌制');
 
 INSERT INTO recipe_steps (
@@ -4714,7 +4714,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_sweet_sour_shrimp_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_sweet_sour_shrimp_2, @tool_wok, '滑炒'),
     (@step_recipe_sweet_sour_shrimp_2, @tool_spatula, '翻炒');
 
@@ -4728,7 +4728,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_sweet_sour_shrimp_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_sweet_sour_shrimp_3, @tool_wok, '调酱'),
     (@step_recipe_sweet_sour_shrimp_3, @tool_spatula, '翻炒');
 
@@ -4769,7 +4769,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_greenpepper_brisket_shreds_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_greenpepper_brisket_shreds_1, @tool_board, '切丝'),
     (@step_recipe_greenpepper_brisket_shreds_1, @tool_knife, '切丝'),
     (@step_recipe_greenpepper_brisket_shreds_1, @tool_mix_bowl, '腌制');
@@ -4784,7 +4784,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_greenpepper_brisket_shreds_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_greenpepper_brisket_shreds_2, @tool_wok, '煸炒'),
     (@step_recipe_greenpepper_brisket_shreds_2, @tool_spatula, '翻炒');
 
@@ -4798,7 +4798,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_greenpepper_brisket_shreds_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_greenpepper_brisket_shreds_3, @tool_wok, '翻炒'),
     (@step_recipe_greenpepper_brisket_shreds_3, @tool_spatula, '翻炒');
 
@@ -4842,7 +4842,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_garlic_woodear_egg_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_garlic_woodear_egg_1, @tool_mix_bowl, '泡发'),
     (@step_recipe_garlic_woodear_egg_1, @tool_board, '切丝'),
     (@step_recipe_garlic_woodear_egg_1, @tool_knife, '切丝');
@@ -4857,7 +4857,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_garlic_woodear_egg_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_garlic_woodear_egg_2, @tool_wok, '炒蛋'),
     (@step_recipe_garlic_woodear_egg_2, @tool_spatula, '翻炒');
 
@@ -4871,7 +4871,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_garlic_woodear_egg_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_garlic_woodear_egg_3, @tool_wok, '翻炒'),
     (@step_recipe_garlic_woodear_egg_3, @tool_spatula, '翻炒');
 
@@ -4911,7 +4911,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_lemon_pea_chicken_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_lemon_pea_chicken_1, @tool_board, '切丁'),
     (@step_recipe_lemon_pea_chicken_1, @tool_knife, '切丁'),
     (@step_recipe_lemon_pea_chicken_1, @tool_mix_bowl, '腌制'),
@@ -4927,7 +4927,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_lemon_pea_chicken_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_lemon_pea_chicken_2, @tool_wok, '滑炒'),
     (@step_recipe_lemon_pea_chicken_2, @tool_spatula, '翻炒');
 
@@ -4941,7 +4941,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_lemon_pea_chicken_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_lemon_pea_chicken_3, @tool_wok, '翻炒'),
     (@step_recipe_lemon_pea_chicken_3, @tool_spatula, '翻炒');
 
@@ -4983,7 +4983,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_broccoli_corn_chicken_soup_1 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_broccoli_corn_chicken_soup_1, @tool_board, '切丁'),
     (@step_recipe_broccoli_corn_chicken_soup_1, @tool_knife, '切丁'),
     (@step_recipe_broccoli_corn_chicken_soup_1, @tool_mix_bowl, '腌制');
@@ -4998,7 +4998,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_broccoli_corn_chicken_soup_2 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_broccoli_corn_chicken_soup_2, @tool_soup_pot, '煸香');
 
 INSERT INTO recipe_steps (
@@ -5011,7 +5011,7 @@ INSERT INTO recipe_steps (
 );
 SET @step_recipe_broccoli_corn_chicken_soup_3 := LAST_INSERT_ID();
 
-INSERT INTO step_tools (step_id, tool_id, usage) VALUES
+INSERT INTO step_tools (step_id, tool_id, `usage`) VALUES
     (@step_recipe_broccoli_corn_chicken_soup_3, @tool_soup_pot, '煮汤');
 
 INSERT INTO recipe_ingredients (

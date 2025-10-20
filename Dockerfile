@@ -31,13 +31,12 @@ CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 FROM neo4j:5.18 AS neo4j_seeded
 
 USER root
-RUN printf '%s\n' \
-        "deb https://mirrors.tuna.tsinghua.edu.cn/debian trixie main contrib non-free" \
-        "deb https://mirrors.tuna.tsinghua.edu.cn/debian trixie-updates main contrib non-free" \
-        "deb https://mirrors.tuna.tsinghua.edu.cn/debian-security trixie-security main contrib non-free" \
-        > /etc/apt/sources.list && \
-    rm -f /etc/apt/sources.list.d/* && \
-    apt-get update && apt-get install -y --no-install-recommends python3 python3-pip && rm -rf /var/lib/apt/lists/*
+# Use faster mirror and install Python
+RUN sed -i 's|http://deb.debian.org|https://mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list && \
+    sed -i 's|http://security.debian.org|https://mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends python3 python3-pip && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/lib/neo4j/build
 COPY data ./data

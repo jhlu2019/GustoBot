@@ -134,7 +134,7 @@ CREATE TABLE step_tools (
     id INT AUTO_INCREMENT PRIMARY KEY,
     step_id INT NOT NULL,
     tool_id INT NOT NULL,
-    usage VARCHAR(100),
+    `usage` VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     UNIQUE KEY unique_step_tool (step_id, tool_id),
