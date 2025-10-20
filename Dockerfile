@@ -23,6 +23,47 @@ RUN python -m pip install --upgrade pip -i https://mirrors.tuna.tsinghua.edu.cn/
 
 COPY app ./app
 COPY data ./data
+COPY scripts ./scripts
+
+# Build-time arguments for LightRAG initialization
+ARG INIT_LIGHTRAG_ON_BUILD=false
+ARG OPENAI_API_KEY
+ARG OPENAI_API_BASE=https://api.openai.com/v1
+ARG OPENAI_MODEL=gpt-3.5-turbo
+ARG EMBEDDING_MODEL=text-embedding-3-small
+ARG EMBEDDING_DIMENSION=1536
+ARG LIGHTRAG_INIT_LIMIT=1000
+
+# Initialize LightRAG data during build (if enabled)
+RUN if [ "$INIT_LIGHTRAG_ON_BUILD" = "true" ] && [ -n "$OPENAI_API_KEY" ]; then \
+        echo "========================================"; \
+        echo "Initializing LightRAG during build..."; \
+        echo "========================================"; \
+        export OPENAI_API_KEY=${OPENAI_API_KEY}; \
+        export OPENAI_API_BASE=${OPENAI_API_BASE}; \
+        export OPENAI_MODEL=${OPENAI_MODEL}; \
+        export EMBEDDING_MODEL=${EMBEDDING_MODEL}; \
+        export EMBEDDING_DIMENSION=${EMBEDDING_DIMENSION}; \
+        export LIGHTRAG_WORKING_DIR=/app/data/lightrag; \
+        mkdir -p /app/data/lightrag && \
+        python scripts/init_lightrag.py \
+            --source json \
+            --json-path /app/data/recipe.json \
+            ${LIGHTRAG_INIT_LIMIT:+--limit $LIGHTRAG_INIT_LIMIT} && \
+        echo "========================================"; \
+        echo "LightRAG initialization completed!"; \
+        echo "Generated files:"; \
+        ls -lh /app/data/lightrag/; \
+        echo "========================================"; \
+    else \
+        echo "Skipping LightRAG initialization during build"; \
+        echo "  INIT_LIGHTRAG_ON_BUILD=${INIT_LIGHTRAG_ON_BUILD}"; \
+        echo "  API_KEY set: $([ -n \"${OPENAI_API_KEY}\" ] && echo 'yes' || echo 'no')"; \
+        mkdir -p /app/data/lightrag; \
+    fi
+
+# Unset API key for security
+ENV OPENAI_API_KEY=
 
 EXPOSE 8000
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

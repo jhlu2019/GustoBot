@@ -57,7 +57,6 @@ class LightRAGAPI:
         retrieval_mode: Optional[str] = None,
         top_k: Optional[int] = None,
         max_token_size: Optional[int] = None,
-        enable_neo4j: Optional[bool] = None,
     ):
         """
         初始化 LightRAG API
@@ -72,8 +71,11 @@ class LightRAGAPI:
             返回的 top-k 结果数量
         max_token_size : int, optional
             文本单元的最大 token 数量
-        enable_neo4j : bool, optional
-            是否使用 Neo4j 作为图存储后端
+
+        注意
+        ----
+        LightRAG 使用自己的文件存储系统（NetworkX + JSON），
+        不使用 Neo4j 作为存储后端。Neo4j 是独立的结构化知识图谱。
         """
         if not LIGHTRAG_AVAILABLE:
             raise ImportError("LightRAG 未安装，请运行 'pip install lightrag-hku'")
@@ -83,7 +85,6 @@ class LightRAGAPI:
         self.retrieval_mode = retrieval_mode or settings.LIGHTRAG_RETRIEVAL_MODE
         self.top_k = top_k or settings.LIGHTRAG_TOP_K
         self.max_token_size = max_token_size or settings.LIGHTRAG_MAX_TOKEN_SIZE
-        self.enable_neo4j = enable_neo4j if enable_neo4j is not None else settings.LIGHTRAG_ENABLE_NEO4J
 
         self.rag: Optional[LightRAG] = None
         self.initialized = False
@@ -156,34 +157,15 @@ class LightRAGAPI:
             # 确保工作目录存在
             os.makedirs(self.working_dir, exist_ok=True)
 
-            # 配置图存储后端
-            # Neo4JStorage 从环境变量读取连接配置，无需显式传递
-            # 需要设置: NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD, NEO4J_DATABASE
-            if self.enable_neo4j and settings.NEO4J_URI:
-                logger.info("使用 Neo4j 作为 LightRAG 图存储后端")
-                # 设置环境变量供 Neo4JStorage.initialize() 使用
-                os.environ["NEO4J_URI"] = settings.NEO4J_URI
-                if settings.NEO4J_USER:
-                    os.environ["NEO4J_USERNAME"] = settings.NEO4J_USER
-                if settings.NEO4J_PASSWORD:
-                    os.environ["NEO4J_PASSWORD"] = settings.NEO4J_PASSWORD
-                if settings.NEO4J_DATABASE:
-                    os.environ["NEO4J_DATABASE"] = settings.NEO4J_DATABASE
-                graph_storage_type = "Neo4JStorage"
-            else:
-                logger.info("使用默认 NetworkX 存储作为 LightRAG 图存储后端")
-                graph_storage_type = "NetworkXStorage"  # LightRAG 默认值
 
             # 获取 embedding 维度
             embedding_dim = int(settings.EMBEDDING_DIMENSION or 1536)
             logger.info(f"Embedding 维度: {embedding_dim}")
 
-            # 创建 LightRAG 实例 (使用函数式 API)
+            # 创建 LightRAG 实例
             logger.info(f"初始化 LightRAG，工作目录: {self.working_dir}")
             logger.info(f"LLM 模型: {settings.OPENAI_MODEL}")
             logger.info(f"Embedding 模型: {settings.EMBEDDING_MODEL}")
-            logger.info(f"图存储类型: {graph_storage_type}")
-
             self.rag = LightRAG(
                 working_dir=self.working_dir,
                 llm_model_func=self._llm_model_func,
@@ -192,7 +174,8 @@ class LightRAGAPI:
                     max_token_size=self.max_token_size,
                     func=self._embedding_func,
                 ),
-                graph_storage=graph_storage_type,
+                # 使用默认存储，不指定 graph_storage
+                # LightRAG 会自动使用 NetworkX + JSON 文件
             )
 
             # 初始化存储

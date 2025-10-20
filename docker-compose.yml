@@ -6,12 +6,27 @@ services:
       context: .
       dockerfile: Dockerfile
       target: server
+      args:
+        # LightRAG 构建时初始化（从 .env 自动读取）
+        - INIT_LIGHTRAG_ON_BUILD=${INIT_LIGHTRAG_ON_BUILD:-true}
+        - OPENAI_API_KEY=${OPENAI_API_KEY}
+        - OPENAI_API_BASE=${OPENAI_API_BASE:-https://api.openai.com/v1}
+        - OPENAI_MODEL=${OPENAI_MODEL:-gpt-3.5-turbo}
+        - EMBEDDING_MODEL=${EMBEDDING_MODEL:-text-embedding-3-small}
+        - EMBEDDING_DIMENSION=${EMBEDDING_DIMENSION:-1536}
+        - LIGHTRAG_INIT_LIMIT=${LIGHTRAG_INIT_LIMIT:-}
     ports:
       - "8000:8000"
     environment:
       - DEBUG=True
       - REDIS_HOST=redis
       - NEO4J_URI=bolt://neo4j:7687
+      # LightRAG 运行时配置
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_API_BASE=${OPENAI_API_BASE:-https://api.openai.com/v1}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-3.5-turbo}
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL:-text-embedding-3-small}
+      - EMBEDDING_DIMENSION=${EMBEDDING_DIMENSION:-1536}
     volumes:
       - ./app:/app/app
       - ./data:/app/data

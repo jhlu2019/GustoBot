@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Read(//f/pythonproject/**)"
+      "Read(//f/pythonproject/**)",
+      "Bash(chmod +x build-with-lightrag.sh)"
     ],
     "deny": [],
     "ask": []
