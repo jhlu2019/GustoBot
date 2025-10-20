@@ -2,16 +2,16 @@
 fastapi==0.109.0
 uvicorn[standard]==0.27.0
 pydantic==2.10.4
-pydantic-settings==2.1.0
-gunicorn==21.2.0
+pydantic-settings==2.4.0
+gunicorn
 
 # LLM Integration
-openai==1.24.0
+openai>=1.58.1,<2
 anthropic==0.18.1
-langchain==0.2.14
-langchain-core==0.2.43
-langchain-community==0.2.12
-langchain-openai==0.1.7
+langchain==0.3.6
+langchain-community==0.3.4
+langchain-openai==0.2.14
+langchain-neo4j==0.1.0
 
 # Agent Framework
 langgraph==0.2.60
@@ -25,7 +25,7 @@ pymilvus==2.3.7
 sqlalchemy==2.0.25
 alembic==1.13.1
 redis==5.0.1
-neo4j==5.18.0
+neo4j==5.27.0
 
 # HTTP Client
 httpx==0.26.0

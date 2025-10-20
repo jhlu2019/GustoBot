@@ -180,51 +180,45 @@ async def get_additional_info(
         logger.info("success to get Neo4j graph database connection")
     except Exception as e:
         logger.error(f"failed to get Neo4j graph database connection: {e}")
+        neo4j_graph = None
 
-    # 定义菜谱管理系统范围（基于Neo4j实际Schema）
+    # 定义菜谱助手服务范围（更自然、友好的描述）
     scope_description = """
-    菜谱管理系统范围：基于Neo4j知识图谱提供菜谱相关的信息查询服务。
+    菜谱智能助手服务范围：为您提供全方位的烹饪指导和美食知识，包括但不限于：
 
-    支持的实体类型：
-    - Dish（菜品/菜谱）：name（菜名）、cook_time（烹饪时长）、instructions（做法全文）
-    - Ingredient（食材）：包含主料、辅料、调味料，属性为name（食材名）
-    - Flavor（口味标签）：如酱香、咸鲜、麻辣等
-    - CookingMethod（烹饪工艺）：如炒、煮、蒸、烤、炸等
-    - DishType（菜品类型）：如热菜、凉菜、汤品等
-    - CookingStep（烹饪步骤）：name、dish_name、order（步骤序号）、instruction（步骤说明）
-    - NutritionProfile（食材营养档案）：name、description（营养描述）
-    - HealthBenefit（食疗功效）：如"理气血，逐寒湿"等
+    🍳 菜谱查询与制作指导
+    - 各类中华料理的详细做法和烹饪技巧
+    - 食材用量、烹饪时长、火候掌握
+    - 分步骤的烹饪指导和小贴士
 
-    支持的关系类型：
-    - HAS_MAIN_INGREDIENT：菜品→主要食材（含amount_text用量）
-    - HAS_AUX_INGREDIENT：菜品→辅料/调味料（含amount_text用量）
-    - HAS_FLAVOR：菜品→口味
-    - USES_METHOD：菜品→烹饪工艺
-    - BELONGS_TO_TYPE：菜品→菜品类型
-    - HAS_STEP：菜品→烹饪步骤（含order步骤序号）
-    - HAS_NUTRITION_PROFILE：食材→营养档案
-    - HAS_HEALTH_BENEFIT：食材→食疗功效
+    🥬 食材知识与营养价值
+    - 食材的营养成分和健康功效
+    - 食材的选购、储存和处理方法
+    - 食材之间的搭配和替代建议
 
-    可回答的问题类型：
-    - 菜谱查询（菜名、食材列表、烹饪步骤、烹饪时长）
-    - 食材信息（食材的营养价值、食疗功效）
-    - 烹饪方法（特定工艺的菜品、步骤详情）
-    - 口味推荐（特定口味的菜品）
-    - 菜品分类（热菜、凉菜等分类查询）
-    - 食材替代（基于主辅料关系的替代建议）
+    🌶️ 口味与烹饪技法
+    - 各种口味特点（麻辣、酱香、清淡等）
+    - 不同烹饪方法（炒、蒸、煮、炖、烤等）
+    - 菜品分类（热菜、凉菜、汤品、主食等）
 
-    不包含：政治、娱乐、新闻、天气、购物、非食疗类医疗建议等与菜谱图谱无关的内容。
+    💊 食疗养生建议
+    - 食材的中医食疗功效
+    - 季节性饮食调理建议
+    - 特定人群的饮食注意事项
+
+    暂不支持：政治、娱乐八卦、新闻时事、天气预报、网购推荐、医疗诊断等非烹饪美食相关内容。
+    如遇此类问题，我会礼貌地引导您回到烹饪美食话题～
     """
 
     scope_context = (
-        f"参考此范围描述来决策:\n{scope_description}"
+        f"参考此服务范围来判断问题是否相关:\n{scope_description}"
         if scope_description is not None
         else ""
     )
 
-    # 动态从 Neo4j 图表中获取图表结构
+    # 动态从 Neo4j 图数据库中获取实际的图谱结构（自动适应数据库变化）
     graph_context = (
-        f"\n参考图表结构来回答:\n{retrieve_and_parse_schema_from_graph_for_prompts(neo4j_graph)}"
+        f"\n当前知识图谱结构:\n{retrieve_and_parse_schema_from_graph_for_prompts(neo4j_graph)}"
         if neo4j_graph is not None
         else ""
     )
@@ -393,7 +387,6 @@ async def create_image_query(
 
 
 
-
     except Exception as e:
         logger.error(f"Error processing image: {str(e)}")
         return {"messages": [AIMessage(content=f"抱歉，我无法查看这张图片，请重新上传。")]}
@@ -445,39 +438,31 @@ async def create_research_plan(
     from app.agents.kg_sub_graph.agentic_rag_agents.components.predefined_cypher.cypher_dict import \
         predefined_cypher_dict
 
-    # 定义菜谱管理系统范围（基于Neo4j实际Schema）
+    # 定义菜谱助手服务范围（与get_additional_info保持一致）
     scope_description = """
-    菜谱管理系统范围：基于Neo4j知识图谱提供菜谱相关的信息查询服务。
+    菜谱智能助手服务范围：为您提供全方位的烹饪指导和美食知识，包括但不限于：
 
-    支持的实体类型：
-    - Dish（菜品/菜谱）：name（菜名）、cook_time（烹饪时长）、instructions（做法全文）
-    - Ingredient（食材）：包含主料、辅料、调味料，属性为name（食材名）
-    - Flavor（口味标签）：如酱香、咸鲜、麻辣等
-    - CookingMethod（烹饪工艺）：如炒、煮、蒸、烤、炸等
-    - DishType（菜品类型）：如热菜、凉菜、汤品等
-    - CookingStep（烹饪步骤）：name、dish_name、order（步骤序号）、instruction（步骤说明）
-    - NutritionProfile（食材营养档案）：name、description（营养描述）
-    - HealthBenefit（食疗功效）：如"理气血，逐寒湿"等
+    🍳 菜谱查询与制作指导
+    - 各类中华料理的详细做法和烹饪技巧
+    - 食材用量、烹饪时长、火候掌握
+    - 分步骤的烹饪指导和小贴士
 
-    支持的关系类型：
-    - HAS_MAIN_INGREDIENT：菜品→主要食材（含amount_text用量）
-    - HAS_AUX_INGREDIENT：菜品→辅料/调味料（含amount_text用量）
-    - HAS_FLAVOR：菜品→口味
-    - USES_METHOD：菜品→烹饪工艺
-    - BELONGS_TO_TYPE：菜品→菜品类型
-    - HAS_STEP：菜品→烹饪步骤（含order步骤序号）
-    - HAS_NUTRITION_PROFILE：食材→营养档案
-    - HAS_HEALTH_BENEFIT：食材→食疗功效
+    🥬 食材知识与营养价值
+    - 食材的营养成分和健康功效
+    - 食材的选购、储存和处理方法
+    - 食材之间的搭配和替代建议
 
-    可回答的问题类型：
-    - 菜谱查询（菜名、食材列表、烹饪步骤、烹饪时长）
-    - 食材信息（食材的营养价值、食疗功效）
-    - 烹饪方法（特定工艺的菜品、步骤详情）
-    - 口味推荐（特定口味的菜品）
-    - 菜品分类（热菜、凉菜等分类查询）
-    - 食材替代（基于主辅料关系的替代建议）
+    🌶️ 口味与烹饪技法
+    - 各种口味特点（麻辣、酱香、清淡等）
+    - 不同烹饪方法（炒、蒸、煮、炖、烤等）
+    - 菜品分类（热菜、凉菜、汤品、主食等）
 
-    不包含：政治、娱乐、新闻、天气、购物、非食疗类医疗建议等与菜谱图谱无关的内容。
+    💊 食疗养生建议
+    - 食材的中医食疗功效
+    - 季节性饮食调理建议
+    - 特定人群的饮食注意事项
+
+    暂不支持：政治、娱乐八卦、新闻时事、天气预报、网购推荐、医疗诊断等非烹饪美食相关内容。
     """
 
     # 创建多工具工作流
