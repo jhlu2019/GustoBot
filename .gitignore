@@ -261,6 +261,8 @@ data/
 data/*
 !data/init_mysql.sql
 !data/insert_sample_data.sql
+!data/recipe.json
+!data/excipients.json
 *.csv
 *.json.gz
 *.parquet
