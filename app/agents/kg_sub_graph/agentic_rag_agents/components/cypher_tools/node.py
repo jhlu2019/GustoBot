@@ -1,15 +1,10 @@
 from typing import Any, Callable, Coroutine, Dict, List
-import asyncio
-import os
-from pathlib import Path
-from pydantic import BaseModel, Field
-
+from pydantic import BaseModel
 # 导入必要的模块
 from app.agents.kg_sub_graph.kg_neo4j_conn import get_neo4j_graph
 from app.core.logger import get_logger
-from langchain_ollama import ChatOllama
-from langchain_deepseek import ChatDeepSeek
-from app.core.config import settings, ServiceType
+from langchain_openai import ChatOpenAI
+from app.config import settings
 from app.agents.kg_sub_graph.agentic_rag_agents.retrievers.cypher_examples.northwind_retriever import NorthwindCypherRetriever
 from app.agents.kg_sub_graph.agentic_rag_agents.components.cypher_tools.utils import create_text2cypher_generation_node, create_text2cypher_validation_node, create_text2cypher_execution_node
 
@@ -59,25 +54,31 @@ def create_cypher_query_node(
         query = state.get("task", "")
         if not query:
             errors.append("未提供查询文本")
- 
-        # 使用大模型执行查询/多跳/并行查询计划
-        # 1. 根据.env文件中AGENT_SERVICE的设置，选择使用DeepSeek或Ollama启动的模型服务
-        if settings.AGENT_SERVICE == ServiceType.DEEPSEEK:
-            model = ChatDeepSeek(api_key=settings.DEEPSEEK_API_KEY, model_name=settings.DEEPSEEK_MODEL, temperature=0.7, tags=["research_plan"])
-        else:
-            model = ChatOllama(model=settings.OLLAMA_AGENT_MODEL, base_url=settings.OLLAMA_BASE_URL, temperature=0.7, tags=["research_plan"])
+        # 使用 OpenAI 大模型执行查询/多跳/并行查询计划
+        openai_kwargs: Dict[str, Any] = {
+            "model": getattr(settings, "OPENAI_MODEL", "gpt-4o-mini"),
+            "temperature": 0.7,
+            "tags": ["research_plan"],
+        }
+        openai_api_key = getattr(settings, "OPENAI_API_KEY", None)
+        if openai_api_key:
+            openai_kwargs["openai_api_key"] = openai_api_key
+        openai_api_base = getattr(settings, "OPENAI_API_BASE", None)
+        if openai_api_base:
+            openai_kwargs["openai_api_base"] = openai_api_base
+        model = ChatOpenAI(**openai_kwargs)
 
-        # 2. 获取Neo4j图数据库连接
+        # 获取 Neo4j 图数据库连接
         try:
             neo4j_graph = get_neo4j_graph()
             logger.info("success to get Neo4j graph database connection")
         except Exception as e:
             logger.error(f"failed to get Neo4j graph database connection: {e}")
 
-        # step 2. 创建自定义检索器实例，根据 Graph Schema 创建 Cypher 示例，用来引导大模型生成正确的Cypher 查询语句
+        # 创建自定义检索器实例，根据 Graph Schema 创建 Cypher 示例，用来引导大模型生成正确的 Cypher 查询语句
         cypher_retriever = NorthwindCypherRetriever()
 
-        # Step 3.根据自定义的 Cypher 示例，引导大模型生成 当前输入 问题的 Cypher 查询语句
+        # 根据自定义的 Cypher 示例，引导大模型生成当前输入问题的 Cypher 查询语句
         cypher_generation = create_text2cypher_generation_node(
             llm=model, graph=neo4j_graph, cypher_example_retriever=cypher_retriever
         )
@@ -164,4 +165,3 @@ def create_cypher_query_node(
             }
   
     return cypher_query
-

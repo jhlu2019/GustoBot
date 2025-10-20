@@ -97,7 +97,7 @@ class LightRAGAPI:
             graph_storage = None
             if self.enable_neo4j and settings.NEO4J_URI:
                 try:
-                    logger.info("使用 Neo4j 作为 LightRAG 图存储后端")
+                    logger.info("使用 Neo4j 作为 LightRAG图存储后端")
                     graph_storage = Neo4JStorage(
                         uri=settings.NEO4J_URI,
                         user=settings.NEO4J_USER,

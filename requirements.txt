@@ -17,9 +17,11 @@ langchain-neo4j==0.1.0
 langgraph==0.2.60
 langgraph-checkpoint==2.0.8
 
+# LightRAG - Lightweight GraphRAG Alternative
+lightrag-hku>=0.0.3
+
 # Vector Database & Embeddings
 pymilvus==2.3.7
-# 注意：不要手动固定 grpcio；由 pymilvus 自动解析（它要求 <=1.60.0，Py3.10 有轮子）
 
 # Database
 sqlalchemy==2.0.25
