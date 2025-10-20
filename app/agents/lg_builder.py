@@ -36,8 +36,10 @@ import asyncio
 import json
 import time
 from pathlib import Path
+from PIL import Image
+import io
 
-from typing import Literal
+from typing import Literal, Optional
 from pydantic import BaseModel, Field
 from langchain_openai import ChatOpenAI
 class AdditionalGuardrailsOutput(BaseModel):
@@ -179,19 +181,39 @@ async def get_additional_info(
     except Exception as e:
         logger.error(f"failed to get Neo4j graph database connection: {e}")
 
-    # 定义菜谱管理系统范围
+    # 定义菜谱管理系统范围（基于Neo4j实际Schema）
     scope_description = """
-    菜谱管理系统范围：提供菜谱、食材、烹饪相关的信息服务，包括但不限于：
-    - 菜谱信息（菜名、食材、步骤、营养、热量）
-    - 食材分类（主料、辅料、调味料）
-    - 烹饪方法（炒、煮、蒸、烤、炸等）
-    - 营养信息（蛋白质、脂肪、碳水化合物、热量）
-    - 菜系分类（川菜、粤菜、鲁菜、浙菜等）
-    - 口味特点（麻辣、清淡、香甜、酸辣等）
-    - 烹饪工具（锅、刀、砧板、调料碗等）
-    - 健康功效（补气血、降血压、美容养颜等）
+    菜谱管理系统范围：基于Neo4j知识图谱提供菜谱相关的信息查询服务。
 
-    不包含：政治、娱乐、新闻、天气、购物、医疗等非菜谱相关内容。
+    支持的实体类型：
+    - Dish（菜品/菜谱）：name（菜名）、cook_time（烹饪时长）、instructions（做法全文）
+    - Ingredient（食材）：包含主料、辅料、调味料，属性为name（食材名）
+    - Flavor（口味标签）：如酱香、咸鲜、麻辣等
+    - CookingMethod（烹饪工艺）：如炒、煮、蒸、烤、炸等
+    - DishType（菜品类型）：如热菜、凉菜、汤品等
+    - CookingStep（烹饪步骤）：name、dish_name、order（步骤序号）、instruction（步骤说明）
+    - NutritionProfile（食材营养档案）：name、description（营养描述）
+    - HealthBenefit（食疗功效）：如"理气血，逐寒湿"等
+
+    支持的关系类型：
+    - HAS_MAIN_INGREDIENT：菜品→主要食材（含amount_text用量）
+    - HAS_AUX_INGREDIENT：菜品→辅料/调味料（含amount_text用量）
+    - HAS_FLAVOR：菜品→口味
+    - USES_METHOD：菜品→烹饪工艺
+    - BELONGS_TO_TYPE：菜品→菜品类型
+    - HAS_STEP：菜品→烹饪步骤（含order步骤序号）
+    - HAS_NUTRITION_PROFILE：食材→营养档案
+    - HAS_HEALTH_BENEFIT：食材→食疗功效
+
+    可回答的问题类型：
+    - 菜谱查询（菜名、食材列表、烹饪步骤、烹饪时长）
+    - 食材信息（食材的营养价值、食疗功效）
+    - 烹饪方法（特定工艺的菜品、步骤详情）
+    - 口味推荐（特定口味的菜品）
+    - 菜品分类（热菜、凉菜等分类查询）
+    - 食材替代（基于主辅料关系的替代建议）
+
+    不包含：政治、娱乐、新闻、天气、购物、非食疗类医疗建议等与菜谱图谱无关的内容。
     """
 
     scope_context = (
@@ -225,7 +247,7 @@ async def get_additional_info(
 
     # 构建格式化输出的 Chain， 如果匹配，返回 continue，否则返回 end
     guardrails_chain = full_system_prompt | model.with_structured_output(AdditionalGuardrailsOutput)
-    guardrails_output = await guardrails_chain.ainvoke(
+    guardrails_output: AdditionalGuardrailsOutput = await guardrails_chain.ainvoke(
         {"question": state.messages[-1].content if state.messages else ""}
     )
 
@@ -258,7 +280,11 @@ async def create_image_query(
     logger.info("-----Found User Upload Image-----")
     image_path = config.get("configurable", {}).get("image_path", None)
 
-    if not image_path or not Path(image_path).exists():
+    if not image_path:
+        logger.warning(f"User Upload Image Path is None")
+        return {"messages": [AIMessage(content="抱歉，我无法查看这张图片，请重新上传。")]}
+
+    if not Path(image_path).exists():
         logger.warning(f"User Upload Image Not Found: {image_path}")
         return {"messages": [AIMessage(content="抱歉，我无法查看这张图片，请重新上传。")]}
 
@@ -274,10 +300,6 @@ async def create_image_query(
     logger.info(f"Using Vision Model: {vision_model} to process image: {image_path}")
 
     try:
-        # 导入图片处理库
-        from PIL import Image
-        import io
-
         # 读取并压缩图片
         with Image.open(image_path) as img:
             # 设置最大尺寸
@@ -423,19 +445,39 @@ async def create_research_plan(
     from app.agents.kg_sub_graph.agentic_rag_agents.components.predefined_cypher.cypher_dict import \
         predefined_cypher_dict
 
-    # 定义菜谱管理系统范围
+    # 定义菜谱管理系统范围（基于Neo4j实际Schema）
     scope_description = """
-    菜谱管理系统范围：提供菜谱、食材、烹饪相关的信息服务，包括但不限于：
-    - 菜谱信息（菜名、食材、步骤、营养、热量）
-    - 食材分类（主料、辅料、调味料）
-    - 烹饪方法（炒、煮、蒸、烤、炸等）
-    - 营养信息（蛋白质、脂肪、碳水化合物、热量）
-    - 菜系分类（川菜、粤菜、鲁菜、浙菜等）
-    - 口味特点（麻辣、清淡、香甜、酸辣等）
-    - 烹饪工具（锅、刀、砧板、调料碗等）
-    - 健康功效（补气血、降血压、美容养颜等）
+    菜谱管理系统范围：基于Neo4j知识图谱提供菜谱相关的信息查询服务。
 
-    不包含：政治、娱乐、新闻、天气、购物、医疗等非菜谱相关内容。
+    支持的实体类型：
+    - Dish（菜品/菜谱）：name（菜名）、cook_time（烹饪时长）、instructions（做法全文）
+    - Ingredient（食材）：包含主料、辅料、调味料，属性为name（食材名）
+    - Flavor（口味标签）：如酱香、咸鲜、麻辣等
+    - CookingMethod（烹饪工艺）：如炒、煮、蒸、烤、炸等
+    - DishType（菜品类型）：如热菜、凉菜、汤品等
+    - CookingStep（烹饪步骤）：name、dish_name、order（步骤序号）、instruction（步骤说明）
+    - NutritionProfile（食材营养档案）：name、description（营养描述）
+    - HealthBenefit（食疗功效）：如"理气血，逐寒湿"等
+
+    支持的关系类型：
+    - HAS_MAIN_INGREDIENT：菜品→主要食材（含amount_text用量）
+    - HAS_AUX_INGREDIENT：菜品→辅料/调味料（含amount_text用量）
+    - HAS_FLAVOR：菜品→口味
+    - USES_METHOD：菜品→烹饪工艺
+    - BELONGS_TO_TYPE：菜品→菜品类型
+    - HAS_STEP：菜品→烹饪步骤（含order步骤序号）
+    - HAS_NUTRITION_PROFILE：食材→营养档案
+    - HAS_HEALTH_BENEFIT：食材→食疗功效
+
+    可回答的问题类型：
+    - 菜谱查询（菜名、食材列表、烹饪步骤、烹饪时长）
+    - 食材信息（食材的营养价值、食疗功效）
+    - 烹饪方法（特定工艺的菜品、步骤详情）
+    - 口味推荐（特定口味的菜品）
+    - 菜品分类（热菜、凉菜等分类查询）
+    - 食材替代（基于主辅料关系的替代建议）
+
+    不包含：政治、娱乐、新闻、天气、购物、非食疗类医疗建议等与菜谱图谱无关的内容。
     """
 
     # 创建多工具工作流

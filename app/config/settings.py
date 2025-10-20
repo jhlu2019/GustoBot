@@ -31,6 +31,11 @@ class Settings(BaseSettings):
     ANTHROPIC_API_KEY: Optional[str] = None
     ANTHROPIC_MODEL: str = "claude-3-opus-20240229"
 
+    # Vision models (for image analysis)
+    VISION_API_KEY: Optional[str] = None
+    VISION_BASE_URL: Optional[str] = None
+    VISION_MODEL: str = "gpt-4-vision-preview"
+
     # Milvus vector database
     MILVUS_HOST: str = "localhost"
     MILVUS_PORT: int = 19530

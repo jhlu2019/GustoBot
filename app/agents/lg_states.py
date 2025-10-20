@@ -69,6 +69,8 @@ class AgentState(InputState):
     """The router's classification of the user's query."""
     steps: list[str] = field(default_factory=list)
     """Populated by the retriever. This is a list of documents that the agent can reference."""
-    question: str = field(default_factory=str) 
-    answer: str = field(default_factory=str)  
+    documents: list[str] = field(default_factory=list)
+    """Documents retrieved from the knowledge base."""
+    question: str = field(default_factory=str)
+    answer: str = field(default_factory=str)
     hallucination: GradeHallucinations = field(default_factory=lambda: GradeHallucinations(binary_score="0"))
