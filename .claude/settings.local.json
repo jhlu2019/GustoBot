@@ -19,7 +19,9 @@
       "Bash(cat:*)",
       "Bash(docker volume:*)",
       "Bash(docker-compose stop:*)",
-      "Bash(docker-compose rm:*)"
+      "Bash(docker-compose rm:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
