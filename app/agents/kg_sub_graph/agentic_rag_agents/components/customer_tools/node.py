@@ -6,9 +6,12 @@ from typing import Any, Callable, Coroutine, Dict, List, Optional
 import asyncio
 import os
 from pathlib import Path
+import numpy as np
 from pydantic import BaseModel, Field
 from lightrag import LightRAG, QueryParam
-from lightrag.kg.neo4j_impl import Neo4JStorage
+from lightrag.llm.openai import openai_complete_if_cache, openai_embed
+from lightrag.utils import EmbeddingFunc
+
 LIGHTRAG_AVAILABLE = True
 
 # 导入配置
@@ -36,7 +39,7 @@ class LightRAGQueryOutputState(BaseModel):
     steps: List[str] = Field(...)
 
 
-# 定义 LightRAG API 包装器
+# 定义 LightRAG API
 class LightRAGAPI:
     """
     LightRAG API 封装类
@@ -85,6 +88,66 @@ class LightRAGAPI:
         self.rag: Optional[LightRAG] = None
         self.initialized = False
 
+    async def _llm_model_func(
+        self,
+        prompt,
+        system_prompt=None,
+        history_messages=[],
+        keyword_extraction=False,
+        **kwargs
+    ) -> str:
+        """
+        LLM 模型函数，用于 LightRAG 调用
+
+        Parameters
+        ----------
+        prompt : str
+            用户提示词
+        system_prompt : str, optional
+            系统提示词
+        history_messages : list, optional
+            历史消息列表
+        keyword_extraction : bool, optional
+            是否用于关键词提取
+        **kwargs : dict
+            其他参数
+
+        Returns
+        -------
+        str
+            LLM 返回的文本
+        """
+        return await openai_complete_if_cache(
+            model=settings.OPENAI_MODEL,
+            prompt=prompt,
+            system_prompt=system_prompt,
+            history_messages=history_messages,
+            api_key=settings.OPENAI_API_KEY,
+            base_url=settings.OPENAI_API_BASE,
+            **kwargs,
+        )
+
+    async def _embedding_func(self, texts: List[str]) -> np.ndarray:
+        """
+        Embedding 函数，用于 LightRAG 调用
+
+        Parameters
+        ----------
+        texts : List[str]
+            要嵌入的文本列表
+
+        Returns
+        -------
+        np.ndarray
+            嵌入向量数组，形状为 (len(texts), embedding_dim)
+        """
+        return await openai_embed(
+            texts=texts,
+            model=settings.EMBEDDING_MODEL,
+            api_key=settings.OPENAI_API_KEY,
+            base_url=settings.OPENAI_API_BASE,
+        )
+
     async def initialize(self):
         """初始化 LightRAG 实例"""
         if self.initialized:
@@ -94,39 +157,46 @@ class LightRAGAPI:
             os.makedirs(self.working_dir, exist_ok=True)
 
             # 配置图存储后端
-            graph_storage = None
+            # Neo4JStorage 从环境变量读取连接配置，无需显式传递
+            # 需要设置: NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD, NEO4J_DATABASE
             if self.enable_neo4j and settings.NEO4J_URI:
-                try:
-                    logger.info("使用 Neo4j 作为 LightRAG图存储后端")
-                    graph_storage = Neo4JStorage(
-                        uri=settings.NEO4J_URI,
-                        user=settings.NEO4J_USER,
-                        password=settings.NEO4J_PASSWORD,
-                        database=settings.NEO4J_DATABASE
-                    )
-                except Exception as e:
-                    logger.warning(f"Neo4j 连接失败，使用默认图存储: {e}")
-                    graph_storage = None
+                logger.info("使用 Neo4j 作为 LightRAG 图存储后端")
+                # 设置环境变量供 Neo4JStorage.initialize() 使用
+                os.environ["NEO4J_URI"] = settings.NEO4J_URI
+                if settings.NEO4J_USER:
+                    os.environ["NEO4J_USERNAME"] = settings.NEO4J_USER
+                if settings.NEO4J_PASSWORD:
+                    os.environ["NEO4J_PASSWORD"] = settings.NEO4J_PASSWORD
+                if settings.NEO4J_DATABASE:
+                    os.environ["NEO4J_DATABASE"] = settings.NEO4J_DATABASE
+                graph_storage_type = "Neo4JStorage"
+            else:
+                logger.info("使用默认 NetworkX 存储作为 LightRAG 图存储后端")
+                graph_storage_type = "NetworkXStorage"  # LightRAG 默认值
 
-            # 创建 LightRAG 实例
+            # 获取 embedding 维度
+            embedding_dim = int(settings.EMBEDDING_DIMENSION or 1536)
+            logger.info(f"Embedding 维度: {embedding_dim}")
+
+            # 创建 LightRAG 实例 (使用函数式 API)
             logger.info(f"初始化 LightRAG，工作目录: {self.working_dir}")
+            logger.info(f"LLM 模型: {settings.OPENAI_MODEL}")
+            logger.info(f"Embedding 模型: {settings.EMBEDDING_MODEL}")
+            logger.info(f"图存储类型: {graph_storage_type}")
+
             self.rag = LightRAG(
                 working_dir=self.working_dir,
-                llm_model_name=settings.OPENAI_MODEL,
-                llm_model_kwargs={
-                    "api_key": settings.OPENAI_API_KEY,
-                    "base_url": settings.OPENAI_API_BASE,
-                    "model": settings.OPENAI_MODEL
-                },
-                embedding_model_name=settings.EMBEDDING_MODEL,
-                embedding_model_kwargs={
-                    "api_key": settings.OPENAI_API_KEY,
-                    "base_url": settings.OPENAI_API_BASE
-                },
-                graph_storage=graph_storage,
+                llm_model_func=self._llm_model_func,
+                embedding_func=EmbeddingFunc(
+                    embedding_dim=embedding_dim,
+                    max_token_size=self.max_token_size,
+                    func=self._embedding_func,
+                ),
+                graph_storage=graph_storage_type,
             )
 
             # 初始化存储
+            logger.info("初始化 LightRAG 存储...")
             await self.rag.initialize_storages()
 
             self.initialized = True
@@ -164,7 +234,8 @@ class LightRAGAPI:
             param = QueryParam(
                 mode=retrieval_mode,
                 top_k=self.top_k,
-                max_token_for_text_unit=self.max_token_size,
+                # chunk_top_k: 文本块检索数量，如果不指定则使用 top_k
+                # max_entity_tokens、max_relation_tokens: 可以通过环境变量配置
             )
 
             # 执行查询
@@ -291,7 +362,5 @@ def create_lightrag_query_node(
 
     return lightrag_query
 
-
-# 向后兼容：保留原有的函数名
 create_graphrag_query_node = create_lightrag_query_node
 GraphRAGAPI = LightRAGAPI
