@@ -17,7 +17,7 @@ class ChatAgentInput(BaseModel):
     """输入结构，供LangGraph节点或Supervisor调用。"""
 
     message: str
-    context: Dict[str, Any] = Field(default_factory=dict)
+    context: Dict[str, Any] = Field()
 
 
 class ChatAgentOutput(BaseModel):
@@ -25,7 +25,7 @@ class ChatAgentOutput(BaseModel):
 
     answer: str
     type: str = "chat"
-    metadata: Dict[str, Any] = Field(default_factory=dict)
+    metadata: Dict[str, Any] = Field()
 
 
 class ChatAgent(BaseAgent):

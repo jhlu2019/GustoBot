@@ -96,6 +96,32 @@ class Settings(BaseSettings):
     # Relational database
     DATABASE_URL: str = "sqlite:///./data/gustobot.db"
 
+    # LightRAG configuration
+    LIGHTRAG_WORKING_DIR: str = Field(
+        default="./data/lightrag",
+        description="LightRAG 工作目录，用于存储索引和缓存"
+    )
+    LIGHTRAG_RETRIEVAL_MODE: str = Field(
+        default="hybrid",
+        description="LightRAG 检索模式: local, global, hybrid, naive, mix, bypass"
+    )
+    LIGHTRAG_TOP_K: int = Field(
+        default=10,
+        description="LightRAG 检索返回的top-k结果数量"
+    )
+    LIGHTRAG_MAX_TOKEN_SIZE: int = Field(
+        default=4096,
+        description="LightRAG 文本单元的最大token数量"
+    )
+    LIGHTRAG_ENABLE_NEO4J: bool = Field(
+        default=True,
+        description="是否使用Neo4j作为LightRAG的图存储后端"
+    )
+    LIGHTRAG_ENABLE_MILVUS: bool = Field(
+        default=False,
+        description="是否使用Milvus作为LightRAG的向量存储后端（默认使用内置向量存储）"
+    )
+
     # Neo4j configuration
     NEO4J_URI: str = "bolt://neo4j:7687"
     NEO4J_USER: Optional[str] = None

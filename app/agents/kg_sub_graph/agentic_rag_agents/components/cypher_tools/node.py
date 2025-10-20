@@ -4,12 +4,7 @@ import os
 from pathlib import Path
 from pydantic import BaseModel, Field
 
-# 导入GraphRAG相关模块
-import app.graphrag.graphrag.api as api
-from app.graphrag.graphrag.config.load_config import load_config
-from app.graphrag.graphrag.callbacks.noop_query_callbacks import NoopQueryCallbacks
-from app.graphrag.graphrag.utils.storage import load_table_from_storage
-from app.graphrag.graphrag.storage.file_pipeline_storage import FilePipelineStorage
+# 导入必要的模块
 from app.agents.kg_sub_graph.kg_neo4j_conn import get_neo4j_graph
 from app.core.logger import get_logger
 from langchain_ollama import ChatOllama

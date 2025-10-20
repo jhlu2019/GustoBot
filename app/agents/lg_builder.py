@@ -17,8 +17,8 @@ from langchain_core.messages import BaseMessage
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, START, StateGraph
 from app.agents.lg_states import AgentState, InputState, Router, GradeHallucinations
-from app.agents.kg_sub_graph.agentic_rag_agents.retrievers.cypher_examples.northwind_retriever import \
-    NorthwindCypherRetriever
+from app.agents.kg_sub_graph.agentic_rag_agents.retrievers.cypher_examples.recipe_retriever import \
+    RecipeCypherRetriever
 from app.agents.kg_sub_graph.agentic_rag_agents.components.planner.node import create_planner_node
 from app.agents.kg_sub_graph.agentic_rag_agents.workflows.multi_agent.multi_tool import create_multi_tool_workflow
 from app.agents.kg_sub_graph.kg_neo4j_conn import get_neo4j_graph
@@ -112,7 +112,7 @@ def route_query(
         return "respond_to_general_query"
     elif _type == "additional-query":
         return "get_additional_info"
-    elif _type == "graphrag-query":
+    elif _type == "graphrag-query":  # 实际使用 LightRAG (轻量级替代方案)
         return "create_research_plan"
     elif _type == "image-query":
         return "create_image_query"
@@ -182,7 +182,7 @@ async def get_additional_info(
         logger.error(f"failed to get Neo4j graph database connection: {e}")
         neo4j_graph = None
 
-    # 定义菜谱助手服务范围（更自然、友好的描述）
+    # 定义菜谱助手服务范围（用户友好的业务描述）
     scope_description = """
     菜谱智能助手服务范围：为您提供全方位的烹饪指导和美食知识，包括但不限于：
 
@@ -211,14 +211,14 @@ async def get_additional_info(
     """
 
     scope_context = (
-        f"参考此服务范围来判断问题是否相关:\n{scope_description}"
+        f"参考此范围描述来决策:\n{scope_description}"
         if scope_description is not None
         else ""
     )
 
-    # 动态从 Neo4j 图数据库中获取实际的图谱结构（自动适应数据库变化）
+    # 动态从 Neo4j 图表中获取图表结构（确保与实际数据一致）
     graph_context = (
-        f"\n当前知识图谱结构:\n{retrieve_and_parse_schema_from_graph_for_prompts(neo4j_graph)}"
+        f"\n参考图表结构来回答:\n{retrieve_and_parse_schema_from_graph_for_prompts(neo4j_graph)}"
         if neo4j_graph is not None
         else ""
     )
@@ -399,7 +399,7 @@ async def create_file_query(
 
     # TODO
 
-
+# LightRAG 查询节点 (替代 Microsoft GraphRAG，更轻量高效)
 async def create_research_plan(
         state: AgentState, *, config: RunnableConfig
 ) -> Dict[str, List[str] | str]:
@@ -421,14 +421,15 @@ async def create_research_plan(
 
     # 初始化必要参数
     # 1. Neo4j图数据库连接 - 使用配置中的连接信息
+    neo4j_graph=None
     try:
         neo4j_graph = get_neo4j_graph()
         logger.info("success to get Neo4j graph database connection")
     except Exception as e:
         logger.error(f"failed to get Neo4j graph database connection: {e}")
 
-    # 2. 创建自定义检索器实例，根据 Graph Schema 创建 Cypher 示例，用来引导大模型生成正确的Cypher 查询语句
-    cypher_retriever = NorthwindCypherRetriever()
+    # 2. 创建菜谱场景的检索器实例，根据 Graph Schema 创建 Cypher 示例， 优先生成对应问题的cypher模版 用来引导大模型生成正确的Cypher查询语句
+    cypher_retriever = RecipeCypherRetriever()
 
     # step 3. 定义工具模式列表    
     from app.agents.kg_sub_graph.kg_tools_list import cypher_query, predefined_cypher, microsoft_graphrag_query
@@ -438,7 +439,7 @@ async def create_research_plan(
     from app.agents.kg_sub_graph.agentic_rag_agents.components.predefined_cypher.cypher_dict import \
         predefined_cypher_dict
 
-    # 定义菜谱助手服务范围（与get_additional_info保持一致）
+    # 定义菜谱助手服务范围
     scope_description = """
     菜谱智能助手服务范围：为您提供全方位的烹饪指导和美食知识，包括但不限于：
 
@@ -532,10 +533,10 @@ checkpointer = MemorySaver()
 # 定义状态图
 builder = StateGraph(AgentState, input=InputState)
 # 添加节点
-builder.add_node(analyze_and_route_query)
-builder.add_node(respond_to_general_query)
-builder.add_node(get_additional_info)
-builder.add_node("create_research_plan", create_research_plan)  # 这里是子图
+builder.add_node(analyze_and_route_query) # 意图识别
+builder.add_node(respond_to_general_query)#默认回复
+builder.add_node(get_additional_info) # 图结构信息
+builder.add_node("create_research_plan", create_research_plan)  # 这里是子图graphrag-query
 builder.add_node(create_image_query)
 builder.add_node(create_file_query)
 

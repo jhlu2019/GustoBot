@@ -1,3 +1,17 @@
+"""
+⚠️ 此文件已废弃 (Deprecated)
+
+原因: 项目已从 Microsoft GraphRAG 迁移到 LightRAG
+- Microsoft GraphRAG 需要预先构建索引（本文件的功能）
+- LightRAG 支持增量插入文档，无需预构建索引
+
+替代方案:
+- 使用 LightRAGAPI.insert_documents() 方法增量添加文档
+- 使用 scripts/init_lightrag.py 初始化数据
+
+如需恢复此功能，请从 backup/ 目录恢复旧的 graphrag 模块
+"""
+
 import os
 import asyncio
 import logging
@@ -7,11 +21,12 @@ import mimetypes
 import shutil
 import uuid
 
-import graphrag.api as api
-from graphrag.config.load_config import load_config
-from graphrag.config.enums import IndexingMethod
-from graphrag.logger.rich_progress import RichProgressLogger
-from graphrag.index.typing.pipeline_run_result import PipelineRunResult
+# 注意: 以下导入已失效，因为 graphrag 模块已被移除
+# import graphrag.api as api
+# from graphrag.config.load_config import load_config
+# from graphrag.config.enums import IndexingMethod
+# from graphrag.logger.rich_progress import RichProgressLogger
+# from graphrag.index.typing.pipeline_run_result import PipelineRunResult
 
 from app.core.config import settings
 from app.core.logger import get_logger
