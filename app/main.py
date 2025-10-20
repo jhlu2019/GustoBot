@@ -9,10 +9,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from loguru import logger
 
-from .api import chat_router, knowledge_router
+from .api import chat_router, knowledge_router, lightrag_router
 from .api.knowledge_router import get_neo4j_qa_service
 from .config import settings
 from .core import configure_logging
+from .services.lightrag_service import get_lightrag_service
 
 # Configure logging before app creation
 configure_logging(debug=settings.DEBUG)
@@ -38,6 +39,7 @@ app.add_middleware(
 # Routers --------------------------------------------------------------------
 app.include_router(chat_router.router, prefix=settings.API_V1_PREFIX)
 app.include_router(knowledge_router.router, prefix=settings.API_V1_PREFIX)
+app.include_router(lightrag_router.router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get("/")
@@ -65,6 +67,7 @@ async def startup_event() -> None:
 @app.on_event("shutdown")
 async def shutdown_event() -> None:
     logger.info("Shutting down {}", settings.APP_NAME)
+
     # Ensure Neo4j connections are closed gracefully
     try:
         service = get_neo4j_qa_service()
@@ -72,6 +75,13 @@ async def shutdown_event() -> None:
         get_neo4j_qa_service.cache_clear()
     except Exception as exc:  # pragma: no cover - defensive
         logger.warning(f"Failed to close Neo4j service cleanly: {exc}")
+
+    # Cleanup LightRAG resources
+    try:
+        lightrag_service = get_lightrag_service()
+        await lightrag_service.cleanup()
+    except Exception as exc:  # pragma: no cover - defensive
+        logger.warning(f"Failed to cleanup LightRAG service: {exc}")
 
 
 @app.exception_handler(Exception)

@@ -156,8 +156,6 @@ class LightRAGAPI:
         try:
             # 确保工作目录存在
             os.makedirs(self.working_dir, exist_ok=True)
-
-
             # 获取 embedding 维度
             embedding_dim = int(settings.EMBEDDING_DIMENSION or 1536)
             logger.info(f"Embedding 维度: {embedding_dim}")

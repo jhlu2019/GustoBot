@@ -67,7 +67,7 @@ def create_guardrails_node(
         summary = None
 
         if guardrails_output.decision == "end":
-            summary = "抱歉，我家暂时没有这方面的商品，可以在别家看看哦~"
+            summary = "抱歉，暂时没有关于该菜谱的消息，可以在问别的哦~"
 
         decision_info = {
             "next_action": guardrails_output.decision,
