@@ -126,13 +126,10 @@ async def respond_to_general_query(
         state: AgentState, *, config: RunnableConfig
 ) -> Dict[str, List[BaseMessage]]:
     """生成对一般查询的响应，完全基于大模型，不会触发任何外部服务的调用，包括自定义工具、知识库查询等。
-
     当路由器将查询分类为一般问题时，将调用此节点。
-
     Args:
         state (AgentState): 当前代理状态，包括对话历史和路由逻辑。
         config (RunnableConfig): 用于配置响应生成的模型。
-
     Returns:
         Dict[str, List[BaseMessage]]: 包含'messages'键的字典，其中包含生成的响应。
     """
@@ -151,7 +148,7 @@ async def respond_to_general_query(
     response = await model.ainvoke(messages)
     return {"messages": [response]}
 
-
+#大模型生成输出多了一些额外消息
 async def get_additional_info(
         state: AgentState, *, config: RunnableConfig
 ) -> Dict[str, List[BaseMessage]]:
@@ -216,7 +213,7 @@ async def get_additional_info(
         else ""
     )
 
-    # 动态从 Neo4j 图表中获取图表结构（确保与实际数据一致）
+    # 动态从 Neo4j 图表中获取图表结构
     graph_context = (
         f"\n参考图表结构来回答:\n{retrieve_and_parse_schema_from_graph_for_prompts(neo4j_graph)}"
         if neo4j_graph is not None
@@ -399,7 +396,7 @@ async def create_file_query(
 
     # TODO
 
-# LightRAG 查询节点 (替代 Microsoft GraphRAG，更轻量高效)
+# 图工具 查询节点
 async def create_research_plan(
         state: AgentState, *, config: RunnableConfig
 ) -> Dict[str, List[str] | str]:
@@ -428,7 +425,7 @@ async def create_research_plan(
     except Exception as e:
         logger.error(f"failed to get Neo4j graph database connection: {e}")
 
-    # 2. 创建菜谱场景的检索器实例，根据 Graph Schema 创建 Cypher 示例， 优先生成对应问题的cypher模版 用来引导大模型生成正确的Cypher查询语句
+    # 2. 创建菜谱场景的检索器实例，根据 Graph Schema创建 Cypher ， 优先生成对应问题的cypher模版 用来引导大模型生成正确的Cypher查询语句
     cypher_retriever = RecipeCypherRetriever()
 
     # step 3. 定义工具模式列表    

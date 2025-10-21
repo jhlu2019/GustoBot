@@ -8,6 +8,7 @@ from importlib import resources
 from typing import Dict, Iterable, List, Optional, Sequence, Set
 
 import ahocorasick
+from .fuzzy_matcher import FuzzyMatcher
 
 
 def _load_dict(path) -> List[str]:
@@ -66,6 +67,19 @@ class QuestionClassifier:
             "耗时": ["多久", "耗时"],
             "菜系": ["菜系"],
         }
+
+        self._fuzzy_matcher = FuzzyMatcher(
+            {
+                "Dish": self.recipe_words,
+                "Ingredient": self.material_words,
+                "菜系": self.caixi_words,
+                "工艺": self.gongyi_words,
+                "口味": self.kouwei_words,
+                "类型": self.leixing_words,
+                "耗时": self.haoshi_words,
+            }
+        )
+        self._fuzzy_threshold = 0.5
 
     @staticmethod
     def _build_actree(words: Iterable[str]) -> ahocorasick.Automaton:
@@ -137,8 +151,19 @@ class QuestionClassifier:
         matches = [value[1] for value in self.region_tree.iter(question)]
         stop_words = {a for a in matches for b in matches if a != b and a in b}
         final_words = [word for word in matches if word not in stop_words]
-        entities = {word: self.word_type_dict.get(word, []) for word in final_words}
-        return {word: labels for word, labels in entities.items() if labels and labels != ["relation"]}
+        entities: Dict[str, List[str]] = {}
+        for word in final_words:
+            labels = self.word_type_dict.get(word, [])
+            if labels and labels != ["relation"]:
+                entities[word] = labels
+
+        fuzzy_candidates = self._fuzzy_matcher.match(question, threshold=self._fuzzy_threshold)
+        for word, labels in fuzzy_candidates.items():
+            filtered_labels = [label for label in labels if label != "relation"]
+            if filtered_labels and word not in entities:
+                entities[word] = filtered_labels
+
+        return entities
 
     @staticmethod
     def _match_keywords(options: Dict[str, List[str]], sentence: str) -> List[str]:
