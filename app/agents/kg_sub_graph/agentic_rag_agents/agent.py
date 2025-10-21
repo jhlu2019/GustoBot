@@ -6,8 +6,8 @@ from langchain_neo4j import Neo4jGraph
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from neo4j import GraphDatabase
 
-from ps_genai_agents.retrievers.cypher_examples import (
-    Neo4jVectorSearchCypherExampleRetriever,
+from app.agents.kg_sub_graph.agentic_rag_agents.retrievers.cypher_examples import (
+    recipe_retriever,
 )
 
 # from ps_genai_agents.workflows.single_agent import create_text2cypher_agent

@@ -23,6 +23,9 @@ from .supervisor_agent_v2 import SupervisorAgent as SupervisorAgentV2
 from . import nodes
 from .state_models import ConversationState, ConversationInput, RouterResult, AgentAnswer
 
+# 新增组件
+from . import kb, crawler
+
 __all__ = [
     # 旧架构 (向后兼容)
     "BaseAgent",
@@ -38,4 +41,8 @@ __all__ = [
     "ConversationInput",
     "RouterResult",
     "AgentAnswer",
+
+    # 组件模块
+    "kb",
+    "crawler",
 ]
