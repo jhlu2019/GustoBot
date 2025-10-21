@@ -2,10 +2,10 @@ from dotenv import load_dotenv
 from langchain_neo4j import Neo4jGraph
 from langchain_openai import ChatOpenAI
 
-from data.bbc_recipes.queries import get_cypher_statements_dictionary, get_tool_schemas
-from ps_genai_agents.components.text2cypher import get_text2cypher_schema
-from ps_genai_agents.retrievers.cypher_examples import YAMLCypherExampleRetriever
-from ps_genai_agents.workflows.multi_agent import create_multi_tool_workflow
+from app.agents.kg_sub_graph.agentic_rag_agents.queries import get_cypher_statements_dictionary, get_tool_schemas
+from app.agents.kg_sub_graph.agentic_rag_agents.components.text2cypher import get_text2cypher_schema
+from app.agents.kg_sub_graph.agentic_rag_agents.retrievers.cypher_examples import YAMLCypherExampleRetriever
+from app.agents.kg_sub_graph.agentic_rag_agents.workflows.multi_agent.multi_tool import create_multi_tool_workflow
 
 load_dotenv()
 

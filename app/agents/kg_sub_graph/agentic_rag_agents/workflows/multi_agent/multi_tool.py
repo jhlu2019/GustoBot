@@ -117,7 +117,7 @@ def create_multi_tool_workflow(
         graph=graph, predefined_cypher_dict=predefined_cypher_dict
     )
 
-    customer_tools = create_graphrag_query_node() # graphrag_query
+    customer_tools = create_graphrag_query_node() # lightrag_query
 
     # 工具选择节点，根据用户的问题选择合适的工具
     tool_selection = create_tool_selection_node(

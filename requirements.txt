@@ -13,6 +13,9 @@ langchain-community==0.3.4
 langchain-openai==0.2.14
 langchain-neo4j==0.1.0
 
+# Machine Learning
+scikit-learn==1.4.2
+
 # Agent Framework
 langgraph==0.2.60
 langgraph-checkpoint==2.0.8

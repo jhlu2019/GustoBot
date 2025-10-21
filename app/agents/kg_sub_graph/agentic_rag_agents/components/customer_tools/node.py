@@ -43,7 +43,6 @@ class LightRAGQueryOutputState(BaseModel):
 class LightRAGAPI:
     """
     LightRAG API 封装类
-
     功能:
     - 轻量级图谱检索（相比 Microsoft GraphRAG 减少 99% token 消耗）
     - 支持多种检索模式: local, global, hybrid, naive
@@ -286,13 +285,6 @@ def create_lightrag_query_node(
 ]:
     """
     创建 LightRAG 查询节点，用于 LangGraph 工作流
-
-    相比 Microsoft GraphRAG:
-    - 体积减少 94%（1.7GB → < 100MB）
-    - Token 消耗减少 99%
-    - 支持增量更新
-    - API 更简洁
-
     Returns
     -------
     Callable[[Dict[str, Any]], Dict[str, List[LightRAGQueryOutputState] | List[str]]]

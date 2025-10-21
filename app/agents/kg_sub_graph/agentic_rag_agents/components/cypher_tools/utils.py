@@ -1,4 +1,4 @@
-from typing import Any, Callable, Coroutine, Dict
+from typing import Any, Callable, Coroutine, Dict, Union
 import logging
 from langchain_core.language_models import BaseChatModel
 from langchain_core.output_parsers import StrOutputParser
@@ -345,7 +345,7 @@ def create_text2cypher_generation_node(
     llm: BaseChatModel,
     graph: Neo4jGraph,
     cypher_example_retriever: BaseCypherExampleRetriever,
-) -> str:
+) -> Callable[[CypherInputState], Coroutine[Any, Any, Dict[str, Any]]]:
     
     text2cypher_chain = generation_prompt | llm | StrOutputParser()
 
@@ -365,7 +365,10 @@ def create_text2cypher_generation_node(
                 "schema": graph.schema,
             }
         )
-        return generated_cypher
+        return {
+            "statement": generated_cypher,
+            "steps": ["generate_cypher"],
+        }
 
     return generate_cypher
 
@@ -373,7 +376,6 @@ def create_text2cypher_validation_node(
     graph: Neo4jGraph,
     llm: Optional[BaseChatModel] = None,
     llm_validation: bool = True,
-    cypher_statement: str = None,
 ) -> Callable[[CypherState], Coroutine[Any, Any, dict[str, Any]]]:
     """
     Create a Text2Cypher query validation node for a LangGraph workflow.
@@ -402,8 +404,9 @@ def create_text2cypher_validation_node(
         Validates the Cypher statements and maps any property values to the database.
         """
 
-        errors = []
+        errors: List[str] = []
         mapping_errors = []
+        cypher_statement = state.get("statement", "")
 
         # 1. 语法校验：检查Cypher查询的语法是否正确，例如括号匹配、关键字使用等。
         syntax_error = validate_cypher_query_syntax(
@@ -425,7 +428,7 @@ def create_text2cypher_validation_node(
         if llm is not None and llm_validation:
             llm_errors = await validate_cypher_query_with_llm(
                 validate_cypher_chain=validate_cypher_chain,
-                question=state.get("task", ""),
+                question=state.get("task", [""])[0] if isinstance(state.get("task", [""]), list) else state.get("task", ""),
                 graph=graph,
                 cypher_statement=cypher_statement,
             )
@@ -486,7 +489,7 @@ def create_text2cypher_validation_node(
 
 def create_text2cypher_execution_node(
     graph: Neo4jGraph,
-    cypher: str
+    cypher: Union[str, Dict[str, Any]],
 ) -> Callable[
     [CypherState], Coroutine[Any, Any, Dict[str, List[CypherOutputState] | List[str]]]
 ]:
@@ -496,7 +499,9 @@ def create_text2cypher_execution_node(
     Parameters
     ----------
     graph : Neo4jGraph
-        The Neo4j graph wrapper. 
+        The Neo4j graph wrapper.
+    cypher : Union[str, Dict[str, Any]]
+        Cypher statement string or validation payload containing statement/errors.
 
     Returns
     -------
@@ -510,15 +515,33 @@ def create_text2cypher_execution_node(
         """
         Executes the given Cypher statement.
         """
-        
+        cypher_payload = cypher
+        validation_errors: List[str] = []
+        statement_raw = ""
+
+        if isinstance(cypher_payload, str):
+            statement_raw = cypher_payload
+        elif isinstance(cypher_payload, dict):
+            statement_raw = str(cypher_payload.get("statement", ""))
+            validation_errors = cypher_payload.get("errors", []) or []
+        else:
+            raise TypeError(
+                f"Unsupported cypher payload type: {type(cypher_payload)!r}. "
+                "Expected str or dict with 'statement'/'errors'."
+            )
+
+        if not statement_raw:
+            statement_raw = state.get("statement", "")
+
         # 清理cypher语句中的换行符
-        cypher_statement = cypher["statement"].replace("\n", " ").strip()
+        cypher_statement = statement_raw.replace("\n", " ").strip()
         records = graph.query(cypher_statement)
         steps = state.get("steps", list())
         steps.append("execute_cypher")
-        
+
         NO_CYPHER_RESULTS = [{"error": "在数据库中找不到任何相关信息。"}]
-        
+        combined_errors = validation_errors or state.get("errors", list())
+
         return {
             "cyphers": [
                 CypherOutputState(
@@ -526,8 +549,8 @@ def create_text2cypher_execution_node(
                         "task": state.get("task", []),
                         "statement": cypher_statement,
                         "parameters": None,
-                        "errors": cypher["errors"],
-                        "records": records if records !=[] else NO_CYPHER_RESULTS, 
+                        "errors": combined_errors,
+                        "records": records if records != [] else NO_CYPHER_RESULTS,
                         "steps": steps,
                     }
                 )

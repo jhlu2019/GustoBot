@@ -5,7 +5,7 @@ from app.agents.kg_sub_graph.kg_neo4j_conn import get_neo4j_graph
 from app.core.logger import get_logger
 from langchain_openai import ChatOpenAI
 from app.config import settings
-from app.agents.kg_sub_graph.agentic_rag_agents.retrievers.cypher_examples.northwind_retriever import NorthwindCypherRetriever
+from app.agents.kg_sub_graph.agentic_rag_agents.retrievers.cypher_examples.recipe_retriever import RecipeCypherRetriever
 from app.agents.kg_sub_graph.agentic_rag_agents.components.cypher_tools.utils import create_text2cypher_generation_node, create_text2cypher_validation_node, create_text2cypher_execution_node
 
 
@@ -76,14 +76,54 @@ def create_cypher_query_node(
             logger.error(f"failed to get Neo4j graph database connection: {e}")
 
         # 创建自定义检索器实例，根据 Graph Schema 创建 Cypher 示例，用来引导大模型生成正确的 Cypher 查询语句
-        cypher_retriever = NorthwindCypherRetriever()
+        cypher_retriever = RecipeCypherRetriever()
 
-        # 根据自定义的 Cypher 示例，引导大模型生成当前输入问题的 Cypher 查询语句
+        # 根据自定义的 Cypher，引导大模型生成当前输入问题的 Cypher 查询语句
+        try:
+            neo4j_graph = get_neo4j_graph()
+            logger.info("success to get Neo4j graph database connection")
+        except Exception as e:
+            logger.error(f"failed to get Neo4j graph database connection: {e}")
+            errors.append(f"failed to get Neo4j graph database connection: {e}")
+            # 返回错误状态而不是继续执行
+            return {
+                "cyphers": [
+                    CypherQueryOutputState(
+                        **{
+                            "task": state.get("task", ""),
+                            "query": query,
+                            "errors": errors,
+                            "records": {"result": []},
+                            "steps": state.get("steps", []),
+                        }
+                    )
+                ],
+                "steps": state.get("steps", []),
+            }
+
+        # 创建自定义检索器，根据 Graph Schema 创建 Cypher语句，用来引导大模型生成正确的 Cypher 查询语句
+        cypher_retriever = RecipeCypherRetriever()
+
+        # 根据自定义的 Cypher语句，引导大模型生成当前输入问题的 Cypher 查询语句
         cypher_generation = create_text2cypher_generation_node(
             llm=model, graph=neo4j_graph, cypher_example_retriever=cypher_retriever
         )
 
         cypher_result = await cypher_generation(state)
+        cypher_statement = ""
+        if isinstance(cypher_result, dict):
+            cypher_statement = cypher_result.get("statement", "")
+            generation_steps = cypher_result.get("steps", [])
+            if generation_steps:
+                steps = state.get("steps", list())
+                steps.extend(step for step in generation_steps if step not in steps)
+                state["steps"] = steps
+        elif isinstance(cypher_result, str):
+            cypher_statement = cypher_result
+        else:
+            cypher_statement = str(cypher_result or "")
+
+        state["statement"] = cypher_statement
         #  TODO: Example 1. 直接使用大模型生成 Cypher 查询语句
         """
         # 安装依赖
@@ -105,10 +145,6 @@ def create_cypher_query_node(
             auth=(NEO4J_USERNAME, NEO4J_PASSWORD)
             )
 
-        # 这里可以填写 DeepSeek 模型
-        client = OpenAILLM(api_key="sk-7afffd0249d031f34430", base_url="https://api.deepseek.com", model_name='deepseek-chat')
-
-        
         # 定义用户输入：
         examples = [
         "USER INPUT: 'Which actors starred in the Matrix?' QUERY: MATCH (p:Person)-[:ACTED_IN]->(m:Movie) WHERE m.title = 'The Matrix' RETURN p.name"
@@ -128,18 +164,17 @@ def create_cypher_query_node(
         print(retriever.search(query_text=query_text))
         """
 
-        # step 4. 验证生成的 Cypher 查询语句是否正确
+        #  验证生成的 Cypher 查询语句是否正确
         validate_cypher = create_text2cypher_validation_node(
             llm=model,
             graph=neo4j_graph,
             llm_validation=True,
-            cypher_statement=cypher_result
         )
 
-        # step 5. 获取执行Cypher查询的全部信息
-        execute_info = await validate_cypher(state=state)
+        #  获取执行Cypher查询的全部信息
+        execute_info = await validate_cypher(state)
 
-        # step 6. 执行 Cypher 查询语句
+        #  执行 Cypher 查询语句
         execute_cypher = create_text2cypher_execution_node(
             graph=neo4j_graph, cypher=execute_info
         )
