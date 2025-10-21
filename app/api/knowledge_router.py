@@ -77,7 +77,7 @@ def get_knowledge_service():
 @lru_cache
 def get_neo4j_qa_service():
     """Return the Neo4j QA service."""
-    from ..knowledge_base.recipe_kg import Neo4jQAService
+    from app.knowledge_base.recipe_kg import Neo4jQAService
 
     return Neo4jQAService()
 
