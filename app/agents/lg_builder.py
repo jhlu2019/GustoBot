@@ -425,14 +425,14 @@ async def create_research_plan(
     except Exception as e:
         logger.error(f"failed to get Neo4j graph database connection: {e}")
 
-    # 2. 创建菜谱场景的检索器实例，根据 Graph Schema创建 Cypher ， 优先生成对应问题的cypher模版 用来引导大模型生成正确的Cypher查询语句
+    #  创建菜谱场景的检索器实例，根据 Graph Schema创建 Cypher ， 优先生成对应问题的cypher模版 用来引导大模型生成正确的Cypher查询语句
     cypher_retriever = RecipeCypherRetriever()
 
-    # step 3. 定义工具模式列表    
+    #  定义工具模式列表
     from app.agents.kg_sub_graph.kg_tools_list import cypher_query, predefined_cypher, microsoft_graphrag_query
     tool_schemas: List[type[BaseModel]] = [cypher_query, predefined_cypher, microsoft_graphrag_query]
 
-    # 3. 预定义的Cypher查询 - 为菜谱场景定义有用的查询
+    #  预定义的Cypher查询 为菜谱场景定义有用的查询
     from app.agents.kg_sub_graph.agentic_rag_agents.components.predefined_cypher.cypher_dict import \
         predefined_cypher_dict
 
@@ -523,8 +523,6 @@ async def check_hallucinations(
     return {"hallucination": response}
 
 
-# 定义持久化存储，也可以使用SQLiteSaver()、PostgresSaver()等
-# LangGraph官方地址：https://langchain-ai.github.io/langgraph/how-tos/persistence/
 checkpointer = MemorySaver()
 
 # 定义状态图
