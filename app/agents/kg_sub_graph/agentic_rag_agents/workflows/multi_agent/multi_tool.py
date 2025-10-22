@@ -136,7 +136,7 @@ def create_multi_tool_workflow(
     main_graph_builder.add_node(planner)
     main_graph_builder.add_node("cypher_query", cypher_query)
     main_graph_builder.add_node(predefined_cypher)
-    main_graph_builder.add_node("customer_tools", customer_tools)
+    main_graph_builder.add_node("customer_tools", customer_tools) #lightrag_query
     main_graph_builder.add_node(summarize)
     main_graph_builder.add_node(tool_selection)
     main_graph_builder.add_node(final_answer)
