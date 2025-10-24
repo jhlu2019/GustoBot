@@ -17,9 +17,12 @@ class SearchTool:
         timeout: Optional[float] = None,
         default_results: Optional[int] = None,
     ) -> None:
+        self.allow_network = settings.ENABLE_EXTERNAL_SEARCH
         self.api_key = api_key or settings.SERPAPI_KEY
-        if not self.api_key:
+        if self.allow_network and not self.api_key:
             raise RuntimeError("SERPAPI_KEY is not configured.")
+        if not self.allow_network:
+            logger.info("External search disabled; SearchTool will operate in no-op mode.")
 
         self.endpoint = (endpoint or settings.SERPAPI_BASE_URL).rstrip("/")
         self.timeout = timeout or settings.SERPAPI_TIMEOUT
@@ -29,6 +32,10 @@ class SearchTool:
         """执行搜索并返回结构化结果"""
         if not query:
             raise ValueError("Search query must not be empty.")
+
+        if not self.allow_network:
+            logger.info("External search disabled via configuration; returning empty result set.")
+            return []
 
         result_count = num_results or self.default_results
 

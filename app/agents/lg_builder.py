@@ -42,6 +42,8 @@ import io
 from typing import Literal, Optional
 from pydantic import BaseModel, Field
 from langchain_openai import ChatOpenAI
+from app.agents.kb_tools import create_knowledge_query_node
+from app.knowledge_base import KnowledgeService
 class AdditionalGuardrailsOutput(BaseModel):
     """
     格式化输出，用于判断用户的问题是否与图谱内容相关
@@ -92,21 +94,26 @@ async def analyze_and_route_query(
 def route_query(
         state: AgentState,
 ) -> Literal[
-    "respond_to_general_query", "get_additional_info", "create_research_plan", "create_image_query", "create_file_query"]:
+    "respond_to_general_query", "get_additional_info", "create_research_plan", "create_image_query", "create_file_query", "create_kb_query"]:
     """根据查询分类确定下一步操作。
 
     Args:
         state (AgentState): 当前代理状态，包括路由器的分类。
 
     Returns:
-        Literal["respond_to_general_query", "get_additional_info", "create_research_plan", "create_image_query", "create_file_query"]: 下一步操作。
+        Literal["respond_to_general_query", "get_additional_info", "create_research_plan", "create_image_query", "create_file_query"，"create_kb_query"]: 下一步操作。
     """
     _type = state.router["type"]
 
-    # 检查配置中是否有图片路径，如果有，优先处理为图片查询
-    if hasattr(state, "config") and state.config and state.config.get("configurable", {}).get("image_path"):
-        logger.info("检测到图片路径，转为图片查询处理")
-        return "create_image_query"
+    # 检查配置中是否有图片或文件路径，如果有，优先对应处理
+    if hasattr(state, "config") and state.config:
+        cfg = state.config.get("configurable", {})
+        if cfg.get("image_path"):
+            logger.info("检测到图片路径，转为图片查询处理")
+            return "create_image_query"
+        if cfg.get("file_path"):
+            logger.info("检测到文件路径，转为文件上传处理")
+            return "create_file_query"
 
     if _type == "general-query":
         return "respond_to_general_query"
@@ -118,6 +125,8 @@ def route_query(
         return "create_image_query"
     elif _type == "file-query":
         return "create_file_query"
+    elif _type=="kb-query":
+        return "create_kb_query"
     else:
         raise ValueError(f"Unknown router type {_type}")
 
@@ -392,9 +401,112 @@ async def create_image_query(
 async def create_file_query(
         state: AgentState, *, config: RunnableConfig
 ) -> Dict[str, List[BaseMessage]]:
-    """Create a file query."""
+    """Handle user-provided files for ingestion.
 
-    # TODO
+    - `.xlsx/.xls`: delegate to external ingestion service `/api/ingest/excel`
+    - other supported text formats (`.txt/.md/.json/.csv/.log`): ingest into the local knowledge base
+    """
+    logger.info("-----Found User Upload File-----")
+    cfg = (config or {}).get("configurable", {}) if isinstance(config, dict) else {}
+    file_path = cfg.get("file_path")
+    ingest_service_url = settings.INGEST_SERVICE_URL
+
+    service = KnowledgeService()
+
+    # 2) 文件路径导入
+    if not file_path:
+        logger.warning("User Upload File Path is None")
+        return {"messages": [AIMessage(content="请提供要处理的文件路径。")]}
+
+    p = Path(file_path)
+    if not p.exists() or not p.is_file():
+        logger.warning(f"User Upload File Not Found: {file_path}")
+        return {"messages": [AIMessage(content="抱歉，未找到该文件，请确认路径是否正确。")]}
+
+    try:
+        suffix = p.suffix.lower()
+        size_bytes = p.stat().st_size
+        if size_bytes > settings.FILE_UPLOAD_MAX_MB * 1024 * 1024:
+            return {"messages": [AIMessage(content=f"文件过大（>{settings.FILE_UPLOAD_MAX_MB}MB），请分割后重新上传。")]}
+
+        if suffix in {".xlsx", ".xls"}:
+            # Excel 必须通过外部接口调用
+            if not ingest_service_url:
+                return {"messages": [AIMessage(content="未配置外部接入服务 INGEST_SERVICE_URL，无法处理 Excel 导入。")]}
+            payload = {
+                "excel_path": str(p),
+                "incremental": bool(cfg.get("incremental", False)),
+                "regenerate": bool(cfg.get("regenerate", False)),
+            }
+            import aiohttp
+            async with aiohttp.ClientSession() as session:
+                async with session.post(
+                    f"{ingest_service_url.rstrip('/')}/api/ingest/excel",
+                    json=payload,
+                    timeout=60,
+                ) as resp:
+                    if resp.status not in (200, 202):
+                        txt = await resp.text()
+                        return {"messages": [AIMessage(content=f"外部 Excel 导入请求失败（{resp.status}）：{txt}") ]}
+            return {"messages": [AIMessage(content="已启动 Excel 导入（外部服务），完成后可直接检索或提问。")]}
+
+        # 通用文本/JSON 导入
+        raw_text = ""
+        if suffix in {".txt", ".md", ".csv", ".log"}:
+            raw_text = p.read_text(encoding="utf-8", errors="ignore")
+        elif suffix in {".json"}:
+            import json
+            data = json.loads(p.read_text(encoding="utf-8", errors="ignore"))
+            raw_text = json.dumps(data, ensure_ascii=False, indent=2)
+        else:
+            return {"messages": [AIMessage(content=f"暂不支持该文件类型：{suffix}。当前仅支持 .txt/.md/.json/.csv/.log/.xlsx/.xls。")]}
+
+        import uuid
+        doc_id = f"upload_{p.stem}_{uuid.uuid4().hex[:6]}"
+        title = p.stem
+        success = await service.add_document(doc_id=doc_id, title=title, content=raw_text, metadata={"category": "uploaded"})
+        if not success:
+            return {"messages": [AIMessage(content="文件已读取，但保存到知识库失败，请稍后重试。")]}
+
+        knowledge_node = create_knowledge_query_node()
+        user_question = state.messages[-1].content if state.messages else title
+        kb_result = await knowledge_node(
+            {"task": user_question, "context": {"top_k": 5}, "steps": ["file_upload", "knowledge_query"]}
+        )
+        answer_text = kb_result.get("answer") or f"文件《{title}》已上传并加入知识库，可直接向我提问相关内容。"
+        return {"messages": [AIMessage(content=answer_text)]}
+
+
+async def create_kb_query(
+        state: AgentState, *, config: RunnableConfig
+) -> Dict[str, List[BaseMessage]]:
+    """Query the vector knowledge base and answer the user's question."""
+    logger.info("------execute KB query------")
+
+    knowledge_node = create_knowledge_query_node()
+
+    # Get last user question
+    last_message = state.messages[-1].content if state.messages else ""
+
+    # Optional runtime configs
+    cfg = (config or {}).get("configurable", {}) if isinstance(config, dict) else {}
+    kb_top_k = cfg.get("kb_top_k")
+    kb_similarity_threshold = cfg.get("kb_similarity_threshold")
+    kb_filter_expr = cfg.get("kb_filter_expr")
+
+    input_state = {
+        "task": last_message,
+        "context": {
+            "top_k": kb_top_k,
+            "similarity_threshold": kb_similarity_threshold,
+            "filter_expr": kb_filter_expr,
+        },
+        "steps": ["kb_query"],
+    }
+
+    result = await knowledge_node(input_state)
+    answer_text = result.get("answer", "")
+    return {"messages": [AIMessage(content=answer_text)]}
 
 # 图工具 查询节点
 async def create_research_plan(
@@ -534,6 +646,13 @@ builder.add_node(get_additional_info) # 图结构信息
 builder.add_node("create_research_plan", create_research_plan)  # 这里是graphrag neo4j-query
 builder.add_node(create_image_query)
 builder.add_node(create_file_query)
+builder.add_node(create_kb_query)
+
+# 兼容别名：有场景会调用 create_query 表示文件/结构化导入
+async def create_query(state: AgentState, *, config: RunnableConfig) -> Dict[str, List[BaseMessage]]:
+    return await create_file_query(state, config=config)
+
+builder.add_node(create_query)
 
 # 添加边
 builder.add_edge(START, "analyze_and_route_query")

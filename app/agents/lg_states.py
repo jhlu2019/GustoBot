@@ -8,7 +8,15 @@ from langgraph.graph import add_messages
 class Router(TypedDict):
     """Classify user query."""
     logic: str
-    type: Literal["general-query", "additional-query", "graphrag-query", "image-query", "file-query"]
+    # Add "kb-query" to supported router types to enable knowledge base routing
+    type: Literal[
+        "general-query",
+        "additional-query",
+        "kb-query",
+        "graphrag-query",
+        "image-query",
+        "file-query",
+    ]
     question: str = field(default_factory=str)
 
 class GradeHallucinations(BaseModel):

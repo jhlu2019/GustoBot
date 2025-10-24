@@ -3,15 +3,13 @@
 Knowledge Base Module
 """
 from .vector_store import VectorStore
-from .embedding_service import EmbeddingService
-from .reranker import Reranker
 from .knowledge_service import KnowledgeService
+from .reranker import Reranker
 from app.knowledge_base.recipe_kg import Neo4jQAService
 
 __all__ = [
     "VectorStore",
-    "EmbeddingService",
-    "Reranker",
     "KnowledgeService",
+    "Reranker",
     "Neo4jQAService",
 ]

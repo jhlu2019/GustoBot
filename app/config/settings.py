@@ -142,6 +142,33 @@ class Settings(BaseSettings):
     # Knowledge base retrieval
     KB_TOP_K: int = 5
     KB_SIMILARITY_THRESHOLD: float = 0.7
+    KB_CHUNK_SIZE: int = Field(
+        default=512,
+        description="Chunk size used when splitting documents for the knowledge base",
+    )
+    KB_CHUNK_OVERLAP: int = Field(
+        default=80,
+        description="Chunk overlap used when splitting documents",
+    )
+
+    # External ingestion service (test folder FastAPI) configuration
+    INGEST_SERVICE_URL: Optional[str] = Field(
+        default=None,
+        description="Base URL for external ingestion service (e.g., http://localhost:8000)",
+    )
+    FILE_UPLOAD_MAX_MB: int = Field(
+        default=2,
+        ge=1,
+        description="Maximum accepted upload file size in MB for local ingestion",
+    )
+    ENABLE_EXTERNAL_SEARCH: bool = Field(
+        default=False,
+        description="Whether tools are allowed to perform external network search",
+    )
+    KB_ENABLE_EXTERNAL_SEARCH: bool = Field(
+        default=False,
+        description="Augment KB answers with optional external web search",
+    )
 
     # Conversation history retention
     CONVERSATION_HISTORY_TTL: int = Field(

@@ -15,6 +15,7 @@ from app.core.logger import get_logger
 from app.knowledge_base import KnowledgeService
 from app.services import LLMClient
 from .prompts import build_knowledge_system_prompt
+from app.tools.search import SearchTool
 
 logger = get_logger(service="kg-knowledge-agent")
 
@@ -102,7 +103,6 @@ def create_knowledge_query_node(
 
         top_k = context.get("top_k")
         similarity_threshold = context.get("similarity_threshold")
-        use_reranker = context.get("use_reranker", True)
         filter_expr = context.get("filter_expr")
 
         try:
@@ -110,7 +110,6 @@ def create_knowledge_query_node(
                 query=question,
                 top_k=top_k,
                 similarity_threshold=similarity_threshold,
-                use_reranker=use_reranker,
                 filter_expr=filter_expr,
             )
             logger.info("Knowledge search retrieved {} documents.", len(documents))
@@ -135,8 +134,42 @@ def create_knowledge_query_node(
                 steps=prior_steps + ["knowledge_query"],
             )
 
+        web_results: List[Dict[str, Any]] = []
+        if settings.KB_ENABLE_EXTERNAL_SEARCH:
+            try:
+                search_tool = SearchTool()
+                web_top_k = context.get("web_top_k")
+                web_results = search_tool.search(question, num_results=web_top_k)
+                logger.info("External search retrieved %s results.", len(web_results))
+            except RuntimeError as exc:
+                logger.warning("External search disabled or misconfigured: {}", exc)
+            except Exception as exc:
+                logger.error("External search failed: {}", exc)
+
         context_snippet = _build_context_snippet(documents)
+        if web_results:
+            web_snippets: List[str] = []
+            for idx, item in enumerate(web_results[:5]):
+                title = item.get("title") or ""
+                url = item.get("url") or ""
+                snippet = item.get("snippet") or ""
+                web_snippets.append(
+                    f"搜索结果 {idx + 1}：{title}\n链接：{url}\n摘要：{snippet}"
+                )
+            web_context = "\n\n".join(web_snippets)
+            context_snippet = (
+                f"{context_snippet}\n\n外部搜索结果：\n{web_context}"
+                if context_snippet
+                else f"外部搜索结果：\n{web_context}"
+            )
+
         sources = _collect_sources(documents)
+        if web_results:
+            sources.extend(
+                item.get("url", "")
+                for item in web_results
+                if item.get("url")
+            )
         confidence = _calculate_confidence(documents)
 
         system_prompt = build_knowledge_system_prompt(context_snippet)
@@ -152,7 +185,8 @@ def create_knowledge_query_node(
             ],
             "top_k": top_k,
             "similarity_threshold": similarity_threshold,
-            "use_reranker": use_reranker,
+            "filter_expr": filter_expr,
+            "web_results": web_results,
         }
 
         if llm_client is None:
