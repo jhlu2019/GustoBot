@@ -112,7 +112,7 @@ def route_query(
         return "respond_to_general_query"
     elif _type == "additional-query":
         return "get_additional_info"
-    elif _type == "graphrag-query":  # 实际使用 LightRAG (轻量级替代方案)
+    elif _type == "graphrag-query":  #  图查询
         return "create_research_plan"
     elif _type == "image-query":
         return "create_image_query"
@@ -531,7 +531,7 @@ builder = StateGraph(AgentState, input=InputState)
 builder.add_node(analyze_and_route_query) # 意图识别
 builder.add_node(respond_to_general_query)#默认回复
 builder.add_node(get_additional_info) # 图结构信息
-builder.add_node("create_research_plan", create_research_plan)  # 这里是子图graphrag-query
+builder.add_node("create_research_plan", create_research_plan)  # 这里是graphrag neo4j-query
 builder.add_node(create_image_query)
 builder.add_node(create_file_query)
 

@@ -110,12 +110,12 @@ def create_multi_tool_workflow(
     # 2. 如果通过guardrails，则会针对用户的问题进行任务分解
     planner = create_planner_node(llm=llm)
 
-    # 3. 创建cypher_query节点，用来根据用户的问题生成Cypher查询语句
+    # 3. 创建cypher_query节点，用来根据用户的问题生成Cypher查询语句 大模型生成Cypher查询语句
     cypher_query = create_cypher_query_node()
 
     predefined_cypher = create_predefined_cypher_node(
         graph=graph, predefined_cypher_dict=predefined_cypher_dict
-    )
+    ) #预定义的自定Cypher查询语句
 
     customer_tools = create_graphrag_query_node() # lightrag_query
 
@@ -129,16 +129,16 @@ def create_multi_tool_workflow(
 
     final_answer = create_final_answer_node()
 
-    # 创建状态图
+    # 创建状态图运行时会维护一个“全局状态”（OverallState），入口状态类型是 InputState，最终产出是 OutputState。节点函数读写的就是这个状态。
     main_graph_builder = StateGraph(OverallState, input=InputState, output=OutputState)
 
-    main_graph_builder.add_node(guardrails)
-    main_graph_builder.add_node(planner)
-    main_graph_builder.add_node("cypher_query", cypher_query)
-    main_graph_builder.add_node(predefined_cypher)
+    main_graph_builder.add_node(guardrails)# 安全护栏敏感内容过滤、权限/配额校验
+    main_graph_builder.add_node(planner) #决定下一步要用的工具/路径。
+    main_graph_builder.add_node("cypher_query", cypher_query)#命名 "cypher_query" 的节点，执行 cypher_query 函数（通常是对图数据库生成/执行 Cypher）。
+    main_graph_builder.add_node(predefined_cypher) #预设查询（当无需动态生成时）。
     main_graph_builder.add_node("customer_tools", customer_tools) #lightrag_query
-    main_graph_builder.add_node(summarize)
-    main_graph_builder.add_node(tool_selection)
+    main_graph_builder.add_node(summarize) # 总结
+    main_graph_builder.add_node(tool_selection) #工具选择的中间控制节点（通常结合 planner 的输出）。
     main_graph_builder.add_node(final_answer)
 
 
@@ -147,11 +147,11 @@ def create_multi_tool_workflow(
     main_graph_builder.add_conditional_edges(
         "guardrails",
         guardrails_conditional_edge,
-    )
+    ) #这是条件边：执行完 guardrails 后，不是固定跳到某个节点，而是调用 guardrails_conditional_edge(state) 来返回下一跳的节点名（或一个映射）。
     main_graph_builder.add_conditional_edges(
         "planner",
-        map_reduce_planner_to_tool_selection,  # type: ignore[arg-type, unused-ignore]
-        ["tool_selection"],
+        map_reduce_planner_to_tool_selection, #据 planner 写进 state 的结果，返回下一个要去的节点名
+        ["tool_selection"], #从 planner 出来只能跳到 "tool_selection"，且由 map_reduce_planner_to_tool_selection(state) 来决定（但这里其实被限制成只能选这一个）。
     )
 
     main_graph_builder.add_edge("cypher_query", "summarize")
