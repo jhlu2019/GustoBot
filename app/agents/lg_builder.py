@@ -652,11 +652,6 @@ builder.add_node(create_image_query)
 builder.add_node(create_file_query)
 builder.add_node(create_kb_query)
 
-# 兼容别名：有场景会调用 create_query 表示文件/结构化导入
-async def create_query(state: AgentState, *, config: RunnableConfig) -> Dict[str, List[BaseMessage]]:
-    return await create_file_query(state, config=config)
-
-builder.add_node(create_query)
 
 # 添加边
 builder.add_edge(START, "analyze_and_route_query")
