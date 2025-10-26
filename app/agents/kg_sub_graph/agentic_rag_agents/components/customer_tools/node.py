@@ -21,14 +21,14 @@ from app.core.logger import get_logger
 logger = get_logger(service="lightrag-node")
 
 
-# 定义 LightRAG 查询的输入状态类型
+#  LightRAG 查询的输入状态类型
 class LightRAGQueryInputState(BaseModel):
     task: str
     query: str
     steps: List[str] = Field(...)
 
 
-# 定义 LightRAG 查询的输出状态类型
+#   LightRAG 查询的输出状态类型
 class LightRAGQueryOutputState(BaseModel):
     task: str
     query: str
@@ -39,7 +39,7 @@ class LightRAGQueryOutputState(BaseModel):
     steps: List[str] = Field(...)
 
 
-# 定义 LightRAG API
+#  LightRAG API
 class LightRAGAPI:
     """
     LightRAG API 封装类
