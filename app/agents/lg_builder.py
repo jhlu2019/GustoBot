@@ -533,7 +533,7 @@ async def create_research_plan(
                        tags=["research_plan"])
 
     # 初始化必要参数
-    # 1. Neo4j图数据库连接 - 使用配置中的连接信息
+    #  Neo4j图数据库连接 - 使用配置中的连接信息
     neo4j_graph=None
     try:
         neo4j_graph = get_neo4j_graph()
@@ -619,8 +619,7 @@ async def check_hallucinations(
     Returns:
         dict[str, Router]: A dictionary containing the 'router' key with the classification result (classification type and logic).
     """
-    model = ChatOpenAI(openai_api_key=settings.OPENAI_API_KEY, model_name=settings.OPENAI_MODEL,
-                       openai_api_base=settings.OPENAI_API_BASE, temperature=0.7,
+    model = ChatOpenAI(temperature=0.7,
                        tags=["hallucinations"])
 
     system_prompt = CHECK_HALLUCINATIONS.format(
