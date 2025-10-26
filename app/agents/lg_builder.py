@@ -42,7 +42,7 @@ import io
 from typing import Literal, Optional
 from pydantic import BaseModel, Field
 from langchain_openai import ChatOpenAI
-from app.agents.kb_tools import create_knowledge_query_node
+from app.agents.kb_tools import create_knowledge_query_node, KnowledgeQueryInputState
 from app.knowledge_base import KnowledgeService
 class AdditionalGuardrailsOutput(BaseModel):
     """
@@ -401,11 +401,8 @@ async def create_image_query(
 async def create_file_query(
         state: AgentState, *, config: RunnableConfig
 ) -> Dict[str, List[BaseMessage]]:
-    """Handle user-provided files for ingestion.
+    """Handle user-provided files for ingestion."""
 
-    - `.xlsx/.xls`: delegate to external ingestion service `/api/ingest/excel`
-    - other supported text formats (`.txt/.md/.json/.csv/.log`): ingest into the local knowledge base
-    """
     logger.info("-----Found User Upload File-----")
     cfg = (config or {}).get("configurable", {}) if isinstance(config, dict) else {}
     file_path = cfg.get("file_path")
@@ -413,14 +410,13 @@ async def create_file_query(
 
     service = KnowledgeService()
 
-    # 2) 文件路径导入
     if not file_path:
         logger.warning("User Upload File Path is None")
         return {"messages": [AIMessage(content="请提供要处理的文件路径。")]}
 
     p = Path(file_path)
     if not p.exists() or not p.is_file():
-        logger.warning(f"User Upload File Not Found: {file_path}")
+        logger.warning("User Upload File Not Found: %s", file_path)
         return {"messages": [AIMessage(content="抱歉，未找到该文件，请确认路径是否正确。")]}
 
     try:
@@ -430,7 +426,7 @@ async def create_file_query(
             return {"messages": [AIMessage(content=f"文件过大（>{settings.FILE_UPLOAD_MAX_MB}MB），请分割后重新上传。")]}
 
         if suffix in {".xlsx", ".xls"}:
-            # Excel 必须通过外部接口调用
+            # Excel must be handled by external ingestion service
             if not ingest_service_url:
                 return {"messages": [AIMessage(content="未配置外部接入服务 INGEST_SERVICE_URL，无法处理 Excel 导入。")]}
             payload = {
@@ -447,14 +443,13 @@ async def create_file_query(
                 ) as resp:
                     if resp.status not in (200, 202):
                         txt = await resp.text()
-                        return {"messages": [AIMessage(content=f"外部 Excel 导入请求失败（{resp.status}）：{txt}") ]}
+                        return {"messages": [AIMessage(content=f"外部 Excel 导入请求失败（{resp.status}）：{txt}")]}
             return {"messages": [AIMessage(content="已启动 Excel 导入（外部服务），完成后可直接检索或提问。")]}
 
-        # 通用文本/JSON 导入
         raw_text = ""
         if suffix in {".txt", ".md", ".csv", ".log"}:
             raw_text = p.read_text(encoding="utf-8", errors="ignore")
-        elif suffix in {".json"}:
+        elif suffix == ".json":
             import json
             data = json.loads(p.read_text(encoding="utf-8", errors="ignore"))
             raw_text = json.dumps(data, ensure_ascii=False, indent=2)
@@ -464,18 +459,28 @@ async def create_file_query(
         import uuid
         doc_id = f"upload_{p.stem}_{uuid.uuid4().hex[:6]}"
         title = p.stem
-        success = await service.add_document(doc_id=doc_id, title=title, content=raw_text, metadata={"category": "uploaded"})
+        success = await service.add_document(
+            doc_id=doc_id,
+            title=title,
+            content=raw_text,
+            metadata={"category": "uploaded"},
+        )
         if not success:
             return {"messages": [AIMessage(content="文件已读取，但保存到知识库失败，请稍后重试。")]}
 
-        knowledge_node = create_knowledge_query_node()
+        knowledge_node = create_knowledge_query_node(knowledge_service=service)
         user_question = state.messages[-1].content if state.messages else title
-        kb_result = await knowledge_node(
-            {"task": user_question, "context": {"top_k": 5}, "steps": ["file_upload", "knowledge_query"]}
-        )
-        answer_text = kb_result.get("answer") or f"文件《{title}》已上传并加入知识库，可直接向我提问相关内容。"
+        input_state: KnowledgeQueryInputState = {
+            "task": user_question,
+            "context": {"top_k": 5},
+            "steps": ["file_upload"],
+        }
+        kb_result = await knowledge_node(input_state)
+        answer_text = kb_result.get("answer") or f"文件《{title}》已上传并加入知识库，可直接对我提问相关内容。"
         return {"messages": [AIMessage(content=answer_text)]}
-
+    except Exception as exc:
+        logger.exception("Failed to ingest uploaded file: %s", exc)
+        return {"messages": [AIMessage(content="文件导入出现异常，请稍后再试或联系管理员。")]}
 
 async def create_kb_query(
         state: AgentState, *, config: RunnableConfig
@@ -483,7 +488,7 @@ async def create_kb_query(
     """Query the vector knowledge base and answer the user's question."""
     logger.info("------execute KB query------")
 
-    knowledge_node = create_knowledge_query_node()
+    knowledge_node = create_knowledge_query_node(knowledge_service=KnowledgeService())
 
     # Get last user question
     last_message = state.messages[-1].content if state.messages else ""
@@ -494,7 +499,7 @@ async def create_kb_query(
     kb_similarity_threshold = cfg.get("kb_similarity_threshold")
     kb_filter_expr = cfg.get("kb_filter_expr")
 
-    input_state = {
+    input_state: KnowledgeQueryInputState = {
         "task": last_message,
         "context": {
             "top_k": kb_top_k,
@@ -524,8 +529,7 @@ async def create_research_plan(
     logger.info("------execute local knowledge base query------")
 
     # 使用大模型生成查询/多跳、并行查询计划
-    model = ChatOpenAI(openai_api_key=settings.OPENAI_API_KEY, model_name=settings.OPENAI_MODEL,
-                       openai_api_base=settings.OPENAI_API_BASE, temperature=0.7,
+    model = ChatOpenAI(temperature=0.7,
                        tags=["research_plan"])
 
     # 初始化必要参数

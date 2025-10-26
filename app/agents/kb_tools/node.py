@@ -4,8 +4,6 @@ LangGraph node for knowledge base powered responses.
 原 `app.agents.kg_sub_graph.agentic_rag_agents.components.kb_tools` 模块
 已重构为独立的 KG 知识库 Agent 组件，便于在多处复用。
 """
-from __future__ import annotations
-
 from typing import Any, Callable, Coroutine, Dict, List, Optional
 
 from typing_extensions import TypedDict
