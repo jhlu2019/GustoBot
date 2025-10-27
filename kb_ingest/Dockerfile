@@ -19,7 +19,7 @@ COPY requirements.txt .
 RUN python -m pip install --upgrade pip -i https://mirrors.ustc.edu.cn/pypi/simple \
  && pip install -r requirements.txt -i https://mirrors.ustc.edu.cn/pypi/simple
 
-# 再复制源码
+# 源码
 COPY kb_service ./kb_service
 COPY main.py ./
 
