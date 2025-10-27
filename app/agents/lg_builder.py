@@ -20,7 +20,10 @@ from app.agents.lg_states import AgentState, InputState, Router, GradeHallucinat
 from app.agents.kg_sub_graph.agentic_rag_agents.retrievers.cypher_examples.recipe_retriever import \
     RecipeCypherRetriever
 from app.agents.kg_sub_graph.agentic_rag_agents.components.planner.node import create_planner_node
-from app.agents.kg_sub_graph.agentic_rag_agents.workflows.multi_agent.multi_tool import create_multi_tool_workflow
+from app.agents.kg_sub_graph.agentic_rag_agents.workflows.multi_agent.multi_tool import (
+    create_multi_tool_workflow,
+    create_kb_multi_tool_workflow,
+)
 from app.agents.kg_sub_graph.kg_neo4j_conn import get_neo4j_graph
 from pydantic import BaseModel
 from typing import Dict, List
@@ -485,20 +488,72 @@ async def create_file_query(
 async def create_kb_query(
         state: AgentState, *, config: RunnableConfig
 ) -> Dict[str, List[BaseMessage]]:
-    """Query the vector knowledge base and answer the user's question."""
-    logger.info("------execute KB query------")
+    """Query the vector knowledge base (and optional external API) via a multi-agent workflow."""
+    logger.info("------execute KB multi-tool query------")
 
-    knowledge_node = create_knowledge_query_node(knowledge_service=KnowledgeService())
-
-    # Get last user question
     last_message = state.messages[-1].content if state.messages else ""
+    if not last_message.strip():
+        return {"messages": [AIMessage(content="请告诉我具体的问题，我才能帮您查询知识库。")]}
 
-    # Optional runtime configs
     cfg = (config or {}).get("configurable", {}) if isinstance(config, dict) else {}
-    kb_top_k = cfg.get("kb_top_k")
-    kb_similarity_threshold = cfg.get("kb_similarity_threshold")
+    kb_top_k = cfg.get("kb_top_k") or settings.KB_TOP_K
+    kb_similarity_threshold = (
+        cfg.get("kb_similarity_threshold")
+        if cfg.get("kb_similarity_threshold") is not None
+        else settings.KB_SIMILARITY_THRESHOLD
+    )
     kb_filter_expr = cfg.get("kb_filter_expr")
 
+    try:
+        if not settings.OPENAI_API_KEY:
+            raise RuntimeError("OPENAI_API_KEY is not configured for KB multi-tool workflow.")
+
+        llm = ChatOpenAI(
+            openai_api_key=settings.OPENAI_API_KEY,
+            model_name=settings.OPENAI_MODEL,
+            openai_api_base=settings.OPENAI_API_BASE,
+            temperature=0.3,
+            tags=["kb_multi_tool"],
+        )
+
+        knowledge_service = KnowledgeService()
+
+        external_url = settings.KB_EXTERNAL_SEARCH_URL
+        if not external_url and settings.INGEST_SERVICE_URL:
+            external_url = f"{settings.INGEST_SERVICE_URL.rstrip('/')}/api/search"
+
+        workflow = create_kb_multi_tool_workflow(
+            llm=llm,
+            knowledge_service=knowledge_service,
+            top_k=kb_top_k,
+            similarity_threshold=kb_similarity_threshold,
+            filter_expr=kb_filter_expr,
+            allow_external=settings.KB_ENABLE_EXTERNAL_SEARCH,
+            external_search_url=external_url,
+        )
+
+        history_payload = [
+            {
+                "role": getattr(msg, "type", "user"),
+                "content": getattr(msg, "content", ""),
+            }
+            for msg in state.messages[:-1]
+            if getattr(msg, "content", "").strip()
+        ]
+
+        response = await workflow.ainvoke(
+            {
+                "question": last_message,
+                "history": history_payload,
+            }
+        )
+        answer_text = response.get("answer") or "检索完成，但暂时没有可以分享的结果。"
+        return {"messages": [AIMessage(content=answer_text)]}
+    except Exception as exc:
+        logger.warning("KB multi-tool workflow unavailable (%s); falling back to direct search.", exc)
+
+    # Fallback: direct KB query
+    knowledge_node = create_knowledge_query_node(knowledge_service=KnowledgeService())
     input_state: KnowledgeQueryInputState = {
         "task": last_message,
         "context": {
@@ -508,16 +563,15 @@ async def create_kb_query(
         },
         "steps": ["kb_query"],
     }
-
     result = await knowledge_node(input_state)
-    answer_text = result.get("answer", "")
+    answer_text = result.get("answer", "") or "抱歉，我暂时无法从知识库中找到答案。"
     return {"messages": [AIMessage(content=answer_text)]}
 
 # 图工具 查询节点
 async def create_research_plan(
         state: AgentState, *, config: RunnableConfig
 ) -> Dict[str, List[str] | str]:
-    """通过查询本地知识库回答客户问题，执行任务分解，创建分布查询计划。
+    """通过查询本地图知识库回答客户问题，执行任务分解，创建分布查询计划。
 
     Args:
         state (AgentState): 当前代理状态，包括对话历史。

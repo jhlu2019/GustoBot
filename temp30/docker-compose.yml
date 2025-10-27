@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: ankane/pgvector
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${PGDATABASE:-vector_db}
+      POSTGRES_USER: ${PGUSER:-postgres}
+      POSTGRES_PASSWORD: ${PGPASSWORD:-postgres}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    environment:
+      PGHOST: postgres
+      PGPORT: 5432
+      PGDATABASE: ${PGDATABASE:-vector_db}
+      PGUSER: ${PGUSER:-postgres}
+      PGPASSWORD: ${PGPASSWORD:-postgres}
+      LLM_PROVIDER: ${LLM_PROVIDER:-openai}
+      LLM_MODEL: ${LLM_MODEL:-}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_BASE_URL: ${LLM_BASE_URL:-}
+      EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER:-openai}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-}
+      EMBEDDING_API_KEY: ${EMBEDDING_API_KEY:-}
+      EMBEDDING_BASE_URL: ${EMBEDDING_BASE_URL:-}
+      LLM_FALLBACK_TO_FLATTEN: ${LLM_FALLBACK_TO_FLATTEN:-false}
+      PROMPT_CONFIG_PATH: ${PROMPT_CONFIG_PATH:-}
+      RERANK_ENABLED: ${RERANK_ENABLED:-false}
+      RERANK_ENDPOINT: ${RERANK_ENDPOINT:-}
+      RERANK_API_KEY: ${RERANK_API_KEY:-}
+      RERANK_MAX_CANDIDATES: ${RERANK_MAX_CANDIDATES:-20}
+      RERANK_TIMEOUT: ${RERANK_TIMEOUT:-30}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+
+volumes:
+  pgdata:

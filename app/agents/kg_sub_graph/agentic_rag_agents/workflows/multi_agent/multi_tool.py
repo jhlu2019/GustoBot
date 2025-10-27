@@ -1,10 +1,17 @@
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional, Literal
+
+from operator import add
+
+import aiohttp
+
+from typing_extensions import Annotated, TypedDict
 
 from langchain_core.language_models import BaseChatModel
 from langchain_neo4j import Neo4jGraph
 from langgraph.constants import END, START
 from langgraph.graph.state import CompiledStateGraph, StateGraph
 from pydantic import BaseModel
+from langchain_core.prompts import ChatPromptTemplate
 
 # 导入输入输出状态定义
 from app.agents.kg_sub_graph.agentic_rag_agents.components.state import (
@@ -27,6 +34,9 @@ from app.agents.kg_sub_graph.agentic_rag_agents.components.predefined_cypher imp
 # 导入自定义工具函数节点
 from app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools import create_graphrag_query_node
 
+from app.config import settings
+from app.core.logger import get_logger
+from app.knowledge_base import KnowledgeService
 
 
 from ...components.errors import create_error_tool_selection_node
@@ -163,3 +173,435 @@ def create_multi_tool_workflow(
 
     return main_graph_builder.compile()
 
+
+kb_logger = get_logger(service="kb-multi-tool")
+
+
+class KBGuardrailsDecision(BaseModel):
+    decision: Literal["proceed", "end"]
+    summary: Optional[str] = None
+    rationale: Optional[str] = None
+
+
+class KBRouteDecision(BaseModel):
+    route: Literal["local", "external", "hybrid"]
+    rationale: str
+
+
+class KBInputState(TypedDict):
+    question: str
+    history: List[Dict[str, str]]
+
+
+class KBWorkflowState(TypedDict):
+    question: str
+    history: List[Dict[str, str]]
+    guardrails_decision: str
+    summary: str
+    route: str
+    local_results: List[Dict[str, Any]]
+    external_results: List[Dict[str, Any]]
+    answer: str
+    steps: Annotated[List[str], add]
+    sources: Annotated[List[str], add]
+
+
+class KBOutputState(TypedDict):
+    answer: str
+    steps: List[str]
+    sources: List[str]
+
+
+def create_kb_multi_tool_workflow(
+    llm: BaseChatModel,
+    knowledge_service: Optional[KnowledgeService] = None,
+    *,
+    top_k: Optional[int] = None,
+    similarity_threshold: Optional[float] = None,
+    filter_expr: Optional[str] = None,
+    allow_external: Optional[bool] = None,
+    external_search_url: Optional[str] = None,
+    external_search_timeout: Optional[float] = None,
+    scope_description: Optional[str] = None,
+) -> CompiledStateGraph:
+    """
+    Create a multi-tool workflow for knowledge base queries.
+
+    This workflow performs guardrails checking, routes the question to the most
+    appropriate retrieval source (local vector store, external API, or both),
+    and then synthesises a response with safety-aware instructions.
+    """
+
+    knowledge_service = knowledge_service or KnowledgeService()
+    effective_top_k = top_k or settings.KB_TOP_K
+    effective_threshold = (
+        similarity_threshold
+        if similarity_threshold is not None
+        else settings.KB_SIMILARITY_THRESHOLD
+    )
+
+    allow_external_search = (
+        allow_external
+        if allow_external is not None
+        else settings.KB_ENABLE_EXTERNAL_SEARCH
+    )
+
+    external_url = (
+        external_search_url
+        or settings.KB_EXTERNAL_SEARCH_URL
+        or (
+            f"{settings.INGEST_SERVICE_URL.rstrip('/')}/api/search"
+            if settings.INGEST_SERVICE_URL
+            else None
+        )
+    )
+
+    if not allow_external_search:
+        external_url = None
+    elif not external_url:
+        kb_logger.warning(
+            "External search enabled but no KB_EXTERNAL_SEARCH_URL or INGEST_SERVICE_URL configured."
+        )
+        allow_external_search = False
+
+    request_timeout = (
+        external_search_timeout
+        if external_search_timeout is not None
+        else settings.KB_EXTERNAL_SEARCH_TIMEOUT
+    )
+
+    scope_text = scope_description or (
+        "菜谱文化知识库仅处理菜谱的历史渊源、命名来历、地域流派、典故故事，以及历史名人与菜谱之间的关联信息。"
+        "不包含实际烹饪步骤或食材搭配建议。"
+        "禁止回答与烹饪做法、医疗养生、隐私、政治、成人内容或其他未授权主题相关的问题。"
+    )
+
+    guardrails_prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                (
+                    "你是企业知识库的安全审查员。服务范围：\n"
+                    f"{scope_text}\n\n"
+                    "判断用户问题是否位于该范围，并确保不包含违法、隐私或未授权内容。"
+                    "若问题不适宜或不在范围内，请返回 decision='end' 并给出中文 summary；"
+                    "否则返回 decision='proceed'。"
+                ),
+            ),
+            ("human", "用户问题：{question}"),
+        ]
+    )
+    guardrails_chain = guardrails_prompt | llm.with_structured_output(KBGuardrailsDecision)
+
+    router_prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                (
+                    "你是菜谱文化知识检索路由器。目标仅限于“菜谱历史/渊源/命名”、“历史名人与菜谱关系”、“菜谱条目级小传与典故”。\n"
+                    "根据用户问题和最近对话历史，从下列选项中选择最合适的数据源：\n"
+                    "- local：仅使用本地菜谱文化知识库\n"
+                    "- external：调用外部菜谱文化检索接口\n"
+                    "- hybrid：先查询本地知识库，再结合外部接口结果\n"
+                    "若问题涉及烹饪步骤、食材搭配等文化范围外内容，建议返回 local 并给出相应 rationale。"
+                    "输出 route（local/external/hybrid）及简要中文 rationale。"
+                ),
+            ),
+            (
+                "human",
+                "用户问题：{question}\n最近对话历史：\n{history}",
+            ),
+        ]
+    )
+    router_chain = router_prompt | llm.with_structured_output(KBRouteDecision)
+
+    final_prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                (
+                    "你是菜谱文化讲解助手，需要依据给定检索结果作答。请遵循：\n"
+                    "1. 仅讨论菜谱的历史背景、命名来历、地域流派、典故或与名人的关联，不要给出烹饪步骤或食用建议。\n"
+                    "2. 若信息不足，说明知识库暂无相关记载，并建议向其他模块查询。\n"
+                    "3. 语气专业、友好，回答使用简体中文。\n"
+                    "4. 如问题超出菜谱文化范围，应委婉拒答并说明理由。\n"
+                    "5. 在结尾列出引用来源名称或编号（如有）。"
+                ),
+            ),
+            (
+                "human",
+                (
+                    "用户问题：{question}\n\n"
+                    "本地知识库检索结果：\n{local_context}\n\n"
+                    "外部检索结果：\n{external_context}"
+                ),
+            ),
+        ]
+    )
+
+    def _history_to_text(history: List[Dict[str, str]], limit: int = 4) -> str:
+        if not history:
+            return "（无历史对话）"
+        segments: List[str] = []
+        for item in history[-limit:]:
+            role = item.get("role", "user")
+            content = item.get("content", "")
+            segments.append(f"{role}: {content}")
+        return "\n".join(segments)
+
+    def _format_local_results(results: List[Dict[str, Any]]) -> str:
+        snippets: List[str] = []
+        for idx, doc in enumerate(results[:effective_top_k]):
+            content = doc.get("content") or doc.get("document") or ""
+            snippet = content.strip().replace("\n", " ")
+            snippet = snippet[:500]
+            meta = doc.get("metadata") or {}
+            source = meta.get("source") or doc.get("source_table") or meta.get("source_table") or ""
+            tag = f"[本地#{idx + 1}] {snippet}"
+            if source:
+                tag = f"{tag}\n来源：{source}"
+            snippets.append(tag)
+        return "\n\n".join(snippets) or "（无本地检索结果）"
+
+    def _format_external_results(results: List[Dict[str, Any]]) -> str:
+        if not results:
+            return "（无外部检索结果）"
+        snippets: List[str] = []
+        for idx, item in enumerate(results[:effective_top_k]):
+            content = item.get("content") or item.get("summary") or ""
+            snippet = content.strip().replace("\n", " ")
+            snippet = snippet[:500]
+            meta = item.get("metadata") or {}
+            source = (
+                item.get("source")
+                or item.get("source_table")
+                or meta.get("source")
+                or meta.get("source_table")
+                or meta.get("url")
+                or ""
+            )
+            tag = f"[外部#{idx + 1}] {snippet}"
+            if source:
+                tag = f"{tag}\n来源：{source}"
+            snippets.append(tag)
+        return "\n\n".join(snippets)
+
+    def _collect_sources(
+        local_results: List[Dict[str, Any]],
+        external_results: List[Dict[str, Any]],
+    ) -> List[str]:
+        collected: List[str] = []
+        for doc in local_results:
+            meta = doc.get("metadata") or {}
+            candidate = (
+                doc.get("source")
+                or meta.get("source")
+                or meta.get("source_table")
+                or doc.get("source_table")
+                or meta.get("title")
+            )
+            if candidate:
+                collected.append(str(candidate))
+        for item in external_results:
+            meta = item.get("metadata") or {}
+            candidate = (
+                item.get("source")
+                or item.get("source_table")
+                or meta.get("source")
+                or meta.get("url")
+            )
+            if candidate:
+                collected.append(str(candidate))
+        # 去重但保留顺序
+        seen: Dict[str, None] = {}
+        for source in collected:
+            seen.setdefault(source, None)
+        return list(seen.keys())
+
+    async def guardrails(state: KBWorkflowState) -> Dict[str, Any]:
+        question = state.get("question", "")
+        decision = await guardrails_chain.ainvoke({"question": question})
+        summary = decision.summary or (
+            "抱歉，该问题不在菜谱文化知识库的支持范围内，请询问菜谱历史、典故或名人故事相关内容。"
+            if decision.decision == "end"
+            else ""
+        )
+        kb_logger.info("KB guardrails decision: %s", decision.decision)
+        return {
+            "guardrails_decision": decision.decision,
+            "summary": summary,
+            "steps": ["guardrails"],
+        }
+
+    async def router(state: KBWorkflowState) -> Dict[str, Any]:
+        question = state.get("question", "")
+        history_text = _history_to_text(state.get("history", []))
+        decision = await router_chain.ainvoke(
+            {
+                "question": question,
+                "history": history_text,
+            }
+        )
+        route = decision.route
+        if route in {"external", "hybrid"} and not allow_external_search:
+            kb_logger.info(
+                "Router requested %s but external search is disabled; using local instead.",
+                route,
+            )
+            route = "local"
+        kb_logger.info("KB router decision: %s (%s)", route, decision.rationale)
+        return {
+            "route": route,
+            "steps": ["router"],
+        }
+
+    async def local_search(state: KBWorkflowState) -> Dict[str, Any]:
+        question = state.get("question", "")
+        if not question.strip():
+            return {"local_results": [], "steps": ["local_search"]}
+        try:
+            docs = await knowledge_service.search(
+                query=question,
+                top_k=effective_top_k,
+                similarity_threshold=effective_threshold,
+                filter_expr=filter_expr,
+            )
+        except Exception as exc:  # pragma: no cover - defensive logging
+            kb_logger.error("Local knowledge search failed: %s", exc)
+            docs = []
+
+        route = state.get("route", "local")
+        if not docs and route in {"local", "hybrid"} and allow_external_search and external_url:
+            kb_logger.info("Local search empty, falling back to external search.")
+            route = "external"
+
+        return {
+            "local_results": docs,
+            "route": route,
+            "steps": ["local_search"],
+        }
+
+    async def external_search(state: KBWorkflowState) -> Dict[str, Any]:
+        if not (allow_external_search and external_url):
+            return {"external_results": [], "steps": ["external_search"]}
+
+        question = state.get("question", "")
+        if not question.strip():
+            return {"external_results": [], "steps": ["external_search"]}
+
+        payload: Dict[str, Any] = {
+            "query": question,
+            "top_k": effective_top_k,
+        }
+        if effective_threshold is not None:
+            payload["threshold"] = effective_threshold
+
+        results: List[Dict[str, Any]] = []
+        try:
+            timeout_cfg = aiohttp.ClientTimeout(total=request_timeout)
+            async with aiohttp.ClientSession(timeout=timeout_cfg) as session:
+                async with session.post(external_url, json=payload) as response:
+                    if response.status == 200:
+                        body = await response.json()
+                        data_results = body.get("results") or []
+                        if isinstance(data_results, list):
+                            results = data_results
+                        else:
+                            kb_logger.warning(
+                                "Unexpected external search payload structure: %s",
+                                body,
+                            )
+                    else:
+                        error_text = await response.text()
+                        kb_logger.warning(
+                            "External KB search failed (%s): %s",
+                            response.status,
+                            error_text,
+                        )
+        except Exception as exc:  # pragma: no cover - defensive logging
+            kb_logger.error("External KB search error: %s", exc)
+
+        return {
+            "external_results": results,
+            "steps": ["external_search"],
+        }
+
+    async def finalize(state: KBWorkflowState) -> KBOutputState:
+        if state.get("guardrails_decision") == "end":
+            summary = state.get("summary") or "抱歉，该问题暂时无法回答。"
+            return {"answer": summary, "sources": [], "steps": ["finalize"]}
+
+        local_results = state.get("local_results", [])
+        external_results = state.get("external_results", [])
+
+        local_context = _format_local_results(local_results)
+        external_context = _format_external_results(external_results)
+
+        sources = _collect_sources(local_results, external_results)
+
+        if not local_results and not external_results:
+            fallback = "抱歉，菜谱文化知识库暂未找到相关记载，请尝试描述得更具体一些或稍后再试。"
+            return {"answer": fallback, "sources": sources, "steps": ["finalize"]}
+
+        messages = final_prompt.format_messages(
+            question=state.get("question", ""),
+            local_context=local_context,
+            external_context=external_context,
+        )
+        try:
+            response = await llm.ainvoke(messages)
+            content = getattr(response, "content", None)
+            if isinstance(content, str):
+                answer = content.strip()
+            else:
+                answer = str(response)
+        except Exception as exc:  # pragma: no cover - defensive logging
+            kb_logger.error("Failed to synthesise KB answer: %s", exc)
+            answer = local_context if local_context and local_context != "（无本地检索结果）" else ""
+            if not answer:
+                answer = "检索已完成，但当前无法生成可靠的菜谱文化回答。"
+
+        if not answer:
+            answer = "检索已完成，但当前无法生成可靠的菜谱文化回答。"
+
+        if sources:
+            sources = list(dict.fromkeys(sources))
+
+        return {
+            "answer": answer,
+            "sources": sources,
+            "steps": ["finalize"],
+        }
+
+    def guardrails_router(state: KBWorkflowState) -> str:
+        return "finalize" if state.get("guardrails_decision") == "end" else "kb_router"
+
+    def router_edge(state: KBWorkflowState) -> str:
+        return "external_search" if state.get("route") == "external" else "local_search"
+
+    def local_edge(state: KBWorkflowState) -> str:
+        route = state.get("route", "local")
+        if route in {"hybrid", "external"} and allow_external_search and external_url:
+            return "external_search"
+        return "finalize"
+
+    graph_builder = StateGraph(
+        KBWorkflowState,
+        input=KBInputState,
+        output=KBOutputState,
+    )
+
+    graph_builder.add_node("guardrails", guardrails)
+    graph_builder.add_node("kb_router", router)
+    graph_builder.add_node("local_search", local_search)
+    graph_builder.add_node("external_search", external_search)
+    graph_builder.add_node("finalize", finalize)
+
+    graph_builder.add_edge(START, "guardrails")
+    graph_builder.add_conditional_edges("guardrails", guardrails_router)
+    graph_builder.add_conditional_edges("kb_router", router_edge)
+    graph_builder.add_conditional_edges("local_search", local_edge)
+    graph_builder.add_edge("external_search", "finalize")
+    graph_builder.add_edge("finalize", END)
+
+    return graph_builder.compile()

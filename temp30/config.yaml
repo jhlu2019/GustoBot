@@ -1,0 +1,75 @@
+# Rerank API 配置文件
+
+# 数据库配置
+database:
+  # PostgreSQL + pgvector
+  pgvector:
+    host: localhost
+    port: 5432
+    database: vector_db
+    user: postgres
+    password: your_password
+
+  # MySQL (可选，如果需要关联原始数据)
+  mysql:
+    host: localhost
+    port: 3306
+    database: documents_db
+    user: root
+    password: your_password
+
+# Embedding 配置
+embedding:
+  provider: openai  # openai, cohere, local
+  model: text-embedding-3-small
+  dimension: 1536
+  api_key: your-openai-api-key
+
+  # 本地模型配置（可选）
+  local_model:
+    name: sentence-transformers/all-MiniLM-L6-v2
+    dimension: 384
+
+# Rerank 配置
+rerank:
+  enabled: true
+  method: llm  # llm, cross_encoder
+
+  # LLM Rerank
+  llm:
+    provider: openai
+    model: gpt-4o-mini
+    api_key: your-openai-api-key
+    temperature: 0
+
+  # Cross-Encoder Rerank
+  cross_encoder:
+    model: cross-encoder/ms-marco-MiniLM-L-6-v2
+
+# 检索配置
+search:
+  default_top_k: 10          # 初次召回数量
+  default_rerank_top_k: 5    # Rerank 后返回数量
+  similarity_threshold: 0.7   # 最低相似度阈值
+
+  # 向量索引配置
+  index:
+    type: hnsw  # hnsw, ivfflat
+    hnsw:
+      m: 16
+      ef_construction: 64
+      ef_search: 40
+
+# API 服务配置
+api:
+  host: 0.0.0.0
+  port: 8000
+  workers: 4
+  log_level: info
+
+# 分块配置（用于长文本切分）
+chunking:
+  enabled: true
+  chunk_size: 500      # 字符数
+  chunk_overlap: 50    # 重叠字符数
+  separator: "\n\n"

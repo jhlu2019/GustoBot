@@ -169,6 +169,14 @@ class Settings(BaseSettings):
         default=False,
         description="Augment KB answers with optional external web search",
     )
+    KB_EXTERNAL_SEARCH_URL: Optional[str] = Field(
+        default=None,
+        description="External HTTP endpoint for KB fallback search (e.g., http://localhost:8000/api/search)",
+    )
+    KB_EXTERNAL_SEARCH_TIMEOUT: float = Field(
+        default=20.0,
+        description="Timeout in seconds for external KB search requests.",
+    )
 
     # Conversation history retention
     CONVERSATION_HISTORY_TTL: int = Field(
