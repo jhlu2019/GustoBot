@@ -7,9 +7,9 @@ from typing import Iterable, List, Optional
 import psycopg2
 from pgvector.psycopg2 import register_vector
 
-from app.clients.embedding import EmbeddingClient
-from app.core.config import Config
-from app.services.utils import compute_content_hash
+from kb_service.clients.embedding import EmbeddingClient
+from kb_service.core.config import Config
+from kb_service.services.utils import compute_content_hash
 
 
 class VectorStoreWriter:

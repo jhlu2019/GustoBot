@@ -9,7 +9,7 @@ import numpy as np
 import requests
 from openai import OpenAI
 
-from app.core.config import Config
+from kb_service.core.config import Config
 
 logger = logging.getLogger(__name__)
 

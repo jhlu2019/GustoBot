@@ -7,7 +7,7 @@ from typing import Iterable, List, Optional
 
 import requests
 
-from app.core.config import Config
+from kb_service.core.config import Config
 
 logger = logging.getLogger(__name__)
 

@@ -4,7 +4,7 @@ import logging
 
 from fastapi import FastAPI
 
-from app.api.routes import router as api_router
+from kb_service.api.routes import router as api_router
 
 logger = logging.getLogger(__name__)
 

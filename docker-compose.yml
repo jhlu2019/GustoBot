@@ -17,6 +17,8 @@ services:
         - LIGHTRAG_INIT_LIMIT=${LIGHTRAG_INIT_LIMIT:-}
     ports:
       - "8000:8000"
+    env_file:
+      - .env
     environment:
       - DEBUG=True
       - REDIS_HOST=redis
@@ -31,6 +33,7 @@ services:
     volumes:
       - ./app:/app/app
       - ./data:/app/data
+      - ./.env:/app/.env:ro
     depends_on:
       - neo4j
       - redis
@@ -171,7 +174,7 @@ services:
       - "${KB_INGEST_PORT:-8100}:8000"
     volumes:
       - ./kb_ingest/data:/app/data
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    command: uvicorn kb_service.main:app --host 0.0.0.0 --port 8000
 
 
 volumes:

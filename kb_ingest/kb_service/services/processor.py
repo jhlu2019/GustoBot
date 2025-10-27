@@ -14,12 +14,12 @@ import numpy as np
 import pandas as pd
 import psycopg2
 
-from app.clients.llm import LLMClient
-from app.core.config import Config
-from app.prompts.manager import PromptManager, build_prompt_manager_from_env
-from app.prompts.manager import SchemaColumn
-from app.services.utils import flatten_row
-from app.services.vector_store import VectorStoreWriter
+from kb_service.clients.llm import LLMClient
+from kb_service.core.config import Config
+from kb_service.prompts.manager import PromptManager, build_prompt_manager_from_env
+from kb_service.prompts.manager import SchemaColumn
+from kb_service.services.utils import flatten_row
+from kb_service.services.vector_store import VectorStoreWriter
 
 
 class DataProcessor:

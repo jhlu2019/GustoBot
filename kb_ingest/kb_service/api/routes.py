@@ -7,13 +7,13 @@ from pathlib import Path
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status, UploadFile, File, Form
 
-from app.api.deps import get_config
-from app.core.config import Config, clone_config
-from app.schemas.ingest import ExcelIngestRequest, MySQLIngestRequest
-from app.schemas.search import SearchRequest, HybridSearchRequest
-from app.services.processor import DataProcessor
-from app.services.search import VectorSearcher
-from app.services.mysql_ingest import MySQLIngestor
+from kb_service.api.deps import get_config
+from kb_service.core.config import Config, clone_config
+from kb_service.schemas.ingest import ExcelIngestRequest, MySQLIngestRequest
+from kb_service.schemas.search import SearchRequest, HybridSearchRequest
+from kb_service.services.processor import DataProcessor
+from kb_service.services.search import VectorSearcher
+from kb_service.services.mysql_ingest import MySQLIngestor
 
 logger = logging.getLogger(__name__)
 

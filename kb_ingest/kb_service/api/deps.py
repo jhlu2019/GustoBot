@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from functools import lru_cache
 
-from app.core.config import Config, load_config
+from kb_service.core.config import Config, load_config
 
 
 @lru_cache

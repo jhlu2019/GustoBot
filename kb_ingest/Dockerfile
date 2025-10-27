@@ -20,9 +20,9 @@ RUN python -m pip install --upgrade pip -i https://mirrors.ustc.edu.cn/pypi/simp
  && pip install -r requirements.txt -i https://mirrors.ustc.edu.cn/pypi/simple
 
 # 再复制源码
-COPY app ./app
+COPY kb_service ./kb_service
 COPY main.py ./
 
 EXPOSE 8000
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "kb_service.main:app", "--host", "0.0.0.0", "--port", "8000"]

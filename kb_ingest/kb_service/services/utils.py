@@ -8,7 +8,7 @@ from typing import Dict, Mapping
 
 import pandas as pd
 
-from app.core.config import Config
+from kb_service.core.config import Config
 
 
 def flatten_row(row: Mapping[str, object], config: Config) -> str:

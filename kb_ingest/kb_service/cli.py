@@ -4,11 +4,11 @@ import argparse
 import json
 import logging
 
-from app.core.config import load_config
-from app.schemas.ingest import MySQLIngestRequest
-from app.services.mysql_ingest import MySQLIngestor
-from app.services.processor import DataProcessor
-from app.services.search import VectorSearcher
+from kb_service.core.config import load_config
+from kb_service.schemas.ingest import MySQLIngestRequest
+from kb_service.services.mysql_ingest import MySQLIngestor
+from kb_service.services.processor import DataProcessor
+from kb_service.services.search import VectorSearcher
 
 
 def process_excel(excel_path: str) -> None:

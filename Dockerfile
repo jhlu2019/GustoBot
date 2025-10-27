@@ -63,7 +63,7 @@ RUN if [ "$INIT_LIGHTRAG_ON_BUILD" = "true" ] && [ -n "$OPENAI_API_KEY" ]; then 
     fi
 
 # Unset API key for security
-ENV OPENAI_API_KEY=
+ENV OPENAI_API_KEY=your_api_key_here
 
 EXPOSE 8000
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
