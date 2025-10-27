@@ -70,8 +70,6 @@ class LightRAGAPI:
             返回的 top-k 结果数量
         max_token_size : int, optional
             文本单元的最大 token 数量
-
-        注意
         ----
         LightRAG 使用自己的文件存储系统（NetworkX + JSON），
         不使用 Neo4j 作为存储后端。Neo4j 是独立的结构化知识图谱。
