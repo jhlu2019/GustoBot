@@ -35,7 +35,7 @@ neo4j==5.27.0
 # HTTP Client
 httpx==0.26.0
 requests==2.31.0
-
+bcrypt==4.1.2
 # Utilities
 python-dotenv==1.0.0
 python-multipart==0.0.6
