@@ -16,6 +16,7 @@ class Router(TypedDict):
         "graphrag-query",
         "image-query",
         "file-query",
+        "text2sql-query",  # Text2SQL 查询
     ]
     question: str = field(default_factory=str)
 

@@ -11,6 +11,7 @@ from loguru import logger
 
 from .api import chat_router, knowledge_router, lightrag_router
 from .api.knowledge_router import get_neo4j_qa_service
+from .api.v1 import api_router as api_v1_router
 from .config import settings
 from .core import configure_logging
 from .services.lightrag_service import get_lightrag_service
@@ -40,6 +41,7 @@ app.add_middleware(
 app.include_router(chat_router.router, prefix=settings.API_V1_PREFIX)
 app.include_router(knowledge_router.router, prefix=settings.API_V1_PREFIX)
 app.include_router(lightrag_router.router, prefix=settings.API_V1_PREFIX)
+app.include_router(api_v1_router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get("/")
@@ -62,6 +64,13 @@ async def startup_event() -> None:
     logger.info("Starting {} v{}", settings.APP_NAME, settings.APP_VERSION)
     logger.info("Debug mode: {}", settings.DEBUG)
     logger.info("API docs available at http://{}:{}/docs", settings.HOST, settings.PORT)
+
+    # Auto-create database tables on startup
+    from .core.database import Base, engine
+    import app.models  # noqa: F401 - Import all models to register them with Base
+    logger.info("Creating database tables if not exist...")
+    Base.metadata.create_all(bind=engine)
+    logger.info("Database tables ready")
 
 
 @app.on_event("shutdown")

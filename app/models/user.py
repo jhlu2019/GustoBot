@@ -31,3 +31,4 @@ class User(Base):
 
     def __repr__(self) -> str:
         return f"<User id={self.id} username={self.username!r}>"
+# Note: chat_sessions relationship added manually - import ChatSession model separately

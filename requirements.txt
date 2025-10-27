@@ -28,7 +28,6 @@ pymilvus==2.3.7
 
 # Database
 sqlalchemy==2.0.25
-alembic==1.13.1
 redis==5.0.1
 neo4j==5.27.0
 
