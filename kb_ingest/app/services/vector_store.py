@@ -143,6 +143,7 @@ class VectorStoreWriter:
                     credit_no     TEXT,
                     origin_status TEXT,
                     metadata      TEXT,
+                    content_hash  TEXT DEFAULT '',
                     created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     UNIQUE(source_table, source_id)
                 );
@@ -163,10 +164,31 @@ class VectorStoreWriter:
         cur.execute(
             """
             ALTER TABLE searchable_documents
+            ADD COLUMN IF NOT EXISTS content_hash TEXT DEFAULT '';
+            """
+        )
+        cur.execute(
+            """
+            ALTER TABLE searchable_documents
+            ALTER COLUMN content_hash SET DEFAULT '';
+            """
+        )
+        cur.execute(
+            """
+            ALTER TABLE searchable_documents
             ADD COLUMN IF NOT EXISTS created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
             """
         )
         cur.execute(f"ALTER TABLE searchable_documents ADD COLUMN IF NOT EXISTS embedding vector({vector_dim});")
+        conn.commit()
+
+        cur.execute(
+            """
+            UPDATE searchable_documents
+            SET content_hash = ''
+            WHERE content_hash IS NULL;
+            """
+        )
         conn.commit()
 
         cur.execute(

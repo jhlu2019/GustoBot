@@ -22,8 +22,6 @@ RUN python -m pip install --upgrade pip -i https://mirrors.ustc.edu.cn/pypi/simp
 # 再复制源码
 COPY app ./app
 COPY main.py ./
-COPY .env.example ./
-
 
 EXPOSE 8000
 

@@ -12,4 +12,4 @@ python-dotenv>=1.0.0
 SQLAlchemy>=2.0.0
 PyMySQL>=1.1.0
 pyyaml>=6.0  # 用于读取配置文件
-python-multipart>=0.0.6  # 用于文件上传
+python-multipart>=0.0.6
