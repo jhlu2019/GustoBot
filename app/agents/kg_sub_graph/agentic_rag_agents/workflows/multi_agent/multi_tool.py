@@ -33,6 +33,7 @@ from app.agents.kg_sub_graph.agentic_rag_agents.retrievers.cypher_examples.base 
 from app.agents.kg_sub_graph.agentic_rag_agents.components.predefined_cypher import create_predefined_cypher_node
 # 导入自定义工具函数节点
 from app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools import create_graphrag_query_node
+from app.agents.kg_sub_graph.agentic_rag_agents.components.text2cypher.text2sql_tool import create_text2sql_tool_node
 
 from app.config import settings
 from app.core.logger import get_logger
@@ -128,6 +129,7 @@ def create_multi_tool_workflow(
     ) #预定义的自定Cypher查询语句
 
     customer_tools = create_graphrag_query_node() # lightrag_query
+    text2sql_query = create_text2sql_tool_node(graph)
 
     # 工具选择节点，根据用户的问题选择合适的工具
     tool_selection = create_tool_selection_node(
@@ -147,6 +149,7 @@ def create_multi_tool_workflow(
     main_graph_builder.add_node("cypher_query", cypher_query)#命名 "cypher_query" 的节点，执行 cypher_query 函数（通常是对图数据库生成/执行 Cypher）。
     main_graph_builder.add_node(predefined_cypher) #预设查询（当无需动态生成时）。
     main_graph_builder.add_node("customer_tools", customer_tools) #lightrag_query
+    main_graph_builder.add_node("text2sql_query", text2sql_query)
     main_graph_builder.add_node(summarize) # 总结
     main_graph_builder.add_node(tool_selection) #工具选择的中间控制节点（通常结合 planner 的输出）。
     main_graph_builder.add_node(final_answer)
@@ -167,6 +170,7 @@ def create_multi_tool_workflow(
     main_graph_builder.add_edge("cypher_query", "summarize")
     main_graph_builder.add_edge("predefined_cypher", "summarize")
     main_graph_builder.add_edge("customer_tools", "summarize")
+    main_graph_builder.add_edge("text2sql_query", "summarize")
     main_graph_builder.add_edge("summarize", "final_answer")
 
     main_graph_builder.add_edge("final_answer", END)

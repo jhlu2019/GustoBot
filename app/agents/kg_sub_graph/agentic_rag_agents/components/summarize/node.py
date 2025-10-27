@@ -2,7 +2,7 @@
 This code is based on content found in the LangGraph documentation: https://python.langchain.com/docs/tutorials/graph/#advanced-implementation-with-langgraph
 """
 
-from typing import Any, Callable, Coroutine, Dict
+from typing import Any, Callable, Coroutine, Dict, List
 
 from langchain_core.language_models import BaseChatModel
 from langchain_core.output_parsers import StrOutputParser
@@ -36,17 +36,59 @@ def create_summarization_node(
         """
         Summarize results of the performed Cypher queries.
         """
-        results = []
-        
-        # 使用直接属性访问而不是get方法
+        text2sql_answers: List[str] = []
+        results: List[Any] = []
+
         for cypher in state.get("cyphers", list()):
-            # 检查是否是字典类型，使用get方法
-            if isinstance(cypher, dict) and cypher.get("records") is not None:
-                results.append(cypher.get("records"))
-            # 检查是否是Pydantic模型，使用直接属性访问
-            elif hasattr(cypher, "records") and cypher.records is not None:
-                results.append(cypher.records)
-                
+            records = None
+            if isinstance(cypher, dict):
+                records = cypher.get("records")
+            elif hasattr(cypher, "records"):
+                records = getattr(cypher, "records")
+
+            if not records:
+                continue
+
+            if isinstance(records, dict):
+                answer = records.get("answer")
+                if answer:
+                    text2sql_answers.append(str(answer))
+
+                rows = records.get("rows")
+                if rows:
+                    results.append({"rows": rows, "sql": records.get("sql")})
+
+                other_payload = {
+                    key: value
+                    for key, value in records.items()
+                    if key not in {"answer", "rows", "sql", "visualization", "visualization_config"}
+                    and value
+                }
+                if other_payload:
+                    results.append(other_payload)
+            else:
+                results.append(records)
+
+        if text2sql_answers and not results:
+            summary = "\n\n".join(text2sql_answers).strip()
+            return {"summary": summary or "No data to summarize.", "steps": ["summarize"]}
+
+        if text2sql_answers:
+            combined_answers = "\n\n".join(text2sql_answers).strip()
+            additional_summary = ""
+            if results:
+                additional_summary = await generate_summary.ainvoke(
+                    {
+                        "question": state.get("question"),
+                        "results": results,
+                    }
+                )
+            summary_parts = [combined_answers]
+            if additional_summary and additional_summary != "No data to summarize.":
+                summary_parts.append(additional_summary)
+            summary = "\n\n".join(part for part in summary_parts if part).strip()
+            return {"summary": summary or "No data to summarize.", "steps": ["summarize"]}
+
         if results:
             summary = await generate_summary.ainvoke(
                 {
@@ -54,7 +96,6 @@ def create_summarization_node(
                     "results": results,
                 }
             )
-
         else:
             summary = "No data to summarize."
 

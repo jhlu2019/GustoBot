@@ -47,13 +47,13 @@ def create_tool_selection_node(
 
     async def tool_selection(
         state: ToolSelectionInputState,
-    ) -> Command[Literal["cypher_query", "predefined_cypher", "customer_tools"]]:
+    ) -> Command[Literal["cypher_query", "predefined_cypher", "customer_tools", "text2sql_query"]]:
         """
         Choose the appropriate tool for the given task.
         """
 
         go_to_text2cypher: Command[
-            Literal["cypher_query", "predefined_cypher", "customer_tools"]
+            Literal["cypher_query", "predefined_cypher", "customer_tools", "text2sql_query"]
         ] = Command(
             goto=Send(
                 "cypher_query",
@@ -88,6 +88,18 @@ def create_tool_selection_node(
                 )
             if tool_name == "cypher_query":
                 return go_to_text2cypher
+            if tool_name == "text2sql_query":
+                return Command(
+                    goto=Send(
+                        "text2sql_query",
+                        {
+                            "task": state.get("question", ""),
+                            "query_name": tool_name,
+                            "query_parameters": tool_args,
+                            "steps": ["tool_selection"],
+                        },
+                    )
+                )
             if tool_name and tool_name in available_tools:
                 return Command(
                     goto=Send(

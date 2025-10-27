@@ -2,6 +2,8 @@
 菜谱知识图谱工具定义
 基于 recipe_kg 模块的问题分类和 Neo4j 菜谱图谱模型
 """
+from typing import Optional
+
 from pydantic import BaseModel
 from pydantic import Field
 
@@ -100,5 +102,37 @@ class microsoft_graphrag_query(BaseModel):
     此工具利用 Microsoft GraphRAG 技术进行图谱推理和知识生成。
     """
     query: str = Field(..., description="需要通过 GraphRAG 进行深度推理的复杂菜谱问题")
+
+
+class text2sql_query(BaseModel):
+    """结构化数据库查询工具
+
+    当用户提出“问数”“统计”“报表”类问题，需要访问关系型数据库（如 MySQL、PostgreSQL）时使用。
+
+    适用场景：
+    - 销售、订单、用户、库存等结构化数据统计
+    - 基于表字段的筛选、聚合、排序
+    - 多表关联、分组统计、趋势分析
+
+    工具参数可选地提供数据库连接信息；若为空，则使用系统默认连接。
+    """
+
+    task: str = Field(..., description="需要执行的结构化数据库查询任务描述")
+    connection_id: Optional[int] = Field(
+        default=None,
+        description="数据库连接配置 ID，留空则使用默认连接",
+    )
+    db_type: str = Field(
+        default="MySQL",
+        description="数据库类型，例如 MySQL、PostgreSQL 等",
+    )
+    max_rows: int = Field(
+        default=1000,
+        description="结果预览的最大返回行数",
+    )
+    connection_string: Optional[str] = Field(
+        default=None,
+        description="直接传入的数据库连接字符串，存在时优先级高于 connection_id",
+    )
 
 

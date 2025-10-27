@@ -31,7 +31,6 @@ from langchain_core.messages import AIMessage
 from langchain_core.runnables.base import Runnable
 from app.agents.kg_sub_graph.agentic_rag_agents.components.utils.utils import \
     retrieve_and_parse_schema_from_graph_for_prompts
-from app.agents.text2sql import create_text2sql_workflow
 from langchain_core.prompts import ChatPromptTemplate
 import base64
 import os
@@ -98,14 +97,14 @@ async def analyze_and_route_query(
 def route_query(
         state: AgentState,
 ) -> Literal[
-    "respond_to_general_query", "get_additional_info", "create_research_plan", "create_text2sql_query", "create_image_query", "create_file_query", "create_kb_query"]:
+    "respond_to_general_query", "get_additional_info", "create_research_plan", "create_image_query", "create_file_query", "create_kb_query"]:
     """根据查询分类确定下一步操作。
 
     Args:
         state (AgentState): 当前代理状态，包括路由器的分类。
 
     Returns:
-        Literal["respond_to_general_query", "get_additional_info", "create_research_plan", "create_text2sql_query", "create_image_query", "create_file_query"，"create_kb_query"]: 下一步操作。
+        Literal["respond_to_general_query", "get_additional_info", "create_research_plan", "create_image_query", "create_file_query"，"create_kb_query"]: 下一步操作。
     """
     _type = state.router["type"]
 
@@ -123,10 +122,8 @@ def route_query(
         return "respond_to_general_query"
     elif _type == "additional-query":
         return "get_additional_info"
-    elif _type == "graphrag-query":  #  图查询
+    elif _type in ("graphrag-query", "text2sql-query"):  # 图查询或结构化问数
         return "create_research_plan"
-    elif _type == "text2sql-query":
-        return "create_text2sql_query"
     elif _type == "image-query":
         return "create_image_query"
     elif _type == "file-query":
@@ -570,91 +567,6 @@ async def create_kb_query(
     answer_text = result.get("answer", "") or "抱歉，我暂时无法从知识库中找到答案。"
     return {"messages": [AIMessage(content=answer_text)]}
 
-# Text2SQL 查询节点
-async def create_text2sql_query(
-        state: AgentState, *, config: RunnableConfig
-) -> Dict[str, List[BaseMessage]]:
-    """Route structured data questions to the Text2SQL workflow."""
-    logger.info("------execute Text2SQL workflow------")
-
-    last_message = state.messages[-1].content if state.messages else ""
-    if not last_message.strip():
-        return {"messages": [AIMessage(content="抱歉，我暂时没有捕捉到您的问题，请再描述一次哦～")]}
-
-    cfg = (config or {}).get("configurable", {}) if isinstance(config, dict) else {}
-
-    raw_connection_id = cfg.get("text2sql_connection_id", cfg.get("connection_id"))
-    connection_id = None
-    if raw_connection_id not in (None, ""):
-        try:
-            connection_id = int(raw_connection_id)
-        except (TypeError, ValueError):
-            logger.warning("Invalid text2sql connection_id provided: %s", raw_connection_id)
-
-    db_type = cfg.get("text2sql_db_type") or cfg.get("db_type") or "MySQL"
-    connection_string = cfg.get("text2sql_connection_string")
-
-    raw_max_retries = cfg.get("text2sql_max_retries", cfg.get("max_retries", 3))
-    raw_max_rows = cfg.get("text2sql_max_rows", cfg.get("max_rows", 1000))
-    try:
-        max_retries = int(raw_max_retries)
-    except (TypeError, ValueError):
-        logger.warning("Invalid text2sql_max_retries value: %s", raw_max_retries)
-        max_retries = 3
-    try:
-        max_rows = int(raw_max_rows)
-    except (TypeError, ValueError):
-        logger.warning("Invalid text2sql_max_rows value: %s", raw_max_rows)
-        max_rows = 1000
-
-    try:
-        neo4j_graph = get_neo4j_graph()
-        logger.info("success to get Neo4j graph database connection for Text2SQL")
-    except Exception as exc:
-        logger.error("failed to get Neo4j graph database connection for Text2SQL: %s", exc)
-        return {"messages": [AIMessage(content="抱歉，目前无法连接到图数据库，暂时不能执行数据库查询哦～")]}
-
-    if not settings.OPENAI_API_KEY:
-        logger.error("OPENAI_API_KEY is not configured for Text2SQL workflow.")
-        return {"messages": [AIMessage(content="抱歉，系统暂时无法调用模型执行数据库查询，请稍后再试～")]}
-
-    llm = ChatOpenAI(
-        openai_api_key=settings.OPENAI_API_KEY,
-        model_name=settings.OPENAI_MODEL,
-        openai_api_base=settings.OPENAI_API_BASE,
-        temperature=0.0,
-        tags=["text2sql"],
-    )
-
-    try:
-        workflow = create_text2sql_workflow(
-            llm=llm,
-            neo4j_graph=neo4j_graph,
-            db_type=db_type,
-            connection_string=connection_string,
-            max_retries=max_retries,
-        )
-    except Exception as exc:
-        logger.exception("Failed to create Text2SQL workflow: %s", exc)
-        return {"messages": [AIMessage(content="抱歉，数据库查询流程初始化失败，请稍后再试～")]}
-
-    input_state = {
-        "question": last_message,
-        "connection_id": connection_id,
-        "db_type": db_type,
-        "max_retries": max_retries,
-        "max_rows": max_rows,
-    }
-
-    try:
-        result: Dict[str, Any] = await workflow.ainvoke(input_state)
-    except Exception as exc:
-        logger.exception("Text2SQL workflow execution failed: %s", exc)
-        return {"messages": [AIMessage(content="抱歉，执行数据库查询时出现问题，请稍后再试～")]}
-
-    answer_text = result.get("answer") or "查询完成，但暂时没有可展示的结果哦～"
-    return {"messages": [AIMessage(content=answer_text)]}
-
 # 图工具 查询节点
 async def create_research_plan(
         state: AgentState, *, config: RunnableConfig
@@ -687,8 +599,18 @@ async def create_research_plan(
     cypher_retriever = RecipeCypherRetriever()
 
     #  定义工具模式列表
-    from app.agents.kg_sub_graph.kg_tools_list import cypher_query, predefined_cypher, microsoft_graphrag_query
-    tool_schemas: List[type[BaseModel]] = [cypher_query, predefined_cypher, microsoft_graphrag_query]
+    from app.agents.kg_sub_graph.kg_tools_list import (
+        cypher_query,
+        predefined_cypher,
+        microsoft_graphrag_query,
+        text2sql_query,
+    )
+    tool_schemas: List[type[BaseModel]] = [
+        cypher_query,
+        predefined_cypher,
+        microsoft_graphrag_query,
+        text2sql_query,
+    ]
 
     #  预定义的Cypher查询 为菜谱场景定义有用的查询
     from app.agents.kg_sub_graph.agentic_rag_agents.components.predefined_cypher.cypher_dict import \
@@ -788,7 +710,6 @@ builder = StateGraph(AgentState, input=InputState)
 builder.add_node(analyze_and_route_query) # 意图识别
 builder.add_node(respond_to_general_query)#默认回复
 builder.add_node(get_additional_info) # 图结构信息
-builder.add_node("create_text2sql_query", create_text2sql_query)
 builder.add_node("create_research_plan", create_research_plan)  # 这里是graphrag neo4j-query
 builder.add_node(create_image_query)
 builder.add_node(create_file_query)

@@ -81,8 +81,15 @@ TEXT2CYPHER_VALIDATION_PROMPT = """你是 GustoBot Neo4j 菜谱图谱的查询�
 """
 
 # 工具选择
-TOOL_SELECTION_SYSTEM_PROMPT = """你是菜谱知识图谱的工具调度员。
-默认使用 text2cypher 工具完成任务，仅当问题明确无需访问图谱（例如简单寒暄）时才选择其他工具或结束对话。
+TOOL_SELECTION_SYSTEM_PROMPT = """你是菜谱知识图谱与结构化数据调度员，需要为每个子任务挑选最合适的工具。
+
+工具使用指南：
+- `cypher_query`：需要动态生成 Cypher 时使用，涵盖绝大多数图谱问答。
+- `predefined_cypher`：当问题命中预设模板（常见菜谱属性、口味筛选等）时直接复用该查询。
+- `text2sql_query`：当用户提出与结构化数据库相关的“问数”“统计”“报表”“MySQL/SQL”类问题时选择此工具。
+- 其他自定义工具（如 LightRAG ）仅在问题明确需要长文档推理或外部知识时使用。
+
+优先选择能够直接满足任务的工具；若问题与菜谱场景无关，可结束流程。不要编造信息。
 """
 
 # 结果总结
