@@ -13,6 +13,11 @@ from typing import Any, Callable, Coroutine, Dict, Iterable, List, Set, Tuple
 from langchain_neo4j import Neo4jGraph
 
 from app.core.logger import get_logger
+from ..domain_knowledge import (
+    COLUMN_DESCRIPTIONS,
+    RELATIONSHIP_FACTS,
+    TABLE_DESCRIPTIONS,
+)
 
 logger = get_logger(service="text2sql.schema_retrieval")
 
@@ -173,6 +178,12 @@ async def _retrieve_schema_from_neo4j(
         table_name = table_info.get("name") or table_info.get("table_name")
         if not table_name:
             continue
+        table_key = table_name.lower()
+        table_description = (
+            table_info.get("description")
+            or TABLE_DESCRIPTIONS.get(table_key)
+            or ""
+        )
 
         columns_raw = record.get("columns") or []
         columns: List[Dict[str, Any]] = []
@@ -182,12 +193,18 @@ async def _retrieve_schema_from_neo4j(
             column_name = column.get("name") or column.get("column_name")
             if not column_name:
                 continue
+            column_key = (table_key, column_name.lower())
+            column_description = (
+                column.get("description")
+                or COLUMN_DESCRIPTIONS.get(column_key)
+                or ""
+            )
 
             column_entry = {
                 "column_id": column_id,
                 "column_name": column_name,
                 "data_type": column.get("type") or column.get("data_type") or "",
-                "description": column.get("description") or "",
+                "description": column_description,
                 "is_primary_key": bool(column.get("is_pk") or column.get("is_primary_key")),
                 "is_foreign_key": bool(column.get("is_fk") or column.get("is_foreign_key")),
                 "is_unique": bool(column.get("is_unique", False)),
@@ -201,7 +218,7 @@ async def _retrieve_schema_from_neo4j(
             {
                 "table_id": table_id,
                 "table_name": table_name,
-                "description": table_info.get("description") or "",
+                "description": table_description,
                 "columns": columns,
             }
         )
@@ -227,6 +244,7 @@ async def _retrieve_schema_from_neo4j(
             }
 
     table_names = {table["table_name"] for table in tables}
+    table_name_lookup = {table["table_name"].lower(): table["table_name"] for table in tables}
 
     relationship_records = graph.query(
         """
@@ -272,6 +290,36 @@ async def _retrieve_schema_from_neo4j(
                 "target_column": record.get("target_column"),
                 "relationship_type": record.get("relationship_type") or "",
                 "description": record.get("description") or "",
+            }
+        )
+
+    # Ensure domain factual relationships are present even if Neo4j metadata lacks them.
+    for relationship in RELATIONSHIP_FACTS:
+        source_lower = relationship["source_table"].lower()
+        target_lower = relationship["target_table"].lower()
+        if source_lower not in table_name_lookup or target_lower not in table_name_lookup:
+            continue
+
+        source_name = table_name_lookup[source_lower]
+        target_name = table_name_lookup[target_lower]
+
+        key = (
+            source_name,
+            relationship["source_column"],
+            target_name,
+            relationship["target_column"],
+        )
+        if key in seen_keys:
+            continue
+        seen_keys.add(key)
+        relationships.append(
+            {
+                "source_table": source_name,
+                "source_column": relationship["source_column"],
+                "target_table": target_name,
+                "target_column": relationship["target_column"],
+                "relationship_type": relationship.get("relationship_type", ""),
+                "description": relationship.get("description", ""),
             }
         )
 

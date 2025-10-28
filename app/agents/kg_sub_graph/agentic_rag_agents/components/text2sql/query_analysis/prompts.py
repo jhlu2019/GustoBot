@@ -3,6 +3,8 @@ Prompt utilities for query analysis.
 """
 from langchain_core.prompts import ChatPromptTemplate
 
+from ..domain_knowledge import DOMAIN_SUMMARY
+
 
 def create_query_analysis_prompt() -> ChatPromptTemplate:
     """
@@ -26,6 +28,11 @@ def create_query_analysis_prompt() -> ChatPromptTemplate:
 
 输出必须是有效的 JSON，严禁添加额外说明。
 """
+    system_message = (
+        system_message.strip()
+        + "\n\n数据库真实结构背景：\n"
+        + DOMAIN_SUMMARY
+    )
 
     human_message = """
 ## 数据库类型

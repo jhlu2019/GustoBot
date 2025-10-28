@@ -3,6 +3,8 @@ Prompt utilities for visualization recommendations.
 """
 from langchain_core.prompts import ChatPromptTemplate
 
+from ..domain_knowledge import DOMAIN_SUMMARY
+
 
 def create_visualization_prompt() -> ChatPromptTemplate:
     system_message = """
@@ -19,6 +21,11 @@ def create_visualization_prompt() -> ChatPromptTemplate:
 }
 chart_type 若为 table，可省略 x_axis/y_axis。
 """
+    system_message = (
+        system_message.strip()
+        + "\n\n数据库真实结构背景：\n"
+        + DOMAIN_SUMMARY
+    )
 
     human_message = """
 ## 用户问题
