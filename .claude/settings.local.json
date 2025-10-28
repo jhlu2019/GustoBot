@@ -28,7 +28,9 @@
       "WebFetch(domain:github.com)",
       "Bash(chmod:*)",
       "Read(//f/pythonproject/**)",
-      "Bash(alembic revision:*)"
+      "Bash(alembic revision:*)",
+      "Bash(docker:*)",
+      "Bash(docker-compose:*)"
     ],
     "deny": [],
     "ask": []

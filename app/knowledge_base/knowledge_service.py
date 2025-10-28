@@ -34,9 +34,16 @@ class KnowledgeService:
             separators=["\n\n", "\n", "。", "！", "？", " "],
         )
 
-        self.embedder = OpenAIEmbeddings(
-            model=settings.EMBEDDING_MODEL,
-        )
+        # 使用配置的 Embedding 服务
+        embedder_kwargs = {
+            "model": settings.EMBEDDING_MODEL,
+        }
+        if settings.EMBEDDING_BASE_URL:
+            embedder_kwargs["openai_api_base"] = settings.EMBEDDING_BASE_URL
+        if settings.EMBEDDING_API_KEY:
+            embedder_kwargs["openai_api_key"] = settings.EMBEDDING_API_KEY
+
+        self.embedder = OpenAIEmbeddings(**embedder_kwargs)
 
         self.vector_store = vector_store or VectorStore(
             collection_name=settings.MILVUS_COLLECTION,
@@ -130,16 +137,22 @@ class KnowledgeService:
             similarity_threshold if similarity_threshold is not None else settings.KB_SIMILARITY_THRESHOLD
         )
 
+        # 如果启用 reranker，先召回更多候选文档
+        recall_k = top_k
+        if self.reranker.enabled:
+            recall_k = settings.RERANK_MAX_CANDIDATES  # 召回更多文档用于重排
+
         embedding = await asyncio.to_thread(self.embedder.embed_query, query)
         results = await asyncio.to_thread(
             self.vector_store.search,
             embedding,
-            top_k,
+            recall_k,  # 使用更大的召回数量
             filter_expr,
         )
 
         filtered = [r for r in results if r.get("score", 0.0) >= similarity_threshold]
 
+        # 使用 reranker 精排
         if filtered and self.reranker.enabled:
             filtered = await self.reranker.rerank(query, filtered, top_k)
 

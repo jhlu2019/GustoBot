@@ -22,10 +22,24 @@ class Settings(BaseSettings):
     HOST: str = "0.0.0.0"
     PORT: int = 8000
 
-    # OpenAI models
-    OPENAI_API_KEY: Optional[str] = None
-    OPENAI_API_BASE: Optional[str] = None
-    OPENAI_MODEL: str = "gpt-4-turbo-preview"
+    # LLM configuration
+    LLM_PROVIDER: str = Field(default="openai", description="LLM provider: openai, anthropic, etc.")
+    LLM_MODEL: str = Field(default="gpt-4-turbo-preview", description="LLM model name")
+    LLM_API_KEY: Optional[str] = None
+    LLM_BASE_URL: Optional[str] = Field(default=None, description="LLM API base URL")
+
+    # OpenAI compatibility (使用 LLM 配置)
+    @property
+    def OPENAI_API_KEY(self) -> Optional[str]:
+        return self.LLM_API_KEY
+
+    @property
+    def OPENAI_API_BASE(self) -> Optional[str]:
+        return self.LLM_BASE_URL
+
+    @property
+    def OPENAI_MODEL(self) -> str:
+        return self.LLM_MODEL
 
     # Anthropic models
     ANTHROPIC_API_KEY: Optional[str] = None
@@ -44,15 +58,44 @@ class Settings(BaseSettings):
     MILVUS_METRIC_TYPE: str = "IP"
 
     # Embeddings
+    EMBEDDING_PROVIDER: str = Field(default="openai", description="Embedding provider")
     EMBEDDING_MODEL: str = "text-embedding-3-small"
+    EMBEDDING_API_KEY: Optional[str] = None
+    EMBEDDING_BASE_URL: Optional[str] = Field(default=None, description="Embedding API base URL")
     EMBEDDING_DIMENSION: int = 1536
 
-    # Reranker
-    RERANKER_PROVIDER: str = "cohere"
-    RERANKER_API_KEY: Optional[str] = None
-    RERANKER_MODEL: Optional[str] = None
-    RERANKER_API_URL: Optional[str] = None
-    RERANKER_TOP_K: int = 5
+    # Reranker configuration
+    RERANK_ENABLED: bool = Field(default=True, description="Enable reranking")
+    RERANK_PROVIDER: str = Field(default="custom", description="Rerank provider: cohere, jina, voyage, custom")
+    RERANK_BASE_URL: Optional[str] = Field(default=None, description="Rerank API base URL")
+    RERANK_ENDPOINT: str = Field(default="/rerank", description="Rerank endpoint path")
+    RERANK_MODEL: str = Field(default="bge-reranker-large", description="Rerank model name")
+    RERANK_API_KEY: Optional[str] = None
+    RERANK_MAX_CANDIDATES: int = Field(default=20, description="Max candidates for reranking")
+    RERANK_TOP_N: int = Field(default=6, description="Top N results after reranking")
+    RERANK_TIMEOUT: int = Field(default=30, description="Rerank API timeout in seconds")
+    RERANK_SCORE_FUSION_ALPHA: Optional[float] = Field(default=None, description="Score fusion alpha parameter")
+
+    # Legacy reranker compatibility
+    @property
+    def RERANKER_PROVIDER(self) -> str:
+        return self.RERANK_PROVIDER
+
+    @property
+    def RERANKER_API_KEY(self) -> Optional[str]:
+        return self.RERANK_API_KEY
+
+    @property
+    def RERANKER_MODEL(self) -> Optional[str]:
+        return self.RERANK_MODEL
+
+    @property
+    def RERANKER_API_URL(self) -> Optional[str]:
+        return self.RERANK_BASE_URL
+
+    @property
+    def RERANKER_TOP_K(self) -> int:
+        return self.RERANK_TOP_N
 
     # Web search tooling
     SERPAPI_KEY: Optional[str] = None
@@ -120,6 +163,14 @@ class Settings(BaseSettings):
     LIGHTRAG_ENABLE_MILVUS: bool = Field(
         default=False,
         description="是否使用Milvus作为LightRAG的向量存储后端（默认使用内置向量存储）"
+    )
+    INIT_LIGHTRAG_ON_BUILD: bool = Field(
+        default=True,
+        description="Docker构建时是否初始化LightRAG"
+    )
+    LIGHTRAG_INIT_LIMIT: Optional[int] = Field(
+        default=None,
+        description="LightRAG初始化时的菜谱数量限制，None为全部"
     )
 
     # Neo4j configuration
@@ -189,10 +240,27 @@ class Settings(BaseSettings):
     )
 
     # CORS
-    CORS_ORIGINS: Tuple[str, ...] = (
-        "http://localhost:3000",
-        "http://localhost:5173",
+    CORS_ORIGINS: str = Field(
+        default="http://localhost:3000,http://localhost:5173",
+        description="Comma-separated list of CORS origins"
     )
+
+    # Ollama configuration
+    OLLAMA_BASE_URL: str = Field(
+        default="http://localhost:11434",
+        description="Ollama service base URL"
+    )
+    OLLAMA_EMBEDDING_MODEL: str = Field(
+        default="nomic-embed-text",
+        description="Ollama embedding model for semantic caching"
+    )
+
+    @property
+    def cors_origins_list(self) -> List[str]:
+        """Parse CORS_ORIGINS string to list"""
+        if isinstance(self.CORS_ORIGINS, str):
+            return [origin.strip() for origin in self.CORS_ORIGINS.split(",")]
+        return list(self.CORS_ORIGINS)
 
     class Config:
         env_file = ".env"
