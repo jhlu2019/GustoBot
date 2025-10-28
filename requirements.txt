@@ -63,3 +63,6 @@ flake8==7.0.0
 mypy==1.8.0
 pre-commit==3.6.0
 pillow
+IPython
+matplotlib
+seaborn

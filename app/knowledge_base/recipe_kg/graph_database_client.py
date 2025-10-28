@@ -8,9 +8,8 @@ from __future__ import annotations
 from contextlib import contextmanager
 from typing import Any, Dict, Iterable, List, Optional
 
-from neo4j import GraphDatabase
+from neo4j import GraphDatabase, Result
 from neo4j.graph import Graph
-from neo4j.work.result import Result
 
 
 class Neo4jDatabase:
