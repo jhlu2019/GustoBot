@@ -2,16 +2,31 @@ from dotenv import load_dotenv
 from langchain_neo4j import Neo4jGraph
 from langchain_openai import ChatOpenAI
 
-from app.agents.kg_sub_graph.agentic_rag_agents.queries import get_cypher_statements_dictionary, get_tool_schemas
-from app.agents.kg_sub_graph.agentic_rag_agents.components.text2cypher import get_text2cypher_schema
-from app.agents.kg_sub_graph.agentic_rag_agents.retrievers.cypher_examples import YAMLCypherExampleRetriever
-from app.agents.kg_sub_graph.agentic_rag_agents.workflows.multi_agent.multi_tool import create_multi_tool_workflow
+from app.config import settings
+from app.agents.kg_sub_graph.agentic_rag_agents.queries import (
+    get_cypher_statements_dictionary,
+    get_tool_schemas,
+)
+from app.agents.kg_sub_graph.agentic_rag_agents.components.text2cypher import (
+    get_text2cypher_schema,
+)
+from app.agents.kg_sub_graph.agentic_rag_agents.retrievers.cypher_examples import (
+    YAMLCypherExampleRetriever,
+)
+from app.agents.kg_sub_graph.agentic_rag_agents.workflows.multi_agent.multi_tool import (
+    create_multi_tool_workflow,
+)
 
 load_dotenv()
 
 neo4j_graph = Neo4jGraph(enhanced_schema=True)
 
-llm = ChatOpenAI(model="gpt-4o", temperature=0)
+llm = ChatOpenAI(
+    openai_api_key=settings.OPENAI_API_KEY,
+    openai_api_base=settings.OPENAI_API_BASE,
+    model_name=settings.OPENAI_MODEL,
+    temperature=0.0,
+)
 
 
 cypher_query_yaml_file_path = "data/bbc_recipes/queries/queries.yml"

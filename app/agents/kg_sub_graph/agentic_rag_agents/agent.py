@@ -6,6 +6,8 @@ from langchain_neo4j import Neo4jGraph
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from neo4j import GraphDatabase
 
+from app.config import settings
+
 from app.agents.kg_sub_graph.agentic_rag_agents.retrievers.cypher_examples import (
     recipe_retriever,
 )
@@ -16,8 +18,16 @@ from ps_genai_agents.workflows.multi_agent import (
 )
 
 neo4j_graph = Neo4jGraph(enhanced_schema=True)
-llm = ChatOpenAI()
-embedder = OpenAIEmbeddings(model="text-embedding-ada-002")
+llm = ChatOpenAI(
+    openai_api_key=settings.OPENAI_API_KEY,
+    openai_api_base=settings.OPENAI_API_BASE,
+    model_name=settings.OPENAI_MODEL,
+)
+embedder = OpenAIEmbeddings(
+    model=settings.EMBEDDING_MODEL,
+    openai_api_key=settings.EMBEDDING_API_KEY or settings.OPENAI_API_KEY,
+    openai_api_base=settings.EMBEDDING_BASE_URL or settings.OPENAI_API_BASE,
+)
 
 neo4j_uri = os.getenv("NEO4J_URI", "")
 neo4j_username = os.getenv("NEO4J_USERNAME")

@@ -12,7 +12,7 @@ from app.agents.lg_prompts import (
 from langchain_core.runnables import RunnableConfig
 from app.config import settings
 from app.core.logger import get_logger
-from typing import cast, Literal, TypedDict, List, Dict, Any
+from typing import cast, Literal, TypedDict, List, Dict, Any, Optional
 from langchain_core.messages import BaseMessage
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, START, StateGraph
@@ -76,8 +76,16 @@ async def analyze_and_route_query(
         dict[str, Router]: A dictionary containing the 'router' key with the classification result (classification type and logic).
     """
 
-    model = ChatOpenAI(openai_api_key=settings.OPENAI_API_KEY,model_name=settings.OPENAI_MODEL,openai_api_base=settings.OPENAI_API_BASE, temperature=0.7,
-                       tags=["router"])
+    if not settings.OPENAI_API_KEY:
+        raise RuntimeError("OPENAI_API_KEY is not configured for router analysis.")
+
+    model = ChatOpenAI(
+        openai_api_key=settings.OPENAI_API_KEY,
+        model_name=settings.OPENAI_MODEL,
+        openai_api_base=settings.OPENAI_API_BASE,
+        temperature=0.7,
+        tags=["router"],
+    )
 
     # 拼接提示模版 + 用户的实时问题（包含历史上下文对话）
     messages = [
@@ -86,12 +94,59 @@ async def analyze_and_route_query(
     logger.info("-----Analyze user query type-----")
     logger.info(f"History messages: {state.messages}")
 
-    # 使用结构化输出，输出问题类型
-    response = cast(
-        Router, await model.with_structured_output(Router).ainvoke(messages)
+    question_text = state.messages[-1].content if state.messages else ""
+    heuristic_router = _heuristic_router(question_text)
+    fallback_router: Router = (
+        heuristic_router
+        or {
+            "type": "kb-query",
+            "logic": "fallback: default to knowledge base routing",
+            "question": question_text,
+        }
     )
-    logger.info(f"Analyze user query type completed, result: {response}")
-    return {"router": response}
+
+    allowed_types: set[str] = {
+        "general-query",
+        "additional-query",
+        "kb-query",
+        "graphrag-query",
+        "image-query",
+        "file-query",
+        "text2sql-query",
+    }
+
+    try:
+        raw_response = await model.with_structured_output(Router).ainvoke(messages)
+    except Exception as exc:
+        logger.warning("Router LLM failed: %s. Falling back to KB query.", exc)
+        return {"router": fallback_router}
+
+    response = cast(Router, raw_response if isinstance(raw_response, dict) else {})
+    router_type = response.get("type")
+    logic = response.get("logic") or ""
+
+    if not router_type or router_type not in allowed_types:
+        logger.warning(
+            "Router returned invalid type `%s`; applying heuristic fallback.", router_type
+        )
+        heuristic_router = _heuristic_router(question_text)
+        if heuristic_router:
+            router_type = heuristic_router["type"]
+            logic = heuristic_router.get("logic", logic)
+        else:
+            router_type = "kb-query"
+            if not logic:
+                logic = "fallback: invalid router output"
+
+    sanitized_router: Router = {
+        "type": router_type,
+        "logic": logic,
+        "question": response.get("question") or question_text,
+    }
+
+    # Heuristic router is only used when the LLM output is invalid (handled above).
+    logger.info(f"Analyze user query type completed, result: {sanitized_router}")
+    return {"router": sanitized_router}
 
 
 def route_query(
@@ -106,7 +161,8 @@ def route_query(
     Returns:
         Literal["respond_to_general_query", "get_additional_info", "create_research_plan", "create_image_query", "create_file_query"，"create_kb_query"]: 下一步操作。
     """
-    _type = state.router["type"]
+    router = getattr(state, "router", None) or {"type": "kb-query", "logic": "missing router"}
+    _type = router.get("type", "kb-query")
 
     # 检查配置中是否有图片或文件路径，如果有，优先对应处理
     if hasattr(state, "config") and state.config:
@@ -583,8 +639,16 @@ async def create_research_plan(
     logger.info("------execute local knowledge base query------")
 
     # 使用大模型生成查询/多跳、并行查询计划
-    model = ChatOpenAI(temperature=0.7,
-                       tags=["research_plan"])
+    if not settings.OPENAI_API_KEY:
+        raise RuntimeError("OPENAI_API_KEY is not configured for research plan generation.")
+
+    model = ChatOpenAI(
+        openai_api_key=settings.OPENAI_API_KEY,
+        openai_api_base=settings.OPENAI_API_BASE,
+        model_name=settings.OPENAI_MODEL,
+        temperature=0.7,
+        tags=["research_plan"],
+    )
 
     # 初始化必要参数
     #  Neo4j图数据库连接 - 使用配置中的连接信息
@@ -684,8 +748,16 @@ async def check_hallucinations(
     Returns:
         dict[str, Router]: A dictionary containing the 'router' key with the classification result (classification type and logic).
     """
-    model = ChatOpenAI(temperature=0.7,
-                       tags=["hallucinations"])
+    if not settings.OPENAI_API_KEY:
+        raise RuntimeError("OPENAI_API_KEY is not configured for hallucination checks.")
+
+    model = ChatOpenAI(
+        openai_api_key=settings.OPENAI_API_KEY,
+        openai_api_base=settings.OPENAI_API_BASE,
+        model_name=settings.OPENAI_MODEL,
+        temperature=0.7,
+        tags=["hallucinations"],
+    )
 
     system_prompt = CHECK_HALLUCINATIONS.format(
         documents=state.documents,
@@ -723,14 +795,51 @@ builder.add_conditional_edges("analyze_and_route_query", route_query)
 
 graph = builder.compile(checkpointer=checkpointer)
 
-png_bytes = graph.get_graph().draw_mermaid_png()
-output_path = Path(__file__).resolve().parent / "lg_builder_workflow.png"
-output_path.write_bytes(png_bytes)
-logger.info("工作流图已保存到 %s", output_path)
+# png_bytes = graph.get_graph().draw_mermaid_png()
+# output_path = Path(__file__).resolve().parent / "lg_builder_workflow.png"
+# output_path.write_bytes(png_bytes)
+# logger.info("工作流图已保存到 %s", output_path)
+#
+# try:
+#     from IPython.display import Image as IPythonImage, display as ipython_display
+# except ImportError:  # pragma: no cover - optional dependency
+#     logger.info("IPython 未安装，跳过图像内联展示。")
+# else:
+#     ipython_display(IPythonImage(png_bytes))
+def _heuristic_router(question: str) -> Optional[Router]:
+    """Fallback routing based on simple keyword heuristics."""
+    if not question:
+        return None
 
-try:
-    from IPython.display import Image as IPythonImage, display as ipython_display
-except ImportError:  # pragma: no cover - optional dependency
-    logger.info("IPython 未安装，跳过图像内联展示。")
-else:
-    ipython_display(IPythonImage(png_bytes))
+    lowered = question.lower()
+
+    graphrag_keywords = [
+        "怎么做",
+        "如何做",
+        "做法",
+        "步骤",
+        "火候",
+        "食材",
+        "原料",
+        "需要什么",
+        "配料",
+        "用什么",
+    ]
+
+    text2sql_keywords = ["统计", "多少", "总数", "数量", "排名"]
+
+    if any(keyword in lowered for keyword in text2sql_keywords):
+        return {
+            "type": "text2sql-query",
+            "logic": "keyword fallback: text2sql",
+            "question": question,
+        }
+
+    if any(keyword in lowered for keyword in graphrag_keywords):
+        return {
+            "type": "graphrag-query",
+            "logic": "keyword fallback: graphrag",
+            "question": question,
+        }
+
+    return None
