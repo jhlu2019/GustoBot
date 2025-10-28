@@ -1,13 +1,12 @@
 """
 CRUD operations for database models.
-
-Anonymous session management - no user authentication.
 """
-from .crud_chat_session import chat_session
-from .crud_chat_message import chat_message, chat_history_snapshot
+from .chat_history import ChatHistoryCRUD, chat_history_crud
+from .conversation import ConversationCRUD, conversation_crud
 
 __all__ = [
-    "chat_session",
-    "chat_message",
-    "chat_history_snapshot",
+    "ChatHistoryCRUD",
+    "chat_history_crud",
+    "ConversationCRUD",
+    "conversation_crud",
 ]
