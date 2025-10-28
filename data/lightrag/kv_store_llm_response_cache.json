@@ -1,0 +1,42 @@
+{
+  "hybrid:keywords:e1e2aa0e5628d5f2d22c027ab6fc0cbf": {
+    "return": "{\"high_level_keywords\": [\"\\u5ddd\\u83dc\", \"\\u53e3\\u5473\\u7279\\u8272\", \"\\u9002\\u5408\\u4eba\\u7fa4\", \"\\u4e2d\\u56fd\\u83dc\\u7cfb\"], \"low_level_keywords\": [\"\\u9ebb\\u8fa3\", \"\\u82b1\\u6912\", \"\\u8fa3\\u6912\", \"\\u9178\\u8fa3\", \"\\u9c9c\\u9999\", \"\\u54b8\\u9c9c\", \"\\u91cd\\u6cb9\\u91cd\\u76d0\", \"\\u55dc\\u8fa3\\u4eba\\u7fa4\", \"\\u91cd\\u53e3\\u5473\\u4eba\\u7fa4\", \"\\u4e0d\\u8010\\u8fa3\\u4eba\\u7fa4\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "川菜的口味特色和适合人群",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1761640663,
+    "update_time": 1761640663,
+    "_id": "hybrid:keywords:e1e2aa0e5628d5f2d22c027ab6fc0cbf"
+  },
+  "hybrid:keywords:0673ea0d2b9bf291b3cc79e259ee165e": {
+    "return": "{\"high_level_keywords\": [\"\\u5ddd\\u83dc\", \"\\u53e3\\u5473\\u7279\\u8272\", \"\\u9002\\u5408\\u4eba\\u7fa4\"], \"low_level_keywords\": [\"\\u5ddd\\u83dc\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "川菜的口味特色和适合人群是什么？",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1761640944,
+    "update_time": 1761640944,
+    "_id": "hybrid:keywords:0673ea0d2b9bf291b3cc79e259ee165e"
+  }
+}

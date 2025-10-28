@@ -660,7 +660,8 @@ async def create_research_plan(
     input_state = {
         "question": last_message,
         "data": [],
-        "history": []
+        "history": [],
+        "route_type": state.router.get("type"),
     }
 
     # 执行工作流
@@ -722,14 +723,14 @@ builder.add_conditional_edges("analyze_and_route_query", route_query)
 
 graph = builder.compile(checkpointer=checkpointer)
 
-# png_bytes = graph.get_graph().draw_mermaid_png()
-# output_path = Path(__file__).resolve().parent / "lg_builder_workflow.png"
-# output_path.write_bytes(png_bytes)
-# logger.info("工作流图已保存到 %s", output_path)
-#
-# try:
-#     from IPython.display import Image as IPythonImage, display as ipython_display
-# except ImportError:  # pragma: no cover - optional dependency
-#     logger.info("IPython 未安装，跳过图像内联展示。")
-# else:
-#     ipython_display(IPythonImage(png_bytes))
+png_bytes = graph.get_graph().draw_mermaid_png()
+output_path = Path(__file__).resolve().parent / "lg_builder_workflow.png"
+output_path.write_bytes(png_bytes)
+logger.info("工作流图已保存到 %s", output_path)
+
+try:
+    from IPython.display import Image as IPythonImage, display as ipython_display
+except ImportError:  # pragma: no cover - optional dependency
+    logger.info("IPython 未安装，跳过图像内联展示。")
+else:
+    ipython_display(IPythonImage(png_bytes))

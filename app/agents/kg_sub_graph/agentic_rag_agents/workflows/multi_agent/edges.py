@@ -66,6 +66,9 @@ def map_reduce_planner_to_tool_selection(state: OverallState) -> List[Send]:
             {
                 "question": task.question,
                 "parent_task": task.parent_task,
+                "context": {
+                    "route_type": state.get("route_type"),
+                },
             },
         )
         for task in state.get("tasks", list())
@@ -88,5 +91,4 @@ def tool_selection_output_router(state: ToolSelectionOutputState) -> Send:
             return Send("final_answer", dict())
         case _:
             return Send("final_answer", dict())
-
 

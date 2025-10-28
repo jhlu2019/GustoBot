@@ -32,11 +32,16 @@ class KnowledgeService:
             chunk_size=self.chunk_size,
             chunk_overlap=self.chunk_overlap,
             separators=["\n\n", "\n", "。", "！", "？", " "],
+            length_function=len,  # 使用字符长度而不是 tiktoken
         )
 
         # 使用配置的 Embedding 服务
         embedder_kwargs = {
             "model": settings.EMBEDDING_MODEL,
+            "show_progress_bar": False,
+            "skip_empty": True,
+            # 设置最大重试次数
+            "max_retries": 2,
         }
         if settings.EMBEDDING_BASE_URL:
             embedder_kwargs["openai_api_base"] = settings.EMBEDDING_BASE_URL

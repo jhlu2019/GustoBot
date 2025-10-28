@@ -30,7 +30,8 @@
       "Read(//f/pythonproject/**)",
       "Bash(alembic revision:*)",
       "Bash(docker:*)",
-      "Bash(docker-compose:*)"
+      "Bash(docker-compose:*)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []

@@ -73,24 +73,15 @@ def create_schema_retrieval_node(
         question = (state.get("question") or "").strip()
         connection_id = state.get("connection_id")
 
-        if not connection_id:
-            logger.warning("未提供 connection_id，跳过 Schema 检索")
-            return {
-                "schema_context": {},
-                "value_mappings": {},
-                "mappings_str": "",
-                "steps": ["schema_retrieval_skipped"],
-            }
-
         try:
             schema_context, column_lookup = await _retrieve_schema_from_neo4j(
                 neo4j_graph,
-                int(connection_id),
+                int(connection_id) if connection_id else None,
                 question,
             )
             value_mappings = await _retrieve_value_mappings(
                 neo4j_graph,
-                int(connection_id),
+                int(connection_id) if connection_id else None,
                 column_lookup,
             )
             mappings_str = _format_value_mappings_as_string(value_mappings)
@@ -153,21 +144,32 @@ def _score_table(table: Dict[str, Any], keywords: Iterable[str]) -> float:
 
 async def _retrieve_schema_from_neo4j(
     graph: Neo4jGraph,
-    connection_id: int,
+    connection_id: int | None,
     question: str,
 ) -> Tuple[Dict[str, Any], Dict[int, Tuple[str, str]]]:
-    params = {"connection_id": connection_id}
+    params = {}
 
-    table_records = graph.query(
-        """
-        MATCH (t:Table {connection_id: $connection_id})
-        OPTIONAL MATCH (t)-[:HAS_COLUMN]->(c:Column {connection_id: $connection_id})
-        RETURN t { .id, .name, .description } AS table,
-               collect(c { .id, .name, .type, .description, .is_pk, .is_fk, .is_unique }) AS columns
-        ORDER BY toLower(t.name)
+    if connection_id is not None:
+        params["connection_id"] = connection_id
+        table_records = graph.query(
+            """
+            MATCH (t:Table {connection_id: $connection_id})
+            OPTIONAL MATCH (t)-[:HAS_COLUMN]->(c:Column {connection_id: $connection_id})
+            RETURN t { .id, .name, .description } AS table,
+                   collect(c { .id, .name, .type, .description, .is_pk, .is_fk, .is_unique }) AS columns
         """,
         params=params,
     ) or []
+    else:
+        table_records = graph.query(
+            """
+            MATCH (t:Table)
+            OPTIONAL MATCH (t)-[:HAS_COLUMN]->(c:Column)
+            RETURN t { .id, .name, .description, .connection_id } AS table,
+                   collect(c { .id, .name, .type, .description, .is_pk, .is_fk, .is_unique, .connection_id }) AS columns
+            """,
+            params=params,
+        ) or []
 
     tables: List[Dict[str, Any]] = []
     column_lookup: Dict[int, Tuple[str, str]] = {}
@@ -246,20 +248,36 @@ async def _retrieve_schema_from_neo4j(
     table_names = {table["table_name"] for table in tables}
     table_name_lookup = {table["table_name"].lower(): table["table_name"] for table in tables}
 
-    relationship_records = graph.query(
-        """
-        MATCH (source:Column {connection_id: $connection_id})-[r:REFERENCES]->(target:Column {connection_id: $connection_id})
-        MATCH (source_table:Table {connection_id: $connection_id})-[:HAS_COLUMN]->(source)
-        MATCH (target_table:Table {connection_id: $connection_id})-[:HAS_COLUMN]->(target)
-        RETURN source_table.name AS source_table,
-               source.name AS source_column,
-               target_table.name AS target_table,
-               target.name AS target_column,
-               coalesce(r.type, '') AS relationship_type,
-               coalesce(r.description, '') AS description
-        """,
-        params=params,
-    ) or []
+    if connection_id is not None:
+        relationship_records = graph.query(
+            """
+            MATCH (source:Column {connection_id: $connection_id})-[r:REFERENCES]->(target:Column {connection_id: $connection_id})
+            MATCH (source_table:Table {connection_id: $connection_id})-[:HAS_COLUMN]->(source)
+            MATCH (target_table:Table {connection_id: $connection_id})-[:HAS_COLUMN]->(target)
+            RETURN source_table.name AS source_table,
+                   source.name AS source_column,
+                   target_table.name AS target_table,
+                   target.name AS target_column,
+                   coalesce(r.type, '') AS relationship_type,
+                   coalesce(r.description, '') AS description
+            """,
+            params=params,
+        ) or []
+    else:
+        relationship_records = graph.query(
+            """
+            MATCH (source:Column)-[r:REFERENCES]->(target:Column)
+            MATCH (source_table:Table)-[:HAS_COLUMN]->(source)
+            MATCH (target_table:Table)-[:HAS_COLUMN]->(target)
+            RETURN source_table.name AS source_table,
+                   source.name AS source_column,
+                   target_table.name AS target_table,
+                   target.name AS target_column,
+                   coalesce(r.type, '') AS relationship_type,
+                   coalesce(r.description, '') AS description
+            """,
+            params=params,
+        ) or []
 
     relationships: List[Dict[str, Any]] = []
     seen_keys: Set[Tuple[str, str, str, str]] = set()
@@ -332,23 +350,35 @@ async def _retrieve_schema_from_neo4j(
 
 async def _retrieve_value_mappings(
     graph: Neo4jGraph,
-    connection_id: int,
+    connection_id: int | None,
     column_lookup: Dict[int, Tuple[str, str]],
 ) -> Dict[str, Dict[str, str]]:
     if not column_lookup:
         return {}
 
     try:
-        records = graph.query(
-            """
-            MATCH (c:Column {connection_id: $connection_id})
-            OPTIONAL MATCH (c)-[:HAS_VALUE_MAPPING]->(m:ValueMapping)
-            WHERE m IS NOT NULL
-            RETURN c.id AS column_id,
-                   collect(m { .nl_term, .db_value }) AS mappings
-            """,
-            params={"connection_id": connection_id},
-        ) or []
+        if connection_id is not None:
+            records = graph.query(
+                """
+                MATCH (c:Column {connection_id: $connection_id})
+                OPTIONAL MATCH (c)-[:HAS_VALUE_MAPPING]->(m:ValueMapping)
+                WHERE m IS NOT NULL
+                RETURN c.id AS column_id,
+                       collect(m { .nl_term, .db_value }) AS mappings
+                """,
+                params={"connection_id": connection_id},
+            ) or []
+        else:
+            records = graph.query(
+                """
+                MATCH (c:Column)
+                OPTIONAL MATCH (c)-[:HAS_VALUE_MAPPING]->(m:ValueMapping)
+                WHERE m IS NOT NULL
+                RETURN c.id AS column_id,
+                       collect(m { .nl_term, .db_value }) AS mappings
+                """,
+                params={},
+            ) or []
     except Exception as exc:  # pragma: no cover - defensive logging
         logger.warning("获取值映射失败: %s", exc)
         return {}

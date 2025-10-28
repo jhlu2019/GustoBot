@@ -66,8 +66,8 @@ def create_text2sql_workflow(
     builder.add_node("generate_sql", generate_sql)
     builder.add_node("validate_sql", validate_sql)
     builder.add_node("execute_sql", execute_sql)
-    builder.add_node("visualization", recommend_viz)
-    builder.add_node("format_answer", format_answer)
+    builder.add_node("visualization_node", recommend_viz)
+    builder.add_node("format_answer_node", format_answer)
 
     builder.add_edge(START, "retrieve_schema")
     builder.add_edge("retrieve_schema", "analyze_query")
@@ -80,17 +80,16 @@ def create_text2sql_workflow(
         {
             "execute": "execute_sql",
             "retry": "generate_sql",
-            "end": "format_answer",
+            "end": "format_answer_node",
         },
     )
 
-    builder.add_edge("execute_sql", "visualization")
-    builder.add_edge("visualization", "format_answer")
-    builder.add_edge("format_answer", END)
+    builder.add_edge("execute_sql", "visualization_node")
+    builder.add_edge("visualization_node", "format_answer_node")
+    builder.add_edge("format_answer_node", END)
 
-    graph = builder.compile()
-    graph.config["max_retries"] = max_retries
-    return graph
+    compiled_graph = builder.compile()
+    return compiled_graph
 
 
 def _should_execute_or_retry(state: Text2SQLState) -> Literal["execute", "retry", "end"]:

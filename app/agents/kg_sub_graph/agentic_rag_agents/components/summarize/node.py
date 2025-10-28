@@ -36,67 +36,82 @@ def create_summarization_node(
         """
         Summarize results of the performed Cypher queries.
         """
-        text2sql_answers: List[str] = []
-        results: List[Any] = []
+        tasks = state.get("tasks", [])
+        cypher_entries = state.get("cyphers", [])
 
-        for cypher in state.get("cyphers", list()):
-            records = None
-            if isinstance(cypher, dict):
-                records = cypher.get("records")
-            elif hasattr(cypher, "records"):
-                records = getattr(cypher, "records")
+        narrative_sections: List[str] = []
+        metric_sections: List[str] = []
+        error_sections: List[str] = []
+
+        def _format_rows(rows: List[dict[str, Any]]) -> str:
+            if not rows:
+                return ""
+            if len(rows) == 1:
+                row = rows[0]
+                if len(row) == 1:
+                    key, value = next(iter(row.items()))
+                    return f"{key}：{value}"
+                return "; ".join(f"{key}：{value}" for key, value in row.items())
+            lines = []
+            for idx, row in enumerate(rows, 1):
+                row_desc = ", ".join(f"{key}：{value}" for key, value in row.items())
+                lines.append(f"{idx}. {row_desc}")
+            return "\n".join(lines)
+
+        for idx, cypher in enumerate(cypher_entries):
+            if hasattr(cypher, "model_dump"):
+                data = cypher.model_dump()
+            elif isinstance(cypher, dict):
+                data = cypher
+            else:
+                data = {}
+
+            task_label = ""
+            if idx < len(tasks):
+                task_label = tasks[idx].question
+            else:
+                task_label = data.get("task") or ""
+
+            records = data.get("records") or {}
+            errors = data.get("errors") or []
+
+            if errors:
+                error_sections.append(f"{task_label}：{'；'.join(errors)}" if task_label else "；".join(errors))
+                continue
 
             if not records:
                 continue
 
             if isinstance(records, dict):
+                if isinstance(records.get("result"), str) and records["result"].strip():
+                    narrative_sections.append(records["result"].strip())
+
                 answer = records.get("answer")
                 if answer:
-                    text2sql_answers.append(str(answer))
+                    metric_sections.append(f"{task_label}：{answer}".strip())
 
                 rows = records.get("rows")
-                if rows:
-                    results.append({"rows": rows, "sql": records.get("sql")})
-
-                other_payload = {
-                    key: value
-                    for key, value in records.items()
-                    if key not in {"answer", "rows", "sql", "visualization", "visualization_config"}
-                    and value
-                }
-                if other_payload:
-                    results.append(other_payload)
+                if isinstance(rows, list) and rows:
+                    formatted_rows = _format_rows(rows)
+                    if formatted_rows:
+                        metric_sections.append(
+                            f"{task_label}：\n{formatted_rows}".rstrip()
+                            if task_label
+                            else formatted_rows
+                        )
             else:
-                results.append(records)
+                metric_sections.append(str(records))
 
-        if text2sql_answers and not results:
-            summary = "\n\n".join(text2sql_answers).strip()
-            return {"summary": summary or "No data to summarize.", "steps": ["summarize"]}
+        sections: List[str] = []
+        if narrative_sections:
+            sections.append("### 川菜概览\n" + "\n\n".join(narrative_sections))
+        if metric_sections:
+            sections.append("### 数据统计\n" + "\n\n".join(metric_sections))
+        if error_sections:
+            sections.append("### 查询提示\n" + "\n".join(f"- {msg}" for msg in error_sections))
 
-        if text2sql_answers:
-            combined_answers = "\n\n".join(text2sql_answers).strip()
-            additional_summary = ""
-            if results:
-                additional_summary = await generate_summary.ainvoke(
-                    {
-                        "question": state.get("question"),
-                        "results": results,
-                    }
-                )
-            summary_parts = [combined_answers]
-            if additional_summary and additional_summary != "No data to summarize.":
-                summary_parts.append(additional_summary)
-            summary = "\n\n".join(part for part in summary_parts if part).strip()
-            return {"summary": summary or "No data to summarize.", "steps": ["summarize"]}
-
-        if results:
-            summary = await generate_summary.ainvoke(
-                {
-                    "question": state.get("question"),
-                    "results": results,
-                }
-            )
-        else:
+        summary = "\n\n".join(section for section in sections if section).strip()
+        if not summary:
             summary = "No data to summarize."
 
         return {"summary": summary, "steps": ["summarize"]}

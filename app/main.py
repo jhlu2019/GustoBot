@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from loguru import logger
 
-from .api import chat_router, knowledge_router, lightrag_router
+from .api import knowledge_router, lightrag_router
 from .api.knowledge_router import get_neo4j_qa_service
 from .api.v1 import api_router as api_v1_router
 from .config import settings
@@ -38,7 +38,6 @@ app.add_middleware(
 )
 
 # Routers --------------------------------------------------------------------
-app.include_router(chat_router.router, prefix=settings.API_V1_PREFIX)
 app.include_router(knowledge_router.router, prefix=settings.API_V1_PREFIX)
 app.include_router(lightrag_router.router, prefix=settings.API_V1_PREFIX)
 app.include_router(api_v1_router, prefix=settings.API_V1_PREFIX)

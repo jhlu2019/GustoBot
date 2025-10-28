@@ -90,11 +90,17 @@ class Reranker:
             "Content-Type": "application/json",
         }
 
+        # DashScope API 格式
         payload = {
             "model": self.model,
-            "query": query,
-            "documents": texts,
-            "top_n": min(self.top_n or top_k, len(documents)),
+            "input": {
+                "query": query,
+                "documents": texts,
+            },
+            "parameters": {
+                "return_documents": True,
+                "top_n": min(self.top_n or top_k, len(documents)),
+            }
         }
 
         async with httpx.AsyncClient(timeout=self.timeout) as client:
@@ -102,8 +108,10 @@ class Reranker:
             response.raise_for_status()
             data = response.json()
 
-        # 解析响应
-        results = data.get("results", [])
+        # 解析响应 (DashScope 格式: output.results)
+        output = data.get("output", {})
+        results = output.get("results", [])
+
         if not results:
             logger.warning("Custom reranker returned no results")
             return documents[:top_k]

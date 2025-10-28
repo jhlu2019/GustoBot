@@ -79,7 +79,6 @@ def create_text2sql_tool_node(
                         }
                     )
                 ],
-                "summary": answer,
                 "steps": ["execute_text2sql_query"],
             }
 
@@ -102,7 +101,6 @@ def create_text2sql_tool_node(
                         }
                     )
                 ],
-                "summary": answer,
                 "steps": ["execute_text2sql_query"],
             }
 
@@ -121,7 +119,6 @@ def create_text2sql_tool_node(
             connection_string=connection_string,
             max_retries=max_retries,
         )
-        workflow.config["max_rows"] = max_rows
 
         input_state = {
             "question": question,
@@ -156,7 +153,6 @@ def create_text2sql_tool_node(
                         }
                     )
                 ],
-                "summary": answer,
                 "steps": ["execute_text2sql_query"],
             }
 
@@ -191,9 +187,7 @@ def create_text2sql_tool_node(
                     }
                 )
             ],
-            "summary": answer or None,
             "steps": ["execute_text2sql_query"],
         }
 
     return text2sql_query
-

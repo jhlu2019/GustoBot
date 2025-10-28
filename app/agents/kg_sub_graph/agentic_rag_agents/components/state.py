@@ -50,15 +50,16 @@ def update_history(
     return history[-SIZE:]
 
 
-class InputState(TypedDict):
+class InputState(TypedDict, total=False):
     """The input state for multi agent workflows."""
 
     question: str
     data: List[Dict[str, Any]]
     history: Annotated[List[HistoryRecord], update_history]
+    route_type: Optional[str]
 
 
-class OverallState(TypedDict):
+class OverallState(TypedDict, total=False):
     """The main state in multi agent workflows."""
 
     question: str
@@ -68,9 +69,10 @@ class OverallState(TypedDict):
     summary: str
     steps: Annotated[List[str], add]
     history: Annotated[List[HistoryRecord], update_history]
+    route_type: Optional[str]
 
 
-class OutputState(TypedDict):
+class OutputState(TypedDict, total=False):
     """The final output for multi agent workflows."""
 
     answer: str

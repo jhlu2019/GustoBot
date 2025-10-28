@@ -12,8 +12,11 @@ class RecipeCypherRetriever(BaseCypherExampleRetriever):
 
     def __init__(self):
         """初始化分类器和解析器"""
-        self._classifier = QuestionClassifier()
-        self._parser = QuestionParser()
+        # 不继承Pydantic，直接作为普通Python类使用
+        super().__init__()  # 调用父类初始化
+        # 使用object.__setattr__避免Pydantic验证
+        object.__setattr__(self, '_classifier', QuestionClassifier())
+        object.__setattr__(self, '_parser', QuestionParser())
 
     def get_examples(self, query: str, k: int = 5) -> str:
         """

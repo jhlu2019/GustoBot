@@ -462,11 +462,11 @@ telnet localhost 19530
 
 ## 📚 更多文档
 
-- **集成总结**: [INTEGRATION_SUMMARY.md](./INTEGRATION_SUMMARY.md)
-- **集成验证**: [INTEGRATION_VERIFICATION.md](./INTEGRATION_VERIFICATION.md)
-- **项目架构**: [CLAUDE.md](./CLAUDE.md)
-- **爬虫指南**: [docs/crawler_guide.md](./docs/crawler_guide.md)
-- **知识图谱**: [docs/recipe_kg_schema.md](./docs/recipe_kg_schema.md)
+- **集成总结**: [INTEGRATION_SUMMARY.md](INTEGRATION_SUMMARY.md)
+- **集成验证**: [INTEGRATION_VERIFICATION.md](INTEGRATION_VERIFICATION.md)
+- **项目架构**: [CLAUDE.md](../CLAUDE.md)
+- **爬虫指南**: [docs/crawler_guide.md](crawler_guide.md)
+- **知识图谱**: [docs/recipe_kg_schema.md](recipe_kg_schema.md)
 - **API 文档**: http://localhost:8000/docs
 
 ---

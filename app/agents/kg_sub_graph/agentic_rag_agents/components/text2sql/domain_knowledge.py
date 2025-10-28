@@ -27,7 +27,7 @@ TABLE_DESCRIPTIONS: Dict[str, str] = {
         "食材基础资料，包含分类、营养成分、存储方式和保质期等属性。"
     ),
     "recipe_steps": (
-        "菜谱步骤明细，保存每一步的动作、说明、耗时、温度、使用工具等。"
+        "菜谱步骤明细，保存每一步的动作、说明、耗时（duration，单位：分钟）、温度、使用工具等。"
     ),
     "step_tools": (
         "步骤与工具的使用记录，标记特定步骤使用的烹饪工具及用途。"
@@ -92,6 +92,8 @@ COLUMN_DESCRIPTIONS: Dict[Tuple[str, str], str] = {
     ("cuisines", "name"): "菜系名称（唯一）。",
     ("cuisines", "cooking_style"): "烹饪特点文字描述。",
     ("cuisines", "typical_tools"): "JSON 数组，记录常用工具。",
+    ("recipes", "total_time"): "整道菜的总耗时（分钟），用于统计或排序。",
+    ("cuisines", "code"): "（不存在）cuisines 表没有 code 字段，请使用 name 进行筛选。",
 }
 
 
@@ -152,6 +154,8 @@ DOMAIN_SUMMARY = """
 - recipes.cuisine_id -> cuisines.id；recipe_ingredients.recipe_id / recipe_steps.recipe_id -> recipes.id；
   recipe_ingredients.ingredient_id -> ingredients.id；step_tools.step_id -> recipe_steps.id；step_tools.tool_id -> cooking_tools.id。
 - recipes.difficulty 的取值限定为 easy/medium/hard；recipe_ingredients.ingredient_type 的取值限定为 main/auxiliary/seasoning。
+- cuisines 表仅包含 id、name、cooking_style、typical_tools 等字段，没有 code 字段；按菜系筛选时请使用 name。
+- recipe_steps.duration 字段为整数分钟，汇总步骤耗时时可使用 SUM(recipe_steps.duration) 并自定义别名，如 total_duration_minutes。
+- 若需要菜肴总耗时，可使用 recipes.total_time 字段。
 - 所有查询均应围绕真实存在的表与字段展开，避免凭空构造表名或字段。
 """.strip()
-

@@ -59,18 +59,57 @@ def create_guardrails_node(
         # 提取到输入的问题
         question = state.get("question", "")
 
-        # 使用LLM进行结构化输出
-        guardrails_output: GuardrailsOutput = await guardrails_chain.ainvoke(
-            {"question": question}
-        )
-        
-        summary = None
+        heuristics_keywords = [
+            "菜",
+            "菜谱",
+            "食材",
+            "烹饪",
+            "做法",
+            "步骤",
+            "口味",
+            "炒",
+            "煮",
+            "炖",
+            "蒸",
+            "统计",
+            "多少",
+            "用量",
+            "营养",
+            "功效",
+        ]
 
-        if guardrails_output.decision == "end":
+        lowered = question.lower()
+        if any(keyword in question for keyword in heuristics_keywords) or "?" in question or "？" in question:
+            logger.info(
+                "Guardrails 前置规则命中菜谱/统计关键词，直接进入 planner。",
+                extra={"question": question},
+            )
+            return {"next_action": "planner", "summary": None, "steps": ["guardrails"]}
+
+        # 使用LLM进行结构化输出
+        try:
+            guardrails_output: GuardrailsOutput = await guardrails_chain.ainvoke(
+                {"question": question}
+            )
+        except Exception as exc:  # pragma: no cover - 容错
+            logger.warning("Guardrails LLM 调用失败，回退到 planner: %s", exc)
+            return {"next_action": "planner", "summary": None, "steps": ["guardrails"]}
+
+        decision = guardrails_output.decision
+        summary = None
+        if decision == "end":
+            if any(keyword in question for keyword in heuristics_keywords) or "?" in question or "？" in question:
+                logger.info(
+                    "Guardrails 触发兜底：问题含有菜谱领域关键词，强制路由到 planner。",
+                    extra={"question": question},
+                )
+                decision = "planner"
+
+        if decision == "end":
             summary = "抱歉，暂时没有关于该菜谱的消息，可以在问别的哦~"
 
         decision_info = {
-            "next_action": guardrails_output.decision,
+            "next_action": decision,
             "summary": summary,
             "steps": ["guardrails"],
         }

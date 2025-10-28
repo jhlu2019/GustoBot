@@ -17,6 +17,9 @@ services:
         - LIGHTRAG_INIT_LIMIT=${LIGHTRAG_INIT_LIMIT:-}
     ports:
       - "8000:8000"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     env_file:
       - .env
     environment:
@@ -24,6 +27,8 @@ services:
       - REDIS_HOST=redis
       - NEO4J_URI=bolt://neo4j:7687
       - INGEST_SERVICE_URL=http://kb_ingest:8000
+      # Tiktoken 缓存目录（避免网络下载）
+      - TIKTOKEN_CACHE_DIR=/app/data/tiktoken_cache
       # LightRAG 运行时配置
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - OPENAI_API_BASE=${OPENAI_API_BASE:-https://api.openai.com/v1}
@@ -48,8 +53,10 @@ services:
       - "17474:7474"
       - "17687:7687"
     environment:
-      - NEO4J_AUTH=none
-      - NEO4J_dbms_security_auth__enabled=false
+      NEO4J_AUTH: none
+      NEO4J_dbms_security_auth__enabled: "false"
+      NEO4J_dbms_security_procedures_unrestricted: "apoc.*"
+      NEO4J_dbms_security_procedures_allowlist: "apoc.*"
     volumes:
       - neo4j_data:/data
       - neo4j_logs:/logs
