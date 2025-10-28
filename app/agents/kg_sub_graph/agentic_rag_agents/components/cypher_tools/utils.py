@@ -1,12 +1,16 @@
-from typing import Any, Callable, Coroutine, Dict, Union
+from typing import Any, Callable, Coroutine, Dict, List, Optional, Union
+
+try:  # pragma: no cover - prefer typing_extensions to satisfy pydantic <3.12 requirement
+    from typing_extensions import Annotated, TypedDict  # type: ignore
+except ImportError:  # pragma: no cover - minimal stdlib fallback
+    from typing import Annotated, TypedDict
+
 import logging
 from langchain_core.language_models import BaseChatModel
 from langchain_core.output_parsers import StrOutputParser
 from langchain_neo4j import Neo4jGraph
 from app.agents.kg_sub_graph.agentic_rag_agents.components.cypher_tools.prompts import create_text2cypher_generation_prompt_template, create_text2cypher_validation_prompt_template, create_text2cypher_correction_prompt_template
 from app.agents.kg_sub_graph.agentic_rag_agents.retrievers.cypher_examples.base import BaseCypherExampleRetriever
-from typing_extensions import TypedDict
-from typing import Annotated, Any, Dict, List, Optional, Callable, Coroutine
 from operator import add
 from pydantic import BaseModel, Field
 from langchain_core.language_models import BaseChatModel

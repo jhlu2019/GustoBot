@@ -6,7 +6,10 @@ LangGraph node for knowledge base powered responses.
 """
 from typing import Any, Callable, Coroutine, Dict, List, Optional
 
-from typing_extensions import TypedDict
+try:  # pragma: no cover - prefer typing_extensions for Pydantic compatibility
+    from typing_extensions import TypedDict  # type: ignore
+except ImportError:  # pragma: no cover - minimal fallback
+    from typing import TypedDict
 
 from app.config import settings
 from app.core.logger import get_logger

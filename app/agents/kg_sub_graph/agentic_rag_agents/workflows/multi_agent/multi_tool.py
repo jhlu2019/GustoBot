@@ -4,7 +4,10 @@ from operator import add
 
 import aiohttp
 
-from typing_extensions import Annotated, TypedDict
+try:  # pragma: no cover - prefer typing_extensions for Pydantic compatibility
+    from typing_extensions import Annotated, TypedDict  # type: ignore
+except ImportError:  # pragma: no cover - minimal stdlib fallback
+    from typing import Annotated, TypedDict
 
 from langchain_core.language_models import BaseChatModel
 from langchain_neo4j import Neo4jGraph

@@ -3,11 +3,13 @@
 This module defines the state structures used in the researcher subgraph.
 """
 from operator import add
-from typing import Annotated, Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
-from typing_extensions import TypedDict
+try:  # pragma: no cover - prefer typing_extensions for Pydantic compatibility
+    from typing_extensions import Annotated, TypedDict  # type: ignore
+except ImportError:  # pragma: no cover - minimal stdlib fallback
+    from typing import Annotated, TypedDict
 from dataclasses import dataclass, field
-from typing import Annotated
 
 from langchain_core.documents import Document
 from app.agents.utils import reduce_docs

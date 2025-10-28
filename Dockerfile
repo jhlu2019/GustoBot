@@ -25,24 +25,36 @@ COPY app ./app
 COPY data ./data
 COPY scripts ./scripts
 
-# Build-time arguments for LightRAG initialization
+# Build-time arguments for LightRAG initialization (使用 .env 文件中的变量名)
 ARG INIT_LIGHTRAG_ON_BUILD=false
-ARG OPENAI_API_KEY
-ARG OPENAI_API_BASE=https://api.openai.com/v1
-ARG OPENAI_MODEL=gpt-3.5-turbo
-ARG EMBEDDING_MODEL=text-embedding-3-small
-ARG EMBEDDING_DIMENSION=1536
+ARG LLM_API_KEY
+ARG LLM_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
+ARG LLM_MODEL=qwen3-max
+ARG EMBEDDING_API_KEY
+ARG EMBEDDING_MODEL=qwen/qwen3-embedding-8b
+ARG EMBEDDING_BASE_URL=http://139.224.116.116:3000/v1
+ARG EMBEDDING_DIMENSION=4096
 ARG LIGHTRAG_INIT_LIMIT=1000
 
+# Persist configuration for runtime
+ENV LLM_BASE_URL=${LLM_BASE_URL}
+ENV LLM_MODEL=${LLM_MODEL}
+ENV EMBEDDING_MODEL=${EMBEDDING_MODEL}
+ENV EMBEDDING_BASE_URL=${EMBEDDING_BASE_URL}
+ENV EMBEDDING_DIMENSION=${EMBEDDING_DIMENSION}
+
 # Initialize LightRAG data during build (if enabled)
-RUN if [ "$INIT_LIGHTRAG_ON_BUILD" = "true" ] && [ -n "$OPENAI_API_KEY" ]; then \
+# LightRAG 需要 OPENAI_API_KEY 环境变量，所以这里做映射
+RUN if [ "$INIT_LIGHTRAG_ON_BUILD" = "true" ] && [ -n "$LLM_API_KEY" ]; then \
         echo "========================================"; \
         echo "Initializing LightRAG during build..."; \
         echo "========================================"; \
-        export OPENAI_API_KEY=${OPENAI_API_KEY}; \
-        export OPENAI_API_BASE=${OPENAI_API_BASE}; \
-        export OPENAI_MODEL=${OPENAI_MODEL}; \
+        export OPENAI_API_KEY=${LLM_API_KEY}; \
+        export OPENAI_API_BASE=${LLM_BASE_URL}; \
+        export OPENAI_MODEL=${LLM_MODEL}; \
+        export EMBEDDING_API_KEY=${EMBEDDING_API_KEY}; \
         export EMBEDDING_MODEL=${EMBEDDING_MODEL}; \
+        export EMBEDDING_BASE_URL=${EMBEDDING_BASE_URL}; \
         export EMBEDDING_DIMENSION=${EMBEDDING_DIMENSION}; \
         export LIGHTRAG_WORKING_DIR=/app/data/lightrag; \
         mkdir -p /app/data/lightrag && \
@@ -58,12 +70,13 @@ RUN if [ "$INIT_LIGHTRAG_ON_BUILD" = "true" ] && [ -n "$OPENAI_API_KEY" ]; then 
     else \
         echo "Skipping LightRAG initialization during build"; \
         echo "  INIT_LIGHTRAG_ON_BUILD=${INIT_LIGHTRAG_ON_BUILD}"; \
-        echo "  API_KEY set: $([ -n \"${OPENAI_API_KEY}\" ] && echo 'yes' || echo 'no')"; \
+        echo "  LLM_API_KEY set: $([ -n \"${LLM_API_KEY}\" ] && echo 'yes' || echo 'no')"; \
         mkdir -p /app/data/lightrag; \
     fi
 
-# Unset API key for security
-ENV OPENAI_API_KEY=your_api_key_here
+# Unset API keys for security
+ENV LLM_API_KEY=your_api_key_here
+ENV EMBEDDING_API_KEY=your_api_key_here
 
 EXPOSE 8000
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

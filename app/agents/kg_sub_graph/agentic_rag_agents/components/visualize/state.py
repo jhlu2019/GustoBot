@@ -3,10 +3,14 @@ This file contains classes that manage the state of a Visualization Agent or sub
 """
 
 from operator import add
-from typing import Annotated, Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional
+
+try:  # pragma: no cover - prefer typing_extensions for Pydantic compatibility
+    from typing_extensions import Annotated, TypedDict  # type: ignore
+except ImportError:  # pragma: no cover - minimal stdlib fallback
+    from typing import Annotated, TypedDict
 
 from pydantic_core import ErrorDetails
-from typing_extensions import TypedDict
 
 
 class VisualizationInputState(TypedDict):

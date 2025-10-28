@@ -31,7 +31,9 @@
       "Bash(alembic revision:*)",
       "Bash(docker:*)",
       "Bash(docker-compose:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(git checkout:*)",
+      "Bash(test:*)"
     ],
     "deny": [],
     "ask": []

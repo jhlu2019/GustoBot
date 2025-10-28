@@ -1,11 +1,14 @@
-from typing import Any, Callable, Coroutine, Dict
+from typing import Any, Callable, Coroutine, Dict, List, Optional
+
+try:  # pragma: no cover - prefer typing_extensions for Pydantic compatibility
+    from typing_extensions import Annotated, TypedDict  # type: ignore
+except ImportError:  # pragma: no cover - minimal stdlib fallback
+    from typing import Annotated, TypedDict
 
 from langchain_core.language_models import BaseChatModel
 from langchain_core.runnables.base import Runnable
-from typing import Annotated, Any, Dict, List, Optional
 
 from pydantic import BaseModel, Field
-from typing_extensions import TypedDict
 from app.agents.kg_sub_graph.kg_states import CypherOutputState
 
 from langchain_core.prompts import ChatPromptTemplate

@@ -1,8 +1,12 @@
 from operator import add
-from typing import Annotated, Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional
+
+try:  # pragma: no cover - prefer typing_extensions for Pydantic compatibility
+    from typing_extensions import Annotated, TypedDict  # type: ignore
+except ImportError:  # pragma: no cover - minimal stdlib fallback
+    from typing import Annotated, TypedDict
 
 from langchain_core.messages import ToolCall
-from typing_extensions import TypedDict
 
 from ..components.models import Task
 from .text2cypher.state import CypherOutputState
