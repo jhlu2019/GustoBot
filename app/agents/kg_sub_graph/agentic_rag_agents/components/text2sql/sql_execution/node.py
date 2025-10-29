@@ -98,57 +98,12 @@ def _map_db_type_to_driver(db_type: str) -> str:
 
 
 def _get_connection_string(connection_id: Optional[int]) -> Optional[str]:
-    if connection_id in (None, ""):
-        logger.debug("connection_id 未提供，使用默认数据库 URL")
-        return settings.DATABASE_URL
-
-    session: Session = SessionLocal()
-    try:
-        result = (
-            session.execute(
-                text(
-                    """
-                    SELECT db_type, host, port, username, password_encrypted, database_name
-                    FROM dbconnection
-                    WHERE id = :connection_id
-                    """
-                ),
-                {"connection_id": connection_id},
-            )
-            .mappings()
-            .first()
-        )
-        if not result:
-            logger.warning("未找到 connection_id=%s 对应的数据库配置", connection_id)
-            return None
-
-        driver = _map_db_type_to_driver(result.get("db_type", ""))
-        host = result.get("host") or "localhost"
-        port = result.get("port")
-        username = result.get("username") or ""
-        password = result.get("password_encrypted") or ""
-        database_name = result.get("database_name") or ""
-
-        if driver.startswith("sqlite"):
-            return f"{driver}:///{database_name}" if database_name else settings.DATABASE_URL
-
-        user_part = quote_plus(str(username)) if username else ""
-        password_part = quote_plus(str(password)) if password else ""
-        port_part = f":{int(port)}" if port else ""
-
-        if user_part and password_part:
-            auth_part = f"{user_part}:{password_part}@"
-        elif user_part:
-            auth_part = f"{user_part}@"
-        else:
-            auth_part = ""
-
-        return f"{driver}://{auth_part}{host}{port_part}/{database_name}"
-    except SQLAlchemyError as exc:  # pragma: no cover - defensive logging
-        logger.exception("查询数据库连接配置失败 connection_id=%s: %s", connection_id, exc)
-        return None
-    finally:
-        session.close()
+    """
+    直接返回 MySQL 连接字符串，不再支持 SQLite 和 dbconnection 表查询。
+    简化实现，统一使用 MySQL 作为 Text2SQL 的目标数据库。
+    """
+    logger.debug("使用默认 MySQL 数据库 URL: %s", settings.DATABASE_URL)
+    return settings.DATABASE_URL
 
 
 async def _execute_sql_query(

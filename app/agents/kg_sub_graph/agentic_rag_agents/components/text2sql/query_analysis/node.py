@@ -11,7 +11,6 @@ from app.agents.text2sql.models import SQLAnalysis
 from app.agents.text2sql.utils import render_analysis_markdown
 from app.core.logger import get_logger
 
-from ..schema_retrieval.node import _format_value_mappings_as_string
 from ..sql_generation.prompts import format_schema_as_text
 from .prompts import create_query_analysis_prompt
 
@@ -31,8 +30,8 @@ def create_query_analysis_node(
 
         question = state.get("question", "")
         schema_context = state.get("schema_context") or {}
-        value_mappings = state.get("value_mappings") or {}
-        mappings_str = _format_value_mappings_as_string(value_mappings)
+        # value_mappings 功能已简化移除
+        mappings_str = ""
 
         schema_text = format_schema_as_text(schema_context)
 

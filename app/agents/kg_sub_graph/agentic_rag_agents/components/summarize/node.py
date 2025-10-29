@@ -53,9 +53,31 @@ def create_summarization_node(
                     return f"{key}：{value}"
                 return "; ".join(f"{key}：{value}" for key, value in row.items())
             lines = []
+
+            # 检查是否是烹饪步骤（包含"步骤序号"和"步骤说明"）
+            is_cooking_steps = all("步骤序号" in row and "步骤说明" in row for row in rows if isinstance(row, dict))
+
+            # 检查是否是食材列表（包含"食材"和"用量"）
+            is_ingredients = all("食材" in row and "用量" in row for row in rows if isinstance(row, dict))
+
             for idx, row in enumerate(rows, 1):
-                row_desc = ", ".join(f"{key}：{value}" for key, value in row.items())
-                lines.append(f"{idx}. {row_desc}")
+                if is_cooking_steps and isinstance(row, dict):
+                    # 烹饪步骤：只显示步骤说明
+                    step_num = row.get("步骤序号", idx)
+                    step_desc = row.get("步骤说明", "")
+                    lines.append(f"{step_num}. {step_desc}")
+                elif is_ingredients and isinstance(row, dict):
+                    # 食材列表：只显示食材名和用量，隐藏关系类型
+                    ingredient = row.get("食材", "")
+                    amount = row.get("用量", "")
+                    relation = row.get("关系类型", "")
+                    # 主料用 ★ 标记
+                    marker = "★ " if "MAIN" in relation else "  "
+                    lines.append(f"{marker}{ingredient}：{amount}")
+                else:
+                    # 其他数据：显示所有字段
+                    row_desc = ", ".join(f"{key}：{value}" for key, value in row.items())
+                    lines.append(f"{idx}. {row_desc}")
             return "\n".join(lines)
 
         for idx, cypher in enumerate(cypher_entries):
@@ -99,6 +121,15 @@ def create_summarization_node(
                             if task_label
                             else formatted_rows
                         )
+            elif isinstance(records, list):
+                # 如果 records 是列表，友好格式化输出
+                formatted_rows = _format_rows(records)
+                if formatted_rows:
+                    metric_sections.append(
+                        f"{task_label}：\n{formatted_rows}".rstrip()
+                        if task_label
+                        else formatted_rows
+                    )
             else:
                 metric_sections.append(str(records))
 

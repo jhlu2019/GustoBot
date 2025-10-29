@@ -11,7 +11,6 @@ from langchain_core.output_parsers import StrOutputParser
 from app.agents.text2sql.utils import render_analysis_markdown
 from app.core.logger import get_logger
 
-from ..schema_retrieval.node import _format_value_mappings_as_string
 from .prompts import create_sql_generation_prompt, format_schema_as_text
 
 logger = get_logger(service="text2sql.sql_generation")
@@ -32,7 +31,6 @@ def create_sql_generation_node(
         logger.info("-----开始生成 SQL 语句-----")
 
         schema_context = state.get("schema_context") or {}
-        value_mappings = state.get("value_mappings") or {}
         analysis_dict = state.get("analysis")
         analysis_text = state.get("analysis_text") or ""
 
@@ -44,7 +42,8 @@ def create_sql_generation_node(
             }
 
         schema_text = format_schema_as_text(schema_context)
-        mappings_str = _format_value_mappings_as_string(value_mappings)
+        # value_mappings 功能已简化移除
+        mappings_str = ""
         analysis_summary = analysis_text or render_analysis_markdown(analysis_dict, "")
 
         question = state.get("question", "")
