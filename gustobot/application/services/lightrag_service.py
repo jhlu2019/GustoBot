@@ -18,6 +18,7 @@ from pydantic import BaseModel, Field
 from lightrag import LightRAG, QueryParam
 from lightrag.llm.openai import openai_complete_if_cache, openai_embed
 from lightrag.utils import EmbeddingFunc
+from lightrag.kg.shared_storage import initialize_pipeline_status
 import numpy as np
 
 from gustobot.config import settings
@@ -223,6 +224,7 @@ class LightRAGService:
             # 初始化存储（会加载预生成的索引文件）
             logger.info("加载预生成的索引文件...")
             await self.rag.initialize_storages()
+            await initialize_pipeline_status()
 
             self.initialized = True
             logger.info("✓ LightRAG 服务初始化成功")

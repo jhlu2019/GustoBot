@@ -13,7 +13,7 @@ from langchain_core.language_models import BaseChatModel
 from langchain_neo4j import Neo4jGraph
 from langgraph.constants import END, START
 from langgraph.graph.state import CompiledStateGraph, StateGraph
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from langchain_core.prompts import ChatPromptTemplate
 
 # 导入输入输出状态定义
@@ -193,6 +193,9 @@ class KBGuardrailsDecision(BaseModel):
 class KBRouteDecision(BaseModel):
     route: Literal["local", "external", "hybrid"]
     rationale: str
+    tools: List[Literal["milvus", "postgres"]] = Field(
+        description="本地知识源检索工具列表，支持 milvus/postgres",
+    )
 
 
 class KBInputState(TypedDict):
@@ -206,6 +209,9 @@ class KBWorkflowState(TypedDict):
     guardrails_decision: str
     summary: str
     route: str
+    kb_tools: List[str]
+    milvus_results: List[Dict[str, Any]]
+    postgres_results: List[Dict[str, Any]]
     local_results: List[Dict[str, Any]]
     external_results: List[Dict[str, Any]]
     answer: str
@@ -253,23 +259,29 @@ def create_kb_multi_tool_workflow(
         else settings.KB_ENABLE_EXTERNAL_SEARCH
     )
 
-    external_url = (
-        external_search_url
-        or settings.KB_EXTERNAL_SEARCH_URL
-        or (
-            f"{settings.INGEST_SERVICE_URL.rstrip('/')}/api/search"
-            if settings.INGEST_SERVICE_URL
-            else None
+    ingest_service_base = settings.INGEST_SERVICE_URL.rstrip("/") if settings.INGEST_SERVICE_URL else None
+
+    postgres_search_url = (
+        f"{ingest_service_base}/api/search" if ingest_service_base else None
+    )
+
+    external_url = external_search_url or settings.KB_EXTERNAL_SEARCH_URL
+
+    if allow_external_search and not external_url:
+        kb_logger.warning(
+            "External search enabled but KB_EXTERNAL_SEARCH_URL 未配置，已自动关闭外部检索。"
         )
+        allow_external_search = False
+
+    external_is_postgres = bool(
+        allow_external_search
+        and external_url
+        and postgres_search_url
+        and external_url.rstrip("/") == postgres_search_url.rstrip("/")
     )
 
     if not allow_external_search:
         external_url = None
-    elif not external_url:
-        kb_logger.warning(
-            "External search enabled but no KB_EXTERNAL_SEARCH_URL or INGEST_SERVICE_URL configured."
-        )
-        allow_external_search = False
 
     request_timeout = (
         external_search_timeout
@@ -306,12 +318,16 @@ def create_kb_multi_tool_workflow(
                 "system",
                 (
                     "你是菜谱文化知识检索路由器。目标仅限于“菜谱历史/渊源/命名”、“历史名人与菜谱关系”、“菜谱条目级小传与典故”。\n"
-                    "根据用户问题和最近对话历史，从下列选项中选择最合适的数据源：\n"
-                    "- local：仅使用本地菜谱文化知识库\n"
+                    "本地知识源说明：\n"
+                    "- milvus：存放 TXT/文章等长文本嵌入，适合查询历史背景、典故故事、命名缘由。\n"
+                    "- postgres：源自 Excel/结构化表格的资料，适合查询表格化记录、指标或枚举字段。\n"
+                    "根据用户问题和最近对话历史，从下列路由选项中选择最合适的数据源：\n"
+                    "- local：仅使用本地知识源（milvus/postgres）\n"
                     "- external：调用外部菜谱文化检索接口\n"
-                    "- hybrid：先查询本地知识库，再结合外部接口结果\n"
-                    "若问题涉及烹饪步骤、食材搭配等文化范围外内容，建议返回 local 并给出相应 rationale。"
-                    "输出 route（local/external/hybrid）及简要中文 rationale。"
+                    "- hybrid：先查询本地知识源，再结合外部接口结果\n"
+                    "请根据问题内容决定需要使用的本地工具（milvus、postgres，或两者），若无本地检索需求可返回空列表。\n"
+                    "若问题涉及烹饪步骤、食材搭配等文化范围外内容，建议返回 local 并说明无法回答的原因。\n"
+                    "输出字段：route（local/external/hybrid）、tools（列表，元素取自 milvus/postgres，可为空）、rationale（中文简要说明）。"
                 ),
             ),
             (
@@ -332,14 +348,16 @@ def create_kb_multi_tool_workflow(
                     "2. 若信息不足，说明知识库暂无相关记载，并建议向其他模块查询。\n"
                     "3. 语气专业、友好，回答使用简体中文。\n"
                     "4. 如问题超出菜谱文化范围，应委婉拒答并说明理由。\n"
-                    "5. 在结尾列出引用来源名称或编号（如有）。"
+                    "5. 区分并融合来自不同数据源的要点，避免重复叙述。\n"
+                    "6. 在结尾列出引用来源名称或编号（如有）。"
                 ),
             ),
             (
                 "human",
                 (
                     "用户问题：{question}\n\n"
-                    "本地知识库检索结果：\n{local_context}\n\n"
+                    "Milvus 向量检索结果：\n{milvus_context}\n\n"
+                    "PostgreSQL 结构化检索结果：\n{postgres_context}\n\n"
                     "外部检索结果：\n{external_context}"
                 ),
             ),
@@ -356,19 +374,60 @@ def create_kb_multi_tool_workflow(
             segments.append(f"{role}: {content}")
         return "\n".join(segments)
 
-    def _format_local_results(results: List[Dict[str, Any]]) -> str:
+    TOOL_LABELS = {
+        "milvus": "Milvus",
+        "postgres": "PostgreSQL",
+    }
+
+    def _format_results(
+        results: List[Dict[str, Any]],
+        *,
+        default_label: str,
+        empty_hint: str,
+    ) -> str:
+        if not results:
+            return empty_hint
         snippets: List[str] = []
         for idx, doc in enumerate(results[:effective_top_k]):
             content = doc.get("content") or doc.get("document") or ""
             snippet = content.strip().replace("\n", " ")
             snippet = snippet[:500]
             meta = doc.get("metadata") or {}
-            source = meta.get("source") or doc.get("source_table") or meta.get("source_table") or ""
-            tag = f"[本地#{idx + 1}] {snippet}"
+            source = (
+                doc.get("source")
+                or doc.get("source_table")
+                or meta.get("source")
+                or meta.get("source_table")
+                or meta.get("title")
+                or ""
+            )
+            tool_label = TOOL_LABELS.get(str(doc.get("tool", "")).lower(), default_label)
+            tag = f"[{tool_label}#{idx + 1}] {snippet}"
             if source:
                 tag = f"{tag}\n来源：{source}"
             snippets.append(tag)
-        return "\n\n".join(snippets) or "（无本地检索结果）"
+        return "\n\n".join(snippets)
+
+    def _format_milvus_results(results: List[Dict[str, Any]]) -> str:
+        return _format_results(
+            results,
+            default_label="Milvus",
+            empty_hint="（Milvus 暂无检索结果）",
+        )
+
+    def _format_postgres_results(results: List[Dict[str, Any]]) -> str:
+        return _format_results(
+            results,
+            default_label="PostgreSQL",
+            empty_hint="（PostgreSQL 暂无检索结果）",
+        )
+
+    def _format_combined_local_results(results: List[Dict[str, Any]]) -> str:
+        return _format_results(
+            results,
+            default_label="本地",
+            empty_hint="（无本地检索结果）",
+        )
 
     def _format_external_results(results: List[Dict[str, Any]]) -> str:
         if not results:
@@ -394,31 +453,22 @@ def create_kb_multi_tool_workflow(
         return "\n\n".join(snippets)
 
     def _collect_sources(
-        local_results: List[Dict[str, Any]],
-        external_results: List[Dict[str, Any]],
+        *result_sets: List[Dict[str, Any]],
     ) -> List[str]:
         collected: List[str] = []
-        for doc in local_results:
-            meta = doc.get("metadata") or {}
-            candidate = (
-                doc.get("source")
-                or meta.get("source")
-                or meta.get("source_table")
-                or doc.get("source_table")
-                or meta.get("title")
-            )
-            if candidate:
-                collected.append(str(candidate))
-        for item in external_results:
-            meta = item.get("metadata") or {}
-            candidate = (
-                item.get("source")
-                or item.get("source_table")
-                or meta.get("source")
-                or meta.get("url")
-            )
-            if candidate:
-                collected.append(str(candidate))
+        for dataset in result_sets:
+            for doc in dataset or []:
+                meta = doc.get("metadata") or {}
+                candidate = (
+                    doc.get("source")
+                    or doc.get("source_table")
+                    or meta.get("source")
+                    or meta.get("source_table")
+                    or meta.get("url")
+                    or meta.get("title")
+                )
+                if candidate:
+                    collected.append(str(candidate))
         # 去重但保留顺序
         seen: Dict[str, None] = {}
         for source in collected:
@@ -433,7 +483,7 @@ def create_kb_multi_tool_workflow(
             if decision.decision == "end"
             else ""
         )
-        kb_logger.info("KB guardrails decision: %s", decision.decision)
+        kb_logger.info("KB guardrails decision: {}", decision.decision)
         return {
             "guardrails_decision": decision.decision,
             "summary": summary,
@@ -452,44 +502,125 @@ def create_kb_multi_tool_workflow(
         route = decision.route
         if route in {"external", "hybrid"} and not allow_external_search:
             kb_logger.info(
-                "Router requested %s but external search is disabled; using local instead.",
+                "Router requested {} but external search is disabled; using local instead.",
                 route,
             )
             route = "local"
-        kb_logger.info("KB router decision: %s (%s)", route, decision.rationale)
+        tools = [tool for tool in decision.tools or [] if tool in {"milvus", "postgres"}]
+        if route != "external" and not tools:
+            tools = ["milvus"]
+        kb_logger.info(
+            "KB router decision: {} tools={} ({})",
+            route,
+            tools,
+            decision.rationale,
+        )
         return {
             "route": route,
+            "kb_tools": tools,
             "steps": ["router"],
         }
 
     async def local_search(state: KBWorkflowState) -> Dict[str, Any]:
         question = state.get("question", "")
         if not question.strip():
-            return {"local_results": [], "steps": ["local_search"]}
-        try:
-            docs = await knowledge_service.search(
-                query=question,
-                top_k=effective_top_k,
-                similarity_threshold=effective_threshold,
-                filter_expr=filter_expr,
-            )
-        except Exception as exc:  # pragma: no cover - defensive logging
-            kb_logger.error("Local knowledge search failed: %s", exc)
-            docs = []
+            return {
+                "milvus_results": [],
+                "postgres_results": [],
+                "local_results": [],
+                "steps": ["local_search"],
+            }
+
+        selected_tools = state.get("kb_tools") or ["milvus"]
+
+        milvus_results: List[Dict[str, Any]] = []
+        if "milvus" in selected_tools:
+            try:
+                docs = await knowledge_service.search(
+                    query=question,
+                    top_k=effective_top_k,
+                    similarity_threshold=effective_threshold,
+                    filter_expr=filter_expr,
+                )
+                for doc in docs:
+                    doc_copy = dict(doc)
+                    metadata_copy = dict(doc.get("metadata") or {})
+                    doc_copy["metadata"] = metadata_copy
+                    doc_copy["tool"] = "milvus"
+                    milvus_results.append(doc_copy)
+            except Exception as exc:  # pragma: no cover - defensive logging
+                kb_logger.error("Milvus knowledge search failed: {}", exc)
+
+        postgres_results: List[Dict[str, Any]] = []
+        if "postgres" in selected_tools:
+            if not postgres_search_url:
+                kb_logger.warning(
+                    "PostgreSQL 工具被选中，但 INGEST_SERVICE_URL 未配置，已跳过。"
+                )
+            else:
+                payload: Dict[str, Any] = {
+                    "query": question,
+                    "top_k": effective_top_k,
+                }
+                if effective_threshold is not None:
+                    payload["threshold"] = effective_threshold
+                try:
+                    timeout_cfg = aiohttp.ClientTimeout(total=request_timeout)
+                    async with aiohttp.ClientSession(timeout=timeout_cfg) as session:
+                        async with session.post(postgres_search_url, json=payload) as response:
+                            if response.status == 200:
+                                body = await response.json()
+                                data_results = body.get("results") or []
+                                if isinstance(data_results, list):
+                                    for item in data_results:
+                                        item_copy = dict(item)
+                                        metadata_copy = dict(item_copy.get("metadata") or {})
+                                        item_copy["metadata"] = metadata_copy
+                                        item_copy["tool"] = "postgres"
+                                        postgres_results.append(item_copy)
+                                else:
+                                    kb_logger.warning(
+                                        "Unexpected PostgreSQL search payload structure: {}",
+                                        body,
+                                    )
+                            else:
+                                error_text = await response.text()
+                                kb_logger.warning(
+                                    "PostgreSQL KB search failed ({}): {}",
+                                    response.status,
+                                    error_text,
+                                )
+                except Exception as exc:  # pragma: no cover - defensive logging
+                    kb_logger.error("PostgreSQL knowledge search error: {}", exc)
+
+        combined_results = milvus_results + postgres_results
 
         route = state.get("route", "local")
-        if not docs and route in {"local", "hybrid"} and allow_external_search and external_url:
-            kb_logger.info("Local search empty, falling back to external search.")
+        if (
+            not combined_results
+            and route in {"local", "hybrid"}
+            and allow_external_search
+            and external_url
+        ):
+            kb_logger.info("Local searches empty, falling back to external search.")
             route = "external"
 
         return {
-            "local_results": docs,
+            "milvus_results": milvus_results,
+            "postgres_results": postgres_results,
+            "local_results": combined_results,
             "route": route,
             "steps": ["local_search"],
         }
 
     async def external_search(state: KBWorkflowState) -> Dict[str, Any]:
         if not (allow_external_search and external_url):
+            return {"external_results": [], "steps": ["external_search"]}
+
+        if external_is_postgres and "postgres" in (state.get("kb_tools") or []):
+            kb_logger.debug(
+                "Skip external search: router already执行了 PostgreSQL 工具，且外部检索与其同源。"
+            )
             return {"external_results": [], "steps": ["external_search"]}
 
         question = state.get("question", "")
@@ -515,18 +646,18 @@ def create_kb_multi_tool_workflow(
                             results = data_results
                         else:
                             kb_logger.warning(
-                                "Unexpected external search payload structure: %s",
+                                "Unexpected external search payload structure: {}",
                                 body,
                             )
                     else:
                         error_text = await response.text()
                         kb_logger.warning(
-                            "External KB search failed (%s): %s",
+                            "External KB search failed ({}): {}",
                             response.status,
                             error_text,
                         )
         except Exception as exc:  # pragma: no cover - defensive logging
-            kb_logger.error("External KB search error: %s", exc)
+            kb_logger.error("External KB search error: {}", exc)
 
         return {
             "external_results": results,
@@ -538,13 +669,17 @@ def create_kb_multi_tool_workflow(
             summary = state.get("summary") or "抱歉，该问题暂时无法回答。"
             return {"answer": summary, "sources": [], "steps": ["finalize"]}
 
-        local_results = state.get("local_results", [])
+        milvus_results = state.get("milvus_results", [])
+        postgres_results = state.get("postgres_results", [])
+        local_results = state.get("local_results", []) or (milvus_results + postgres_results)
         external_results = state.get("external_results", [])
 
-        local_context = _format_local_results(local_results)
+        milvus_context = _format_milvus_results(milvus_results)
+        postgres_context = _format_postgres_results(postgres_results)
+        local_context = _format_combined_local_results(local_results)
         external_context = _format_external_results(external_results)
 
-        sources = _collect_sources(local_results, external_results)
+        sources = _collect_sources(milvus_results, postgres_results, external_results)
 
         if not local_results and not external_results:
             fallback = "抱歉，菜谱文化知识库暂未找到相关记载，请尝试描述得更具体一些或稍后再试。"
@@ -552,7 +687,8 @@ def create_kb_multi_tool_workflow(
 
         messages = final_prompt.format_messages(
             question=state.get("question", ""),
-            local_context=local_context,
+            milvus_context=milvus_context,
+            postgres_context=postgres_context,
             external_context=external_context,
         )
         try:
@@ -563,7 +699,7 @@ def create_kb_multi_tool_workflow(
             else:
                 answer = str(response)
         except Exception as exc:  # pragma: no cover - defensive logging
-            kb_logger.error("Failed to synthesise KB answer: %s", exc)
+            kb_logger.error("Failed to synthesise KB answer: {}", exc)
             answer = local_context if local_context and local_context != "（无本地检索结果）" else ""
             if not answer:
                 answer = "检索已完成，但当前无法生成可靠的菜谱文化回答。"

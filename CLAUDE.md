@@ -81,17 +81,18 @@ make init-data
 ### High-Level System Flow
 
 ```
-User Query → SupervisorAgent (LangGraph) → Semantic Cache Check
-                    ↓                              ↓ (cache miss)
-            RouterAgent (LLM Classification)
-                    ↓
-        ┌───────────┼───────────┐
-        │           │           │
-  KnowledgeAgent  ChatAgent  RejectHandler
+User Query → LangGraph Supervisor → Semantic Cache Check
+                    ↓ (cache miss)
+        ┌───────────── analyze_and_route_query ─────────────┐
+        │                       │                          │
+    kb-query               general-query                 reject
+        ↓                       ↓                          ↓
+ KB Multi-Tool           respond_to_general_query     安全拒绝输出
+   Workflow
         ↓
-  [Vector RAG | Neo4j KG | GraphRAG]
+[Milvus | PostgreSQL | External]
         ↓
-  Cache Response → Return to User
+ Cache Response → Return to User
 ```
 
 ### Multi-Agent System (LangGraph-based)
@@ -101,23 +102,24 @@ User Query → SupervisorAgent (LangGraph) → Semantic Cache Check
    - Manages Redis conversation history and semantic caching
    - Implements conditional routing logic
 
-2. **RouterAgent** (`gustobot/application/agents/router_agent.py`) - LLM-based question classifier
-   - Routes to: `knowledge` (recipe/cooking), `chat` (casual), `reject` (off-topic)
-   - Uses structured prompts with conversation context
-   - Returns route + confidence + reasoning
+2. **LangGraph Router & Guardrails** (`gustobot/application/agents/lg_builder.py`)
+   - `analyze_and_route_query`、`safety_guardrails` 等节点负责分类与合规检查
+   - 路由结果覆盖 `kb-query`、`general-query`、`graphrag-query` 等路径
+   - 统一写入 LangGraph 检查点以供后续节点复用
 
-3. **KnowledgeAgent** (`gustobot/application/agents/knowledge_agent.py`) - Hybrid knowledge retrieval
-   - **Primary**: Vector RAG (Milvus search → Reranker → LLM generation)
-   - **Optional**: Neo4j graph queries for structured relationships
-   - **Optional**: GraphRAG for complex graph reasoning
+3. **KB Multi-Tool Workflow** (`kg_sub_graph/agentic_rag_agents/workflows/multi_agent/multi_tool.py`)
+   - 与最新多源检索逻辑一致：Milvus + PostgreSQL（pgvector）+ 可选外部搜索
+   - 支持 Guardrails、路由、Milvus/Postgres 查询、外部检索、回答融合
+   - 现在会根据路由工具列表动态选择 Milvus/Postgres，并合并来源
 
-4. **ChatAgent** (`gustobot/application/agents/chat_agent.py`) - Conversational responses
-   - LLM-powered friendly conversation
-   - Template-based fallbacks
+4. **General / Research Nodes** (`gustobot/application/agents/lg_builder.py`)
+   - `respond_to_general_query`：闲聊与常识问答
+   - `create_research_plan`：生成多步查询计划
+   - `create_file_query`、`create_image_query` 等辅助节点
 
-5. **State Management** (`gustobot/application/agents/state_models.py`)
-   - Pydantic models: ConversationInput, ConversationState, RouterResult, AgentAnswer
-   - Type-safe state transitions across LangGraph nodes
+5. **State Management** (`gustobot/application/agents/lg_states.py`)
+   - Dataclass + TypedDict 描述路由结果、消息历史、步骤追踪
+   - 提供 `InputState`/`AgentState` 等结构，保持节点间的类型安全
 
 ### Knowledge Systems
 
@@ -239,16 +241,16 @@ Neo4j is **pre-seeded during Docker build** via `neo4j-admin import` from CSV fi
    - `check_cache` node: Semantic cache lookup (Ollama embeddings + Redis)
      - Cache hit → return cached answer immediately
      - Cache miss → continue to routing
-   - `route_node`: RouterAgent classifies question (LLM call)
+   - `analyze_and_route_query`: LLM 路由节点（LangGraph）判定 `kb-query` / `general-query` / `graphrag-query` 等类型
    - Conditional edge routes to appropriate handler:
-     - **knowledge** → `knowledge_node`:
-       1. KnowledgeService: OpenAI embedding → Milvus search (top_k × 3)
-       2. Reranker API (Cohere/Jina/Voyage/BGE) → top_k results
-       3. Optional: Neo4j graph query for structured data
-       4. LLM generates answer from retrieved documents
-       5. Cache response in Redis semantic cache
-     - **chat** → `chat_node`: ChatAgent LLM or template response
-     - **reject** → `reject_node`: Polite rejection message
+     - **kb-query** → `create_kb_query`：
+       1. 调用 `create_kb_multi_tool_workflow`
+       2. 按路由工具列表查询 Milvus、PostgreSQL（pgvector）与可选外部检索
+       3. LangGraph Finalizer 汇总回答并收集来源
+       4. 缓存结果（Redis 语义缓存）
+     - **general-query** → `respond_to_general_query`：走轻量 LLM 闲聊/常识回答
+     - **additional-query / research** → `create_research_plan` 等节点：生成后续任务或多跳计划
+     - **reject** → `safety_refusal`: 直接输出礼貌拒绝
    - `save_history` node: Persist conversation to Redis with TTL
    - END: Return structured response with metadata (route, confidence, sources, cached flag)
 3. Frontend displays answer with route indicator and sources
@@ -359,7 +361,7 @@ graph.add_node("my_custom_node", my_custom_node)
 graph.add_edge("previous_node", "my_custom_node")
 ```
 
-3. Update `ConversationState` model in `gustobot/application/agents/state_models.py` if adding fields
+3. Update `AgentState` definitions in `gustobot/application/agents/lg_states.py` if adding fields
 
 ### Testing
 
@@ -367,14 +369,11 @@ graph.add_edge("previous_node", "my_custom_node")
 # Run all tests
 pytest tests/ -v
 
-# Run specific test file
-pytest tests/unit/test_agents.py -v
-
 # Run with coverage
-pytest tests/ --cov=app --cov-report=html
+pytest tests/ --cov=gustobot --cov-report=html
 
-# Run single test
-pytest tests/unit/test_agents.py::test_router_agent_initialization -v
+# Run single test module
+pytest tests/test_agents_comprehensive.py -v
 ```
 
 ## Project Structure
@@ -382,16 +381,16 @@ pytest tests/unit/test_agents.py::test_router_agent_initialization -v
 ```
 GustoBot/
 ├── gustobot/                         # Server-side code
-│   ├── agents/                    # Multi-Agent system (LangGraph)
-│   │   ├── base_agent.py          # Agent base class
-│   │   ├── supervisor_agent.py    # LangGraph coordinator (v1)
-│   │   ├── supervisor_agent_v2.py # Alternative supervisor
-│   │   ├── router_agent.py        # LLM-based classifier
-│   │   ├── knowledge_agent.py     # Hybrid retrieval agent
-│   │   ├── chat_agent.py          # Conversational agent
-│   │   ├── state_models.py        # Pydantic state models
-│   │   ├── nodes.py               # LangGraph node functions
-│   │   └── kg_sub_graph/          # KG subgraph nodes
+│   ├── agents/                    # LangGraph orchestrated nodes
+│   │   ├── __init__.py
+│   │   ├── lg_builder.py          # Supervisor / router graph
+│   │   ├── lg_states.py           # Dataclass + TypedDict 状态
+│   │   ├── lg_prompts.py          # Prompt 集中管理
+│   │   ├── kb_tools/              # 知识库工具节点
+│   │   ├── kg_sub_graph/          # Agentic RAG 多工具工作流
+│   │   ├── text2sql/              # 结构化查询子图
+│   │   ├── utils.py               # 通用工具函数
+│   │   └── main.py                # CLI 入口
 │   ├── knowledge_base/            # Knowledge systems
 │   │   ├── vector_store.py        # Milvus wrapper
 │   │   ├── embedding_service.py   # OpenAI embeddings

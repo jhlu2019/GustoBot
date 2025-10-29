@@ -11,6 +11,7 @@ from pydantic import BaseModel, Field
 from lightrag import LightRAG, QueryParam
 from lightrag.llm.openai import openai_complete_if_cache, openai_embed
 from lightrag.utils import EmbeddingFunc
+from lightrag.kg.shared_storage import initialize_pipeline_status
 
 LIGHTRAG_AVAILABLE = True
 
@@ -176,6 +177,7 @@ class LightRAGAPI:
             # 初始化存储
             logger.info("初始化 LightRAG 存储...")
             await self.rag.initialize_storages()
+            await initialize_pipeline_status()
 
             self.initialized = True
             logger.info("LightRAG 初始化成功")
