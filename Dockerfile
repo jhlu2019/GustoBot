@@ -94,10 +94,8 @@ RUN sed -i 's|http://deb.debian.org|https://mirrors.tuna.tsinghua.edu.cn|g' /etc
 
 # Install APOC plugin for Neo4j
 ARG APOC_VERSION=5.18.0
-RUN mkdir -p /var/lib/neo4j/plugins && \
-    curl -L -o /var/lib/neo4j/plugins/apoc-${APOC_VERSION}.jar \
-        https://github.com/neo4j/apoc/releases/download/${APOC_VERSION}/apoc-${APOC_VERSION}-core.jar && \
-    ln -sf /var/lib/neo4j/plugins/apoc-${APOC_VERSION}.jar /var/lib/neo4j/plugins/apoc.jar
+COPY neo4j_plugins/apoc-${APOC_VERSION}.jar /var/lib/neo4j/plugins/
+RUN ln -sf /var/lib/neo4j/plugins/apoc-${APOC_VERSION}.jar /var/lib/neo4j/plugins/apoc.jar
 
 WORKDIR /var/lib/neo4j/build
 COPY data ./data

@@ -63,7 +63,6 @@ DESCRIPTIVE_KEYWORDS = [
     "健康",
     "介绍",
     "概况",
-    "历史",
 ]
 
 
@@ -142,18 +141,18 @@ def create_tool_selection_node(
                 },
             )
 
-        # Heuristic for GraphRAG/LightRAG
-        if route_type == "graphrag-query":
-            logger.info("Router 标记为 graphrag-query，优先使用 GraphRAG 工具。")
-            return _make_command(
-                "customer_tools",
-                {
-                    "task": question_text,
-                    "query_name": "microsoft_graphrag_query",
-                    "query_parameters": {"query": question_text},
-                    "steps": ["tool_selection"],
-                },
-            )
+        # Heuristic for GraphRAG/LightRAG - 改为让 LLM 动态选择工具，而不是硬编码
+        # if route_type == "graphrag-query":
+        #     logger.info("Router 标记为 graphrag-query，优先使用 GraphRAG 工具。")
+        #     return _make_command(
+        #         "customer_tools",
+        #         {
+        #             "task": question_text,
+        #             "query_name": "microsoft_graphrag_query",
+        #             "query_parameters": {"query": question_text},
+        #             "steps": ["tool_selection"],
+        #         },
+        #     )
 
         go_to_text2cypher: Command[
             Literal["cypher_query", "predefined_cypher", "customer_tools", "text2sql_query"]
