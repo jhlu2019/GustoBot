@@ -50,6 +50,21 @@ class Settings(BaseSettings):
     VISION_BASE_URL: Optional[str] = None
     VISION_MODEL: str = "gpt-4-vision-preview"
 
+    # Image generation models (for creating images)
+    IMAGE_GENERATION_API_KEY: Optional[str] = None
+    IMAGE_GENERATION_BASE_URL: Optional[str] = Field(
+        default="https://open.bigmodel.cn/api/paas/v4",
+        description="Image generation API base URL"
+    )
+    IMAGE_GENERATION_MODEL: str = Field(
+        default="cogView-4-250304",
+        description="Image generation model name"
+    )
+    IMAGE_GENERATION_SIZE: str = Field(
+        default="1024x1024",
+        description="Default image generation size"
+    )
+
     # Milvus vector database
     MILVUS_HOST: str = "localhost"
     MILVUS_PORT: int = 19530

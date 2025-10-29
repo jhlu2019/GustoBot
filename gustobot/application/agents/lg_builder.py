@@ -7,7 +7,9 @@ from gustobot.application.agents.lg_prompts import (
     GUARDRAILS_SYSTEM_PROMPT,
     RAGSEARCH_SYSTEM_PROMPT,
     CHECK_HALLUCINATIONS,
-    GENERATE_QUERIES_SYSTEM_PROMPT
+    GENERATE_QUERIES_SYSTEM_PROMPT,
+    IMAGE_GENERATION_ENHANCE_PROMPT,
+    IMAGE_GENERATION_SUCCESS_PROMPT
 )
 from langchain_core.runnables import RunnableConfig
 from gustobot.config import settings
@@ -324,6 +326,102 @@ async def get_additional_info(
         return {"messages": [response]}
 
 
+async def _generate_image(user_query: str, state: AgentState) -> Dict[str, List[BaseMessage]]:
+    """使用CogView-4 API生成图片
+
+    Args:
+        user_query: 用户的图片生成请求
+        state: 当前代理状态
+
+    Returns:
+        包含生成图片信息的消息字典
+    """
+    try:
+        # 步骤1: 使用LLM优化用户提示词
+        model = ChatOpenAI(
+            model=settings.LLM_MODEL,
+            api_key=settings.LLM_API_KEY,
+            base_url=settings.LLM_BASE_URL,
+            temperature=0.7
+        )
+
+        enhance_prompt = IMAGE_GENERATION_ENHANCE_PROMPT.format(user_query=user_query)
+        enhance_messages = [{"role": "user", "content": enhance_prompt}]
+
+        logger.info(f"Enhancing user prompt: {user_query}")
+        enhanced_response = await model.ainvoke(enhance_messages)
+        enhanced_prompt = enhanced_response.content.strip()
+        logger.info(f"Enhanced prompt: {enhanced_prompt}")
+
+        # 步骤2: 调用CogView-4 API生成图片
+        api_key = settings.IMAGE_GENERATION_API_KEY
+        base_url = settings.IMAGE_GENERATION_BASE_URL
+        model_name = settings.IMAGE_GENERATION_MODEL
+        size = settings.IMAGE_GENERATION_SIZE
+
+        if not api_key:
+            logger.error("IMAGE_GENERATION_API_KEY not configured")
+            return {"messages": [AIMessage(content="抱歉，图片生成服务配置不完整，无法生成图片。")]}
+
+        # 构建API请求
+        api_url = f"{base_url}/images/generations"
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json"
+        }
+        payload = {
+            "model": model_name,
+            "prompt": enhanced_prompt,
+            "size": size
+        }
+
+        logger.info(f"Calling CogView-4 API: {api_url}")
+        logger.info(f"Payload: model={model_name}, size={size}")
+
+        # 异步HTTP请求
+        async with aiohttp.ClientSession() as session:
+            async with session.post(api_url, json=payload, headers=headers, timeout=60) as resp:
+                if resp.status != 200:
+                    error_text = await resp.text()
+                    logger.error(f"CogView-4 API error: {resp.status} - {error_text}")
+                    return {"messages": [AIMessage(content="抱歉，图片生成失败，请稍后再试。")]}
+
+                result = await resp.json()
+                logger.info(f"CogView-4 API response: {json.dumps(result, ensure_ascii=False)}")
+
+        # 步骤3: 解析响应获取图片URL
+        if "data" not in result or len(result["data"]) == 0:
+            logger.error(f"CogView-4 API returned no image data: {result}")
+            return {"messages": [AIMessage(content="抱歉，图片生成失败，请稍后再试。")]}
+
+        image_url = result["data"][0].get("url", "")
+        if not image_url:
+            logger.error(f"CogView-4 API returned no image URL: {result}")
+            return {"messages": [AIMessage(content="抱歉，图片生成失败，请稍后再试。")]}
+
+        logger.info(f"Image generated successfully: {image_url}")
+
+        # 步骤4: 提取菜名（简单处理）
+        dish_name = "菜品"
+        for keyword in ["宫保鸡丁", "红烧肉", "麻婆豆腐", "糖醋排骨", "鱼香肉丝"]:
+            if keyword in user_query:
+                dish_name = keyword
+                break
+
+        # 步骤5: 格式化成功响应
+        success_message = IMAGE_GENERATION_SUCCESS_PROMPT.format(dish_name=dish_name)
+        response_content = f"{success_message}\n\n图片链接: {image_url}"
+
+        return {"messages": [AIMessage(content=response_content)]}
+
+    except asyncio.TimeoutError:
+        logger.error("CogView-4 API timeout")
+        return {"messages": [AIMessage(content="抱歉，图片生成超时，请稍后再试。")]}
+    except Exception as e:
+        logger.error(f"Error generating image: {e}", exc_info=True)
+        return {"messages": [AIMessage(content=f"抱歉，图片生成过程中出现错误：{str(e)}")]}
+
+
 async def create_image_query(
         state: AgentState, *, config: RunnableConfig
 ) -> Dict[str, List[BaseMessage]]:
@@ -336,11 +434,22 @@ async def create_image_query(
     Returns:
         Dict[str, List[BaseMessage]]: 包含'messages'键的字典，其中包含生成的响应
     """
-    logger.info("-----Found User Upload Image-----")
+    logger.info("-----Handle Image Query-----")
     image_path = config.get("configurable", {}).get("image_path", None)
+    user_query = state.messages[-1].content if state.messages else ""
 
+    # 判断是图像识别还是图像生成
+    generation_keywords = ["生成", "画", "创建", "制作图片", "做一张", "给我一张", "来一张"]
+    is_generation = any(keyword in user_query for keyword in generation_keywords)
+
+    # 情况1: 用户要求生成图片（没有上传图片，或明确要求生成）
+    if is_generation and not image_path:
+        logger.info(f"Image Generation Request: {user_query}")
+        return await _generate_image(user_query, state)
+
+    # 情况2: 用户上传了图片，进行识别
     if not image_path:
-        logger.warning(f"User Upload Image Path is None")
+        logger.warning(f"User Upload Image Path is None for recognition")
         return {"messages": [AIMessage(content="抱歉，我无法查看这张图片，请重新上传。")]}
 
     if not Path(image_path).exists():
