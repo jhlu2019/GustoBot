@@ -28,8 +28,8 @@
 - 食材和步骤分别在不同的区域
 - 有用户评论区需要点击"展开"
 """
-from app.crawler.browser_crawler import BrowserCrawler
-from app.crawler.proxy_pool import ProxyPool
+from gustobot.crawler.browser_crawler import BrowserCrawler
+from gustobot.crawler.proxy_pool import ProxyPool
 from lxml import etree
 from typing import List, Dict
 import json
@@ -167,7 +167,7 @@ if __name__ == "__main__":
 - 图片懒加载，需要滚动
 - 评论区需要点击"查看更多"
 """
-from app.crawler.browser_crawler import BrowserCrawler
+from gustobot.crawler.browser_crawler import BrowserCrawler
 from lxml import etree
 import re
 
@@ -294,7 +294,7 @@ class DouguoCrawler(BrowserCrawler):
 
 # 使用示例
 async def main():
-    from app.crawler.proxy_pool import ProxyPool
+    from gustobot.crawler.proxy_pool import ProxyPool
 
     proxy_pool = ProxyPool.from_file("proxies.txt")
     crawler = DouguoCrawler(proxy_pool=proxy_pool)
@@ -322,7 +322,7 @@ async def main():
 - 静态HTML，不需要浏览器
 - 使用HTTP爬虫即可，速度快
 """
-from app.crawler import BaseCrawler
+from gustobot.crawler import BaseCrawler
 import httpx
 from bs4 import BeautifulSoup
 from typing import List, Dict
@@ -421,8 +421,8 @@ async def main():
 Schema.org标准网站爬虫
 适用于所有实现了Schema.org Recipe标准的网站
 """
-from app.crawler import RecipeCrawler
-from app.crawler.proxy_pool import ProxyPool
+from gustobot.crawler import RecipeCrawler
+from gustobot.crawler.proxy_pool import ProxyPool
 
 
 async def crawl_schema_org_sites():
@@ -442,7 +442,7 @@ async def crawl_schema_org_sites():
     recipes = await crawler.run(urls)
 
     # 数据验证
-    from app.crawler.data_validator import DataValidator
+    from gustobot.crawler.data_validator import DataValidator
 
     valid_recipes = DataValidator.validate_batch(recipes)
     unique_recipes = DataValidator.deduplicate(valid_recipes)
@@ -472,7 +472,7 @@ if __name__ == "__main__":
 Stage 1: 列表页 -> 收集URL
 Stage 2: 详情页 -> 提取数据
 """
-from app.crawler.browser_crawler import BrowserCrawler
+from gustobot.crawler.browser_crawler import BrowserCrawler
 from lxml import etree
 from typing import List
 
@@ -588,7 +588,7 @@ class TwoStageCrawler(BrowserCrawler):
 
 # 使用示例
 async def main():
-    from app.crawler.proxy_pool import ProxyPool
+    from gustobot.crawler.proxy_pool import ProxyPool
 
     proxy_pool = ProxyPool.from_file("proxies.txt")
     crawler = TwoStageCrawler(proxy_pool=proxy_pool, headless=True)
@@ -619,7 +619,7 @@ if __name__ == "__main__":
 MongoDB集成示例
 实时保存爬取结果，避免数据丢失
 """
-from app.crawler.browser_crawler import BrowserCrawler
+from gustobot.crawler.browser_crawler import BrowserCrawler
 from pymongo import MongoClient
 from datetime import datetime
 
@@ -768,8 +768,8 @@ if __name__ == "__main__":
 批量爬取与去重示例
 """
 import asyncio
-from app.crawler.browser_crawler import BrowserCrawler
-from app.crawler.data_validator import DataValidator
+from gustobot.crawler.browser_crawler import BrowserCrawler
+from gustobot.crawler.data_validator import DataValidator
 from typing import List, Set
 import json
 
@@ -888,7 +888,7 @@ if __name__ == "__main__":
 """
 下载图片示例
 """
-from app.crawler.browser_crawler import BrowserCrawler
+from gustobot.crawler.browser_crawler import BrowserCrawler
 import httpx
 import os
 from pathlib import Path

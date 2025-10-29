@@ -18,7 +18,7 @@
 - ✅ Removed duplicate/legacy configuration entries
 - ✅ Fixed validation errors (CORS, RERANK_SCORE_FUSION_ALPHA, LIGHTRAG_INIT_LIMIT)
 
-#### `app/config/settings.py`
+#### `gustobot/config/settings.py`
 - ✅ Added LLM configuration fields with Field descriptors
 - ✅ Added Embedding configuration fields (EMBEDDING_PROVIDER, EMBEDDING_API_KEY, EMBEDDING_BASE_URL)
 - ✅ Added complete Reranker configuration (9 fields)
@@ -28,7 +28,7 @@
 
 ### 2. Internal Code Modifications ✅
 
-#### `app/knowledge_base/knowledge_service.py`
+#### `gustobot/infrastructure/knowledge/knowledge_service.py`
 - ✅ Modified OpenAIEmbeddings initialization to use custom base_url and api_key
 - ✅ Updated search() method to recall RERANK_MAX_CANDIDATES when reranker enabled
 - ✅ Proper two-stage retrieval: Milvus recall → Reranker precision ranking
@@ -52,7 +52,7 @@ if self.reranker.enabled:
     recall_k = settings.RERANK_MAX_CANDIDATES  # Recall 20, rerank to top_k
 ```
 
-#### `app/knowledge_base/reranker.py`
+#### `gustobot/infrastructure/knowledge/reranker.py`
 - ✅ Complete rewrite from Cohere-only to multi-provider support
 - ✅ Implemented custom HTTP API calls using httpx
 - ✅ Support for 4 providers: custom, cohere, jina, voyage
@@ -86,7 +86,7 @@ async def _custom_rerank(self, query, documents, top_k):
 
 **Test Command**:
 ```bash
-python3 -c "from app.config.settings import settings; print(f'Embedding: {settings.EMBEDDING_MODEL} @ {settings.EMBEDDING_BASE_URL}'); print(f'Reranker: {settings.RERANK_MODEL} @ {settings.RERANK_BASE_URL}')"
+python3 -c "from gustobot.config.settings import settings; print(f'Embedding: {settings.EMBEDDING_MODEL} @ {settings.EMBEDDING_BASE_URL}'); print(f'Reranker: {settings.RERANK_MODEL} @ {settings.RERANK_BASE_URL}')"
 ```
 
 **Expected Output**:
@@ -221,7 +221,7 @@ LLM_BASE_URL=http://10.168.2.110:8000/v1
 
 ### Configuration Loading ✅
 ```bash
-python3 -c "from app.config.settings import settings; \
+python3 -c "from gustobot.config.settings import settings; \
 print(f'Embedding: {settings.EMBEDDING_MODEL} @ {settings.EMBEDDING_BASE_URL}'); \
 print(f'Reranker: {settings.RERANK_MODEL} @ {settings.RERANK_BASE_URL}')"
 ```
@@ -229,7 +229,7 @@ print(f'Reranker: {settings.RERANK_MODEL} @ {settings.RERANK_BASE_URL}')"
 
 ### Workflow Parameters ✅
 ```bash
-python3 -c "from app.config import settings; \
+python3 -c "from gustobot.config import settings; \
 print(f'Recall: Top {settings.RERANK_MAX_CANDIDATES}'); \
 print(f'Return: Top {settings.RERANK_TOP_N}')"
 ```
@@ -242,7 +242,7 @@ Return: Top 6
 
 ### Service Initialization
 ```bash
-python3 -c "from app.knowledge_base import KnowledgeService; service = KnowledgeService()"
+python3 -c "from gustobot.infrastructure.knowledge import KnowledgeService; service = KnowledgeService()"
 ```
 **Status**: ⏸️ Requires runtime dependencies (pymilvus, Redis, Milvus)
 
@@ -256,7 +256,7 @@ python3 -c "from app.knowledge_base import KnowledgeService; service = Knowledge
 docker-compose up -d
 
 # Development mode
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+uvicorn gustobot.main:application --reload --host 0.0.0.0 --port 8000
 ```
 
 ### 2. Verify Services

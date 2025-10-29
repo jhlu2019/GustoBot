@@ -8,7 +8,7 @@
 
 ## 📝 修改的文件
 
-### 1. `app/config/settings.py`
+### 1. `gustobot/config/settings.py`
 - ✅ 添加统一的 LLM、Embedding、Reranker 配置
 - ✅ 使用 `@property` 提供向后兼容的访问方式
 - ✅ 移除硬编码的旧配置字段
@@ -32,7 +32,7 @@ RERANK_MAX_CANDIDATES: int = 20
 RERANK_TOP_N: int = 6
 ```
 
-### 2. `app/knowledge_base/knowledge_service.py`
+### 2. `gustobot/infrastructure/knowledge/knowledge_service.py`
 - ✅ 修改 `OpenAIEmbeddings` 初始化，使用自定义 `base_url` 和 `api_key`
 - ✅ 优化检索流程：先召回 `RERANK_MAX_CANDIDATES` 个文档，再精排返回 `top_k`
 
@@ -55,7 +55,7 @@ if self.reranker.enabled:
     recall_k = settings.RERANK_MAX_CANDIDATES  # 召回20个
 ```
 
-### 3. `app/knowledge_base/reranker.py`
+### 3. `gustobot/infrastructure/knowledge/reranker.py`
 - ✅ 完全重写，支持多种 Reranker 提供商
 - ✅ 实现自定义 API 调用逻辑
 - ✅ 支持 Cohere、Jina、Voyage、Custom 四种模式
@@ -190,7 +190,7 @@ RERANK_TIMEOUT=30
 
 ### 配置加载测试
 ```bash
-python3 -c "from app.config.settings import settings; \
+python3 -c "from gustobot.config.settings import settings; \
 print(f'Embedding: {settings.EMBEDDING_MODEL} @ {settings.EMBEDDING_BASE_URL}'); \
 print(f'Reranker: {settings.RERANK_MODEL} @ {settings.RERANK_BASE_URL}')"
 ```
@@ -203,7 +203,7 @@ Reranker: bge-reranker-large @ http://10.168.2.250:9997/v1
 
 ### 工作流验证
 ```bash
-python3 -c "from app.config import settings; \
+python3 -c "from gustobot.config import settings; \
 print(f'召回: Top {settings.RERANK_MAX_CANDIDATES}'); \
 print(f'返回: Top {settings.RERANK_TOP_N}')"
 ```
@@ -224,7 +224,7 @@ print(f'返回: Top {settings.RERANK_TOP_N}')"
 docker-compose up -d
 
 # 或开发模式
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+uvicorn gustobot.main:application --reload --host 0.0.0.0 --port 8000
 ```
 
 ### 2. 测试检索

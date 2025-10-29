@@ -6,8 +6,10 @@
 """
 import sys
 import io
+from pathlib import Path
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
-sys.path.insert(0, 'F:\\pythonproject\\GustoBot')
+project_root = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(project_root))
 
 from neo4j import GraphDatabase
 

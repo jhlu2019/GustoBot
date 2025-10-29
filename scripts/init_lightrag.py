@@ -18,9 +18,9 @@ import json
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from app.config import settings
-from app.core.logger import get_logger
-from app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
+from gustobot.config import settings
+from gustobot.infrastructure.core.logger import get_logger
+from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
 
 logger = get_logger(service="init-lightrag")
 

@@ -2,11 +2,13 @@
 """测试 Heuristic Router 关键词兜底机制"""
 import asyncio
 import sys
-sys.path.insert(0, '/app')
+from pathlib import Path
+project_root = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(project_root))
 
-from app.agents.lg_states import InputState
-from app.agents.lg_builder import graph
-from app.agents.utils import new_uuid
+from gustobot.application.agents.lg_states import InputState
+from gustobot.application.agents.lg_builder import graph
+from gustobot.application.agents.utils import new_uuid
 from langchain_core.messages import HumanMessage
 
 async def test_query(query: str, expected_route: str, description: str):

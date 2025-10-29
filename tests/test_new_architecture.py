@@ -3,8 +3,8 @@
 Quick test for the new LangGraph architecture
 """
 import asyncio
-from app.agents.nodes import route_question, chat_response
-from app.agents.state_models import ConversationState
+from gustobot.application.agents.nodes import route_question, chat_response
+from gustobot.application.agents.state_models import ConversationState
 
 
 async def test_route_node():
@@ -73,9 +73,9 @@ async def test_supervisor_basic():
     print("=" * 60)
 
     try:
-        from app.agents.supervisor_agent_v2 import SupervisorAgent
-        from app.knowledge_base import KnowledgeService
-        from app.services import LLMClient
+        from gustobot.application.agents.supervisor_agent_v2 import SupervisorAgent
+        from gustobot.infrastructure.knowledge import KnowledgeService
+        from gustobot.application.services.llm_client import LLMClient
 
         # 初始化
         knowledge_service = KnowledgeService()
@@ -124,7 +124,7 @@ async def main():
     print("\n下一步:")
     print("1. 安装依赖: pip install -r requirements.txt")
     print("2. 配置环境变量: cp .env.example .env")
-    print("3. 启动服务: python -m uvicorn app.main:app --reload")
+    print("3. 启动服务: python -m uvicorn gustobot.main:app --reload")
     print("4. 测试 API:")
     print("   - POST /api/v1/chat/")
     print("   - POST /api/v1/chat/stream")

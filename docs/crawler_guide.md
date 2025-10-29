@@ -64,14 +64,14 @@ playwright install chromium  # 安装Chromium浏览器
 **示例1: 使用命令行工具爬取Wikipedia**
 
 ```bash
-python -m app.crawler.cli wikipedia --query "红烧肉" --limit 5
+python -m gustobot.crawler.cli wikipedia --query "红烧肉" --limit 5
 ```
 
 **示例2: 使用Python代码**
 
 ```python
 import asyncio
-from app.crawler import WikipediaCrawler
+from gustobot.crawler import WikipediaCrawler
 
 async def main():
     # 创建爬虫实例
@@ -106,7 +106,7 @@ if __name__ == "__main__":
 **示例**:
 
 ```python
-from app.crawler import BaseCrawler
+from gustobot.crawler import BaseCrawler
 import httpx
 
 class SimpleRecipeCrawler(BaseCrawler):
@@ -163,7 +163,7 @@ class SimpleRecipeCrawler(BaseCrawler):
 **示例**:
 
 ```python
-from app.crawler.browser_crawler import BrowserCrawler
+from gustobot.crawler.browser_crawler import BrowserCrawler
 from lxml import etree
 
 class DynamicRecipeCrawler(BrowserCrawler):
@@ -231,7 +231,7 @@ async def main():
 - 详情页用浏览器（功能强大）
 
 ```python
-from app.crawler.browser_crawler import HybridCrawler
+from gustobot.crawler.browser_crawler import HybridCrawler
 
 class HybridRecipeCrawler(HybridCrawler):
     async def run(self, list_url):
@@ -287,8 +287,8 @@ socks5://user:pass@socks-proxy.com:1080
 **方法1: 从文件加载**
 
 ```python
-from app.crawler.proxy_pool import ProxyPool
-from app.crawler.browser_crawler import BrowserCrawler
+from gustobot.crawler.proxy_pool import ProxyPool
+from gustobot.crawler.browser_crawler import BrowserCrawler
 
 # 加载代理池
 proxy_pool = ProxyPool.from_file("proxies.txt")
@@ -303,7 +303,7 @@ crawler = BrowserCrawler(
 **方法2: 手动添加**
 
 ```python
-from app.crawler.proxy_pool import ProxyPool
+from gustobot.crawler.proxy_pool import ProxyPool
 
 proxy_pool = ProxyPool(
     check_interval=300,   # 健康检查间隔(秒)
@@ -325,7 +325,7 @@ proxy_pool.add_proxy(
 
 ```python
 import asyncio
-from app.crawler.proxy_pool import ProxyPool
+from gustobot.crawler.proxy_pool import ProxyPool
 
 async def manage_proxies():
     proxy_pool = ProxyPool.from_file("proxies.txt")
@@ -352,26 +352,26 @@ async def manage_proxies():
 
 ```bash
 # 基础用法
-python -m app.crawler.cli wikipedia --query "川菜" "粤菜"
+python -m gustobot.crawler.cli wikipedia --query "川菜" "粤菜"
 
 # 指定语言和数量
-python -m app.crawler.cli wikipedia \
+python -m gustobot.crawler.cli wikipedia \
   --query "中国菜" \
   --language zh \
   --limit 10
 
 # 使用代理
-python -m app.crawler.cli wikipedia \
+python -m gustobot.crawler.cli wikipedia \
   --query "烘焙" \
   --proxy proxies.txt
 
 # 保存到文件
-python -m app.crawler.cli wikipedia \
+python -m gustobot.crawler.cli wikipedia \
   --query "家常菜" \
   --output recipes.json
 
 # 直接导入到知识库
-python -m app.crawler.cli wikipedia \
+python -m gustobot.crawler.cli wikipedia \
   --query "甜品" \
   --import-kb
 ```
@@ -380,17 +380,17 @@ python -m app.crawler.cli wikipedia \
 
 ```bash
 # 爬取指定URL
-python -m app.crawler.cli urls \
+python -m gustobot.crawler.cli urls \
   --urls "https://example.com/recipe1" "https://example.com/recipe2"
 
 # 使用代理并保存
-python -m app.crawler.cli urls \
+python -m gustobot.crawler.cli urls \
   --urls "https://example.com/recipes" \
   --proxy proxies.txt \
   --output output.json
 
 # 直接导入知识库
-python -m app.crawler.cli urls \
+python -m gustobot.crawler.cli urls \
   --urls "https://example.com/recipe" \
   --import-kb
 ```
@@ -399,7 +399,7 @@ python -m app.crawler.cli urls \
 
 ```bash
 # 将JSON文件导入知识库
-python -m app.crawler.cli import \
+python -m gustobot.crawler.cli import \
   --file recipes.json \
   --batch-size 20
 ```
@@ -418,8 +418,8 @@ python -m app.crawler.cli import \
 ### 完整示例: 美食天下爬虫
 
 ```python
-from app.crawler.browser_crawler import BrowserCrawler
-from app.crawler.proxy_pool import ProxyPool
+from gustobot.crawler.browser_crawler import BrowserCrawler
+from gustobot.crawler.proxy_pool import ProxyPool
 from lxml import etree
 from typing import List, Dict
 from loguru import logger
@@ -626,7 +626,7 @@ if __name__ == "__main__":
 ### 使用DataValidator
 
 ```python
-from app.crawler.data_validator import DataValidator, RecipeModel
+from gustobot.crawler.data_validator import DataValidator, RecipeModel
 
 # 验证单个菜谱
 recipe_data = {
@@ -840,7 +840,7 @@ await proxy_pool.health_check()
 
 - [爬虫示例](crawler_examples.md) - 更多实战案例
 - [反爬虫最佳实践](anti_scraping_guide.md) - 深入反爬技巧
-- [app/crawler/README.md](../app/crawler/README.md) - 模块文档
+- [gustobot/crawler/README.md](../app/crawler/README.md) - 模块文档
 
 ---
 

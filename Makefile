@@ -11,7 +11,7 @@ dev:
 
 # 运行服务端
 run-server:
-	python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+	python -m uvicorn gustobot.main:application --reload --host 0.0.0.0 --port 8000
 
 # 运行Web端
 run-web:
@@ -23,13 +23,13 @@ test:
 
 # 代码检查
 lint:
-	flake8 app/ --max-line-length=100
-	black --check app/
-	mypy app/
+	flake8 gustobot --max-line-length=100
+	black --check gustobot
+	mypy gustobot
 
 # 代码格式化
 format:
-	black app/
+	black gustobot
 	cd web && npm run lint
 
 # 清理

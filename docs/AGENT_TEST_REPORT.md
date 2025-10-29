@@ -154,7 +154,7 @@
 
 **错误详情**:
 ```python
-File: app/agents/kg_sub_graph/agentic_rag_agents/retrievers/cypher_examples/recipe_retriever.py:15
+File: gustobot/application/agents/kg_sub_graph/agentic_rag_agents/retrievers/cypher_examples/recipe_retriever.py:15
 Error: AttributeError: 'RecipeCypherRetriever' object has no attribute '__pydantic_private__'
 
 Traceback:

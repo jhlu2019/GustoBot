@@ -158,7 +158,7 @@ docker-compose up -d
 # 测试 LightRAG 查询
 docker-compose exec server python -c "
 import asyncio
-from app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
+from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
 
 async def test():
     api = LightRAGAPI()

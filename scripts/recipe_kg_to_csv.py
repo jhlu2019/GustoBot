@@ -13,7 +13,7 @@ from typing import Dict, List
 
 def _load_parser_module():
     project_root = Path(__file__).resolve().parent.parent
-    parser_path = project_root / "app" / "knowledge_base" / "recipe_kg" / "recipe_json_parser.py"
+    parser_path = project_root / "gustobot" / "infrastructure" / "knowledge" / "recipe_kg" / "recipe_json_parser.py"
     spec = importlib.util.spec_from_file_location("recipe_parser", parser_path)
     if spec is None or spec.loader is None:
         raise ImportError(f"Failed to load recipe parser module from {parser_path}")

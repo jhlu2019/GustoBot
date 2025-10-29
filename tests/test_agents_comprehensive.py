@@ -7,13 +7,13 @@ import sys
 from pathlib import Path
 
 # Add project root to path
-root_dir = Path(__file__).parent
-sys.path.append(str(root_dir))
+project_root = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(project_root))
 
 import asyncio
-from app.agents.lg_states import InputState
-from app.agents.utils import new_uuid
-from app.agents.lg_builder import graph
+from gustobot.application.agents.lg_states import InputState
+from gustobot.application.agents.utils import new_uuid
+from gustobot.application.agents.lg_builder import graph
 from langchain_core.messages import HumanMessage
 import json
 from datetime import datetime

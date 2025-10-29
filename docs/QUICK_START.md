@@ -31,7 +31,7 @@ docker-compose logs -f server
 
 ```bash
 python3 -c "
-from app.config.settings import settings
+from gustobot.config.settings import settings
 print('Embedding:', settings.EMBEDDING_MODEL, '@', settings.EMBEDDING_BASE_URL)
 print('Reranker:', settings.RERANK_MODEL, '@', settings.RERANK_BASE_URL)
 print('Recall:', settings.RERANK_MAX_CANDIDATES, '→ Return:', settings.RERANK_TOP_N)
@@ -203,7 +203,7 @@ curl -X POST "http://localhost:8000/api/v1/knowledge/recipes" \
 
 ```bash
 # 使用爬虫导入（推荐）
-python -m app.crawler.cli wikipedia --query "川菜" --import-kb --limit 10
+python -m gustobot.crawler.cli wikipedia --query "川菜" --import-kb --limit 10
 
 # 从 JSON 文件导入
 python scripts/import_recipes.py --file data/recipe.json --batch-size 100
@@ -432,7 +432,7 @@ curl -X POST "http://10.168.2.250:9997/v1/rerank" \
   -d '{"model": "bge-reranker-large", "query": "test", "documents": ["doc1"], "top_n": 1}'
 
 # 2. 检查配置
-python3 -c "from app.config.settings import settings; print(settings.RERANK_BASE_URL, settings.RERANK_ENDPOINT)"
+python3 -c "from gustobot.config.settings import settings; print(settings.RERANK_BASE_URL, settings.RERANK_ENDPOINT)"
 
 # 3. 临时禁用 Reranker 测试
 # 编辑 .env: RERANK_ENABLED=false

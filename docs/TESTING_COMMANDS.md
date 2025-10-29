@@ -35,7 +35,7 @@ open http://localhost:8000/docs  # 或访问 http://localhost:8000/docs
 ```bash
 # 验证所有配置
 docker-compose exec server python3 -c "
-from app.config.settings import settings
+from gustobot.config.settings import settings
 print('LLM:', settings.LLM_MODEL, '@', settings.LLM_BASE_URL)
 print('Embedding:', settings.EMBEDDING_MODEL, '@', settings.EMBEDDING_BASE_URL)
 print('Reranker:', settings.RERANK_MODEL, '@', settings.RERANK_BASE_URL)
@@ -44,7 +44,7 @@ print('Redis:', settings.REDIS_HOST + ':' + str(settings.REDIS_PORT))
 "
 
 # 简化版本
-docker-compose exec server python3 -c "from app.config import settings; print(f'Embedding: {settings.EMBEDDING_MODEL} @ {settings.EMBEDDING_BASE_URL}')"
+docker-compose exec server python3 -c "from gustobot.config import settings; print(f'Embedding: {settings.EMBEDDING_MODEL} @ {settings.EMBEDDING_BASE_URL}')"
 ```
 
 ---
@@ -183,7 +183,7 @@ docker-compose down -v
 
 ```bash
 # 检查容器内配置
-docker-compose exec server python3 -c "from app.config import settings; print(settings.model_dump_json(indent=2))"
+docker-compose exec server python3 -c "from gustobot.config import settings; print(settings.model_dump_json(indent=2))"
 
 # 测试 Milvus 连接
 docker-compose exec server python3 -c "
@@ -267,7 +267,7 @@ echo "1. 检查服务健康..."
 curl -f http://localhost:8000/health || exit 1
 
 echo "2. 验证配置..."
-docker-compose exec -T server python3 -c "from app.config import settings; assert settings.EMBEDDING_MODEL, 'Embedding model not set'"
+docker-compose exec -T server python3 -c "from gustobot.config import settings; assert settings.EMBEDDING_MODEL, 'Embedding model not set'"
 
 echo "3. 测试 Neo4j 图谱..."
 curl -f -X POST "http://localhost:8000/api/v1/knowledge/graph/qa" \
@@ -299,7 +299,7 @@ docker-compose restart server
 docker-compose ps
 
 # 导出配置
-docker-compose exec server python3 -c "from app.config import settings; import json; print(json.dumps(settings.model_dump(), indent=2, default=str))" > config_export.json
+docker-compose exec server python3 -c "from gustobot.config import settings; import json; print(json.dumps(settings.model_dump(), indent=2, default=str))" > config_export.json
 
 # 备份数据
 docker-compose exec neo4j neo4j-admin database dump neo4j --to=/data/backup.dump
@@ -313,7 +313,7 @@ docker cp gustobot_neo4j_1:/data/backup.dump ./neo4j_backup.dump
 ```bash
 # 1. 服务无法启动
 docker-compose logs --tail=100 server
-docker-compose exec server python3 -m app.main  # 直接运行查看错误
+docker-compose exec server python3 -m gustobot.main  # 直接运行查看错误
 
 # 2. Milvus 连接失败
 docker-compose exec server ping -c 3 milvus

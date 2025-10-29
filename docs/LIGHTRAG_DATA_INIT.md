@@ -128,7 +128,7 @@ NEO4J_PASSWORD=your_password
 NEO4J_DATABASE=neo4j
 ```
 
-### Settings 配置 (app/config/settings.py)
+### Settings 配置 (gustobot/config/settings.py)
 
 ```python
 # LightRAG configuration
@@ -216,7 +216,7 @@ ls -lh data/lightrag/
 ### 2. 测试查询
 
 ```python
-from app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
+from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
 
 async def test_query():
     api = LightRAGAPI()
@@ -252,7 +252,7 @@ with open('data/lightrag/kv_store_doc_status.json', 'r') as f:
 LightRAG 支持增量插入：
 
 ```python
-from app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
+from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
 
 async def add_new_recipe():
     api = LightRAGAPI()

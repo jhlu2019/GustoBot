@@ -17,15 +17,15 @@ GustoBot 轻量级会话管理系统 - 基于 user_id 的会话分组，无需�
 
 ```
 会话管理系统:
-├── Models (app/models/)
+├── Models (gustobot/models/)
 │   ├── chat_session.py          # 会话模型
 │   └── chat_message.py          # 消息+快照模型
 │
-├── CRUD (app/crud/)
+├── CRUD (gustobot/crud/)
 │   ├── crud_chat_session.py     # 会话操作
 │   └── crud_chat_message.py     # 消息操作
 │
-└── API (app/api/v1/sessions.py)
+└── API (gustobot/api/v1/sessions.py)
     ├── GET  /api/v1/sessions/                 # 获取会话列表（可选 user_id 过滤）
     ├── POST /api/v1/sessions/                 # 创建会话
     ├── GET  /api/v1/sessions/{id}             # 获取单个会话
@@ -72,7 +72,7 @@ pip install -r requirements.txt
 ### 2. 启动服务（自动创建表）
 
 ```bash
-python -m uvicorn app.main:app --reload
+python -m uvicorn gustobot.main:application --reload
 ```
 
 **服务启动时会自动创建以下表：**
@@ -255,9 +255,9 @@ curl -X DELETE "http://localhost:8000/api/v1/sessions/550e8400-e29b-41d4-a716-44
 
 ```python
 from uuid import uuid4
-from app.crud import chat_session, chat_message, chat_history_snapshot
-from app.schemas.chat_session import ChatSessionCreate
-from app.schemas.chat_message import ChatMessageCreate, ChatHistorySnapshotCreate
+from gustobot.infrastructure.persistence.crud import chat_session, chat_message, chat_session_snapshot
+from gustobot.interfaces.http.models.chat_session import ChatSessionCreate
+from gustobot.interfaces.http.models.chat_message import ChatMessageCreate, ChatSessionSnapshotCreate
 
 @router.post("/chat")
 async def chat(
@@ -296,7 +296,7 @@ async def chat(
     ))
 
     # 创建快照以便快速恢复
-    chat_history_snapshot.create(db, obj_in=ChatHistorySnapshotCreate(
+    chat_session_snapshot.create(db, obj_in=ChatSessionSnapshotCreate(
         session_id=session_id,
         query=message,
         response_data=response
@@ -362,7 +362,7 @@ async def chat(
 ### 问题: "Table doesn't exist"
 **解决:** 重启服务，表会自动创建
 ```bash
-python -m uvicorn app.main:app --reload
+python -m uvicorn gustobot.main:application --reload
 ```
 
 ### 问题: "Foreign key constraint failed"
@@ -378,7 +378,7 @@ pip install -r requirements.txt
 **解决:** 删除数据库文件并重启
 ```bash
 rm ./data/gustobot.db
-python -m uvicorn app.main:app --reload
+python -m uvicorn gustobot.main:application --reload
 ```
 
 ## 📖 相关文档

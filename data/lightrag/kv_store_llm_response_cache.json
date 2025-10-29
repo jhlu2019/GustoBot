@@ -38,5 +38,45 @@
     "create_time": 1761640944,
     "update_time": 1761640944,
     "_id": "hybrid:keywords:0673ea0d2b9bf291b3cc79e259ee165e"
+  },
+  "local:keywords:eedfe3aeaa54915134a3c38678f7a59d": {
+    "return": "{\"high_level_keywords\": [\"\\u7ea2\\u70e7\\u8089\", \"\\u70f9\\u996a\\u65b9\\u6cd5\", \"\\u4e2d\\u5f0f\\u83dc\\u80b4\"], \"low_level_keywords\": [\"\\u4e94\\u82b1\\u8089\", \"\\u9171\\u6cb9\", \"\\u7cd6\\u8272\", \"\\u6599\\u9152\", \"\\u516b\\u89d2\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "红烧肉怎么做？",
+    "queryparam": {
+      "mode": "local",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1761713306,
+    "update_time": 1761713306,
+    "_id": "local:keywords:eedfe3aeaa54915134a3c38678f7a59d"
+  },
+  "hybrid:keywords:7d418fc81eb97cf772c358c808c36499": {
+    "return": "{\"high_level_keywords\": [\"\\u5ddd\\u83dc\", \"\\u83dc\\u7cfb\\u7279\\u70b9\", \"\\u4e2d\\u56fd\\u83dc\"], \"low_level_keywords\": [\"\\u9ebb\\u8fa3\", \"\\u8c03\\u5473\", \"\\u70f9\\u996a\\u6280\\u6cd5\", \"\\u5730\\u65b9\\u98ce\\u5473\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "介绍一下川菜的特点",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 5,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1761717180,
+    "update_time": 1761717180,
+    "_id": "hybrid:keywords:7d418fc81eb97cf772c358c808c36499"
   }
 }

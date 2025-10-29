@@ -10,7 +10,7 @@
 
 ### 1. 核心服务层
 
-**`app/services/lightrag_service.py`** - LightRAG 问答检索服务
+**`gustobot/services/lightrag_service.py`** - LightRAG 问答检索服务
 
 **功能**:
 - 加载预生成的索引文件（Docker build 时生成）
@@ -36,7 +36,7 @@ def get_lightrag_service()             # 单例获取服务实例
 
 ### 2. API 路由层
 
-**`app/api/lightrag_router.py`** - FastAPI 路由
+**`gustobot/api/lightrag_router.py`** - FastAPI 路由
 
 **端点**:
 - `POST /api/v1/lightrag/query` - 非流式查询
@@ -135,12 +135,12 @@ docker-compose exec server python scripts/test_lightrag_service.py
 ```
 ┌──────────────────────────────────────┐
 │   API Layer (FastAPI Routes)        │
-│   app/api/lightrag_router.py         │
+│   gustobot/api/lightrag_router.py         │
 └──────────────────────────────────────┘
               ↓
 ┌──────────────────────────────────────┐
 │   Service Layer                      │
-│   app/services/lightrag_service.py   │
+│   gustobot/services/lightrag_service.py   │
 │   - LightRAGService                  │
 │   - get_lightrag_service()           │
 └──────────────────────────────────────┘
@@ -162,11 +162,11 @@ docker-compose exec server python scripts/test_lightrag_service.py
 
 ## 🔧 修改的文件
 
-### 1. `app/main.py`
+### 1. `gustobot/main.py`
 
 **修改**:
 - 导入 `lightrag_router`
-- 注册路由: `app.include_router(lightrag_router.router, prefix=settings.API_V1_PREFIX)`
+- 注册路由: `gustobot.include_router(lightrag_router.router, prefix=settings.API_V1_PREFIX)`
 - 添加 shutdown 时清理 LightRAG 资源
 
 **新增代码**:
@@ -175,10 +175,10 @@ from .api import lightrag_router
 from .services.lightrag_service import get_lightrag_service
 
 # 注册路由
-app.include_router(lightrag_router.router, prefix=settings.API_V1_PREFIX)
+gustobot.include_router(lightrag_router.router, prefix=settings.API_V1_PREFIX)
 
 # Shutdown 时清理
-@app.on_event("shutdown")
+@gustobot.on_event("shutdown")
 async def shutdown_event():
     # ... (Neo4j cleanup)
 
@@ -192,7 +192,7 @@ async def shutdown_event():
 
 ---
 
-### 2. `app/api/__init__.py`
+### 2. `gustobot/api/__init__.py`
 
 **修改**:
 - 添加 `lightrag_router` 到导入和导出
@@ -231,7 +231,7 @@ Docker build 时生成以下文件（位于 `/app/data/lightrag/`）:
 ### 1. Python 代码
 
 ```python
-from app.services.lightrag_service import get_lightrag_service
+from gustobot.application.services.lightrag_service import get_lightrag_service
 
 async def query_example():
     service = get_lightrag_service()
@@ -443,8 +443,8 @@ docker-compose logs -f server
 
 ## 📚 参考资料
 
-- **服务实现**: `app/services/lightrag_service.py`
-- **API 路由**: `app/api/lightrag_router.py`
+- **服务实现**: `gustobot/services/lightrag_service.py`
+- **API 路由**: `gustobot/api/lightrag_router.py`
 - **测试脚本**: `scripts/test_lightrag_service.py`
 - **使用指南**: `docs/lightrag_service_guide.md`
 - **LightRAG 官方**: https://github.com/HKUDS/LightRAG

@@ -240,7 +240,7 @@ for line in response.iter_lines():
 
 ```python
 import asyncio
-from app.services.lightrag_service import get_lightrag_service, LightRAGQueryRequest
+from gustobot.application.services.lightrag_service import get_lightrag_service, LightRAGQueryRequest
 
 async def main():
     # 获取服务实例
@@ -546,7 +546,7 @@ result = await service.insert_documents(documents, batch_size=50)
 
 - **LightRAG GitHub**: https://github.com/HKUDS/LightRAG
 - **官方文档**: https://lightrag.readthedocs.io/
-- **项目配置**: `app/config/settings.py`
-- **服务实现**: `app/services/lightrag_service.py`
-- **API 路由**: `app/api/lightrag_router.py`
+- **项目配置**: `gustobot/config/settings.py`
+- **服务实现**: `gustobot/services/lightrag_service.py`
+- **API 路由**: `gustobot/api/lightrag_router.py`
 - **测试脚本**: `scripts/test_lightrag_service.py`

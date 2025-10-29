@@ -209,7 +209,7 @@ curl -X POST "http://localhost:8000/api/v1/knowledge/search" \
 ```bash
 docker-compose exec -T server python3 << 'EOF'
 import asyncio
-from app.knowledge_base.reranker import Reranker
+from gustobot.infrastructure.knowledge.reranker import Reranker
 
 async def test():
     reranker = Reranker()

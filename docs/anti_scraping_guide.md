@@ -133,7 +133,7 @@
 **解决方案**:
 
 ```python
-from app.crawler.browser_crawler import BrowserCrawler
+from gustobot.crawler.browser_crawler import BrowserCrawler
 
 # 方法1: 使用内置的随机User-Agent池
 crawler = BrowserCrawler(use_random_ua=True)  # 默认开启
@@ -168,8 +168,8 @@ crawler = BrowserCrawler(
 **解决方案**:
 
 ```python
-from app.crawler.proxy_pool import ProxyPool
-from app.crawler.browser_crawler import BrowserCrawler
+from gustobot.crawler.proxy_pool import ProxyPool
+from gustobot.crawler.browser_crawler import BrowserCrawler
 
 # 创建代理池
 proxy_pool = ProxyPool(
@@ -389,7 +389,7 @@ crawler = BrowserCrawler(
 ### 1. 代理质量评估
 
 ```python
-from app.crawler.proxy_pool import ProxyPool
+from gustobot.crawler.proxy_pool import ProxyPool
 import asyncio
 
 async def evaluate_proxies():
@@ -460,7 +460,7 @@ class StickyProxyPool(ProxyPool):
 
 ```python
 import asyncio
-from app.crawler.proxy_pool import ProxyPool
+from gustobot.crawler.proxy_pool import ProxyPool
 
 async def auto_recovery_pool():
     """自动恢复失效的代理"""

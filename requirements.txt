@@ -3,6 +3,7 @@ fastapi==0.109.0
 uvicorn[standard]==0.27.0
 pydantic==2.10.4
 pydantic-settings==2.4.0
+email-validator>=2.0.0
 gunicorn
 
 # LLM Integration

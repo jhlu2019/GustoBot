@@ -2,7 +2,7 @@
 
 ## 配置更新完成 ✅
 
-已成功更新 `.env` 和 `app/config/settings.py` 文件，添加了统一的服务配置格式。
+已成功更新 `.env` 和 `gustobot/config/settings.py` 文件，添加了统一的服务配置格式。
 
 ### 1. LLM 服务配置
 
@@ -76,7 +76,7 @@ RERANKER_TOP_K=6
 
 ```bash
 python3 -c "
-from app.config.settings import settings
+from gustobot.config.settings import settings
 print('LLM Base URL:', settings.LLM_BASE_URL)
 print('Embedding Base URL:', settings.EMBEDDING_BASE_URL)
 print('Rerank Base URL:', settings.RERANK_BASE_URL)
@@ -92,7 +92,7 @@ Rerank Base URL: http://10.168.2.250:9997/v1
 
 ## Settings.py 更新内容
 
-在 `app/config/settings.py` 中添加了以下字段：
+在 `gustobot/config/settings.py` 中添加了以下字段：
 
 ### 新增字段
 1. **LLM_PROVIDER** - LLM服务提供商

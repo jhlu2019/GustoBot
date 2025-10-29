@@ -41,7 +41,7 @@ StateGraph
 
 ## 📂 目录结构
 
-核心代码位于 `app/agents/kg_sub_graph/agentic_rag_agents/components/text2sql/`：
+核心代码位于 `gustobot/application/agents/kg_sub_graph/agentic_rag_agents/components/text2sql/`：
 
 ```
 text2sql/
@@ -55,10 +55,10 @@ text2sql/
 └── formatting/                  # 最终答复组装
 ```
 
-`app/agents/text2sql/` 目录继续保留公共接口 (`workflow.py`, `state.py`, `models.py` 等)，同时在 `components/__init__.py` 提供向新的组件目录的兼容包装，外部调用方式保持不变：
+`gustobot/application/agents/text2sql/` 目录继续保留公共接口 (`workflow.py`, `state.py`, `models.py` 等)，同时在 `components/__init__.py` 提供向新的组件目录的兼容包装，外部调用方式保持不变：
 
 ```python
-from app.agents.text2sql import create_text2sql_workflow
+from gustobot.application.agents.text2sql import create_text2sql_workflow
 workflow = create_text2sql_workflow(llm, neo4j_graph, db_type="MySQL")
 result = await workflow.ainvoke({...})
 ```
@@ -116,8 +116,8 @@ result = await workflow.ainvoke({...})
 ## ✅ 测试与验证
 
 ```bash
-python -m compileall app/agents/text2sql \
-    app/agents/kg_sub_graph/agentic_rag_agents/components/text2sql
+python -m compileall gustobot/application/agents/text2sql \
+    gustobot/application/agents/kg_sub_graph/agentic_rag_agents/components/text2sql
 ```
 
 上线前可通过以下方式验证：

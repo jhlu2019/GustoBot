@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # 导入必要的模块
-from app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
-from app.core.logger import get_logger
+from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
+from gustobot.infrastructure.core.logger import get_logger
 
 logger = get_logger(service="test-lightrag")
 

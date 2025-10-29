@@ -47,7 +47,7 @@
 2. `docker compose up -d neo4j`：启动后即可直接访问预导入的图谱。
 3. 如需重新生成数据，更新 JSON 后重新执行 `docker compose build neo4j`。
 
-此外，应用服务启动时仍保留运行时导入逻辑，可通过环境变量控制是否跳过（`NEO4J_BOOTSTRAP_JSON` 等，详见 `app/config/settings.py`）。
+此外，应用服务启动时仍保留运行时导入逻辑，可通过环境变量控制是否跳过（`NEO4J_BOOTSTRAP_JSON` 等，详见 `gustobot/config/settings.py`）。
 
 ---
 

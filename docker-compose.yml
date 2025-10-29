@@ -44,13 +44,13 @@ services:
       - EMBEDDING_BASE_URL=${EMBEDDING_BASE_URL}
       - EMBEDDING_DIMENSION=${EMBEDDING_DIMENSION}
     volumes:
-      - ./app:/app/app
+      - ./gustobot:/app/gustobot
       - ./data:/app/data
       - ./.env:/app/.env:ro
     depends_on:
       - neo4j
       - redis
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn gustobot.main:application --host 0.0.0.0 --port 8000 --reload
 
   neo4j:
     build:

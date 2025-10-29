@@ -125,7 +125,7 @@ ROUTER_SYSTEM_PROMPT = """你是一名菜谱领域的智能客服，专注为厨
 
 1. 备份原文件:
 ```bash
-cp app/agents/lg_prompts.py app/agents/lg_prompts.py.backup
+cp gustobot/application/agents/lg_prompts.py gustobot/application/agents/lg_prompts.py.backup
 ```
 
 2. 替换ROUTER_SYSTEM_PROMPT (第7-50行)
@@ -161,9 +161,9 @@ docker-compose exec server python3 /app/test_agents_comprehensive.py
 # 测试单个查询
 docker-compose exec -T server python3 << 'EOF'
 import asyncio
-from app.agents.lg_states import InputState
-from app.agents.utils import new_uuid
-from app.agents.lg_builder import graph
+from gustobot.application.agents.lg_states import InputState
+from gustobot.application.agents.utils import new_uuid
+from gustobot.application.agents.lg_builder import graph
 from langchain_core.messages import HumanMessage
 
 async def test():

@@ -33,7 +33,9 @@
       "Bash(docker-compose:*)",
       "Bash(curl:*)",
       "Bash(git checkout:*)",
-      "Bash(test:*)"
+      "Bash(test:*)",
+      "Bash(tee:*)",
+      "Bash(python3:*)"
     ],
     "deny": [],
     "ask": []

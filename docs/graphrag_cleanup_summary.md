@@ -8,8 +8,8 @@
 ## ✅ 清理成果
 
 ### 空间释放
-- **删除前**: app/ 目录约 1.7GB
-- **删除后**: app/ 目录约 1.9MB
+- **删除前**: gustobot/ 目录约 1.7GB
+- **删除后**: gustobot/ 目录约 1.9MB
 - **节省空间**: **1.7GB** (减少 99.9%)
 
 ### 文件清理统计
@@ -22,12 +22,12 @@
 ## 📋 已完成的操作
 
 ### 1. 备份旧代码
-✅ 已将 `app/graphrag/` 移动到 `backup/graphrag_20251020_161305/`
+✅ 已将 `gustobot/graphrag/` 移动到 `backup/graphrag_20251020_161305/`
 - 如需恢复，可从此目录还原
 - 建议保留 30 天后删除
 
 ### 2. 删除 GraphRAG 目录
-✅ 已删除 `app/graphrag/` 及其所有子文件
+✅ 已删除 `gustobot/graphrag/` 及其所有子文件
 - 包含 Microsoft GraphRAG 完整源码
 - 包含虚拟环境 (venv)
 - 包含测试文件和文档
@@ -39,11 +39,11 @@
 - 删除无用的 graphrag 导入:
   ```python
   # 删除:
-  import app.graphrag.graphrag.api as api
-  from app.graphrag.graphrag.config.load_config import load_config
-  from app.graphrag.graphrag.callbacks.noop_query_callbacks import NoopQueryCallbacks
-  from app.graphrag.graphrag.utils.storage import load_table_from_storage
-  from app.graphrag.graphrag.storage.file_pipeline_storage import FilePipelineStorage
+  import gustobot.graphrag.graphrag.api as api
+  from gustobot.graphrag.graphrag.config.load_config import load_config
+  from gustobot.graphrag.graphrag.callbacks.noop_query_callbacks import NoopQueryCallbacks
+  from gustobot.graphrag.graphrag.utils.storage import load_table_from_storage
+  from gustobot.graphrag.graphrag.storage.file_pipeline_storage import FilePipelineStorage
   ```
 
 #### `/app/services/indexing_service.py`
@@ -76,8 +76,8 @@ GraphRAGAPI = LightRAGAPI
 ### 仍然可以使用的旧代码:
 ```python
 # 这些导入仍然有效
-from app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools import create_graphrag_query_node
-from app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import GraphRAGAPI
+from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools import create_graphrag_query_node
+from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import GraphRAGAPI
 
 # 实际指向 LightRAG 实现
 graphrag_node = create_graphrag_query_node()  # ✅ 可用
@@ -88,12 +88,12 @@ api = GraphRAGAPI()  # ✅ 可用
 
 ## ⚠️ 已废弃的功能
 
-### 1. IndexingService (`app/services/indexing_service.py`)
+### 1. IndexingService (`gustobot/services/indexing_service.py`)
 **原因**: Microsoft GraphRAG 需要预构建索引，LightRAG 支持增量插入
 
 **替代方案**:
 ```python
-from app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
+from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
 
 # 旧方式 (已废弃)
 # indexer = IndexingService()
@@ -133,7 +133,7 @@ await lightrag.insert_documents(["文档内容..."])
 ```bash
 # 如果需要恢复旧的 GraphRAG
 cd /data/temp28/GustoBot
-mv backup/graphrag_20251020_161305 app/graphrag
+mv backup/graphrag_20251020_161305 gustobot/graphrag
 
 # 重新安装依赖（如果需要）
 pip install graphrag
@@ -172,7 +172,7 @@ pip install graphrag
    pytest tests/test_lightrag_integration.py -v
 
    # 启动服务
-   python -m uvicorn app.main:app --reload
+   python -m uvicorn gustobot.main:application --reload
    ```
 
 4. **删除备份（可选，建议30天后）**

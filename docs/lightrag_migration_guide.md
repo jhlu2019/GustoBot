@@ -67,7 +67,7 @@ python scripts/init_lightrag.py --source json --json-path data/recipe.json --lim
 
 ```bash
 # 启动 FastAPI 服务
-python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+python -m uvicorn gustobot.main:application --reload --host 0.0.0.0 --port 8000
 ```
 
 ### 5. 测试查询
@@ -86,7 +86,7 @@ curl -X POST "http://localhost:8000/api/v1/chat/" \
 ### Python API
 
 ```python
-from app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
+from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
 
 # 创建 LightRAG 实例
 lightrag = LightRAGAPI()
@@ -107,7 +107,7 @@ await lightrag.insert_documents(new_recipes)
 ### LangGraph 节点集成
 
 ```python
-from app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import create_lightrag_query_node
+from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import create_lightrag_query_node
 
 # 创建 LightRAG 查询节点
 lightrag_node = create_lightrag_query_node()
@@ -206,8 +206,8 @@ LIGHTRAG_ENABLE_NEO4J=True
 ### 从爬虫添加新菜谱
 
 ```python
-from app.crawler import RecipeCrawler
-from app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
+from gustobot.crawler import RecipeCrawler
+from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
 
 # 初始化 LightRAG
 lightrag = LightRAGAPI()
@@ -283,7 +283,7 @@ pytest tests/test_lightrag_integration.py -v -m integration
 ### 测试覆盖率
 
 ```bash
-pytest tests/test_lightrag_integration.py --cov=app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools --cov-report=html
+pytest tests/test_lightrag_integration.py --cov=gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools --cov-report=html
 ```
 
 ---
@@ -341,13 +341,13 @@ EMBEDDING_MODEL=text-embedding-3-small  # 而非 text-embedding-3-large
 
 ```python
 # 旧名称（仍然可用）
-from app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import (
+from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import (
     GraphRAGAPI,  # 指向 LightRAGAPI
     create_graphrag_query_node  # 指向 create_lightrag_query_node
 )
 
 # 新名称（推荐使用）
-from app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import (
+from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import (
     LightRAGAPI,
     create_lightrag_query_node
 )
@@ -361,10 +361,10 @@ from app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node i
 
 ```bash
 # 备份旧代码
-mv app/graphrag app/graphrag_backup
+mv gustobot/graphrag gustobot/graphrag_backup
 
 # 或直接删除（节省 1.7GB 空间）
-rm -rf app/graphrag
+rm -rf gustobot/graphrag
 ```
 
 ### 2. 性能基准测试
@@ -374,7 +374,7 @@ rm -rf app/graphrag
 ```python
 # scripts/benchmark_lightrag.py
 import time
-from app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
+from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
 
 async def benchmark():
     lightrag = LightRAGAPI()
@@ -401,8 +401,8 @@ async def benchmark():
 修改爬虫代码，自动将新菜谱插入 LightRAG：
 
 ```python
-# app/crawler/recipe_crawler.py
-from app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
+# gustobot/crawler/recipe_crawler.py
+from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import LightRAGAPI
 
 class RecipeCrawler:
     def __init__(self):

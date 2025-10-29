@@ -2,7 +2,7 @@
 知识库服务测试
 """
 import pytest
-from app.knowledge_base import KnowledgeService
+from gustobot.infrastructure.knowledge import KnowledgeService
 
 
 @pytest.fixture

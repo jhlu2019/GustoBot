@@ -27,7 +27,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 pip install -r requirements.txt
 
 # Run server (development mode)
-python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+python -m uvicorn gustobot.main:application --reload --host 0.0.0.0 --port 8000
 # Or use: make run-server
 
 # Run tests
@@ -35,9 +35,9 @@ pytest tests/ -v
 # Or use: make test
 
 # Code formatting and linting
-black app/
-flake8 app/ --max-line-length=100
-mypy app/
+black gustobot/
+flake8 gustobot/ --max-line-length=100
+mypy gustobot/
 # Or use: make format and make lint
 ```
 
@@ -71,7 +71,7 @@ docker-compose up -d
 # Initialize data directories
 make init-data
 
-# Add recipes via API (see app/api/knowledge.py for endpoints)
+# Add recipes via API (see gustobot/api/knowledge.py for endpoints)
 # POST /api/v1/knowledge/recipes
 # POST /api/v1/knowledge/recipes/batch
 ```
@@ -96,26 +96,26 @@ User Query → SupervisorAgent (LangGraph) → Semantic Cache Check
 
 ### Multi-Agent System (LangGraph-based)
 
-1. **SupervisorAgent** (`app/agents/supervisor_agent.py`) - LangGraph workflow coordinator
+1. **SupervisorAgent** (`gustobot/application/agents/supervisor_agent.py`) - LangGraph workflow coordinator
    - Builds state graph with nodes: prepare_context → check_cache → route → execute → save_history
    - Manages Redis conversation history and semantic caching
    - Implements conditional routing logic
 
-2. **RouterAgent** (`app/agents/router_agent.py`) - LLM-based question classifier
+2. **RouterAgent** (`gustobot/application/agents/router_agent.py`) - LLM-based question classifier
    - Routes to: `knowledge` (recipe/cooking), `chat` (casual), `reject` (off-topic)
    - Uses structured prompts with conversation context
    - Returns route + confidence + reasoning
 
-3. **KnowledgeAgent** (`app/agents/knowledge_agent.py`) - Hybrid knowledge retrieval
+3. **KnowledgeAgent** (`gustobot/application/agents/knowledge_agent.py`) - Hybrid knowledge retrieval
    - **Primary**: Vector RAG (Milvus search → Reranker → LLM generation)
    - **Optional**: Neo4j graph queries for structured relationships
    - **Optional**: GraphRAG for complex graph reasoning
 
-4. **ChatAgent** (`app/agents/chat_agent.py`) - Conversational responses
+4. **ChatAgent** (`gustobot/application/agents/chat_agent.py`) - Conversational responses
    - LLM-powered friendly conversation
    - Template-based fallbacks
 
-5. **State Management** (`app/agents/state_models.py`)
+5. **State Management** (`gustobot/application/agents/state_models.py`)
    - Pydantic models: ConversationInput, ConversationState, RouterResult, AgentAnswer
    - Type-safe state transitions across LangGraph nodes
 
@@ -123,7 +123,7 @@ User Query → SupervisorAgent (LangGraph) → Semantic Cache Check
 
 The project implements **three complementary knowledge retrieval systems**:
 
-#### 1. Vector RAG (`app/knowledge_base/`)
+#### 1. Vector RAG (`gustobot/infrastructure/knowledge/`)
 
 - **VectorStore** (`vector_store.py`): Milvus vector database
   - IVF_FLAT indexing with Inner Product (IP) metric
@@ -139,7 +139,7 @@ The project implements **three complementary knowledge retrieval systems**:
   - Recipe CRUD and batch import
   - Configurable via `settings.KB_TOP_K`, `settings.RERANKER_PROVIDER`
 
-#### 2. Knowledge Graph (`app/knowledge_base/recipe_kg/`)
+#### 2. Knowledge Graph (`gustobot/infrastructure/knowledge/recipe_kg/`)
 
 Neo4j-based structured recipe knowledge:
 
@@ -160,18 +160,18 @@ Neo4j-based structured recipe knowledge:
 
 See `docs/recipe_kg_schema.md` for entity/relationship schema.
 
-#### 3. GraphRAG (`app/graphrag/`)
+#### 3. GraphRAG (`gustobot/graphrag/`)
 
 Microsoft GraphRAG integration for graph-based reasoning:
 
-- `app/graphrag/dev/graphrag_api.py`: FastAPI endpoints for GraphRAG queries
-- `app/graphrag/dev/graphrag_indexing.py`: Index building from documents
-- `app/graphrag/dev/graphrag_query.py`: Local/Global search modes
-- `app/graphrag/dev/graphrag_prompt_tune.py`: Prompt optimization
+- `gustobot/graphrag/dev/graphrag_api.py`: FastAPI endpoints for GraphRAG queries
+- `gustobot/graphrag/dev/graphrag_indexing.py`: Index building from documents
+- `gustobot/graphrag/dev/graphrag_query.py`: Local/Global search modes
+- `gustobot/graphrag/dev/graphrag_prompt_tune.py`: Prompt optimization
 
-GraphRAG docs in `app/graphrag/docs/` cover indexing, querying, configuration.
+GraphRAG docs in `gustobot/graphrag/docs/` cover indexing, querying, configuration.
 
-### Services Layer (`app/services/`)
+### Services Layer (`gustobot/services/`)
 
 - **RedisSemanticCache**: LLM response caching using Ollama embeddings
   - Similarity-based cache lookup (configurable threshold)
@@ -183,7 +183,7 @@ GraphRAG docs in `app/graphrag/docs/` cover indexing, querying, configuration.
   - Message limit per session (default: 200)
   - Async Redis operations
 
-### Crawler Framework (`app/crawler/`)
+### Crawler Framework (`gustobot/crawler/`)
 
 Extensible web scraping for recipe data collection:
 
@@ -209,7 +209,7 @@ See `docs/crawler_guide.md`, `docs/crawler_examples.md`, `docs/anti_scraping_gui
 
 ### Configuration
 
-`app/config/settings.py` uses `pydantic-settings` to load from `.env`:
+`gustobot/config/settings.py` uses `pydantic-settings` to load from `.env`:
 
 **Critical Settings**:
 - `OPENAI_API_KEY` / `ANTHROPIC_API_KEY`: LLM providers
@@ -258,13 +258,13 @@ Neo4j is **pre-seeded during Docker build** via `neo4j-admin import` from CSV fi
 - **Main Branch**: `develop` (not `main` or `master`)
 - **Python Version**: Requires Python 3.9+
 - **Directory Structure**:
-  - `app/` - Server code (NOT `backend/`)
-  - `app/agents/` - Multi-Agent system (LangGraph-based)
-  - `app/knowledge_base/` - Vector RAG components
-  - `app/knowledge_base/recipe_kg/` - Neo4j knowledge graph services
-  - `app/graphrag/` - GraphRAG integration
-  - `app/crawler/` - Web scraping framework
-  - `app/services/` - Redis caching, conversation history
+  - `gustobot/` - Server code (NOT `backend/`)
+  - `gustobot/application/agents/` - Multi-Agent system (LangGraph-based)
+  - `gustobot/infrastructure/knowledge/` - Vector RAG components
+  - `gustobot/infrastructure/knowledge/recipe_kg/` - Neo4j knowledge graph services
+  - `gustobot/graphrag/` - GraphRAG integration
+  - `gustobot/crawler/` - Web scraping framework
+  - `gustobot/services/` - Redis caching, conversation history
   - `web/` - React frontend
   - `scripts/` - Data processing and VLLM deployment scripts
   - `docs/` - Comprehensive documentation
@@ -272,7 +272,7 @@ Neo4j is **pre-seeded during Docker build** via `neo4j-admin import` from CSV fi
   1. Vector RAG (Milvus + Reranker) - primary for semantic search
   2. Knowledge Graph (Neo4j) - for structured recipe relationships
   3. GraphRAG - for graph-based reasoning
-- **LangGraph State Management**: SupervisorAgent uses typed state with Pydantic models in `app/agents/state_models.py`
+- **LangGraph State Management**: SupervisorAgent uses typed state with Pydantic models in `gustobot/application/agents/state_models.py`
 - **Semantic Caching**: Uses Ollama for embeddings (NOT OpenAI) to reduce costs
 - **Neo4j Bootstrap**: Graph database is pre-seeded during Docker build, not at runtime (unless `NEO4J_BOOTSTRAP_JSON=true`)
 - **Testing**: Unit tests in `tests/unit/`, integration tests in `tests/integration/`
@@ -315,8 +315,8 @@ ORDER BY s.order
 
 **Via crawler** (recommended):
 ```bash
-python -m app.crawler.cli wikipedia --query "川菜" --import-kb
-python -m app.crawler.cli urls --urls "https://example.com/recipe" --import-kb
+python -m gustobot.crawler.cli wikipedia --query "川菜" --import-kb
+python -m gustobot.crawler.cli urls --urls "https://example.com/recipe" --import-kb
 ```
 
 **Via API**:
@@ -328,7 +328,7 @@ curl -X POST "http://localhost:8000/api/v1/knowledge/recipes" \
 
 **Via Python script**:
 ```python
-from app.knowledge_base import KnowledgeService
+from gustobot.infrastructure.knowledge import KnowledgeService
 
 service = KnowledgeService()
 await service.add_recipe("recipe_001", {
@@ -344,7 +344,7 @@ await service.add_recipe("recipe_001", {
 
 SupervisorAgent uses a state graph. To add a new node:
 
-1. Define node function in `app/agents/supervisor_agent.py`:
+1. Define node function in `gustobot/application/agents/supervisor_agent.py`:
 ```python
 async def my_custom_node(state: dict) -> dict:
     conv = ConversationState.model_validate(state)
@@ -359,7 +359,7 @@ graph.add_node("my_custom_node", my_custom_node)
 graph.add_edge("previous_node", "my_custom_node")
 ```
 
-3. Update `ConversationState` model in `app/agents/state_models.py` if adding fields
+3. Update `ConversationState` model in `gustobot/application/agents/state_models.py` if adding fields
 
 ### Testing
 
@@ -381,7 +381,7 @@ pytest tests/unit/test_agents.py::test_router_agent_initialization -v
 
 ```
 GustoBot/
-├── app/                         # Server-side code
+├── gustobot/                         # Server-side code
 │   ├── agents/                    # Multi-Agent system (LangGraph)
 │   │   ├── base_agent.py          # Agent base class
 │   │   ├── supervisor_agent.py    # LangGraph coordinator (v1)
@@ -437,13 +437,13 @@ GustoBot/
 
 ## Key File References
 
-- **Multi-Agent coordination**: `app/agents/supervisor_agent.py` (LangGraph state machine)
-- **Agent state models**: `app/agents/state_models.py` (Pydantic schemas)
-- **Vector RAG**: `app/knowledge_base/knowledge_service.py`
-- **Neo4j KG**: `app/knowledge_base/recipe_kg/neo4j_qa_service.py`
-- **GraphRAG**: `app/graphrag/dev/graphrag_api.py`
-- **Semantic caching**: `app/services/redis_semantic_cache.py`
-- **Configuration**: `app/config/settings.py`
-- **Crawler CLI**: `app/crawler/cli.py`
+- **Multi-Agent coordination**: `gustobot/application/agents/supervisor_agent.py` (LangGraph state machine)
+- **Agent state models**: `gustobot/application/agents/state_models.py` (Pydantic schemas)
+- **Vector RAG**: `gustobot/infrastructure/knowledge/knowledge_service.py`
+- **Neo4j KG**: `gustobot/infrastructure/knowledge/recipe_kg/neo4j_qa_service.py`
+- **GraphRAG**: `gustobot/graphrag/dev/graphrag_api.py`
+- **Semantic caching**: `gustobot/services/redis_semantic_cache.py`
+- **Configuration**: `gustobot/config/settings.py`
+- **Crawler CLI**: `gustobot/crawler/cli.py`
 - **Neo4j import**: `scripts/recipe_kg_to_csv.py`
 - **KG schema**: `docs/recipe_kg_schema.md`

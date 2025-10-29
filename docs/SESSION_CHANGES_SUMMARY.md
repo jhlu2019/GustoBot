@@ -24,21 +24,21 @@
 
 ### ✅ 已删除文件 (5个)
 ```
-❌ app/api/v1/auth.py                  # 认证API
-❌ app/services/auth_service.py        # JWT服务
-❌ app/crud/crud_user.py               # User CRUD
+❌ gustobot/api/v1/auth.py                  # 认证API
+❌ gustobot/services/auth_service.py        # JWT服务
+❌ gustobot/crud/crud_user.py               # User CRUD
 ❌ scripts/init_user_system.py         # 初始化脚本
 ❌ docs/USER_SYSTEM_SETUP.md          # 用户系统文档
 ```
 
 ### ✏️ 已修改文件 (8个)
 ```
-✏️ app/models/chat_session.py          # 恢复 user_id 为 String 类型（无FK）
-✏️ app/schemas/chat_session.py         # 添加 user_id 字段支持
-✏️ app/crud/crud_chat_session.py       # 添加 get_by_user() 和 count_by_user()
-✏️ app/crud/__init__.py                # 移除 user CRUD导入
-✏️ app/api/v1/sessions.py              # 添加 user_id 过滤和计数端点
-✏️ app/api/v1/__init__.py              # 移除 auth 路由
+✏️ gustobot/models/chat_session.py          # 恢复 user_id 为 String 类型（无FK）
+✏️ gustobot/schemas/chat_session.py         # 添加 user_id 字段支持
+✏️ gustobot/crud/crud_chat_session.py       # 添加 get_by_user() 和 count_by_user()
+✏️ gustobot/crud/__init__.py                # 移除 user CRUD导入
+✏️ gustobot/api/v1/sessions.py              # 添加 user_id 过滤和计数端点
+✏️ gustobot/api/v1/__init__.py              # 移除 auth 路由
 ✏️ alembic/versions/001_*.py           # 添加 user_id 列（无FK约束）
 ✏️ docs/SESSION_MANAGEMENT.md          # 更新为轻量级 user_id 文档
 ```
@@ -75,7 +75,7 @@ user_id = Column(
 
 ### 1. 启动服务（自动创建表）
 ```bash
-python -m uvicorn app.main:app --reload
+python -m uvicorn gustobot.main:application --reload
 ```
 
 ### 2. 测试 API
@@ -137,9 +137,9 @@ curl -X GET "http://localhost:8000/api/v1/sessions/?user_id=device-abc-123"
 
 ```python
 from uuid import uuid4
-from app.crud import chat_session, chat_message
-from app.schemas.chat_session import ChatSessionCreate
-from app.schemas.chat_message import ChatMessageCreate
+from gustobot.infrastructure.persistence.crud import chat_session, chat_message
+from gustobot.interfaces.http.models.chat_session import ChatSessionCreate
+from gustobot.interfaces.http.models.chat_message import ChatMessageCreate
 
 @router.post("/api/v1/chat")
 async def chat(
@@ -191,7 +191,7 @@ async def chat(
 
 3. **重启服务**（自动创建新表）
    ```bash
-   python -m uvicorn app.main:app --reload
+   python -m uvicorn gustobot.main:application --reload
    ```
 
 **注意**: 服务启动时会自动创建所有需要的表

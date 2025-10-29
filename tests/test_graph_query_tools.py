@@ -24,8 +24,8 @@ async def test_neo4j_connection():
     logger.info("=" * 80)
 
     try:
-        from app.knowledge_base.recipe_kg.graph_database_client import Neo4jDatabase
-        from app.config import settings
+        from gustobot.infrastructure.knowledge.recipe_kg.graph_database_client import Neo4jDatabase
+        from gustobot.config import settings
 
         db = Neo4jDatabase(
             settings.NEO4J_URI,
@@ -51,7 +51,7 @@ async def test_neo4j_qa_service():
     logger.info("=" * 80)
 
     try:
-        from app.knowledge_base.recipe_kg.neo4j_qa_service import Neo4jQAService
+        from gustobot.infrastructure.knowledge.recipe_kg.neo4j_qa_service import Neo4jQAService
 
         service = Neo4jQAService()
 
@@ -89,11 +89,11 @@ async def test_text2cypher_tool():
     logger.info("=" * 80)
 
     try:
-        from app.agents.kg_sub_graph.agentic_rag_agents.components.text2cypher.text2sql_tool import (
+        from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.text2cypher.text2sql_tool import (
             Text2CypherTool,
         )
-        from app.knowledge_base.recipe_kg.graph_database_client import Neo4jDatabase
-        from app.config import settings
+        from gustobot.infrastructure.knowledge.recipe_kg.graph_database_client import Neo4jDatabase
+        from gustobot.config import settings
 
         db = Neo4jDatabase(
             settings.NEO4J_URI,
@@ -133,11 +133,11 @@ async def test_predefined_cypher_queries():
     logger.info("=" * 80)
 
     try:
-        from app.agents.kg_sub_graph.agentic_rag_agents.components.predefined_cypher.cypher_dict import (
+        from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.predefined_cypher.cypher_dict import (
             CYPHER_QUERIES,
         )
-        from app.knowledge_base.recipe_kg.graph_database_client import Neo4jDatabase
-        from app.config import settings
+        from gustobot.infrastructure.knowledge.recipe_kg.graph_database_client import Neo4jDatabase
+        from gustobot.config import settings
 
         db = Neo4jDatabase(
             settings.NEO4J_URI,
@@ -207,7 +207,7 @@ async def test_tool_selection():
     logger.info("=" * 80)
 
     try:
-        from app.agents.kg_sub_graph.kg_tools_list import (
+        from gustobot.application.agents.kg_sub_graph.kg_tools_list import (
             cypher_query,
             predefined_cypher,
             microsoft_graphrag_query,
@@ -255,7 +255,7 @@ async def test_graphrag_availability():
 
         # 尝试导入 GraphRAG 相关模块
         try:
-            from app.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import (
+            from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.customer_tools.node import (
                 create_customer_tools_node,
             )
             logger.success("✓ GraphRAG 相关模块导入成功")

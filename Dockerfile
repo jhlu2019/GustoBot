@@ -4,7 +4,8 @@ WORKDIR /app
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    PIP_NO_CACHE_DIR=1
+    PIP_NO_CACHE_DIR=1 \
+    PYTHONPATH=/app
 
 RUN set -eux; \
     printf '%s\n' \
@@ -21,7 +22,7 @@ COPY requirements.txt .
 RUN python -m pip install --upgrade pip -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple && \
     pip install -r requirements.txt -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
 
-COPY app ./app
+COPY gustobot ./gustobot
 COPY data ./data
 COPY scripts ./scripts
 
@@ -79,7 +80,7 @@ ENV LLM_API_KEY=your_api_key_here
 ENV EMBEDDING_API_KEY=your_api_key_here
 
 EXPOSE 8000
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "gustobot.main:application", "--host", "0.0.0.0", "--port", "8000"]
 
 
 FROM neo4j:5.18 AS neo4j_seeded
@@ -100,11 +101,11 @@ RUN ln -sf /var/lib/neo4j/plugins/apoc-${APOC_VERSION}.jar /var/lib/neo4j/plugin
 WORKDIR /var/lib/neo4j/build
 COPY data ./data
 COPY scripts ./scripts
-COPY app/knowledge_base/recipe_kg ./app/knowledge_base/recipe_kg
+COPY gustobot/infrastructure/knowledge/recipe_kg ./gustobot/infrastructure/knowledge/recipe_kg
 
 ENV PYTHONPATH=/var/lib/neo4j/build
 RUN mkdir -p ./import_generated && \
-    rm -rf ./app/knowledge_base/recipe_kg/__pycache__ && \
+    rm -rf ./gustobot/infrastructure/knowledge/recipe_kg/__pycache__ && \
     chown -R neo4j:neo4j /var/lib/neo4j/build
 
 USER neo4j
