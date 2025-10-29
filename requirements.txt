@@ -28,6 +28,7 @@ pymilvus==2.3.7
 
 # Database
 sqlalchemy==2.0.25
+pymysql==1.1.0
 redis==5.0.1
 neo4j==5.27.0
 
