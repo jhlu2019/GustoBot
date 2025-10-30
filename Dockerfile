@@ -1,4 +1,4 @@
-FROM python:3.11-slim AS server
+FROM python:3.10-slim AS server
 
 WORKDIR /app
 
