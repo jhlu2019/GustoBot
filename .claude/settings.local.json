@@ -35,7 +35,9 @@
       "Bash(git checkout:*)",
       "Bash(test:*)",
       "Bash(tee:*)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(pip3 install:*)",
+      "Bash(PYTHONPATH=/data/temp32/GustoBot python:*)"
     ],
     "deny": [],
     "ask": []

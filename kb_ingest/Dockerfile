@@ -19,6 +19,9 @@ COPY requirements.txt .
 RUN python -m pip install --upgrade pip -i https://mirrors.ustc.edu.cn/pypi/simple \
  && pip install -r requirements.txt -i https://mirrors.ustc.edu.cn/pypi/simple
 
+# 复制.env文件
+COPY .env .env
+
 # 源码
 COPY kb_service ./kb_service
 COPY main.py ./

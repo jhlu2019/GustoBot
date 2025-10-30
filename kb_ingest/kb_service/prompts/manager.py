@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
 from string import Template
 from typing import Dict, Iterable, Mapping, Optional, Tuple
@@ -78,7 +79,7 @@ class PromptManager:
             "table_name": context_table_name or table_name,
             "columns": self._format_schema(schema),
             "row_flat": self._format_row_data(row_data),
-            "row_json": json.dumps(row_data, ensure_ascii=False),
+            "row_json": json.dumps(self._serialize_row_data(row_data), ensure_ascii=False),
         }
         user_prompt = Template(template.user).safe_substitute(context)
         return template.system, user_prompt
@@ -108,8 +109,21 @@ class PromptManager:
         for key, value in row_data.items():
             if value in (None, "", "-", "nan", "NaN"):
                 continue
+            # 处理datetime对象
+            if isinstance(value, datetime):
+                value = value.strftime("%Y-%m-%d %H:%M:%S")
             lines.append(f"- {key}: {value}")
         return "\n".join(lines) if lines else "(空记录)"
+
+    def _serialize_row_data(self, row_data: Mapping[str, object]) -> Mapping[str, object]:
+        """序列化row_data，处理datetime等不可序列化的对象"""
+        serialized = {}
+        for key, value in row_data.items():
+            if isinstance(value, datetime):
+                serialized[key] = value.strftime("%Y-%m-%d %H:%M:%S")
+            else:
+                serialized[key] = value
+        return serialized
 
     def _format_schema(self, schema: Optional[Iterable[SchemaColumn]]) -> str:
         if not schema:

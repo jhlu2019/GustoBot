@@ -1298,5 +1298,193 @@
     "create_time": 1761730128,
     "update_time": 1761730128,
     "_id": "default:summary:c990fbf0e5df2f0919b7a2d219fadc5c"
+  },
+  "hybrid:keywords:f6ec6d2d612c9338c786aadc567e6029": {
+    "return": "{\"high_level_keywords\": [\"\\u5ddd\\u83dc\", \"\\u4e2d\\u56fd\\u83dc\\u7cfb\", \"\\u70f9\\u996a\\u98ce\\u683c\"], \"low_level_keywords\": [\"\\u9ebb\\u8fa3\", \"\\u82b1\\u6912\", \"\\u8c46\\u74e3\\u9171\", \"\\u56de\\u9505\\u8089\", \"\\u9ebb\\u5a46\\u8c46\\u8150\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "你好，请介绍一下川菜",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1761814977,
+    "update_time": 1761814977,
+    "_id": "hybrid:keywords:f6ec6d2d612c9338c786aadc567e6029"
+  },
+  "hybrid:query:05e8b4de486b0faae9696f463b29f630": {
+    "return": "根据我目前所掌握的信息，主要聚焦于火锅这一特定的中国菜品类别及其相关风味、食材和烹饪方法。在提供的资料中，虽然多次提及构成川菜标志性风味的关键元素——如“麻辣”（spicy and numbing）口味，以及核心调料如四川花椒（Sichuan peppercorns）、红油豆瓣酱（Red Oil Douban）和辣椒，但这些信息都是在描述**火锅**（Hotpot）这一具体菜式时出现的。\n\n例如，“Spicy Broth”（麻辣汤底）被描述为鸳鸯火锅的一半，其特点就是使用了红油豆瓣、四川花椒和辣椒等 ingredients。“Red Oil Spicy Hotpot”（红油麻辣火锅）也被明确指出具有“spicy and numbing”（麻辣）的风味特征。\n\n然而，关于**川菜**（Sichuan cuisine）作为一个完整、独立的中国八大菜系之一的系统性介绍——包括其历史、地理起源、完整的风味体系（如鱼香、怪味、家常味等）、代表性非火锅类菜肴（如宫保鸡丁、麻婆豆腐、回锅肉等）以及更广泛的烹饪技法——在当前提供的知识库和文档片段中并未包含。\n\n因此，基于现有资料，我无法为您提供一个全面、准确的川菜介绍，只能确认其中的麻辣风味是多种火锅汤底的重要特色。\n\n### References",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "你好，请介绍一下川菜",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "川菜, 中国菜系, 烹饪风格",
+      "ll_keywords": "麻辣, 花椒, 豆瓣酱, 回锅肉, 麻婆豆腐",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1761814992,
+    "update_time": 1761814992,
+    "_id": "hybrid:query:05e8b4de486b0faae9696f463b29f630"
+  },
+  "local:keywords:5f4d8486d4c10ad81cd68334ad51429f": {
+    "return": "{\"high_level_keywords\": [\"\\u7ea2\\u70e7\\u8089\", \"\\u70f9\\u996a\\u65b9\\u6cd5\", \"\\u4e2d\\u5f0f\\u83dc\\u80b4\"], \"low_level_keywords\": [\"\\u4e94\\u82b1\\u8089\", \"\\u9171\\u6cb9\", \"\\u7cd6\\u8272\", \"\\u6599\\u9152\", \"\\u8471\\u59dc\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "红烧肉的做法是什么？",
+    "queryparam": {
+      "mode": "local",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1761815015,
+    "update_time": 1761815015,
+    "_id": "local:keywords:5f4d8486d4c10ad81cd68334ad51429f"
+  },
+  "local:query:cc08d03bdb3ba56aa890d37651aa0819": {
+    "return": "根据提供的知识库内容，**没有关于红烧肉（Braised Pork Belly / Hong Shao Rou）的具体做法或相关信息**。\n\n所提供的资料主要围绕各类**火锅（Hotpot）** 及其汤底、配料和蘸料的制作方法，例如鲜汤火锅、酸菜豆花火锅、麻辣排骨萝卜锅等，但并未包含传统红烧肉的食谱、食材或烹饪步骤。\n\n因此，基于当前上下文，**无法回答红烧肉的做法**。",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "红烧肉的做法是什么？",
+    "queryparam": {
+      "mode": "local",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "红烧肉, 烹饪方法, 中式菜肴",
+      "ll_keywords": "五花肉, 酱油, 糖色, 料酒, 葱姜",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1761815022,
+    "update_time": 1761815022,
+    "_id": "local:query:cc08d03bdb3ba56aa890d37651aa0819"
+  },
+  "global:keywords:d12d4f3355c74eaa026daf7e384b44e5": {
+    "return": "{\"high_level_keywords\": [\"\\u706b\\u9505\\u79cd\\u7c7b\", \"\\u4e2d\\u5f0f\\u9910\\u996e\", \"\\u5730\\u65b9\\u83dc\\u7cfb\"], \"low_level_keywords\": [\"\\u9ebb\\u8fa3\\u706b\\u9505\", \"\\u6e05\\u6c64\\u706b\\u9505\", \"\\u8001\\u5317\\u4eac\\u6dae\\u7f8a\\u8089\", \"\\u6f6e\\u6c55\\u725b\\u8089\\u706b\\u9505\", \"\\u91cd\\u5e86\\u706b\\u9505\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "火锅有什么种类？",
+    "queryparam": {
+      "mode": "global",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1761815036,
+    "update_time": 1761815036,
+    "_id": "global:keywords:d12d4f3355c74eaa026daf7e384b44e5"
+  },
+  "global:query:229c4a8dfc1ba777d03bbba8aa5ec72a": {
+    "return": "火锅是一种源于中国、以共享一锅热汤为基础的烹饪与用餐方式，其种类繁多，风味各异，主要可依据**汤底风味、地域特色、主要食材及烹饪方法**进行分类。根据提供的资料，火锅的种类包括但不限于以下几类：\n\n### 1. **按汤底风味分类**\n- **麻辣类**：如**红油麻辣火锅**、**酸菜麻辣火锅**、**麻辣排骨萝卜锅**，以花椒、辣椒、火锅底料（如红山河）等调制，口味麻辣鲜香。\n- **清淡/清汤类**：如**鲜汤火锅**、**清汤什锦火锅**、**白菜粉丝锅**，使用高汤（如史云生上汤）或老鸭汤为底，突出食材本味。\n- **奶香/甜品类**：如**牛奶甜玉米火锅**，以雀巢淡奶和上汤调制，口感醇厚，带有奶香。\n- **药膳/滋补类**：如**Ejiao Red Date Black Chicken Soup（阿胶红枣乌鸡汤）**，属温和滋补型火锅，需长时间炖煮。\n\n### 2. **按主要食材或特色命名**\n- **肉类为主**：如**老北京羊蝎子火锅**（即Old Beijing Lamb Scorpion Hotpot）、**火锅鸡**、**芝麻油鸡蔬菜火锅**。\n- **水产/海鲜类**：如**鱼头蔬菜火锅**、**鱼丸蘑菇海鲜汤**、**Sheng Gun Yu Pian Huo Guo（生滚鱼片火锅）**，以鱼片、鱼丸、虾、鱿鱼等为主。\n- **菌菇类**：如**杂菌荟火锅**、**泡菜混合蘑菇炖鸡**，强调多种菌菇的鲜味。\n- **豆制品与蔬菜类**：如**豆浆蔬菜火锅**、**Shredded Pork Soy Milk Cooked Liangfen（瘦肉豆浆煮凉粉）**，以豆浆为汤底，搭配凉粉、蔬菜等。\n\n### 3. **按地域或文化融合风格**\n- **中式传统**：如**酸菜麻辣火锅**、**涮锅子（Shuan Guo Zi）**，体现川渝或北方涮煮风格。\n- **韩式融合**：如**韩式大酱汤火锅**、**酸辣饺子火锅**、**泡菜小火锅**，使用韩式辣酱、泡菜等调料，融合饺子、肥牛等食材。\n\n### 4. **按烹饪时长与形式**\n- **快煮型**（约10–30分钟）：如鲜汤火锅、白菜粉丝锅，适合家庭快速制作。\n- **慢炖型**（数小时）：如老鸭汤底火锅、阿胶乌鸡汤，强调汤底的醇厚与滋补。\n\n综上所述，火锅不仅是一种烹饪方式，更是一种包容性极强的饮食文化载体，其种类丰富，可依据个人口味、季节、场合灵活搭配汤底与食材。\n\n### References\n\n- [1] 杂菌荟火锅\n- [2] 麻辣排骨萝卜锅\n- [3] 涮锅子\n- [4] 冬天里凉粉也暖身——瘦肉豆浆煮凉粉\n- [5] 酸菜麻辣火锅",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "火锅有什么种类？",
+    "queryparam": {
+      "mode": "global",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "火锅种类, 中式餐饮, 地方菜系",
+      "ll_keywords": "麻辣火锅, 清汤火锅, 老北京涮羊肉, 潮汕牛肉火锅, 重庆火锅",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1761815078,
+    "update_time": 1761815078,
+    "_id": "global:query:229c4a8dfc1ba777d03bbba8aa5ec72a"
+  },
+  "hybrid:keywords:78cab4c9cc57187123d393d71fe788b3": {
+    "return": "{\"high_level_keywords\": [\"\\u706b\\u9505\\u8638\\u6599\", \"\\u8c03\\u5473\\u63a8\\u8350\", \"\\u4e2d\\u5f0f\\u706b\\u9505\"], \"low_level_keywords\": [\"\\u829d\\u9ebb\\u9171\", \"\\u849c\\u6ce5\", \"\\u9999\\u6cb9\", \"\\u8fa3\\u6912\\u6cb9\", \"\\u9171\\u6cb9\", \"\\u918b\", \"\\u9999\\u83dc\", \"\\u8471\\u82b1\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "请推荐几种火锅蘸料",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1761815108,
+    "update_time": 1761815108,
+    "_id": "hybrid:keywords:78cab4c9cc57187123d393d71fe788b3"
+  },
+  "hybrid:keywords:e12754002a8ad88d65b71ad38ceb7a22": {
+    "return": "{\"high_level_keywords\": [\"\\u706b\\u9505\\u79cd\\u7c7b\", \"\\u4e2d\\u5f0f\\u706b\\u9505\", \"\\u9910\\u996e\\u5206\\u7c7b\"], \"low_level_keywords\": [\"\\u9ebb\\u8fa3\\u706b\\u9505\", \"\\u6e05\\u6c64\\u706b\\u9505\", \"\\u9e33\\u9e2f\\u9505\", \"\\u8001\\u5317\\u4eac\\u6dae\\u7f8a\\u8089\", \"\\u6f6e\\u6c55\\u725b\\u8089\\u9505\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "火锅有哪些种类？",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1761816277,
+    "update_time": 1761816277,
+    "_id": "hybrid:keywords:e12754002a8ad88d65b71ad38ceb7a22"
+  },
+  "hybrid:query:13f323b69c2e1514a4ca489e51a5c0c6": {
+    "return": "火锅是一种源自中国、以共享一锅热汤为基础的餐饮形式，其种类繁多，风味各异，主要可依据汤底风味、主要食材或地域特色进行分类。根据提供的资料，火锅的种类包括但不限于以下几类：\n\n### 按汤底风味分类\n- **麻辣类**：如**红油麻辣火锅**、**酸菜麻辣火锅**，以麻、辣、鲜、香为特点，常用红油、花椒、辣椒等调料。\n- **清淡类**：如**鲜汤火锅**、**清汤什锦火锅**、**白菜粉丝锅**，强调汤底的原汁原味，适合不喜辛辣者。\n- **奶香类**：如**牛奶火锅**，以淡奶和高汤为基底，口感浓郁顺滑。\n- **酸辣类**：如**酸辣饺子火锅**，融合酸与辣，开胃爽口。\n- **鸳鸯锅**：如**鸳鸯火锅**，一锅两味，通常一边为麻辣红汤，另一边为清淡白汤，满足不同口味需求。\n\n### 按主要食材分类\n- **肉类为主**：如**老北京羊蝎子火锅**（以羊脊骨为主）、**辣味羊排火锅**、**涮锅子**（常用羊肉片）。\n- **禽类为主**：如**老鸭清汤火锅**、**老鸭高汤肉丸粉丝锅**，以老鸭熬制高汤，汤鲜味美。\n- **海鲜/鱼鲜类**：如**麻辣鱼头豆腐火锅**、**火火鱼火锅**。\n- **丸类/面点类**：如**排骨馄饨饺子锅**（又称“儿童香锅”），包含排骨汤底搭配馄饨、饺子、鱼丸等。\n- **菌菇类**：如**杂菌荟火锅**，以多种菌菇为主料，突出鲜香。\n- **内脏类**：如**小肠汤锅**，以处理干净的小肠为主料。\n\n### 特色或创新火锅\n- **营养均衡类**：如**营养均衡的肉丸什锦火锅**，强调食材搭配的健康性。\n- **药膳类**：如**阿胶红枣乌鸡汤火锅**，结合滋补食材，具有养生功效。\n- **异国风味**：如**韩式大酱汤火锅**、**红酒火锅**，融合外国烹饪元素。\n\n综上所述，火锅不仅是一种烹饪方式，更是一种包容性强、变化多样的饮食文化载体，能够适应不同地域、季节和个人口味的需求。\n\n### References\n\n- [1] 孩子们的香锅----排骨馄饨饺子锅\n- [2] 杂菌荟火锅\n- [3] 【食尚擂台火锅赛区】：浓香四溢---牛奶火锅\n- [4] 酸辣饺子火锅\n- [5] 鲜汤火锅（汤底）",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "火锅有哪些种类？",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "火锅种类, 中式火锅, 餐饮分类",
+      "ll_keywords": "麻辣火锅, 清汤火锅, 鸳鸯锅, 老北京涮羊肉, 潮汕牛肉锅",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1761816314,
+    "update_time": 1761816314,
+    "_id": "hybrid:query:13f323b69c2e1514a4ca489e51a5c0c6"
   }
 }

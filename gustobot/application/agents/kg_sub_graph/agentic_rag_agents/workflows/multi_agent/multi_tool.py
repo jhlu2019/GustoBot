@@ -262,7 +262,7 @@ def create_kb_multi_tool_workflow(
     ingest_service_base = settings.INGEST_SERVICE_URL.rstrip("/") if settings.INGEST_SERVICE_URL else None
 
     postgres_search_url = (
-        f"{ingest_service_base}/api/search" if ingest_service_base else None
+        f"{ingest_service_base}/api/v1/knowledge/search" if ingest_service_base else None
     )
 
     external_url = external_search_url or settings.KB_EXTERNAL_SEARCH_URL
@@ -317,22 +317,47 @@ def create_kb_multi_tool_workflow(
             (
                 "system",
                 (
-                    "你是菜谱文化知识检索路由器。目标仅限于“菜谱历史/渊源/命名”、“历史名人与菜谱关系”、“菜谱条目级小传与典故”。\n"
-                    "本地知识源说明：\n"
-                    "- milvus：存放 TXT/文章等长文本嵌入，适合查询历史背景、典故故事、命名缘由。\n"
-                    "- postgres：源自 Excel/结构化表格的资料，适合查询表格化记录、指标或枚举字段。\n"
-                    "根据用户问题和最近对话历史，从下列路由选项中选择最合适的数据源：\n"
-                    "- local：仅使用本地知识源（milvus/postgres）\n"
-                    "- external：调用外部菜谱文化检索接口\n"
-                    "- hybrid：先查询本地知识源，再结合外部接口结果\n"
-                    "请根据问题内容决定需要使用的本地工具（milvus、postgres，或两者），若无本地检索需求可返回空列表。\n"
-                    "若问题涉及烹饪步骤、食材搭配等文化范围外内容，建议返回 local 并说明无法回答的原因。\n"
-                    "输出字段：route（local/external/hybrid）、tools（列表，元素取自 milvus/postgres，可为空）、rationale（中文简要说明）。"
+                    "你是菜谱文化知识检索路由器。专门负责将历史文化类问题路由到最合适的知识库。\n\n"
+                    "## 服务范围\n"
+                    '仅限于"菜谱历史/渊源/命名"、"历史名人与菜谱关系"、"菜谱条目级小传与典故"、"菜系流派介绍"。\n\n'
+                    "## 本地知识源说明\n"
+                    "- **postgres**（PostgreSQL pgvector）：**第一优先级**，存放结构化表格数据、Excel导入的枚举字段\n"
+                    "  - 数据更准确、查询更快、覆盖面广\n"
+                    "  - 适合：菜谱名称、菜系、历史事件、人物关系等结构化查询\n"
+                    "  - 典型问题：菜谱相关的任何历史文化问题\n"
+                    "  - 执行策略：系统会**先查 postgres**，如果有结果就直接使用，**不会查询 milvus**\n"
+                    "- **milvus**（Milvus向量库）：**仅作为兜底**，存放长文本、文章、典故故事等非结构化内容\n"
+                    "  - 只有在 postgres 无结果时才会查询\n"
+                    "  - 典型问题：\"宫保鸡丁的完整历史故事\"、\"川菜的详细发展史\"（需要长篇叙事时）\n\n"
+                    "## 路由决策规则（严格执行：postgres 优先）\n"
+                    "请根据问题特征选择合适的路由和工具：\n\n"
+                    "**1. 通用历史文化查询（默认推荐）**\n"
+                    "   - 适用于：大部分历史、典故、由来、文化、背景、流派、特点等问题\n"
+                    "   - route: local, tools: ['postgres', 'milvus']\n"
+                    "   - 执行流程：postgres → 有结果则返回 → 无结果才用 milvus 兜底\n\n"
+                    "**2. 明确的结构化查询（postgres 足够）**\n"
+                    "   - 适用于：菜名查询、简短事实查询、人物关系、年代查询\n"
+                    "   - route: local, tools: ['postgres']\n\n"
+                    "**3. 明确需要长文本叙事（可能需要 milvus）**\n"
+                    "   - 适用于：用户明确要求\"完整故事\"、\"详细历史\"、\"长篇介绍\"\n"
+                    "   - route: local, tools: ['milvus']\n\n"
+                    "**4. 外部检索类（需要外网资料）**\n"
+                    "   - 本地知识库可能不足，需要外部检索\n"
+                    "   - route: hybrid, tools: ['milvus']\n\n"
+                    "**5. 超出范围类（拒绝回答）**\n"
+                    "   - 问题涉及烹饪步骤、食材搭配等非文化内容\n"
+                    "   - route: local, tools: []（空列表表示无法处理）\n\n"
+                    "## 输出格式\n"
+                    "请输出三个字段：\n"
+                    "- route：local（本地）/ external（外部）/ hybrid（混合）\n"
+                    "- tools：列表，元素为 'postgres' 和/或 'milvus'，若拒绝回答则为空列表 []\n"
+                    "  - **默认推荐**: ['postgres', 'milvus'] 让系统自动优先使用 postgres\n"
+                    "- rationale：中文简要说明选择理由（1-2句话）"
                 ),
             ),
             (
                 "human",
-                "用户问题：{question}\n最近对话历史：\n{history}",
+                "用户问题：{question}\n\n最近对话历史：\n{history}",
             ),
         ]
     )
@@ -508,7 +533,9 @@ def create_kb_multi_tool_workflow(
             route = "local"
         tools = [tool for tool in decision.tools or [] if tool in {"milvus", "postgres"}]
         if route != "external" and not tools:
-            tools = ["milvus"]
+            # 默认使用 postgres + milvus 兜底策略
+            tools = ["postgres", "milvus"]
+            kb_logger.info("Router 未指定工具，使用默认策略: postgres 优先 + milvus 兜底")
         kb_logger.info(
             "KB router decision: {} tools={} ({})",
             route,
@@ -522,6 +549,14 @@ def create_kb_multi_tool_workflow(
         }
 
     async def local_search(state: KBWorkflowState) -> Dict[str, Any]:
+        """
+        优先使用 PostgreSQL pgvector 结构化查询，如果无结果再用 Milvus 兜底。
+
+        执行策略：
+        1. 优先查询 PostgreSQL（如果在工具列表中）
+        2. 如果 PostgreSQL 有结果（>= 1条），直接使用，跳过 Milvus
+        3. 如果 PostgreSQL 无结果或未被选择，查询 Milvus 作为兜底
+        """
         question = state.get("question", "")
         if not question.strip():
             return {
@@ -531,33 +566,25 @@ def create_kb_multi_tool_workflow(
                 "steps": ["local_search"],
             }
 
-        selected_tools = state.get("kb_tools") or ["milvus"]
+        selected_tools = state.get("kb_tools") or ["postgres", "milvus"]
 
         milvus_results: List[Dict[str, Any]] = []
-        if "milvus" in selected_tools:
-            try:
-                docs = await knowledge_service.search(
-                    query=question,
-                    top_k=effective_top_k,
-                    similarity_threshold=effective_threshold,
-                    filter_expr=filter_expr,
-                )
-                for doc in docs:
-                    doc_copy = dict(doc)
-                    metadata_copy = dict(doc.get("metadata") or {})
-                    doc_copy["metadata"] = metadata_copy
-                    doc_copy["tool"] = "milvus"
-                    milvus_results.append(doc_copy)
-            except Exception as exc:  # pragma: no cover - defensive logging
-                kb_logger.error("Milvus knowledge search failed: {}", exc)
-
         postgres_results: List[Dict[str, Any]] = []
-        if "postgres" in selected_tools:
+
+        # Step 1: 优先查询 PostgreSQL（如果在工具列表中）
+        should_try_postgres = "postgres" in selected_tools
+        should_try_milvus = "milvus" in selected_tools
+
+        # 确保优先级：如果同时选择了两个工具，先尝试 PostgreSQL
+        if should_try_postgres:
             if not postgres_search_url:
                 kb_logger.warning(
-                    "PostgreSQL 工具被选中，但 INGEST_SERVICE_URL 未配置，已跳过。"
+                    "PostgreSQL 工具被选中，但 INGEST_SERVICE_URL 未配置，跳过 PostgreSQL 直接使用 Milvus。"
                 )
+                # 如果 PostgreSQL 不可用，直接使用 Milvus
+                should_try_milvus = True
             else:
+                kb_logger.info("🔍 [优先] 查询 PostgreSQL pgvector 结构化数据库...")
                 payload: Dict[str, Any] = {
                     "query": question,
                     "top_k": effective_top_k,
@@ -578,6 +605,9 @@ def create_kb_multi_tool_workflow(
                                         item_copy["metadata"] = metadata_copy
                                         item_copy["tool"] = "postgres"
                                         postgres_results.append(item_copy)
+                                    kb_logger.info(
+                                        "✅ PostgreSQL 返回 {} 条结果（优先使用）", len(postgres_results)
+                                    )
                                 else:
                                     kb_logger.warning(
                                         "Unexpected PostgreSQL search payload structure: {}",
@@ -593,7 +623,42 @@ def create_kb_multi_tool_workflow(
                 except Exception as exc:  # pragma: no cover - defensive logging
                     kb_logger.error("PostgreSQL knowledge search error: {}", exc)
 
-        combined_results = milvus_results + postgres_results
+        # Step 2: 根据 PostgreSQL 结果决定是否需要 Milvus 兜底
+        if postgres_results and len(postgres_results) > 0:
+            # PostgreSQL 有结果，直接使用，跳过 Milvus
+            kb_logger.info(
+                "✅ PostgreSQL 有结果（{}条），直接使用结构化数据，跳过 Milvus 向量查询",
+                len(postgres_results)
+            )
+            combined_results = postgres_results
+        else:
+            # PostgreSQL 无结果或不可用，使用 Milvus 兜底
+            if should_try_milvus:
+                if not postgres_results:
+                    kb_logger.info("⚠️ PostgreSQL 无结果，使用 Milvus 向量库兜底...")
+                else:
+                    kb_logger.info("⚠️ PostgreSQL 不可用，使用 Milvus 向量库...")
+
+                try:
+                    docs = await knowledge_service.search(
+                        query=question,
+                        top_k=effective_top_k,
+                        similarity_threshold=effective_threshold,
+                        filter_expr=filter_expr,
+                    )
+                    for doc in docs:
+                        doc_copy = dict(doc)
+                        metadata_copy = dict(doc.get("metadata") or {})
+                        doc_copy["metadata"] = metadata_copy
+                        doc_copy["tool"] = "milvus"
+                        milvus_results.append(doc_copy)
+                    kb_logger.info("✅ Milvus 兜底返回 {} 条结果", len(milvus_results))
+                except Exception as exc:  # pragma: no cover - defensive logging
+                    kb_logger.error("Milvus knowledge search failed: {}", exc)
+                combined_results = milvus_results
+            else:
+                kb_logger.warning("⚠️ 未选择任何可用的知识库工具")
+                combined_results = []
 
         route = state.get("route", "local")
         if (
