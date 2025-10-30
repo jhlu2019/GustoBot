@@ -578,7 +578,7 @@
     }
   },
   "doc-727eb5b910488901a123a2b6098e364a": {
-    "status": "processing",
+    "status": "processed",
     "chunks_count": 2,
     "chunks_list": [
       "chunk-f646dacb84de035029f81a6cf5bf3bb2",
@@ -587,11 +587,12 @@
     "content_summary": "# 【食尚擂台】鸳鸯火锅\n\n**口味**: 麻辣\n**烹饪方法**: 煮\n**菜品类型**: 火锅\n**烹饪时长**: 数小时\n\n**食材**:\n\n- 大白菜: 适量\n- 甜不辣: 适量\n- 香菇牛肉丸: 适量\n- 撒尿牛肉丸: 适量\n- 肥牛卷: 适量\n- 羊肉卷: 适量\n- 豆腐皮: 适量\n- 梅林午餐肉: 适量\n- 木耳: 适量\n- 双孢菇: 适量\n- 金针菇: 适量\n- 地瓜: 适量\n- 土豆: 适量\n- 香菜: 适量\n- 菠菜: 适量\n- 香葱: 适量\n- 跑山鸡: 一只\n- 猪大骨棒...",
     "content_length": 1373,
     "created_at": "2025-10-29T08:59:15.058431+00:00",
-    "updated_at": "2025-10-29T09:18:22.275251+00:00",
+    "updated_at": "2025-10-29T09:20:38.892607+00:00",
     "file_path": "unknown_source",
     "track_id": "insert_20251029_085915_6025a192",
     "metadata": {
-      "processing_start_time": 1761729502
+      "processing_start_time": 1761729502,
+      "processing_end_time": 1761729638
     }
   },
   "doc-84084ad36bba32d6401651a9b06dfa7e": {
@@ -612,7 +613,7 @@
     }
   },
   "doc-fdab62f1ffb121fe7af223a7ba1fe46f": {
-    "status": "processing",
+    "status": "processed",
     "chunks_count": 1,
     "chunks_list": [
       "chunk-fdab62f1ffb121fe7af223a7ba1fe46f"
@@ -620,141 +621,233 @@
     "content_summary": "# 茭白爆虾\n\n**口味**: 咸鲜\n**烹饪方法**: 炒\n**菜品类型**: 火锅\n**烹饪时长**: 廿分钟\n\n**食材**:\n\n- 茭白: 三根\n- 基围虾: 一斤半\n- 胡椒粉: 少许\n- 盐: 少许\n- 陈醋: 少许\n- 耗油: 少许\n- 白酒: 少许\n- 五香粉: 少许\n- 干辣椒: 适量\n- 大葱: 适量\n- 姜: 少许\n- 蒜头: 一粒\n\n**做法**:\n1:准备材料：茭白洗净切斜片、焯水（此步不可省）虾洗净沥干水分、尾部开边去内脏2:热锅冷油，待油温八成熟，下入虾煸炒至变色儿...",
     "content_length": 414,
     "created_at": "2025-10-29T08:59:15.060529+00:00",
-    "updated_at": "2025-10-29T09:19:23.715924+00:00",
+    "updated_at": "2025-10-29T09:20:15.936413+00:00",
     "file_path": "unknown_source",
     "track_id": "insert_20251029_085915_dd666350",
     "metadata": {
-      "processing_start_time": 1761729563
+      "processing_start_time": 1761729563,
+      "processing_end_time": 1761729615
     }
   },
   "doc-6b221e432780e20ad4b661254116bc62": {
-    "status": "pending",
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-6b221e432780e20ad4b661254116bc62"
+    ],
     "content_summary": "# 泡菜杂菌炖鸡块\n\n**口味**: 酸辣\n**烹饪方法**: 炖\n**菜品类型**: 火锅\n**烹饪时长**: 半小时\n\n**食材**:\n\n- 泡菜: 600克\n- 鸡块: 800克\n- 干杏鲍菇: 50克\n- 干香菇: 20朵\n\n**做法**:\n1:材料2:鸡块洗净炒制3:炒制15分钟以后4:把所有材料倒入高压锅5:煮15分钟以后基本入味6:盛上一碗7:汤色红亮，味道酸辣，鸡肉鲜美",
     "content_length": 194,
     "created_at": "2025-10-29T08:59:15.061573+00:00",
-    "updated_at": "2025-10-29T08:59:15.061577+00:00",
+    "updated_at": "2025-10-29T09:20:57.002332+00:00",
     "file_path": "unknown_source",
     "track_id": "insert_20251029_085915_49608150",
-    "chunks_list": []
+    "metadata": {
+      "processing_start_time": 1761729616,
+      "processing_end_time": 1761729657
+    }
   },
   "doc-fd65e2bce4a2a59c82df705fe14aa3b1": {
-    "status": "pending",
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
     "content_summary": "# 香辣羊锅\n\n**口味**: 中辣\n**烹饪方法**: 烧\n**菜品类型**: 火锅\n**烹饪时长**: 廿分钟\n\n**食材**:\n\n- 新鲜羊肉: 500g\n- 水: 适量\n- 料酒: 适量\n- 老抽: 1小勺\n- 盐: 适量\n- 五香粉: 1小勺\n- 花椒面: 1小勺\n- 香叶: 适量\n- 桂皮: 适量\n- 花椒: 适量\n- 花生油: 2大勺\n- 葱姜蒜: 适量\n- 香葱: 适量\n- 油泼辣椒: 2大勺\n- 干红辣椒: 6粒\n- 青红辣椒: 各一个\n- 洋葱: 1个\n- 土豆: 1个\n\n*...",
     "content_length": 582,
     "created_at": "2025-10-29T08:59:15.062688+00:00",
-    "updated_at": "2025-10-29T08:59:15.062693+00:00",
+    "updated_at": "2025-10-29T09:22:22.974358+00:00",
     "file_path": "unknown_source",
     "track_id": "insert_20251029_085915_97cc2320",
-    "chunks_list": []
+    "metadata": {
+      "processing_start_time": 1761729639,
+      "processing_end_time": 1761729742
+    }
   },
   "doc-1ff9e538fff6a20ac9f4a307f455c316": {
-    "status": "pending",
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
     "content_summary": "# 麻油鸡蔬菜锅\n\n**口味**: 原味\n**烹饪方法**: 炖\n**菜品类型**: 火锅\n**烹饪时长**: 十分钟\n\n**食材**:\n\n- 鸡腿肉: 一支\n- 冰糖: 适量\n- 高度白酒: 一小杯\n- 盐: 5克\n- 台湾米酒: 1瓶\n- 黑麻油: 适量\n- 枸杞: 适量\n- 杏鲍菇: 一份\n- 秀珍菇: 一份\n- 金针菇: 一把\n- 圆白菜: 4分之一颗\n- 老姜片: 一碗\n\n**做法**:\n1:鸡腿洗净剁大块，老姜去皮切薄片，枸杞泡温开水。2:小火爆香老姜片，一定要有耐心，大概7-8分钟...",
     "content_length": 591,
     "created_at": "2025-10-29T08:59:15.080504+00:00",
-    "updated_at": "2025-10-29T08:59:15.080509+00:00",
+    "updated_at": "2025-10-29T09:22:29.869749+00:00",
     "file_path": "unknown_source",
     "track_id": "insert_20251029_085915_3652240a",
-    "chunks_list": []
+    "metadata": {
+      "processing_start_time": 1761729657,
+      "processing_end_time": 1761729749
+    }
   },
   "doc-48705bf9cff2287a95fed7b55e4fe284": {
-    "status": "pending",
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
     "content_summary": "# 火火的鱼锅\n\n**口味**: 咸鲜\n**烹饪方法**: 煮\n**菜品类型**: 火锅\n**烹饪时长**: 廿分钟\n\n**食材**:\n\n- 鲤鱼: 3斤\n- 葱姜蒜: 适量\n- 鸡精: 适量\n- 精盐: 适量\n- 白菜: 适量\n- 金针磨: 适量\n- 菠菜: 适量\n- 香菜: 适量\n\n**做法**:\n1:鲤鱼洗净去骨2:将去骨的鱼肉片成片儿3:香菜菠菜洗净装盘4:白菜撕成大片5:将鱼头、鱼骨放入汤锅中煮开，加入葱姜蒜，精盐、鸡精6:简单兑了些蘸料，海鲜酱油加葱末、香菜末7:上桌了，可以开吃，家...",
     "content_length": 280,
     "created_at": "2025-10-29T08:59:15.081622+00:00",
-    "updated_at": "2025-10-29T08:59:15.081627+00:00",
+    "updated_at": "2025-10-29T09:23:36.357362+00:00",
     "file_path": "unknown_source",
     "track_id": "insert_20251029_085915_972553ee",
-    "chunks_list": []
+    "metadata": {
+      "processing_start_time": 1761729743,
+      "processing_end_time": 1761729816
+    }
   },
   "doc-2e80fb468218342e758a926f2250cfbb": {
-    "status": "pending",
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
     "content_summary": "# 鱼丸菌类海鲜汤\n\n**口味**: 咸鲜\n**烹饪方法**: 煮\n**菜品类型**: 火锅\n**烹饪时长**: 三刻钟\n\n**食材**:\n\n- 口蘑: 适量\n- 杏鲍菇: 适量\n- 香肠: 适量\n- 虾: 50\n- 鱼丸: 200\n- 胡椒粉: 适量\n- 味精: 适量\n- 盐: 适量\n- 粉丝: 适量\n- 白菜: 适量\n\n**做法**:\n1:先把豆腐用水煮一下然后切块2:鱼丸洗净倒锅里3:把口蘑和杏鲍菇洗净切片4:香肠切片5:木耳泡好洗净6:口蘑和杏鲍菇用水焯一下7:再把香肠豆腐杏鲍菇和口蘑等...",
     "content_length": 303,
     "created_at": "2025-10-29T08:59:15.082768+00:00",
-    "updated_at": "2025-10-29T08:59:15.082772+00:00",
+    "updated_at": "2025-10-29T09:23:53.776518+00:00",
     "file_path": "unknown_source",
     "track_id": "insert_20251029_085915_7612470a",
-    "chunks_list": []
+    "metadata": {
+      "processing_start_time": 1761729750,
+      "processing_end_time": 1761729833
+    }
   },
   "doc-f3555c531ea69323534980be920d601e": {
-    "status": "pending",
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
     "content_summary": "# 红油麻辣火锅\n\n**口味**: 麻辣\n**烹饪方法**: 煮\n**菜品类型**: 火锅\n**烹饪时长**: 半小时\n\n**食材**:\n\n- 土豆: 适量\n- 大白菜: 适量\n- 茼蒿: 适量\n- 平菇: 适量\n- 金针菇: 适量\n- 面筋: 适量\n- 油豆泡: 适量\n- 豆腐: 适量\n- 豆皮: 适量\n- 香油: 适量\n- 蒜黄: 适量\n- 红山河火锅底料: 适量\n- 葱: 适量\n- 蒜: 适量\n- 花椒: 适量\n- 干辣椒: 适量\n- 猪骨头: 适量\n- 黄豆芽: 适量\n- 西红柿: 适量...",
     "content_length": 498,
     "created_at": "2025-10-29T08:59:15.083954+00:00",
-    "updated_at": "2025-10-29T08:59:15.083958+00:00",
+    "updated_at": "2025-10-29T09:25:21.973344+00:00",
     "file_path": "unknown_source",
     "track_id": "insert_20251029_085915_8e86bb5d",
-    "chunks_list": []
+    "metadata": {
+      "processing_start_time": 1761729816,
+      "processing_end_time": 1761729921
+    }
   },
   "doc-924f38840508fc7a933ed26552118877": {
-    "status": "pending",
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
     "content_summary": "# 烫锅---高汤肉丸粉丝锅\n\n**口味**: 清淡\n**烹饪方法**: 煮\n**菜品类型**: 火锅\n**烹饪时长**: 半小时\n\n**食材**:\n\n- 粉丝: 适量\n- 肉丸: 适量\n- 豆腐: 适量\n- 老鸭: 适量\n- 鸡精: 适量\n- 调味鲜: 适量\n- 香菜: 适量\n- 精盐: 适量\n\n**做法**:\n1:老鸭半个。2:切大块。3:放进电压锅里高压20分钟压成老鸭高汤。4:煲好的高汤。5:煲好的高汤和鸭肉倒进汤锅里。6:调入精盐，调味鲜，鸡精。7:备好配菜。8:备好香菜。9:再依次入...",
     "content_length": 370,
     "created_at": "2025-10-29T08:59:15.085164+00:00",
-    "updated_at": "2025-10-29T08:59:15.085173+00:00",
+    "updated_at": "2025-10-29T09:24:51.004966+00:00",
     "file_path": "unknown_source",
     "track_id": "insert_20251029_085915_535b3515",
-    "chunks_list": []
+    "metadata": {
+      "processing_start_time": 1761729833,
+      "processing_end_time": 1761729891
+    }
   },
   "doc-c18cdf256ee2a96a1790565cbcacfca5": {
-    "status": "pending",
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
     "content_summary": "# 老北京羊蝎子火锅\n\n**口味**: 酱香\n**烹饪方法**: 火锅\n**菜品类型**: 火锅\n**烹饪时长**: 一小时\n\n**食材**:\n\n- 羊蝎子: 4斤左右\n- 丁香: 适量\n- 甘草: 适量\n- 陈皮: 适量\n- 桂皮: 适量\n- 山奈: 适量\n- 草果: 适量\n- 白胡椒: 适量\n- 花椒: 适量\n- 小茴香: 适量\n- 北京的干黄酱: 适量\n- 黄酒: 适量\n- 蒜: 适量\n- 姜: 适量\n- 葱: 适量\n\n**做法**:\n1:羊蝎子剁成4-5厘米的段，清水浸泡3-5小时。2:...",
     "content_length": 281,
     "created_at": "2025-10-29T08:59:15.086372+00:00",
-    "updated_at": "2025-10-29T08:59:15.086376+00:00",
+    "updated_at": "2025-10-29T09:26:17.087011+00:00",
     "file_path": "unknown_source",
     "track_id": "insert_20251029_085915_490638c6",
-    "chunks_list": []
+    "metadata": {
+      "processing_start_time": 1761729891,
+      "processing_end_time": 1761729977
+    }
   },
   "doc-7ace6e39bb35ca10a61fd039f4335af1": {
-    "status": "pending",
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
     "content_summary": "# 豆浆蔬菜锅\n\n**口味**: 清淡\n**烹饪方法**: 煮\n**菜品类型**: 火锅\n**烹饪时长**: 半小时\n\n**食材**:\n\n- 淀粉: 适量\n- 生抽: 适量\n- 盐: 适量\n- 小白菜: 适量\n- 胡萝卜: 适量\n- 豆腐皮: 适量\n- 木耳: 适量\n- 香菇: 适量\n- 瘦肉: 适量\n- 黄豆: 一杯\n- None\n\n**做法**:\n1:黄豆用水泡发。（约需4小时）。2:香菇、木耳、豆腐皮放温水里泡发。3:泡发的黄豆放入九阳豆浆机里。加入水量到刻度线中央。接通电源选择“纯香”功...",
     "content_length": 414,
     "created_at": "2025-10-29T08:59:15.087672+00:00",
-    "updated_at": "2025-10-29T08:59:15.087676+00:00",
+    "updated_at": "2025-10-29T09:26:26.779911+00:00",
     "file_path": "unknown_source",
     "track_id": "insert_20251029_085915_b1d9e770",
-    "chunks_list": []
+    "metadata": {
+      "processing_start_time": 1761729922,
+      "processing_end_time": 1761729986
+    }
   },
   "doc-838ef9d05cb9c5553f2d5bab9144584e": {
-    "status": "pending",
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
     "content_summary": "# 冬天里凉粉也暖身——瘦肉豆浆煮凉粉\n\n**口味**: 咸鲜\n**烹饪方法**: 煮\n**菜品类型**: 火锅\n**烹饪时长**: 半小时\n\n**食材**:\n\n- 米凉粉: 适量\n- 瘦肉: 适量\n- 黄豆: 一杯\n- 味精: 适量\n- 盐: 适量\n- 生抽: 适量\n- 食用油: 适量\n- 蒜: 适量\n- 姜: 适量\n- 豌豆苗: 适量\n\n**做法**:\n1:黄豆用水泡发。（约需4小时）2:泡发的黄豆放入九阳豆浆机里。3:加入水量到刻度线中央。接通电源选择“纯香”功能，让豆浆机开始工作。4:豆...",
     "content_length": 407,
     "created_at": "2025-10-29T08:59:15.088948+00:00",
-    "updated_at": "2025-10-29T08:59:15.088953+00:00",
+    "updated_at": "2025-10-29T09:27:17.129620+00:00",
     "file_path": "unknown_source",
     "track_id": "insert_20251029_085915_933b228a",
-    "chunks_list": []
+    "metadata": {
+      "processing_start_time": 1761729977,
+      "processing_end_time": 1761730037
+    }
   },
   "doc-dd4228124691f29120994c6ce46b056e": {
-    "status": "pending",
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-dd4228124691f29120994c6ce46b056e"
+    ],
     "content_summary": "# 泡菜小火锅\n\n**口味**: 微辣\n**烹饪方法**: 煮\n**菜品类型**: 火锅\n**烹饪时长**: 半小时\n\n**食材**:\n\n- 金针菇: 适量\n- 海带: 适量\n- 白菜泡菜: 适量\n- 冻豆腐: 适量\n- 鱼丸: 适量\n- 肉饼: 适量\n- 土豆: 适量\n- 生抽: 适量\n- 盐: 适量\n\n**做法**:\n1:土豆1个，刨皮切小块。2:肉饼切小片，鱼丸2颗。3:冻豆腐提前解冻。4:冻豆腐挤去水分，切小块。5:海带结提前泡发，洗净切丝。6:白菜泡菜备用。7:取半袋白菜泡菜切细。8:...",
     "content_length": 436,
     "created_at": "2025-10-29T08:59:15.090230+00:00",
-    "updated_at": "2025-10-29T08:59:15.090239+00:00",
+    "updated_at": "2025-10-29T09:27:32.033832+00:00",
     "file_path": "unknown_source",
     "track_id": "insert_20251029_085915_de3ccc01",
-    "chunks_list": []
+    "metadata": {
+      "processing_start_time": 1761729986,
+      "processing_end_time": 1761730052
+    }
   },
   "doc-0a5a81cb83b3f904c9d30cf84454747e": {
-    "status": "pending",
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
     "content_summary": "# 酸菜麻辣火锅\n\n**口味**: 麻辣\n**烹饪方法**: 煮\n**菜品类型**: 火锅\n**烹饪时长**: 半小时\n\n**食材**:\n\n- 宽细粉: 适量\n- 菜花: 适量\n- 土豆: 适量\n- 面筋: 适量\n- 小杏鲍菇: 适量\n- 香菇: 适量\n- 平菇: 适量\n- 油菜: 适量\n- 香菜: 适量\n- 火锅丸子: 适量\n- 油麦菜: 适量\n- 蟹肉: 适量\n- 猪血: 适量\n- 豆腐: 适量\n- 豆皮: 适量\n- 酸菜: 适量\n- 鸡精: 适量\n- 盐: 适量\n- 香油: 适量\n- 红山...",
     "content_length": 549,
     "created_at": "2025-10-29T08:59:15.091537+00:00",
-    "updated_at": "2025-10-29T08:59:15.091541+00:00",
+    "updated_at": "2025-10-29T09:28:19.187586+00:00",
     "file_path": "unknown_source",
     "track_id": "insert_20251029_085915_adead1db",
-    "chunks_list": []
+    "metadata": {
+      "processing_start_time": 1761730037,
+      "processing_end_time": 1761730099
+    }
   },
   "doc-bf3012c05b86f237b882134357971799": {
-    "status": "pending",
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
     "content_summary": "# 我家自创美味——泡椒鸡焖鱼\n\n**口味**: 麻辣\n**烹饪方法**: 焖\n**菜品类型**: 火锅\n**烹饪时长**: 一小时\n\n**食材**:\n\n- 葱: 适量\n- 花生油: 适量\n- 大白鲢: 1条\n- 三黄鸡: 1只\n- 味精: 适量\n- 盐: 适量\n- 鸡精: 少许\n- 料酒: 少许\n- 清水: 适量\n- 酱油: 1勺\n- 红油剁椒酱: 一大勺\n- 咖喱膏: 1勺\n- 大蒜: 半头\n- 花椒: 一小把\n- 泡椒: 一大把\n- 泡姜: 一大块\n\n**做法**:\n1:三黄鸡去毛，洗净，...",
     "content_length": 800,
     "created_at": "2025-10-29T08:59:15.092910+00:00",
-    "updated_at": "2025-10-29T08:59:15.092914+00:00",
+    "updated_at": "2025-10-29T09:28:57.604191+00:00",
     "file_path": "unknown_source",
     "track_id": "insert_20251029_085915_97429a46",
-    "chunks_list": []
+    "metadata": {
+      "processing_start_time": 1761730052,
+      "processing_end_time": 1761730137
+    }
   }
 }

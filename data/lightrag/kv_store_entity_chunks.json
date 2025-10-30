@@ -25,10 +25,13 @@
       "chunk-623b0c110585edb3512eee14093d05a9",
       "chunk-1fa44a9cf3fa327deb487c71d2a195fb",
       "chunk-c099fdd66078169c8925f8925aef5bd1",
-      "chunk-a0ca01053684f99d9fcd6904da661ac9"
+      "chunk-a0ca01053684f99d9fcd6904da661ac9",
+      "chunk-6b221e432780e20ad4b661254116bc62",
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1",
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
     ],
-    "count": 7,
-    "update_time": 1761729386,
+    "count": 10,
+    "update_time": 1761729728,
     "_id": "Stewing"
   },
   "Hotpot": {
@@ -56,20 +59,32 @@
       "chunk-81c0eda37b57f9cbd9e84459f8e23806",
       "chunk-82883b3c4465e3f2e6c376679735a5d7",
       "chunk-b7f773f47d03d52b403b40d4e2e586b4",
-      "chunk-84084ad36bba32d6401651a9b06dfa7e"
+      "chunk-84084ad36bba32d6401651a9b06dfa7e",
+      "chunk-6b221e432780e20ad4b661254116bc62",
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1",
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316",
+      "chunk-48705bf9cff2287a95fed7b55e4fe284",
+      "chunk-2e80fb468218342e758a926f2250cfbb",
+      "chunk-f3555c531ea69323534980be920d601e",
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5",
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1",
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e",
+      "chunk-bf3012c05b86f237b882134357971799"
     ],
-    "count": 24,
-    "update_time": 1761729555,
+    "count": 35,
+    "update_time": 1761730120,
     "_id": "Hotpot"
   },
   "Half-Hour Cooking Time": {
     "chunk_ids": [
       "chunk-57a1197e6da16f91286e66c98ac553dc",
       "chunk-70256a03acf12c597eb714ea98164d80",
-      "chunk-97f418cbbb03dd9fc3504be972c9a05a"
+      "chunk-97f418cbbb03dd9fc3504be972c9a05a",
+      "chunk-924f38840508fc7a933ed26552118877"
     ],
-    "count": 3,
-    "update_time": 1761729363,
+    "count": 4,
+    "update_time": 1761729885,
     "_id": "Half-Hour Cooking Time"
   },
   "Cilantro": {
@@ -80,10 +95,14 @@
       "chunk-7ab0ccdf25b8acd18b384bb1095223db",
       "chunk-81c0eda37b57f9cbd9e84459f8e23806",
       "chunk-82883b3c4465e3f2e6c376679735a5d7",
-      "chunk-b7f773f47d03d52b403b40d4e2e586b4"
+      "chunk-b7f773f47d03d52b403b40d4e2e586b4",
+      "chunk-0c6124654f71cd88c872b6e32c123663",
+      "chunk-48705bf9cff2287a95fed7b55e4fe284",
+      "chunk-924f38840508fc7a933ed26552118877",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
     ],
-    "count": 7,
-    "update_time": 1761729486,
+    "count": 11,
+    "update_time": 1761730093,
     "_id": "Cilantro"
   },
   "Vermicelli": {
@@ -92,19 +111,22 @@
       "chunk-51d3699091670b8b603c5080ce9eab32",
       "chunk-e726d9423404ef1c546d7e1af65e4b41",
       "chunk-70256a03acf12c597eb714ea98164d80",
-      "chunk-e2b4e4b656466cd33b2e65e27d79cb72"
+      "chunk-e2b4e4b656466cd33b2e65e27d79cb72",
+      "chunk-2e80fb468218342e758a926f2250cfbb",
+      "chunk-924f38840508fc7a933ed26552118877"
     ],
-    "count": 5,
-    "update_time": 1761729027,
+    "count": 7,
+    "update_time": 1761729884,
     "_id": "Vermicelli"
   },
   "Oyster Mushroom": {
     "chunk_ids": [
-      "chunk-57a1197e6da16f91286e66c98ac553dc"
+      "chunk-57a1197e6da16f91286e66c98ac553dc",
+      "chunk-f3555c531ea69323534980be920d601e",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
     ],
-    "count": 1,
-    "create_time": 1761728514,
-    "update_time": 1761728514,
+    "count": 3,
+    "update_time": 1761730093,
     "_id": "Oyster Mushroom"
   },
   "Shiitake Mushroom": {
@@ -112,10 +134,13 @@
       "chunk-57a1197e6da16f91286e66c98ac553dc",
       "chunk-c0a0b84354b6e31e47d11849d6be71e1",
       "chunk-66939561fa4190c27607295cb3642f3a",
-      "chunk-84084ad36bba32d6401651a9b06dfa7e"
+      "chunk-84084ad36bba32d6401651a9b06dfa7e",
+      "chunk-f3555c531ea69323534980be920d601e",
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
     ],
-    "count": 4,
-    "update_time": 1761729555,
+    "count": 7,
+    "update_time": 1761730093,
     "_id": "Shiitake Mushroom"
   },
   "Mushroom": {
@@ -131,10 +156,13 @@
     "chunk_ids": [
       "chunk-57a1197e6da16f91286e66c98ac553dc",
       "chunk-7ab0ccdf25b8acd18b384bb1095223db",
-      "chunk-84084ad36bba32d6401651a9b06dfa7e"
+      "chunk-84084ad36bba32d6401651a9b06dfa7e",
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2",
+      "chunk-f3555c531ea69323534980be920d601e",
+      "chunk-dd4228124691f29120994c6ce46b056e"
     ],
-    "count": 3,
-    "update_time": 1761729555,
+    "count": 6,
+    "update_time": 1761730034,
     "_id": "Enoki Mushroom"
   },
   "Seafood Mushroom": {
@@ -177,19 +205,22 @@
     "chunk_ids": [
       "chunk-57a1197e6da16f91286e66c98ac553dc",
       "chunk-6615912ff11d091e276a6fb5193fe505",
-      "chunk-81c0eda37b57f9cbd9e84459f8e23806"
+      "chunk-81c0eda37b57f9cbd9e84459f8e23806",
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
     ],
-    "count": 3,
-    "update_time": 1761729436,
+    "count": 4,
+    "update_time": 1761729723,
     "_id": "Chili Oil"
   },
   "Sesame Oil": {
     "chunk_ids": [
       "chunk-57a1197e6da16f91286e66c98ac553dc",
-      "chunk-39359ce96c3ce30016be4ceb02cce6cb"
+      "chunk-39359ce96c3ce30016be4ceb02cce6cb",
+      "chunk-f3555c531ea69323534980be920d601e",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
     ],
-    "count": 2,
-    "update_time": 1761729103,
+    "count": 4,
+    "update_time": 1761730094,
     "_id": "Sesame Oil"
   },
   "White Sesame Paste": {
@@ -208,20 +239,24 @@
       "chunk-4b4bc40557878025147c33b30ba579a4",
       "chunk-39359ce96c3ce30016be4ceb02cce6cb",
       "chunk-5eb6edbadf0c4a4d6518d2423dd97107",
-      "chunk-7ab0ccdf25b8acd18b384bb1095223db"
+      "chunk-7ab0ccdf25b8acd18b384bb1095223db",
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1",
+      "chunk-bf3012c05b86f237b882134357971799"
     ],
-    "count": 6,
-    "update_time": 1761729263,
+    "count": 8,
+    "update_time": 1761730121,
     "_id": "Cooking Wine"
   },
   "Pepper Powder": {
     "chunk_ids": [
       "chunk-57a1197e6da16f91286e66c98ac553dc",
       "chunk-51d3699091670b8b603c5080ce9eab32",
-      "chunk-5eb6edbadf0c4a4d6518d2423dd97107"
+      "chunk-5eb6edbadf0c4a4d6518d2423dd97107",
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f",
+      "chunk-2e80fb468218342e758a926f2250cfbb"
     ],
-    "count": 3,
-    "update_time": 1761729156,
+    "count": 5,
+    "update_time": 1761729807,
     "_id": "Pepper Powder"
   },
   "Salt": {
@@ -246,20 +281,31 @@
       "chunk-a0ca01053684f99d9fcd6904da661ac9",
       "chunk-2697d6fee4aa81f5a588f1cf2f0015cb",
       "chunk-81c0eda37b57f9cbd9e84459f8e23806",
-      "chunk-84084ad36bba32d6401651a9b06dfa7e"
+      "chunk-84084ad36bba32d6401651a9b06dfa7e",
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f",
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1",
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316",
+      "chunk-2e80fb468218342e758a926f2250cfbb",
+      "chunk-924f38840508fc7a933ed26552118877",
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1",
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e",
+      "chunk-dd4228124691f29120994c6ce46b056e",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e",
+      "chunk-bf3012c05b86f237b882134357971799"
     ],
-    "count": 21,
-    "update_time": 1761729555,
+    "count": 31,
+    "update_time": 1761730121,
     "_id": "Salt"
   },
   "Onion": {
     "chunk_ids": [
       "chunk-57a1197e6da16f91286e66c98ac553dc",
       "chunk-866dae726ae97741b8c440c6bac56a73",
-      "chunk-4a9a23d68dccf33c331d9b6d867874da"
+      "chunk-4a9a23d68dccf33c331d9b6d867874da",
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
     ],
-    "count": 3,
-    "update_time": 1761729089,
+    "count": 4,
+    "update_time": 1761729723,
     "_id": "Onion"
   },
   "Ginger And Scallion": {
@@ -284,10 +330,13 @@
     "chunk_ids": [
       "chunk-57a1197e6da16f91286e66c98ac553dc",
       "chunk-525368ae67bfb4088b7edf37b3130ef1",
-      "chunk-b7f773f47d03d52b403b40d4e2e586b4"
+      "chunk-b7f773f47d03d52b403b40d4e2e586b4",
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2",
+      "chunk-48705bf9cff2287a95fed7b55e4fe284",
+      "chunk-f3555c531ea69323534980be920d601e"
     ],
-    "count": 3,
-    "update_time": 1761729486,
+    "count": 6,
+    "update_time": 1761729896,
     "_id": "Dipping Sauce"
   },
   "Chicken Broth": {
@@ -329,20 +378,20 @@
   },
   "Licorice": {
     "chunk_ids": [
-      "chunk-4e0fda926e3acc67e6ce61ebbd3d2fca"
+      "chunk-4e0fda926e3acc67e6ce61ebbd3d2fca",
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
     ],
-    "count": 1,
-    "create_time": 1761728534,
-    "update_time": 1761728534,
+    "count": 2,
+    "update_time": 1761729940,
     "_id": "Licorice"
   },
   "Goji Berries": {
     "chunk_ids": [
-      "chunk-4e0fda926e3acc67e6ce61ebbd3d2fca"
+      "chunk-4e0fda926e3acc67e6ce61ebbd3d2fca",
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
     ],
-    "count": 1,
-    "create_time": 1761728534,
-    "update_time": 1761728534,
+    "count": 2,
+    "update_time": 1761729728,
     "_id": "Goji Berries"
   },
   "Hangbai Chrysanthemum": {
@@ -494,10 +543,13 @@
     "chunk_ids": [
       "chunk-4e0fda926e3acc67e6ce61ebbd3d2fca",
       "chunk-95ab7003d5c7d538f4d192c46ff5680a",
-      "chunk-84084ad36bba32d6401651a9b06dfa7e"
+      "chunk-84084ad36bba32d6401651a9b06dfa7e",
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2",
+      "chunk-924f38840508fc7a933ed26552118877",
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
     ],
-    "count": 3,
-    "update_time": 1761729555,
+    "count": 6,
+    "update_time": 1761730020,
     "_id": "Cooking Method"
   },
   "Preparation Time": {
@@ -638,28 +690,37 @@
       "chunk-e2b4e4b656466cd33b2e65e27d79cb72",
       "chunk-5eb6edbadf0c4a4d6518d2423dd97107",
       "chunk-0857a75ea80ec1571e3292a243f74944",
-      "chunk-82883b3c4465e3f2e6c376679735a5d7"
+      "chunk-82883b3c4465e3f2e6c376679735a5d7",
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f",
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2",
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5",
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
     ],
-    "count": 11,
-    "update_time": 1761729480,
+    "count": 16,
+    "update_time": 1761730094,
     "_id": "Ginger"
   },
   "Carrot": {
     "chunk_ids": [
       "chunk-866dae726ae97741b8c440c6bac56a73",
-      "chunk-7ab0ccdf25b8acd18b384bb1095223db"
+      "chunk-7ab0ccdf25b8acd18b384bb1095223db",
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
     ],
-    "count": 2,
-    "update_time": 1761729264,
+    "count": 3,
+    "update_time": 1761729972,
     "_id": "Carrot"
   },
   "Potato": {
     "chunk_ids": [
-      "chunk-866dae726ae97741b8c440c6bac56a73"
+      "chunk-866dae726ae97741b8c440c6bac56a73",
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1",
+      "chunk-f3555c531ea69323534980be920d601e",
+      "chunk-dd4228124691f29120994c6ce46b056e",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
     ],
-    "count": 1,
-    "create_time": 1761728599,
-    "update_time": 1761728599,
+    "count": 5,
+    "update_time": 1761730093,
     "_id": "Potato"
   },
   "Pumpkin": {
@@ -691,11 +752,11 @@
   },
   "White Pepper": {
     "chunk_ids": [
-      "chunk-525368ae67bfb4088b7edf37b3130ef1"
+      "chunk-525368ae67bfb4088b7edf37b3130ef1",
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
     ],
-    "count": 1,
-    "create_time": 1761728599,
-    "update_time": 1761728599,
+    "count": 2,
+    "update_time": 1761729941,
     "_id": "White Pepper"
   },
   "Whipping Cream": {
@@ -746,10 +807,16 @@
       "chunk-e2b4e4b656466cd33b2e65e27d79cb72",
       "chunk-1fa44a9cf3fa327deb487c71d2a195fb",
       "chunk-0857a75ea80ec1571e3292a243f74944",
-      "chunk-82883b3c4465e3f2e6c376679735a5d7"
+      "chunk-82883b3c4465e3f2e6c376679735a5d7",
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f",
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2",
+      "chunk-f3555c531ea69323534980be920d601e",
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e",
+      "chunk-bf3012c05b86f237b882134357971799"
     ],
-    "count": 11,
-    "update_time": 1761729480,
+    "count": 17,
+    "update_time": 1761730120,
     "_id": "Scallion"
   },
   "White Sesame Seeds": {
@@ -779,10 +846,13 @@
       "chunk-5eb6edbadf0c4a4d6518d2423dd97107",
       "chunk-1fa44a9cf3fa327deb487c71d2a195fb",
       "chunk-7ab0ccdf25b8acd18b384bb1095223db",
-      "chunk-81c0eda37b57f9cbd9e84459f8e23806"
+      "chunk-81c0eda37b57f9cbd9e84459f8e23806",
+      "chunk-48705bf9cff2287a95fed7b55e4fe284",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e",
+      "chunk-bf3012c05b86f237b882134357971799"
     ],
-    "count": 8,
-    "update_time": 1761729435,
+    "count": 11,
+    "update_time": 1761730121,
     "_id": "Chicken Bouillon"
   },
   "Raisin": {
@@ -833,20 +903,24 @@
   "Light Soy Sauce": {
     "chunk_ids": [
       "chunk-525368ae67bfb4088b7edf37b3130ef1",
-      "chunk-5eb6edbadf0c4a4d6518d2423dd97107"
+      "chunk-5eb6edbadf0c4a4d6518d2423dd97107",
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1",
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e",
+      "chunk-dd4228124691f29120994c6ce46b056e"
     ],
-    "count": 2,
-    "update_time": 1761729156,
+    "count": 5,
+    "update_time": 1761730035,
     "_id": "Light Soy Sauce"
   },
   "Spinach": {
     "chunk_ids": [
       "chunk-525368ae67bfb4088b7edf37b3130ef1",
       "chunk-6e5ba03e1e588875c5f8df3522f4e258",
-      "chunk-2697d6fee4aa81f5a588f1cf2f0015cb"
+      "chunk-2697d6fee4aa81f5a588f1cf2f0015cb",
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
     ],
-    "count": 3,
-    "update_time": 1761729408,
+    "count": 4,
+    "update_time": 1761729802,
     "_id": "Spinach"
   },
   "Snow Peas": {
@@ -934,10 +1008,11 @@
     "chunk_ids": [
       "chunk-6615912ff11d091e276a6fb5193fe505",
       "chunk-1fa44a9cf3fa327deb487c71d2a195fb",
-      "chunk-c099fdd66078169c8925f8925aef5bd1"
+      "chunk-c099fdd66078169c8925f8925aef5bd1",
+      "chunk-924f38840508fc7a933ed26552118877"
     ],
-    "count": 3,
-    "update_time": 1761729249,
+    "count": 4,
+    "update_time": 1761729884,
     "_id": "Flavor Enhancer"
   },
   "Dried Chilies": {
@@ -989,10 +1064,16 @@
       "chunk-0857a75ea80ec1571e3292a243f74944",
       "chunk-c84b92b378ac21bbc3bd46c3031d24f0",
       "chunk-2697d6fee4aa81f5a588f1cf2f0015cb",
-      "chunk-81c0eda37b57f9cbd9e84459f8e23806"
+      "chunk-81c0eda37b57f9cbd9e84459f8e23806",
+      "chunk-48705bf9cff2287a95fed7b55e4fe284",
+      "chunk-2e80fb468218342e758a926f2250cfbb",
+      "chunk-f3555c531ea69323534980be920d601e",
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1",
+      "chunk-dd4228124691f29120994c6ce46b056e",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
     ],
-    "count": 12,
-    "update_time": 1761729435,
+    "count": 18,
+    "update_time": 1761730093,
     "_id": "Boiling"
   },
   "Mala": {
@@ -1044,10 +1125,13 @@
   "Hot Pot": {
     "chunk_ids": [
       "chunk-51d3699091670b8b603c5080ce9eab32",
-      "chunk-2697d6fee4aa81f5a588f1cf2f0015cb"
+      "chunk-2697d6fee4aa81f5a588f1cf2f0015cb",
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f",
+      "chunk-924f38840508fc7a933ed26552118877",
+      "chunk-dd4228124691f29120994c6ce46b056e"
     ],
-    "count": 2,
-    "update_time": 1761729408,
+    "count": 5,
+    "update_time": 1761730034,
     "_id": "Hot Pot"
   },
   "Chicken Leg": {
@@ -1065,29 +1149,34 @@
       "chunk-83fa6e1e2bcfce35dcafe0ee47234c32",
       "chunk-5eb6edbadf0c4a4d6518d2423dd97107",
       "chunk-7ab0ccdf25b8acd18b384bb1095223db",
-      "chunk-82883b3c4465e3f2e6c376679735a5d7"
+      "chunk-82883b3c4465e3f2e6c376679735a5d7",
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f",
+      "chunk-f3555c531ea69323534980be920d601e"
     ],
-    "count": 5,
-    "update_time": 1761729480,
+    "count": 7,
+    "update_time": 1761729895,
     "_id": "Dried Chili"
   },
   "Five-Spice Powder": {
     "chunk_ids": [
-      "chunk-51d3699091670b8b603c5080ce9eab32"
+      "chunk-51d3699091670b8b603c5080ce9eab32",
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f",
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
     ],
-    "count": 1,
-    "create_time": 1761728662,
-    "update_time": 1761728662,
+    "count": 3,
+    "update_time": 1761729722,
     "_id": "Five-Spice Powder"
   },
   "Soy Sauce": {
     "chunk_ids": [
       "chunk-51d3699091670b8b603c5080ce9eab32",
       "chunk-39359ce96c3ce30016be4ceb02cce6cb",
-      "chunk-82883b3c4465e3f2e6c376679735a5d7"
+      "chunk-82883b3c4465e3f2e6c376679735a5d7",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e",
+      "chunk-bf3012c05b86f237b882134357971799"
     ],
-    "count": 3,
-    "update_time": 1761729480,
+    "count": 5,
+    "update_time": 1761730121,
     "_id": "Soy Sauce"
   },
   "Maggi Seasoning": {
@@ -1107,10 +1196,17 @@
       "chunk-6e5ba03e1e588875c5f8df3522f4e258",
       "chunk-5eb6edbadf0c4a4d6518d2423dd97107",
       "chunk-0857a75ea80ec1571e3292a243f74944",
-      "chunk-82883b3c4465e3f2e6c376679735a5d7"
+      "chunk-82883b3c4465e3f2e6c376679735a5d7",
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f",
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2",
+      "chunk-f3555c531ea69323534980be920d601e",
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5",
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e",
+      "chunk-bf3012c05b86f237b882134357971799"
     ],
-    "count": 7,
-    "update_time": 1761729480,
+    "count": 14,
+    "update_time": 1761730120,
     "_id": "Garlic"
   },
   "Octopus": {
@@ -1126,10 +1222,11 @@
     "chunk_ids": [
       "chunk-51d3699091670b8b603c5080ce9eab32",
       "chunk-c0a0b84354b6e31e47d11849d6be71e1",
-      "chunk-c558d685940c8dcdcdb162465524d6af"
+      "chunk-c558d685940c8dcdcdb162465524d6af",
+      "chunk-dd4228124691f29120994c6ce46b056e"
     ],
-    "count": 3,
-    "update_time": 1761729179,
+    "count": 4,
+    "update_time": 1761730034,
     "_id": "Kelp"
   },
   "Beef Tripe": {
@@ -1161,21 +1258,23 @@
   },
   "Peanut Oil": {
     "chunk_ids": [
-      "chunk-51d3699091670b8b603c5080ce9eab32"
+      "chunk-51d3699091670b8b603c5080ce9eab32",
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1",
+      "chunk-bf3012c05b86f237b882134357971799"
     ],
-    "count": 1,
-    "create_time": 1761728663,
-    "update_time": 1761728663,
+    "count": 3,
+    "update_time": 1761730120,
     "_id": "Peanut Oil"
   },
   "Clay Pot": {
     "chunk_ids": [
       "chunk-51d3699091670b8b603c5080ce9eab32",
       "chunk-a91242341f1c7c5dab19150a6014b559",
-      "chunk-84084ad36bba32d6401651a9b06dfa7e"
+      "chunk-84084ad36bba32d6401651a9b06dfa7e",
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
     ],
-    "count": 3,
-    "update_time": 1761729555,
+    "count": 4,
+    "update_time": 1761729972,
     "_id": "Clay Pot"
   },
   "Cooking Time": {
@@ -1184,10 +1283,11 @@
       "chunk-e2b4e4b656466cd33b2e65e27d79cb72",
       "chunk-4a9a23d68dccf33c331d9b6d867874da",
       "chunk-a0ca01053684f99d9fcd6904da661ac9",
-      "chunk-81c0eda37b57f9cbd9e84459f8e23806"
+      "chunk-81c0eda37b57f9cbd9e84459f8e23806",
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
     ],
-    "count": 5,
-    "update_time": 1761729436,
+    "count": 6,
+    "update_time": 1761729972,
     "_id": "Cooking Time"
   },
   "Larou Shan Yao Hotpot": {
@@ -1237,21 +1337,22 @@
   },
   "Dried Shiitake Mushrooms": {
     "chunk_ids": [
-      "chunk-a91242341f1c7c5dab19150a6014b559"
+      "chunk-a91242341f1c7c5dab19150a6014b559",
+      "chunk-6b221e432780e20ad4b661254116bc62"
     ],
-    "count": 1,
-    "create_time": 1761728691,
-    "update_time": 1761728691,
+    "count": 2,
+    "update_time": 1761729643,
     "_id": "Dried Shiitake Mushrooms"
   },
   "Water": {
     "chunk_ids": [
       "chunk-a91242341f1c7c5dab19150a6014b559",
       "chunk-e2b4e4b656466cd33b2e65e27d79cb72",
-      "chunk-39359ce96c3ce30016be4ceb02cce6cb"
+      "chunk-39359ce96c3ce30016be4ceb02cce6cb",
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
     ],
-    "count": 3,
-    "update_time": 1761729103,
+    "count": 4,
+    "update_time": 1761729722,
     "_id": "Water"
   },
   "Shui Zhu Suan Cai Xing Bao Gu Fen Si Pot": {
@@ -1284,56 +1385,62 @@
   "Pickled Mustard Greens": {
     "chunk_ids": [
       "chunk-e726d9423404ef1c546d7e1af65e4b41",
-      "chunk-4b4bc40557878025147c33b30ba579a4"
+      "chunk-4b4bc40557878025147c33b30ba579a4",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
     ],
-    "count": 2,
-    "update_time": 1761728888,
+    "count": 3,
+    "update_time": 1761730094,
     "_id": "Pickled Mustard Greens"
   },
   "Enoki Mushrooms": {
     "chunk_ids": [
       "chunk-e726d9423404ef1c546d7e1af65e4b41",
       "chunk-6e5ba03e1e588875c5f8df3522f4e258",
-      "chunk-c558d685940c8dcdcdb162465524d6af"
+      "chunk-c558d685940c8dcdcdb162465524d6af",
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316",
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
     ],
-    "count": 3,
-    "update_time": 1761729179,
+    "count": 5,
+    "update_time": 1761729802,
     "_id": "Enoki Mushrooms"
   },
   "King Oyster Mushrooms": {
     "chunk_ids": [
-      "chunk-e726d9423404ef1c546d7e1af65e4b41"
+      "chunk-e726d9423404ef1c546d7e1af65e4b41",
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
     ],
-    "count": 1,
-    "create_time": 1761728745,
-    "update_time": 1761728745,
+    "count": 2,
+    "update_time": 1761729728,
     "_id": "King Oyster Mushrooms"
   },
   "Star Anise": {
     "chunk_ids": [
       "chunk-e726d9423404ef1c546d7e1af65e4b41",
-      "chunk-83fa6e1e2bcfce35dcafe0ee47234c32"
+      "chunk-83fa6e1e2bcfce35dcafe0ee47234c32",
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
     ],
-    "count": 2,
-    "update_time": 1761728822,
+    "count": 3,
+    "update_time": 1761729618,
     "_id": "Star Anise"
   },
   "Sichuan Peppercorns": {
     "chunk_ids": [
       "chunk-e726d9423404ef1c546d7e1af65e4b41",
-      "chunk-95ab7003d5c7d538f4d192c46ff5680a"
+      "chunk-95ab7003d5c7d538f4d192c46ff5680a",
+      "chunk-bf3012c05b86f237b882134357971799"
     ],
-    "count": 2,
-    "update_time": 1761728881,
+    "count": 3,
+    "update_time": 1761730120,
     "_id": "Sichuan Peppercorns"
   },
   "Pixian Doubanjiang": {
     "chunk_ids": [
       "chunk-e726d9423404ef1c546d7e1af65e4b41",
-      "chunk-82883b3c4465e3f2e6c376679735a5d7"
+      "chunk-82883b3c4465e3f2e6c376679735a5d7",
+      "chunk-bf3012c05b86f237b882134357971799"
     ],
-    "count": 2,
-    "update_time": 1761729479,
+    "count": 3,
+    "update_time": 1761730120,
     "_id": "Pixian Doubanjiang"
   },
   "Celery": {
@@ -1378,10 +1485,11 @@
   "Tomato": {
     "chunk_ids": [
       "chunk-c0a0b84354b6e31e47d11849d6be71e1",
-      "chunk-4a9a23d68dccf33c331d9b6d867874da"
+      "chunk-4a9a23d68dccf33c331d9b6d867874da",
+      "chunk-f3555c531ea69323534980be920d601e"
     ],
-    "count": 2,
-    "update_time": 1761729089,
+    "count": 3,
+    "update_time": 1761729896,
     "_id": "Tomato"
   },
   "Dried Orange Peel": {
@@ -1398,19 +1506,20 @@
       "chunk-c0a0b84354b6e31e47d11849d6be71e1",
       "chunk-e263e17c07ad00c739e0233d8d0e30f0",
       "chunk-5eb6edbadf0c4a4d6518d2423dd97107",
-      "chunk-c84b92b378ac21bbc3bd46c3031d24f0"
+      "chunk-c84b92b378ac21bbc3bd46c3031d24f0",
+      "chunk-0c6124654f71cd88c872b6e32c123663"
     ],
-    "count": 4,
-    "update_time": 1761729337,
+    "count": 5,
+    "update_time": 1761729619,
     "_id": "Sugar"
   },
   "Vinegar": {
     "chunk_ids": [
-      "chunk-c0a0b84354b6e31e47d11849d6be71e1"
+      "chunk-c0a0b84354b6e31e47d11849d6be71e1",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
     ],
-    "count": 1,
-    "create_time": 1761728766,
-    "update_time": 1761728766,
+    "count": 2,
+    "update_time": 1761730094,
     "_id": "Vinegar"
   },
   "Dark Soy Sauce": {
@@ -1418,10 +1527,11 @@
       "chunk-c0a0b84354b6e31e47d11849d6be71e1",
       "chunk-70256a03acf12c597eb714ea98164d80",
       "chunk-5eb6edbadf0c4a4d6518d2423dd97107",
-      "chunk-81c0eda37b57f9cbd9e84459f8e23806"
+      "chunk-81c0eda37b57f9cbd9e84459f8e23806",
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
     ],
-    "count": 4,
-    "update_time": 1761729435,
+    "count": 5,
+    "update_time": 1761729722,
     "_id": "Dark Soy Sauce"
   },
   "Oil": {
@@ -1482,10 +1592,12 @@
     "chunk_ids": [
       "chunk-c0a0b84354b6e31e47d11849d6be71e1",
       "chunk-97f418cbbb03dd9fc3504be972c9a05a",
-      "chunk-a0ca01053684f99d9fcd6904da661ac9"
+      "chunk-a0ca01053684f99d9fcd6904da661ac9",
+      "chunk-924f38840508fc7a933ed26552118877",
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
     ],
-    "count": 3,
-    "update_time": 1761729386,
+    "count": 5,
+    "update_time": 1761729941,
     "_id": "Electric Pressure Cooker"
   },
   "Cooking Pot": {
@@ -1499,11 +1611,11 @@
   },
   "Stir-Frying": {
     "chunk_ids": [
-      "chunk-c0a0b84354b6e31e47d11849d6be71e1"
+      "chunk-c0a0b84354b6e31e47d11849d6be71e1",
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f"
     ],
-    "count": 1,
-    "create_time": 1761728767,
-    "update_time": 1761728767,
+    "count": 2,
+    "update_time": 1761729600,
     "_id": "Stir-Frying"
   },
   "Slow Simmering": {
@@ -1571,11 +1683,11 @@
   },
   "King Oyster Mushroom": {
     "chunk_ids": [
-      "chunk-66939561fa4190c27607295cb3642f3a"
+      "chunk-66939561fa4190c27607295cb3642f3a",
+      "chunk-2e80fb468218342e758a926f2250cfbb"
     ],
-    "count": 1,
-    "create_time": 1761728799,
-    "update_time": 1761728799,
+    "count": 2,
+    "update_time": 1761729806,
     "_id": "King Oyster Mushroom"
   },
   "Broccoli": {
@@ -1654,20 +1766,20 @@
   },
   "Old Duck": {
     "chunk_ids": [
-      "chunk-83fa6e1e2bcfce35dcafe0ee47234c32"
+      "chunk-83fa6e1e2bcfce35dcafe0ee47234c32",
+      "chunk-924f38840508fc7a933ed26552118877"
     ],
-    "count": 1,
-    "create_time": 1761728822,
-    "update_time": 1761728822,
+    "count": 2,
+    "update_time": 1761729884,
     "_id": "Old Duck"
   },
   "Chicken Essence": {
     "chunk_ids": [
-      "chunk-83fa6e1e2bcfce35dcafe0ee47234c32"
+      "chunk-83fa6e1e2bcfce35dcafe0ee47234c32",
+      "chunk-924f38840508fc7a933ed26552118877"
     ],
-    "count": 1,
-    "create_time": 1761728822,
-    "update_time": 1761728822,
+    "count": 2,
+    "update_time": 1761729884,
     "_id": "Chicken Essence"
   },
   "Simmering Method": {
@@ -1701,10 +1813,12 @@
     "chunk_ids": [
       "chunk-70256a03acf12c597eb714ea98164d80",
       "chunk-0857a75ea80ec1571e3292a243f74944",
-      "chunk-b7f773f47d03d52b403b40d4e2e586b4"
+      "chunk-b7f773f47d03d52b403b40d4e2e586b4",
+      "chunk-924f38840508fc7a933ed26552118877",
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
     ],
-    "count": 3,
-    "update_time": 1761729486,
+    "count": 5,
+    "update_time": 1761729971,
     "_id": "Light Flavor"
   },
   "Oil Tofu": {
@@ -1721,10 +1835,13 @@
       "chunk-70256a03acf12c597eb714ea98164d80",
       "chunk-39359ce96c3ce30016be4ceb02cce6cb",
       "chunk-5eb6edbadf0c4a4d6518d2423dd97107",
-      "chunk-b7f773f47d03d52b403b40d4e2e586b4"
+      "chunk-b7f773f47d03d52b403b40d4e2e586b4",
+      "chunk-48705bf9cff2287a95fed7b55e4fe284",
+      "chunk-2e80fb468218342e758a926f2250cfbb",
+      "chunk-f3555c531ea69323534980be920d601e"
     ],
-    "count": 4,
-    "update_time": 1761729486,
+    "count": 7,
+    "update_time": 1761729894,
     "_id": "Chinese Cabbage"
   },
   "Household Seasonings": {
@@ -1739,10 +1856,11 @@
   "Lard": {
     "chunk_ids": [
       "chunk-70256a03acf12c597eb714ea98164d80",
-      "chunk-81c0eda37b57f9cbd9e84459f8e23806"
+      "chunk-81c0eda37b57f9cbd9e84459f8e23806",
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
     ],
-    "count": 2,
-    "update_time": 1761729436,
+    "count": 3,
+    "update_time": 1761729619,
     "_id": "Lard"
   },
   "Stock": {
@@ -1774,11 +1892,12 @@
   },
   "Soy Milk": {
     "chunk_ids": [
-      "chunk-95ab7003d5c7d538f4d192c46ff5680a"
+      "chunk-95ab7003d5c7d538f4d192c46ff5680a",
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1",
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
     ],
-    "count": 1,
-    "create_time": 1761728880,
-    "update_time": 1761728880,
+    "count": 3,
+    "update_time": 1761730020,
     "_id": "Soy Milk"
   },
   "Coagulant": {
@@ -1819,11 +1938,11 @@
   },
   "Winter": {
     "chunk_ids": [
-      "chunk-95ab7003d5c7d538f4d192c46ff5680a"
+      "chunk-95ab7003d5c7d538f4d192c46ff5680a",
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
     ],
-    "count": 1,
-    "create_time": 1761728880,
-    "update_time": 1761728880,
+    "count": 2,
+    "update_time": 1761729729,
     "_id": "Winter"
   },
   "Pickled Chili": {
@@ -1891,20 +2010,21 @@
   },
   "Aged Vinegar": {
     "chunk_ids": [
-      "chunk-4b4bc40557878025147c33b30ba579a4"
+      "chunk-4b4bc40557878025147c33b30ba579a4",
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f"
     ],
-    "count": 1,
-    "create_time": 1761728887,
-    "update_time": 1761728887,
+    "count": 2,
+    "update_time": 1761729600,
     "_id": "Aged Vinegar"
   },
   "Sesame Paste": {
     "chunk_ids": [
-      "chunk-4b4bc40557878025147c33b30ba579a4"
+      "chunk-4b4bc40557878025147c33b30ba579a4",
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2",
+      "chunk-0c6124654f71cd88c872b6e32c123663"
     ],
-    "count": 1,
-    "create_time": 1761728887,
-    "update_time": 1761728887,
+    "count": 3,
+    "update_time": 1761729617,
     "_id": "Sesame Paste"
   },
   "Hotpot Dipping Sauce": {
@@ -1954,20 +2074,20 @@
   },
   "Mildly Spicy": {
     "chunk_ids": [
-      "chunk-4b4bc40557878025147c33b30ba579a4"
+      "chunk-4b4bc40557878025147c33b30ba579a4",
+      "chunk-dd4228124691f29120994c6ce46b056e"
     ],
-    "count": 1,
-    "create_time": 1761728888,
-    "update_time": 1761728888,
+    "count": 2,
+    "update_time": 1761730034,
     "_id": "Mildly Spicy"
   },
   "Hotpot Balls": {
     "chunk_ids": [
-      "chunk-4b4bc40557878025147c33b30ba579a4"
+      "chunk-4b4bc40557878025147c33b30ba579a4",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
     ],
-    "count": 1,
-    "create_time": 1761728888,
-    "update_time": 1761728888,
+    "count": 2,
+    "update_time": 1761730093,
     "_id": "Hotpot Balls"
   },
   "Sour Pickled Lemon Chicken Hotpot": {
@@ -1990,11 +2110,11 @@
   },
   "Three-Yellow Chicken": {
     "chunk_ids": [
-      "chunk-e263e17c07ad00c739e0233d8d0e30f0"
+      "chunk-e263e17c07ad00c739e0233d8d0e30f0",
+      "chunk-bf3012c05b86f237b882134357971799"
     ],
-    "count": 1,
-    "create_time": 1761728938,
-    "update_time": 1761728938,
+    "count": 2,
+    "update_time": 1761730120,
     "_id": "Three-Yellow Chicken"
   },
   "Sour Pickled Vegetables": {
@@ -2089,11 +2209,12 @@
   },
   "Kimchi": {
     "chunk_ids": [
-      "chunk-6e5ba03e1e588875c5f8df3522f4e258"
+      "chunk-6e5ba03e1e588875c5f8df3522f4e258",
+      "chunk-6b221e432780e20ad4b661254116bc62",
+      "chunk-dd4228124691f29120994c6ce46b056e"
     ],
-    "count": 1,
-    "create_time": 1761728960,
-    "update_time": 1761728960,
+    "count": 3,
+    "update_time": 1761730034,
     "_id": "Kimchi"
   },
   "Vegetable Oil": {
@@ -2111,10 +2232,14 @@
       "chunk-39359ce96c3ce30016be4ceb02cce6cb",
       "chunk-c558d685940c8dcdcdb162465524d6af",
       "chunk-2697d6fee4aa81f5a588f1cf2f0015cb",
-      "chunk-81c0eda37b57f9cbd9e84459f8e23806"
+      "chunk-81c0eda37b57f9cbd9e84459f8e23806",
+      "chunk-2e80fb468218342e758a926f2250cfbb",
+      "chunk-924f38840508fc7a933ed26552118877",
+      "chunk-f3555c531ea69323534980be920d601e",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
     ],
-    "count": 5,
-    "update_time": 1761729435,
+    "count": 9,
+    "update_time": 1761730094,
     "_id": "Tofu"
   },
   "Sweet Potato Balls": {
@@ -2132,10 +2257,12 @@
       "chunk-39359ce96c3ce30016be4ceb02cce6cb",
       "chunk-c558d685940c8dcdcdb162465524d6af",
       "chunk-1fa44a9cf3fa327deb487c71d2a195fb",
-      "chunk-b7f773f47d03d52b403b40d4e2e586b4"
+      "chunk-b7f773f47d03d52b403b40d4e2e586b4",
+      "chunk-2e80fb468218342e758a926f2250cfbb",
+      "chunk-dd4228124691f29120994c6ce46b056e"
     ],
-    "count": 5,
-    "update_time": 1761729486,
+    "count": 7,
+    "update_time": 1761730035,
     "_id": "Fish Balls"
   },
   "Wood Ear Mushrooms": {
@@ -2297,11 +2424,13 @@
   },
   "Tofu Skin": {
     "chunk_ids": [
-      "chunk-e2b4e4b656466cd33b2e65e27d79cb72"
+      "chunk-e2b4e4b656466cd33b2e65e27d79cb72",
+      "chunk-f3555c531ea69323534980be920d601e",
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
     ],
-    "count": 1,
-    "create_time": 1761729027,
-    "update_time": 1761729027,
+    "count": 4,
+    "update_time": 1761730094,
     "_id": "Tofu Skin"
   },
   "Zisha Hotpot": {
@@ -2316,10 +2445,11 @@
   "Medium Spicy": {
     "chunk_ids": [
       "chunk-e2b4e4b656466cd33b2e65e27d79cb72",
-      "chunk-5eb6edbadf0c4a4d6518d2423dd97107"
+      "chunk-5eb6edbadf0c4a4d6518d2423dd97107",
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
     ],
-    "count": 2,
-    "update_time": 1761729157,
+    "count": 3,
+    "update_time": 1761729722,
     "_id": "Medium Spicy"
   },
   "Ten-Minute Cooking Time": {
@@ -2478,11 +2608,11 @@
   },
   "Original Flavor": {
     "chunk_ids": [
-      "chunk-39359ce96c3ce30016be4ceb02cce6cb"
+      "chunk-39359ce96c3ce30016be4ceb02cce6cb",
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
     ],
-    "count": 1,
-    "create_time": 1761729102,
-    "update_time": 1761729102,
+    "count": 2,
+    "update_time": 1761729728,
     "_id": "Original Flavor"
   },
   "Pork Mince": {
@@ -2505,20 +2635,21 @@
   },
   "Bok Choy": {
     "chunk_ids": [
-      "chunk-39359ce96c3ce30016be4ceb02cce6cb"
+      "chunk-39359ce96c3ce30016be4ceb02cce6cb",
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
     ],
-    "count": 1,
-    "create_time": 1761729103,
-    "update_time": 1761729103,
+    "count": 2,
+    "update_time": 1761729971,
     "_id": "Bok Choy"
   },
   "Tofu Puff": {
     "chunk_ids": [
       "chunk-39359ce96c3ce30016be4ceb02cce6cb",
-      "chunk-b7f773f47d03d52b403b40d4e2e586b4"
+      "chunk-b7f773f47d03d52b403b40d4e2e586b4",
+      "chunk-f3555c531ea69323534980be920d601e"
     ],
-    "count": 2,
-    "update_time": 1761729486,
+    "count": 3,
+    "update_time": 1761729895,
     "_id": "Tofu Puff"
   },
   "Meatball Preparation Method": {
@@ -2568,11 +2699,11 @@
   },
   "Garlic Chives": {
     "chunk_ids": [
-      "chunk-5eb6edbadf0c4a4d6518d2423dd97107"
+      "chunk-5eb6edbadf0c4a4d6518d2423dd97107",
+      "chunk-f3555c531ea69323534980be920d601e"
     ],
-    "count": 1,
-    "create_time": 1761729156,
-    "update_time": 1761729156,
+    "count": 2,
+    "update_time": 1761729895,
     "_id": "Garlic Chives"
   },
   "Green Pepper": {
@@ -2587,10 +2718,13 @@
   "Sichuan Pepper": {
     "chunk_ids": [
       "chunk-5eb6edbadf0c4a4d6518d2423dd97107",
-      "chunk-82883b3c4465e3f2e6c376679735a5d7"
+      "chunk-82883b3c4465e3f2e6c376679735a5d7",
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1",
+      "chunk-f3555c531ea69323534980be920d601e",
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
     ],
-    "count": 2,
-    "update_time": 1761729480,
+    "count": 5,
+    "update_time": 1761729941,
     "_id": "Sichuan Pepper"
   },
   "Dried Tofu Shreds": {
@@ -2604,20 +2738,20 @@
   },
   "Beef Balls": {
     "chunk_ids": [
-      "chunk-5eb6edbadf0c4a4d6518d2423dd97107"
+      "chunk-5eb6edbadf0c4a4d6518d2423dd97107",
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
     ],
-    "count": 1,
-    "create_time": 1761729157,
-    "update_time": 1761729157,
+    "count": 2,
+    "update_time": 1761729618,
     "_id": "Beef Balls"
   },
   "Cooking Time: Twenty Minutes": {
     "chunk_ids": [
-      "chunk-5eb6edbadf0c4a4d6518d2423dd97107"
+      "chunk-5eb6edbadf0c4a4d6518d2423dd97107",
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
     ],
-    "count": 1,
-    "create_time": 1761729157,
-    "update_time": 1761729157,
+    "count": 2,
+    "update_time": 1761729803,
     "_id": "Cooking Time: Twenty Minutes"
   },
   "DIY Nourishing Family Hotpot": {
@@ -2767,10 +2901,11 @@
   "Cooking Duration": {
     "chunk_ids": [
       "chunk-c558d685940c8dcdcdb162465524d6af",
-      "chunk-84084ad36bba32d6401651a9b06dfa7e"
+      "chunk-84084ad36bba32d6401651a9b06dfa7e",
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
     ],
-    "count": 2,
-    "update_time": 1761729555,
+    "count": 3,
+    "update_time": 1761729941,
     "_id": "Cooking Duration"
   },
   "Braised Bitter Melon": {
@@ -2839,10 +2974,11 @@
   "Refined Salt": {
     "chunk_ids": [
       "chunk-1fa44a9cf3fa327deb487c71d2a195fb",
-      "chunk-97f418cbbb03dd9fc3504be972c9a05a"
+      "chunk-97f418cbbb03dd9fc3504be972c9a05a",
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
     ],
-    "count": 2,
-    "update_time": 1761729363,
+    "count": 3,
+    "update_time": 1761729802,
     "_id": "Refined Salt"
   },
   "Squid Rolls": {
@@ -2865,11 +3001,11 @@
   },
   "Meatballs": {
     "chunk_ids": [
-      "chunk-1fa44a9cf3fa327deb487c71d2a195fb"
+      "chunk-1fa44a9cf3fa327deb487c71d2a195fb",
+      "chunk-924f38840508fc7a933ed26552118877"
     ],
-    "count": 1,
-    "create_time": 1761729204,
-    "update_time": 1761729204,
+    "count": 2,
+    "update_time": 1761729884,
     "_id": "Meatballs"
   },
   "Egg Rolls": {
@@ -2976,19 +3112,20 @@
     "chunk_ids": [
       "chunk-7ab0ccdf25b8acd18b384bb1095223db",
       "chunk-97f418cbbb03dd9fc3504be972c9a05a",
-      "chunk-82883b3c4465e3f2e6c376679735a5d7"
+      "chunk-82883b3c4465e3f2e6c376679735a5d7",
+      "chunk-2e80fb468218342e758a926f2250cfbb"
     ],
-    "count": 3,
-    "update_time": 1761729479,
+    "count": 4,
+    "update_time": 1761729806,
     "_id": "Sausage"
   },
   "30-Minute Cooking Time": {
     "chunk_ids": [
-      "chunk-7ab0ccdf25b8acd18b384bb1095223db"
+      "chunk-7ab0ccdf25b8acd18b384bb1095223db",
+      "chunk-dd4228124691f29120994c6ce46b056e"
     ],
-    "count": 1,
-    "create_time": 1761729264,
-    "update_time": 1761729264,
+    "count": 2,
+    "update_time": 1761730034,
     "_id": "30-Minute Cooking Time"
   },
   "Maruko Noodle Soup": {
@@ -3056,11 +3193,11 @@
   },
   "Ten Minutes": {
     "chunk_ids": [
-      "chunk-0857a75ea80ec1571e3292a243f74944"
+      "chunk-0857a75ea80ec1571e3292a243f74944",
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
     ],
-    "count": 1,
-    "create_time": 1761729311,
-    "update_time": 1761729311,
+    "count": 2,
+    "update_time": 1761729728,
     "_id": "Ten Minutes"
   },
   "Swanson Broth": {
@@ -3236,11 +3373,11 @@
   },
   "Coriander": {
     "chunk_ids": [
-      "chunk-a0ca01053684f99d9fcd6904da661ac9"
+      "chunk-a0ca01053684f99d9fcd6904da661ac9",
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
     ],
-    "count": 1,
-    "create_time": 1761729387,
-    "update_time": 1761729387,
+    "count": 2,
+    "update_time": 1761729618,
     "_id": "Coriander"
   },
   "Electric Pot": {
@@ -3290,11 +3427,12 @@
   },
   "Pig Blood": {
     "chunk_ids": [
-      "chunk-2697d6fee4aa81f5a588f1cf2f0015cb"
+      "chunk-2697d6fee4aa81f5a588f1cf2f0015cb",
+      "chunk-f3555c531ea69323534980be920d601e",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
     ],
-    "count": 1,
-    "create_time": 1761729408,
-    "update_time": 1761729408,
+    "count": 3,
+    "update_time": 1761730094,
     "_id": "Pig Blood"
   },
   "Water Shield": {
@@ -3317,11 +3455,11 @@
   },
   "Spicy And Numbing Flavor": {
     "chunk_ids": [
-      "chunk-81c0eda37b57f9cbd9e84459f8e23806"
+      "chunk-81c0eda37b57f9cbd9e84459f8e23806",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
     ],
-    "count": 1,
-    "create_time": 1761729435,
-    "update_time": 1761729435,
+    "count": 2,
+    "update_time": 1761730093,
     "_id": "Spicy And Numbing Flavor"
   },
   "Spicy Fresh Seasoning": {
@@ -3353,11 +3491,11 @@
   },
   "Savory Sauce Flavor": {
     "chunk_ids": [
-      "chunk-82883b3c4465e3f2e6c376679735a5d7"
+      "chunk-82883b3c4465e3f2e6c376679735a5d7",
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
     ],
-    "count": 1,
-    "create_time": 1761729479,
-    "update_time": 1761729479,
+    "count": 2,
+    "update_time": 1761729940,
     "_id": "Savory Sauce Flavor"
   },
   "Clay Pot Cooking": {
@@ -3407,11 +3545,11 @@
   },
   "Starch": {
     "chunk_ids": [
-      "chunk-82883b3c4465e3f2e6c376679735a5d7"
+      "chunk-82883b3c4465e3f2e6c376679735a5d7",
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
     ],
-    "count": 1,
-    "create_time": 1761729480,
-    "update_time": 1761729480,
+    "count": 2,
+    "update_time": 1761729971,
     "_id": "Starch"
   },
   "Clear Soup Assorted Hotpot": {
@@ -3497,11 +3635,14 @@
   },
   "Monosodium Glutamate": {
     "chunk_ids": [
-      "chunk-84084ad36bba32d6401651a9b06dfa7e"
+      "chunk-84084ad36bba32d6401651a9b06dfa7e",
+      "chunk-0c6124654f71cd88c872b6e32c123663",
+      "chunk-2e80fb468218342e758a926f2250cfbb",
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e",
+      "chunk-bf3012c05b86f237b882134357971799"
     ],
-    "count": 1,
-    "create_time": 1761729555,
-    "update_time": 1761729555,
+    "count": 5,
+    "update_time": 1761730121,
     "_id": "Monosodium Glutamate"
   },
   "Chili Powder": {
@@ -3548,5 +3689,1166 @@
     "create_time": 1761729556,
     "update_time": 1761729556,
     "_id": "Serving Size"
+  },
+  "Jiaobai Stir-Fried Shrimp": {
+    "chunk_ids": [
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f"
+    ],
+    "count": 1,
+    "create_time": 1761729600,
+    "update_time": 1761729600,
+    "_id": "Jiaobai Stir-Fried Shrimp"
+  },
+  "Jiaobai": {
+    "chunk_ids": [
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f"
+    ],
+    "count": 1,
+    "create_time": 1761729600,
+    "update_time": 1761729600,
+    "_id": "Jiaobai"
+  },
+  "Shrimp": {
+    "chunk_ids": [
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f",
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 2,
+    "update_time": 1761729807,
+    "_id": "Shrimp"
+  },
+  "Oyster Sauce": {
+    "chunk_ids": [
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f"
+    ],
+    "count": 1,
+    "create_time": 1761729600,
+    "update_time": 1761729600,
+    "_id": "Oyster Sauce"
+  },
+  "Baijiu": {
+    "chunk_ids": [
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f"
+    ],
+    "count": 1,
+    "create_time": 1761729600,
+    "update_time": 1761729600,
+    "_id": "Baijiu"
+  },
+  "Water Absorption": {
+    "chunk_ids": [
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f"
+    ],
+    "count": 1,
+    "create_time": 1761729601,
+    "update_time": 1761729601,
+    "_id": "Water Absorption"
+  },
+  "Tail Splitting": {
+    "chunk_ids": [
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f"
+    ],
+    "count": 1,
+    "create_time": 1761729601,
+    "update_time": 1761729601,
+    "_id": "Tail Splitting"
+  },
+  "Yuanyang Hotpot": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729617,
+    "update_time": 1761729617,
+    "_id": "Yuanyang Hotpot"
+  },
+  "Spicy Broth": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729617,
+    "update_time": 1761729617,
+    "_id": "Spicy Broth"
+  },
+  "White Broth": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729617,
+    "update_time": 1761729617,
+    "_id": "White Broth"
+  },
+  "Pork Bone Stock": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729617,
+    "update_time": 1761729617,
+    "_id": "Pork Bone Stock"
+  },
+  "Free-Range Chicken": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729617,
+    "update_time": 1761729617,
+    "_id": "Free-Range Chicken"
+  },
+  "Sichuan Peppercorn": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729617,
+    "update_time": 1761729617,
+    "_id": "Sichuan Peppercorn"
+  },
+  "Facing Heaven Chili": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729617,
+    "update_time": 1761729617,
+    "_id": "Facing Heaven Chili"
+  },
+  "Red Oil Douban": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729617,
+    "update_time": 1761729617,
+    "_id": "Red Oil Douban"
+  },
+  "Shacha Sauce": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729617,
+    "update_time": 1761729617,
+    "_id": "Shacha Sauce"
+  },
+  "Curry Paste": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2",
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 2,
+    "update_time": 1761730120,
+    "_id": "Curry Paste"
+  },
+  "Fermented Tofu": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729617,
+    "update_time": 1761729617,
+    "_id": "Fermented Tofu"
+  },
+  "Hotpot Ingredients": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729617,
+    "update_time": 1761729617,
+    "_id": "Hotpot Ingredients"
+  },
+  "Luncheon Meat": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729618,
+    "update_time": 1761729618,
+    "_id": "Luncheon Meat"
+  },
+  "Wood Ear Fungus": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2",
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 2,
+    "update_time": 1761729808,
+    "_id": "Wood Ear Fungus"
+  },
+  "Meilin Luncheon Meat": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729618,
+    "update_time": 1761729618,
+    "_id": "Meilin Luncheon Meat"
+  },
+  "Sao Niao Beef Balls": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729618,
+    "update_time": 1761729618,
+    "_id": "Sao Niao Beef Balls"
+  },
+  "Shuangbao Mushroom": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729618,
+    "update_time": 1761729618,
+    "_id": "Shuangbao Mushroom"
+  },
+  "Sweet Taro": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729618,
+    "update_time": 1761729618,
+    "_id": "Sweet Taro"
+  },
+  "Bay Leaf": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2",
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 2,
+    "update_time": 1761729722,
+    "_id": "Bay Leaf"
+  },
+  "Fennel Seed": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729618,
+    "update_time": 1761729618,
+    "_id": "Fennel Seed"
+  },
+  "White Cardamom": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729619,
+    "update_time": 1761729619,
+    "_id": "White Cardamom"
+  },
+  "Fermented Glutinous Rice": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729619,
+    "update_time": 1761729619,
+    "_id": "Fermented Glutinous Rice"
+  },
+  "Chrysanthemum Greens": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729619,
+    "update_time": 1761729619,
+    "_id": "Chrysanthemum Greens"
+  },
+  "Chives Flower Sauce": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729619,
+    "update_time": 1761729619,
+    "_id": "Chives Flower Sauce"
+  },
+  "White Fermented Tofu": {
+    "chunk_ids": [
+      "chunk-0c6124654f71cd88c872b6e32c123663"
+    ],
+    "count": 1,
+    "create_time": 1761729619,
+    "update_time": 1761729619,
+    "_id": "White Fermented Tofu"
+  },
+  "Scallion, Ginger, Garlic Paste": {
+    "chunk_ids": [
+      "chunk-0c6124654f71cd88c872b6e32c123663"
+    ],
+    "count": 1,
+    "create_time": 1761729619,
+    "update_time": 1761729619,
+    "_id": "Scallion, Ginger, Garlic Paste"
+  },
+  "Chinese Chives Flower Sauce": {
+    "chunk_ids": [
+      "chunk-0c6124654f71cd88c872b6e32c123663"
+    ],
+    "count": 1,
+    "create_time": 1761729619,
+    "update_time": 1761729619,
+    "_id": "Chinese Chives Flower Sauce"
+  },
+  "Peanut Butter": {
+    "chunk_ids": [
+      "chunk-0c6124654f71cd88c872b6e32c123663"
+    ],
+    "count": 1,
+    "create_time": 1761729619,
+    "update_time": 1761729619,
+    "_id": "Peanut Butter"
+  },
+  "Satay Sauce": {
+    "chunk_ids": [
+      "chunk-0c6124654f71cd88c872b6e32c123663"
+    ],
+    "count": 1,
+    "create_time": 1761729619,
+    "update_time": 1761729619,
+    "_id": "Satay Sauce"
+  },
+  "Scallion Flowers": {
+    "chunk_ids": [
+      "chunk-0c6124654f71cd88c872b6e32c123663"
+    ],
+    "count": 1,
+    "create_time": 1761729619,
+    "update_time": 1761729619,
+    "_id": "Scallion Flowers"
+  },
+  "White Broth Dipping Sauce": {
+    "chunk_ids": [
+      "chunk-0c6124654f71cd88c872b6e32c123663"
+    ],
+    "count": 1,
+    "create_time": 1761729619,
+    "update_time": 1761729619,
+    "_id": "White Broth Dipping Sauce"
+  },
+  "Kimchi Mixed Mushroom Braised Chicken": {
+    "chunk_ids": [
+      "chunk-6b221e432780e20ad4b661254116bc62"
+    ],
+    "count": 1,
+    "create_time": 1761729642,
+    "update_time": 1761729642,
+    "_id": "Kimchi Mixed Mushroom Braised Chicken"
+  },
+  "Spicy and Sour": {
+    "chunk_ids": [
+      "chunk-6b221e432780e20ad4b661254116bc62"
+    ],
+    "count": 1,
+    "create_time": 1761729642,
+    "update_time": 1761729642,
+    "_id": "Spicy and Sour"
+  },
+  "30 Minutes": {
+    "chunk_ids": [
+      "chunk-6b221e432780e20ad4b661254116bc62"
+    ],
+    "count": 1,
+    "create_time": 1761729642,
+    "update_time": 1761729642,
+    "_id": "30 Minutes"
+  },
+  "Chicken Pieces": {
+    "chunk_ids": [
+      "chunk-6b221e432780e20ad4b661254116bc62"
+    ],
+    "count": 1,
+    "create_time": 1761729642,
+    "update_time": 1761729642,
+    "_id": "Chicken Pieces"
+  },
+  "Dried King Oyster Mushrooms": {
+    "chunk_ids": [
+      "chunk-6b221e432780e20ad4b661254116bc62"
+    ],
+    "count": 1,
+    "create_time": 1761729642,
+    "update_time": 1761729642,
+    "_id": "Dried King Oyster Mushrooms"
+  },
+  "Pressure Cooker": {
+    "chunk_ids": [
+      "chunk-6b221e432780e20ad4b661254116bc62"
+    ],
+    "count": 1,
+    "create_time": 1761729643,
+    "update_time": 1761729643,
+    "_id": "Pressure Cooker"
+  },
+  "Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729722,
+    "update_time": 1761729722,
+    "_id": "Spicy Lamb Hotpot"
+  },
+  "20-Minute Cooking Time": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729722,
+    "update_time": 1761729722,
+    "_id": "20-Minute Cooking Time"
+  },
+  "Fresh Lamb": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729722,
+    "update_time": 1761729722,
+    "_id": "Fresh Lamb"
+  },
+  "Sichuan Pepper Powder": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729722,
+    "update_time": 1761729722,
+    "_id": "Sichuan Pepper Powder"
+  },
+  "Cassia Bark": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1",
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 2,
+    "update_time": 1761729940,
+    "_id": "Cassia Bark"
+  },
+  "Scallion, Ginger, Garlic": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1",
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 2,
+    "update_time": 1761729802,
+    "_id": "Scallion, Ginger, Garlic"
+  },
+  "Chopped Scallion": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729723,
+    "update_time": 1761729723,
+    "_id": "Chopped Scallion"
+  },
+  "Dried Red Chili": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729723,
+    "update_time": 1761729723,
+    "_id": "Dried Red Chili"
+  },
+  "Green and Red Chili": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729723,
+    "update_time": 1761729723,
+    "_id": "Green and Red Chili"
+  },
+  "Sesame Oil Chicken Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729728,
+    "update_time": 1761729728,
+    "_id": "Sesame Oil Chicken Vegetable Hotpot"
+  },
+  "Chicken Thigh Meat": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729728,
+    "update_time": 1761729728,
+    "_id": "Chicken Thigh Meat"
+  },
+  "Rock Sugar": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729728,
+    "update_time": 1761729728,
+    "_id": "Rock Sugar"
+  },
+  "High-Proof Baijiu": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729728,
+    "update_time": 1761729728,
+    "_id": "High-Proof Baijiu"
+  },
+  "Taiwanese Rice Wine": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729728,
+    "update_time": 1761729728,
+    "_id": "Taiwanese Rice Wine"
+  },
+  "Black Sesame Oil": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729728,
+    "update_time": 1761729728,
+    "_id": "Black Sesame Oil"
+  },
+  "Abalone Mushrooms": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729728,
+    "update_time": 1761729728,
+    "_id": "Abalone Mushrooms"
+  },
+  "Green Cabbage": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729728,
+    "update_time": 1761729728,
+    "_id": "Green Cabbage"
+  },
+  "Old Ginger Slices": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729728,
+    "update_time": 1761729728,
+    "_id": "Old Ginger Slices"
+  },
+  "Five-Flavor Dipping Sauce": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729728,
+    "update_time": 1761729728,
+    "_id": "Five-Flavor Dipping Sauce"
+  },
+  "Vermicelli Noodles": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729728,
+    "update_time": 1761729728,
+    "_id": "Vermicelli Noodles"
+  },
+  "Taiwan": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729728,
+    "update_time": 1761729728,
+    "_id": "Taiwan"
+  },
+  "Bing Bing's Good Cooking": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729728,
+    "update_time": 1761729728,
+    "_id": "Bing Bing's Good Cooking"
+  },
+  "Kinmen Kaoliang Liquor": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729729,
+    "update_time": 1761729729,
+    "_id": "Kinmen Kaoliang Liquor"
+  },
+  "Huohuo's Fish Hotpot": {
+    "chunk_ids": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 1,
+    "create_time": 1761729802,
+    "update_time": 1761729802,
+    "_id": "Huohuo's Fish Hotpot"
+  },
+  "Carp": {
+    "chunk_ids": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 1,
+    "create_time": 1761729802,
+    "update_time": 1761729802,
+    "_id": "Carp"
+  },
+  "Seafood Soy Sauce": {
+    "chunk_ids": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 1,
+    "create_time": 1761729803,
+    "update_time": 1761729803,
+    "_id": "Seafood Soy Sauce"
+  },
+  "Fish Ball Mushroom Seafood Soup": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729806,
+    "update_time": 1761729806,
+    "_id": "Fish Ball Mushroom Seafood Soup"
+  },
+  "Savory Flavor": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729806,
+    "update_time": 1761729806,
+    "_id": "Savory Flavor"
+  },
+  "45-Minute Cooking Time": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729806,
+    "update_time": 1761729806,
+    "_id": "45-Minute Cooking Time"
+  },
+  "Button Mushroom": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729806,
+    "update_time": 1761729806,
+    "_id": "Button Mushroom"
+  },
+  "Old Duck Broth Meatball Vermicelli Hot Pot": {
+    "chunk_ids": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
+    "count": 1,
+    "create_time": 1761729884,
+    "update_time": 1761729884,
+    "_id": "Old Duck Broth Meatball Vermicelli Hot Pot"
+  },
+  "Soup Pot": {
+    "chunk_ids": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
+    "count": 1,
+    "create_time": 1761729885,
+    "update_time": 1761729885,
+    "_id": "Soup Pot"
+  },
+  "Old Duck Broth": {
+    "chunk_ids": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
+    "count": 1,
+    "create_time": 1761729885,
+    "update_time": 1761729885,
+    "_id": "Old Duck Broth"
+  },
+  "Red Oil Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729894,
+    "update_time": 1761729894,
+    "_id": "Red Oil Spicy Hotpot"
+  },
+  "Spicy and Numbing": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e",
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 2,
+    "update_time": 1761730120,
+    "_id": "Spicy and Numbing"
+  },
+  "Glebionis Coronaria": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729894,
+    "update_time": 1761729894,
+    "_id": "Glebionis Coronaria"
+  },
+  "Wheat Gluten": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 2,
+    "update_time": 1761730093,
+    "_id": "Wheat Gluten"
+  },
+  "Hong Shan He Hotpot Base": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e",
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 2,
+    "update_time": 1761730094,
+    "_id": "Hong Shan He Hotpot Base"
+  },
+  "Pork Bones": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729895,
+    "update_time": 1761729895,
+    "_id": "Pork Bones"
+  },
+  "Soybean Sprouts": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729895,
+    "update_time": 1761729895,
+    "_id": "Soybean Sprouts"
+  },
+  "Handmade Starch Noodles": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729896,
+    "update_time": 1761729896,
+    "_id": "Handmade Starch Noodles"
+  },
+  "Old Beijing Lamb Scorpion Hotpot": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729940,
+    "update_time": 1761729940,
+    "_id": "Old Beijing Lamb Scorpion Hotpot"
+  },
+  "Lamb Scorpion": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729940,
+    "update_time": 1761729940,
+    "_id": "Lamb Scorpion"
+  },
+  "Cloves": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729940,
+    "update_time": 1761729940,
+    "_id": "Cloves"
+  },
+  "Dried Tangerine Peel": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729940,
+    "update_time": 1761729940,
+    "_id": "Dried Tangerine Peel"
+  },
+  "Sand Ginger": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729941,
+    "update_time": 1761729941,
+    "_id": "Sand Ginger"
+  },
+  "Black Cardamom": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729941,
+    "update_time": 1761729941,
+    "_id": "Black Cardamom"
+  },
+  "Fennel Seeds": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729941,
+    "update_time": 1761729941,
+    "_id": "Fennel Seeds"
+  },
+  "Beijing Dried Yellow Soybean Paste": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729941,
+    "update_time": 1761729941,
+    "_id": "Beijing Dried Yellow Soybean Paste"
+  },
+  "Huangjiu": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729941,
+    "update_time": 1761729941,
+    "_id": "Huangjiu"
+  },
+  "Lamb Scorpion Segment": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729942,
+    "update_time": 1761729942,
+    "_id": "Lamb Scorpion Segment"
+  },
+  "Water Blanching": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729942,
+    "update_time": 1761729942,
+    "_id": "Water Blanching"
+  },
+  "Soy Milk Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729971,
+    "update_time": 1761729971,
+    "_id": "Soy Milk Vegetable Hotpot"
+  },
+  "Wood Ear": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729972,
+    "update_time": 1761729972,
+    "_id": "Wood Ear"
+  },
+  "Lean Meat": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729972,
+    "update_time": 1761729972,
+    "_id": "Lean Meat"
+  },
+  "Soybean": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729972,
+    "update_time": 1761729972,
+    "_id": "Soybean"
+  },
+  "Jiuyang Soy Milk Maker": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1",
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 2,
+    "update_time": 1761730020,
+    "_id": "Jiuyang Soy Milk Maker"
+  },
+  "Pure Aroma Function": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1",
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 2,
+    "update_time": 1761730020,
+    "_id": "Pure Aroma Function"
+  },
+  "Shredded Pork Soy Milk Cooked Liangfen": {
+    "chunk_ids": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 1,
+    "create_time": 1761730020,
+    "update_time": 1761730020,
+    "_id": "Shredded Pork Soy Milk Cooked Liangfen"
+  },
+  "Rice Liangfen": {
+    "chunk_ids": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 1,
+    "create_time": 1761730020,
+    "update_time": 1761730020,
+    "_id": "Rice Liangfen"
+  },
+  "Shredded Pork": {
+    "chunk_ids": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 1,
+    "create_time": 1761730020,
+    "update_time": 1761730020,
+    "_id": "Shredded Pork"
+  },
+  "Soybeans": {
+    "chunk_ids": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 1,
+    "create_time": 1761730020,
+    "update_time": 1761730020,
+    "_id": "Soybeans"
+  },
+  "Pea Shoots": {
+    "chunk_ids": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 1,
+    "create_time": 1761730020,
+    "update_time": 1761730020,
+    "_id": "Pea Shoots"
+  },
+  "Cooking Oil": {
+    "chunk_ids": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 1,
+    "create_time": 1761730021,
+    "update_time": 1761730021,
+    "_id": "Cooking Oil"
+  },
+  "Kimchi Hot Pot": {
+    "chunk_ids": [
+      "chunk-dd4228124691f29120994c6ce46b056e"
+    ],
+    "count": 1,
+    "create_time": 1761730034,
+    "update_time": 1761730034,
+    "_id": "Kimchi Hot Pot"
+  },
+  "Frozen Tofu": {
+    "chunk_ids": [
+      "chunk-dd4228124691f29120994c6ce46b056e"
+    ],
+    "count": 1,
+    "create_time": 1761730035,
+    "update_time": 1761730035,
+    "_id": "Frozen Tofu"
+  },
+  "Meat Patties": {
+    "chunk_ids": [
+      "chunk-dd4228124691f29120994c6ce46b056e"
+    ],
+    "count": 1,
+    "create_time": 1761730035,
+    "update_time": 1761730035,
+    "_id": "Meat Patties"
+  },
+  "Cabbage Kimchi": {
+    "chunk_ids": [
+      "chunk-dd4228124691f29120994c6ce46b056e"
+    ],
+    "count": 1,
+    "create_time": 1761730035,
+    "update_time": 1761730035,
+    "_id": "Cabbage Kimchi"
+  },
+  "Suan Cai Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730093,
+    "update_time": 1761730093,
+    "_id": "Suan Cai Spicy Hotpot"
+  },
+  "Wide And Thin Vermicelli": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730093,
+    "update_time": 1761730093,
+    "_id": "Wide And Thin Vermicelli"
+  },
+  "Cauliflower": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730093,
+    "update_time": 1761730093,
+    "_id": "Cauliflower"
+  },
+  "Baby King Oyster Mushroom": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730093,
+    "update_time": 1761730093,
+    "_id": "Baby King Oyster Mushroom"
+  },
+  "Choy Sum": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730093,
+    "update_time": 1761730093,
+    "_id": "Choy Sum"
+  },
+  "Leaf Lettuce": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730094,
+    "update_time": 1761730094,
+    "_id": "Leaf Lettuce"
+  },
+  "Crab Meat": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730094,
+    "update_time": 1761730094,
+    "_id": "Crab Meat"
+  },
+  "Chili Pepper": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730094,
+    "update_time": 1761730094,
+    "_id": "Chili Pepper"
+  },
+  "Garlic Dipping Sauce": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730094,
+    "update_time": 1761730094,
+    "_id": "Garlic Dipping Sauce"
+  },
+  "Sour Spicy Chicken Braised Fish": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730120,
+    "update_time": 1761730120,
+    "_id": "Sour Spicy Chicken Braised Fish"
+  },
+  "Braising": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730120,
+    "update_time": 1761730120,
+    "_id": "Braising"
+  },
+  "Bighead Carp": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730120,
+    "update_time": 1761730120,
+    "_id": "Bighead Carp"
+  },
+  "Fermented Chili": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730120,
+    "update_time": 1761730120,
+    "_id": "Fermented Chili"
+  },
+  "Fermented Ginger": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730120,
+    "update_time": 1761730120,
+    "_id": "Fermented Ginger"
+  },
+  "Red Oil Chili Paste": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730120,
+    "update_time": 1761730120,
+    "_id": "Red Oil Chili Paste"
+  },
+  "Clear Water": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730121,
+    "update_time": 1761730121,
+    "_id": "Clear Water"
+  },
+  "Flat-Bottomed Cooking Pot": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730121,
+    "update_time": 1761730121,
+    "_id": "Flat-Bottomed Cooking Pot"
   }
 }

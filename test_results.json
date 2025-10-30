@@ -1,0 +1,118 @@
+[
+{
+  "timestamp": "2025-10-30T02:11:20.504738",
+  "test_case": "基本问候",
+  "question": "你好",
+  "expected_route": "general-query",
+  "actual_route": "general-query",
+  "route_match": true,
+  "logic": "用户仅进行了问候，属于轻量对话。",
+  "response_time_seconds": 5.002081,
+  "full_response": "亲～👋 您好呀！很高兴见到您～  \n有什么菜谱、食材搭配、烹饪技巧方面的问题，或者想找某道菜的做法吗？随时告诉我哦！😊🍲",
+  "status": "✅ PASS"
+},
+{
+  "timestamp": "2025-10-30T02:11:38.067008",
+  "test_case": "模糊提问",
+  "question": "我想做菜",
+  "expected_route": "additional-query",
+  "actual_route": "ERROR",
+  "route_match": false,
+  "error": "'NoneType' object has no attribute 'decision'",
+  "status": "❌ ERROR"
+},
+{
+  "timestamp": "2025-10-30T02:11:40.069004",
+  "test_case": "无关问题（Guardrails拦截）",
+  "question": "今天天气怎么样",
+  "expected_route": "additional-query",
+  "actual_route": "general-query",
+  "route_match": false,
+  "logic": "用户询问的是天气情况，与菜谱、食材或烹饪无关，属于非相关轻量对话。",
+  "response_time_seconds": 12.326673,
+  "full_response": "厨友您好～感谢您的咨询～😊  \n不好意思呢亲，这个问题可能不太属于我们的菜谱范围啦～我这边主要帮您解答关于菜谱、食材、烹饪技巧等方面的问题哦！  \n\n如果您想知道天气情况，建议可以查看手机上的天气应用查看当地实时天气，或者问问智能语音助手（比如 Siri、小爱同学等）～☀️🌧️  \n\n不过！如果您因为天气想了解「适合今天吃的菜」，比如下雨天想煮点暖暖的汤、大热天想做清爽凉菜，那我可太擅长啦～随时告诉我您的需求哦！🍲🥗  \n\n期待继续为您效劳～",
+  "status": "❌ FAIL"
+},
+{
+  "timestamp": "2025-10-30T02:11:54.397930",
+  "test_case": "历史典故查询",
+  "question": "宫保鸡丁的历史典故是什么",
+  "expected_route": "kb-query",
+  "actual_route": "kb-query",
+  "route_match": true,
+  "logic": "用户询问宫保鸡丁的历史典故，属于菜品背景和文化知识，应通过知识库检索相关信息。",
+  "response_time_seconds": 23.58954,
+  "full_response": "关于“宫保鸡丁”的历史典故，当前提供的检索结果中**并未直接提及**该菜肴的起源或相关故事。\n\n不过，结合已有信息和普遍的历史认知可以说明：\n\n- **宫保鸡丁**是一道著名的川菜，其名称中的“宫保”源自清朝官员**丁宝桢**的官衔。丁宝桢曾任四川总督，被封为“太子少保”，俗称“宫保”。他本人喜爱美食，尤其偏好鸡肉与辣椒、花生的搭配，后人便以其官衔命名此菜，称为“宫保鸡丁”。\n- 值得注意的是，根据检索结果[Milvus#1][Milvus#3]，**辣椒在明代以前尚未传入中国**，直到清代乾隆以后才在西南地区（如贵州、湖南）逐渐普及。因此，宫保鸡丁这道以辣味为特色的菜肴，**不可能早于明代出现**，其真正成型应在**清代中后期**，与丁宝桢生活的年代（1820–1886）相符。\n\n综上，虽然检索结果未直接记载宫保鸡丁的典故，但结合历史背景可知：  \n> 宫保鸡丁得名于清朝四川总督丁宝桢的官衔“宫保”，是晚清时期在四川地区创制的一道融合辣味与酱香的官府菜，反映了辣椒传入中国后对地方饮食文化的深刻影响。\n\n---  \n*注：以上补充内容基于通用历史知识；若需严格依据给定检索结果，则知识库中暂无宫保鸡丁的直接记载。*",
+  "status": "✅ PASS"
+},
+{
+  "timestamp": "2025-10-30T02:12:19.988991",
+  "test_case": "地域流派介绍",
+  "question": "川菜的特点是什么",
+  "expected_route": "kb-query",
+  "actual_route": "kb-query",
+  "route_match": true,
+  "logic": "用户询问川菜的特点，属于菜系背景和风味介绍，应通过知识库检索相关信息。",
+  "response_time_seconds": 40.955873,
+  "full_response": "川菜，即四川菜，是中国八大菜系之一，以其鲜明的风味特色著称。虽然你提供的检索结果中没有直接描述“川菜特点”的内容，但结合其中关于调味品历史的信息，我们可以从文化与食材演变的角度进行合理推导和补充说明：\n\n### 川菜的主要特点包括：\n\n1. **味型丰富、善用复合调味**  \n   川菜以“一菜一格，百菜百味”闻名，不仅限于“麻辣”，还包括鱼香、怪味、椒麻、红油、酸辣、蒜泥、陈皮等多种味型。这种多样性得益于历史上多种调味品在四川地区的融合与发展。\n\n2. **重用本土香辛料，尤以花椒为特色**  \n   如检索结果[Milvus#2]提到：“花椒，是中国本土特产的一种辛香料。它能产生麻辣感，刺激味觉和食欲。”四川盆地气候潮湿，古人利用花椒的温热属性驱寒祛湿，逐渐形成“尚麻”的饮食传统。\n\n3. **辣椒虽非原产，但深刻塑造了现代川菜**  \n   检索结果[Milvus#1]指出，辣椒在明朝以后才传入中国，此前并无辣味菜肴。尽管如此，辣椒传入后迅速与本地花椒结合，催生了“麻辣”这一标志性风味，成为近现代川菜的核心特征。\n\n4. **酱、豉、醋等传统发酵调味品应用广泛**  \n   从[Milvus#2][Milvus#3][Milvus#4]可知，豆豉、豆瓣酱（如郫县豆瓣）、酱油、醋等在明清时期已高度普及。川菜中大量使用豆瓣酱、泡椒、醪糟等发酵调料，赋予菜肴醇厚、鲜香、微酸或回甜的层次感。\n\n5. **讲究“调味如调琴”，注重平衡与层次**  \n   川菜并非一味求辣求麻，而是强调各种味道的协调。例如“鱼香味”融合咸、甜、酸、辣、鲜，却无鱼；“怪味”则集麻、辣、甜、咸、酸、鲜、香于一体，体现高超的调味技艺。\n\n综上，川菜的特点根植于中国悠久的调味文化，并在四川独特的地理气候与历史发展中不断演化，最终形成以“麻辣鲜香、味型多变”为核心的独特风格。\n\n> 注：以上分析结合了检索结果中关于古代调味品（花椒、辣椒、酱、醋等）的历史信息，并依据公认的川菜文化知识进行整合。若需具体菜例或烹饪技法，建议参考专业川菜文献。",
+  "status": "✅ PASS"
+},
+{
+  "timestamp": "2025-10-30T02:13:02.947016",
+  "test_case": "菜谱做法（Cypher）",
+  "question": "红烧肉怎么做",
+  "expected_route": "graphrag-query",
+  "actual_route": "graphrag-query",
+  "route_match": true,
+  "logic": "用户询问红烧肉的具体做法，属于具体菜谱操作问题，需通过图谱或数据库获取详细步骤、食材用量等信息。",
+  "response_time_seconds": 11.713994,
+  "full_response": "### 数据统计\n红烧肉的详细做法步骤是什么：\n1. 将五花肉清洗干净切成方形的小块\n2. 将五花肉块放入锅中加水，加一大勺料酒，煮沸两三分钟。这一步主要是为了去腥\n3. 关火后将煮肉的水倒掉，向锅中注入凉水，使猪肉块过一遍凉水。这一步主要是为了使肉块更加紧实，口感好\n4. 将肉块捞出，控干水分备用\n5. 锅中倒油，烧热\n6. 将肉块倒入油锅中，翻几下，煸出油脂。这一步主要是为了使肉减少油腻\n7. 将肉块捞出备用，上一步煸出来的油留着炒菜用\n8. 锅中倒入适量的植物油，下一把冰糖，中火加热\n9. 用铲子将冰糖敲碎并搅拌，加热至冰糖融化并呈焦糖色\n10. 将肉块倒入锅中快速翻炒，使肉块均匀的裹上糖色，再加入一大勺老抽，继续翻几下，使肉块色泽更加红亮\n11. 向锅中加入适量的清水\n12. 加入适量的生抽，蚝油和盐\n13. 加入葱姜蒜花椒八角桂皮香叶草果丁香陈皮白芷小茴香山楂干和冰糖等\n14. 喜欢吃卤蛋的话再将几个煮熟的鸡蛋剥去外壳放入肉汤中，这步也可以省略\n15. 盖上盖子中小火炖半个小时\n16. 大火十多分钟收收汁\n17. 出锅装盘就可以吃了\n18. 太香了",
+  "status": "✅ PASS"
+},
+{
+  "timestamp": "2025-10-30T02:13:16.663389",
+  "test_case": "食材查询（Cypher）",
+  "question": "宫保鸡丁需要哪些食材",
+  "expected_route": "graphrag-query",
+  "actual_route": "graphrag-query",
+  "route_match": true,
+  "logic": "用户询问宫保鸡丁所需的食材，属于具体菜谱的原料信息，需通过图谱或数据库查询。",
+  "response_time_seconds": 13.151596,
+  "full_response": "### 数据统计\n宫保鸡丁的主料、辅料和调料分别有哪些？：\n1. 主食材：淀粉, 用量：适量\n2. 主食材：花椒, 用量：适量\n3. 主食材：干辣椒, 用量：适量\n4. 主食材：生姜, 用量：适量\n5. 主食材：大蒜, 用量：适量\n6. 主食材：大葱, 用量：适量\n7. 主食材：花生米, 用量：适量\n8. 主食材：鸡腿, 用量：3个",
+  "status": "✅ PASS"
+},
+{
+  "timestamp": "2025-10-30T02:14:13.463493",
+  "test_case": "技巧推理（GraphRAG）",
+  "question": "怎么判断鱼熟了",
+  "expected_route": "graphrag-query",
+  "actual_route": "ERROR",
+  "route_match": false,
+  "error": "2 validation errors for ValidateCypherOutput\nerrors\n  Input should be a valid list [type=list_type, input_value='[\"问题询问的是判...的节点或属性。\"]', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.10/v/list_type\nfilters\n  Input should be a valid list [type=list_type, input_value='[{\"node_label\": \"Ingredi...roperty_value\": \"鱼\"}]', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.10/v/list_type",
+  "status": "❌ ERROR"
+},
+{
+  "timestamp": "2025-10-30T02:14:15.465024",
+  "test_case": "统计查询",
+  "question": "数据库里有多少道菜",
+  "expected_route": "text2sql-query",
+  "actual_route": "text2sql-query",
+  "route_match": true,
+  "logic": "用户询问数据库中菜谱的总数，属于对结构化数据的统计查询，应使用 text2sql-query 类型。",
+  "response_time_seconds": 24.530092,
+  "full_response": "### 数据统计\n数据库中收录的菜品总数是多少？：### 查询结果摘要\n问题：数据库中收录的菜品总数是多少？\n\n---\n\n## SQL 命令分析报告\n\n### 1. 查询意图\n查询数据库中收录的菜品总数\n\n### 2. 涉及的表\n- recipes\n\n### 3. 关键字段\n- id\n\n### 6. 聚合需求\nCOUNT(recipes.id) AS total_dishes\n\n---\n### 结果预览\n```json\n[\n  {\n    \"total_dishes\": 70\n  }\n]\n```\n\n---\n### 可视化建议\n- 类型：table\n- 标题：数据库收录菜品总数\n\n数据库中收录的菜品总数是多少？：\ntotal_dishes：70",
+  "status": "✅ PASS"
+},
+{
+  "timestamp": "2025-10-30T02:14:41.996994",
+  "test_case": "排名查询",
+  "question": "哪个菜系的菜谱最多",
+  "expected_route": "text2sql-query",
+  "actual_route": "text2sql-query",
+  "route_match": true,
+  "logic": "该问题涉及对菜谱数量按菜系进行统计，属于结构化数据库查询范畴。",
+  "response_time_seconds": 20.348761,
+  "full_response": "### 数据统计\n统计各菜系的菜谱数量，找出菜谱最多的菜系：抱歉，执行 SQL 时出现错误：仅支持只读 SELECT 查询",
+  "status": "✅ PASS"
+}
+]

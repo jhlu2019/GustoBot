@@ -6,6 +6,7 @@ except ImportError:  # pragma: no cover - minimal stdlib fallback
     from typing import Annotated, TypedDict
 
 import logging
+from gustobot.infrastructure.core.logger import get_logger
 from langchain_core.language_models import BaseChatModel
 from langchain_core.output_parsers import StrOutputParser
 from langchain_neo4j import Neo4jGraph
@@ -179,13 +180,23 @@ async def validate_cypher_query_with_llm(
 
 
     # 使用大模型验证Cypher语句的语法， 通过 Pydantic 结构化输出
-    llm_output: ValidateCypherOutput = await validate_cypher_chain.ainvoke(
-        {
-            "question": question,
-            "schema": retrieve_and_parse_schema_from_graph_for_prompts(graph),
-            "cypher": cypher_statement,
+    try:
+        llm_output: ValidateCypherOutput = await validate_cypher_chain.ainvoke(
+            {
+                "question": question,
+                "schema": retrieve_and_parse_schema_from_graph_for_prompts(graph),
+                "cypher": cypher_statement,
+            }
+        )
+    except Exception as e:
+        # 如果 LLM 返回格式错误，返回错误信息
+        logger = get_logger(service="cypher_validation")
+        logger.warning(f"Cypher validation failed with Pydantic error: {e}")
+        errors.append(f"LLM validation failed: {str(e)}")
+        return {
+            "errors": errors,
+            "mapping_errors": mapping_errors,
         }
-    )
 
     # 如果 Pydantic 结构化输出中包含 errors，则将 errors 添加到 errors 列表中
     if llm_output.errors:
@@ -451,10 +462,10 @@ def create_text2cypher_validation_node(
         # Map 会表明你的Cypher查询语法是正确的，但查询中使用的具体值在数据库中不存在。这是数据不存在的问题，而不是查询语法的问题。
         if errors:  # 真正的语法错误
             correct_cypher_chain = correction_cypher_prompt | llm | StrOutputParser()
-            corrected_cypher_update = correct_cypher_chain.ainvoke(
+            corrected_cypher_update = await correct_cypher_chain.ainvoke(
                 {
                     "question": state.get("task"),
-                    "errors": errors, 
+                    "errors": errors,
                     "cypher": cypher_statement,
                     "schema": graph.schema,
                 }

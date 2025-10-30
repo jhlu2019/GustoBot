@@ -312,6 +312,11 @@ async def get_additional_info(
         {"question": state.messages[-1].content if state.messages else ""}
     )
 
+    # 空值检查：如果 LLM 返回 None，默认为 proceed
+    if guardrails_output is None:
+        logger.warning("Guardrails returned None, defaulting to proceed")
+        guardrails_output = AdditionalGuardrailsOutput(decision="proceed")
+
     # 根据格式化输出的结果，返回不同的响应
     if guardrails_output.decision == "end":
         logger.info("-----Fail to pass guardrails check-----")

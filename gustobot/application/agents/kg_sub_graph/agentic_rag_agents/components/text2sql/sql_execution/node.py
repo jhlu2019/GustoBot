@@ -134,12 +134,32 @@ def _run_query_sync(
 
 
 def _is_read_only_query(sql: str) -> bool:
+    """
+    检查 SQL 是否为只读查询（SELECT、WITH、EXPLAIN）
+
+    Returns:
+        True if query is read-only, False otherwise
+    """
     statement = sql.strip()
     if not statement:
         return False
 
+    # 检查是否包含多条语句（;分隔）
     if ";" in statement.rstrip(";"):
         return False
 
     upper = statement.upper()
-    return upper.startswith("SELECT ") or upper.startswith("WITH ")
+
+    # 允许的只读关键词
+    readonly_keywords = ['SELECT ', 'WITH ', 'EXPLAIN ', 'SHOW ']
+    starts_with_readonly = any(upper.startswith(kw) for kw in readonly_keywords)
+
+    # 危险关键词（即使在SELECT中也不允许）
+    dangerous_keywords = [
+        'INSERT ', 'UPDATE ', 'DELETE ', 'DROP ', 'CREATE ', 'ALTER ',
+        'TRUNCATE ', 'REPLACE ', 'MERGE ', 'GRANT ', 'REVOKE ', 'EXEC ',
+        'EXECUTE ', 'CALL '
+    ]
+    contains_dangerous = any(kw in upper for kw in dangerous_keywords)
+
+    return starts_with_readonly and not contains_dangerous

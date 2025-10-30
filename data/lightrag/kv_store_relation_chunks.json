@@ -550,11 +550,11 @@
   },
   "Dipping Sauce<SEP>Scallion": {
     "chunk_ids": [
-      "chunk-525368ae67bfb4088b7edf37b3130ef1"
+      "chunk-525368ae67bfb4088b7edf37b3130ef1",
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
     ],
-    "count": 1,
-    "create_time": 1761728605,
-    "update_time": 1761728605,
+    "count": 2,
+    "update_time": 1761729630,
     "_id": "Dipping Sauce<SEP>Scallion"
   },
   "Fish Flavor<SEP>Sheng Gun Yu Pian Huo Guo": {
@@ -1378,11 +1378,11 @@
   },
   "Ginger<SEP>Stir-Frying": {
     "chunk_ids": [
-      "chunk-c0a0b84354b6e31e47d11849d6be71e1"
+      "chunk-c0a0b84354b6e31e47d11849d6be71e1",
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f"
     ],
-    "count": 1,
-    "create_time": 1761728771,
-    "update_time": 1761728771,
+    "count": 2,
+    "update_time": 1761729613,
     "_id": "Ginger<SEP>Stir-Frying"
   },
   "Kelp<SEP>Pork Rib Hotpot": {
@@ -1450,11 +1450,11 @@
   },
   "Garlic<SEP>Stir-Frying": {
     "chunk_ids": [
-      "chunk-c0a0b84354b6e31e47d11849d6be71e1"
+      "chunk-c0a0b84354b6e31e47d11849d6be71e1",
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f"
     ],
-    "count": 1,
-    "create_time": 1761728773,
-    "update_time": 1761728773,
+    "count": 2,
+    "update_time": 1761729614,
     "_id": "Garlic<SEP>Stir-Frying"
   },
   "Ginger-Garlic Paste<SEP>Stir-Frying": {
@@ -3835,11 +3835,11 @@
   },
   "Garlic<SEP>Ginger": {
     "chunk_ids": [
-      "chunk-0857a75ea80ec1571e3292a243f74944"
+      "chunk-0857a75ea80ec1571e3292a243f74944",
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
     ],
-    "count": 1,
-    "create_time": 1761729318,
-    "update_time": 1761729318,
+    "count": 2,
+    "update_time": 1761730034,
     "_id": "Garlic<SEP>Ginger"
   },
   "Fresh Soup Hotpot<SEP>Swanson Broth": {
@@ -4885,5 +4885,2498 @@
     "create_time": 1761729563,
     "update_time": 1761729563,
     "_id": "Korean Soybean Paste Soup<SEP>Serving Size"
+  },
+  "Jiaobai<SEP>Jiaobai Stir-Fried Shrimp": {
+    "chunk_ids": [
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f"
+    ],
+    "count": 1,
+    "create_time": 1761729613,
+    "update_time": 1761729613,
+    "_id": "Jiaobai<SEP>Jiaobai Stir-Fried Shrimp"
+  },
+  "Shrimp<SEP>Tail Splitting": {
+    "chunk_ids": [
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f"
+    ],
+    "count": 1,
+    "create_time": 1761729613,
+    "update_time": 1761729613,
+    "_id": "Shrimp<SEP>Tail Splitting"
+  },
+  "Scallion<SEP>Stir-Frying": {
+    "chunk_ids": [
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f"
+    ],
+    "count": 1,
+    "create_time": 1761729613,
+    "update_time": 1761729613,
+    "_id": "Scallion<SEP>Stir-Frying"
+  },
+  "Jiaobai Stir-Fried Shrimp<SEP>Shrimp": {
+    "chunk_ids": [
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f"
+    ],
+    "count": 1,
+    "create_time": 1761729613,
+    "update_time": 1761729613,
+    "_id": "Jiaobai Stir-Fried Shrimp<SEP>Shrimp"
+  },
+  "Jiaobai<SEP>Water Absorption": {
+    "chunk_ids": [
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f"
+    ],
+    "count": 1,
+    "create_time": 1761729613,
+    "update_time": 1761729613,
+    "_id": "Jiaobai<SEP>Water Absorption"
+  },
+  "Dried Chili<SEP>Stir-Frying": {
+    "chunk_ids": [
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f"
+    ],
+    "count": 1,
+    "create_time": 1761729614,
+    "update_time": 1761729614,
+    "_id": "Dried Chili<SEP>Stir-Frying"
+  },
+  "Jiaobai Stir-Fried Shrimp<SEP>Stir-Frying": {
+    "chunk_ids": [
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f"
+    ],
+    "count": 1,
+    "create_time": 1761729615,
+    "update_time": 1761729615,
+    "_id": "Jiaobai Stir-Fried Shrimp<SEP>Stir-Frying"
+  },
+  "Hot Pot<SEP>Jiaobai Stir-Fried Shrimp": {
+    "chunk_ids": [
+      "chunk-fdab62f1ffb121fe7af223a7ba1fe46f"
+    ],
+    "count": 1,
+    "create_time": 1761729615,
+    "update_time": 1761729615,
+    "_id": "Hot Pot<SEP>Jiaobai Stir-Fried Shrimp"
+  },
+  "Spicy Broth<SEP>Yuanyang Hotpot": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729625,
+    "update_time": 1761729625,
+    "_id": "Spicy Broth<SEP>Yuanyang Hotpot"
+  },
+  "White Broth<SEP>Yuanyang Hotpot": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729625,
+    "update_time": 1761729625,
+    "_id": "White Broth<SEP>Yuanyang Hotpot"
+  },
+  "Pork Bone Stock<SEP>Spicy Broth": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729625,
+    "update_time": 1761729625,
+    "_id": "Pork Bone Stock<SEP>Spicy Broth"
+  },
+  "Dipping Sauce<SEP>Yuanyang Hotpot": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729626,
+    "update_time": 1761729626,
+    "_id": "Dipping Sauce<SEP>Yuanyang Hotpot"
+  },
+  "Sesame Paste<SEP>White Broth": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729626,
+    "update_time": 1761729626,
+    "_id": "Sesame Paste<SEP>White Broth"
+  },
+  "Fermented Tofu<SEP>White Broth": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729626,
+    "update_time": 1761729626,
+    "_id": "Fermented Tofu<SEP>White Broth"
+  },
+  "Hotpot Ingredients<SEP>Yuanyang Hotpot": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729627,
+    "update_time": 1761729627,
+    "_id": "Hotpot Ingredients<SEP>Yuanyang Hotpot"
+  },
+  "Beef Balls<SEP>Hotpot Ingredients": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729627,
+    "update_time": 1761729627,
+    "_id": "Beef Balls<SEP>Hotpot Ingredients"
+  },
+  "Hotpot Ingredients<SEP>Luncheon Meat": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729628,
+    "update_time": 1761729628,
+    "_id": "Hotpot Ingredients<SEP>Luncheon Meat"
+  },
+  "Enoki Mushroom<SEP>Hotpot Ingredients": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729628,
+    "update_time": 1761729628,
+    "_id": "Enoki Mushroom<SEP>Hotpot Ingredients"
+  },
+  "Hotpot Ingredients<SEP>Wood Ear Fungus": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729629,
+    "update_time": 1761729629,
+    "_id": "Hotpot Ingredients<SEP>Wood Ear Fungus"
+  },
+  "Cooking Method<SEP>Yuanyang Hotpot": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729629,
+    "update_time": 1761729629,
+    "_id": "Cooking Method<SEP>Yuanyang Hotpot"
+  },
+  "Sichuan Peppercorn<SEP>Spicy Broth": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729630,
+    "update_time": 1761729630,
+    "_id": "Sichuan Peppercorn<SEP>Spicy Broth"
+  },
+  "Pork Bone Stock<SEP>White Broth": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729630,
+    "update_time": 1761729630,
+    "_id": "Pork Bone Stock<SEP>White Broth"
+  },
+  "Hotpot Ingredients<SEP>Meilin Luncheon Meat": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729630,
+    "update_time": 1761729630,
+    "_id": "Hotpot Ingredients<SEP>Meilin Luncheon Meat"
+  },
+  "Facing Heaven Chili<SEP>Spicy Broth": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729630,
+    "update_time": 1761729630,
+    "_id": "Facing Heaven Chili<SEP>Spicy Broth"
+  },
+  "Hotpot Ingredients<SEP>Sao Niao Beef Balls": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729630,
+    "update_time": 1761729630,
+    "_id": "Hotpot Ingredients<SEP>Sao Niao Beef Balls"
+  },
+  "Hotpot Ingredients<SEP>Shuangbao Mushroom": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729630,
+    "update_time": 1761729630,
+    "_id": "Hotpot Ingredients<SEP>Shuangbao Mushroom"
+  },
+  "Red Oil Douban<SEP>Spicy Broth": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729630,
+    "update_time": 1761729630,
+    "_id": "Red Oil Douban<SEP>Spicy Broth"
+  },
+  "Shacha Sauce<SEP>Spicy Broth": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729631,
+    "update_time": 1761729631,
+    "_id": "Shacha Sauce<SEP>Spicy Broth"
+  },
+  "Ginger<SEP>Pork Bone Stock": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729631,
+    "update_time": 1761729631,
+    "_id": "Ginger<SEP>Pork Bone Stock"
+  },
+  "Curry Paste<SEP>Spicy Broth": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729631,
+    "update_time": 1761729631,
+    "_id": "Curry Paste<SEP>Spicy Broth"
+  },
+  "Garlic<SEP>Spicy Broth": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729632,
+    "update_time": 1761729632,
+    "_id": "Garlic<SEP>Spicy Broth"
+  },
+  "Hotpot Ingredients<SEP>Sweet Taro": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729632,
+    "update_time": 1761729632,
+    "_id": "Hotpot Ingredients<SEP>Sweet Taro"
+  },
+  "Coriander<SEP>Hotpot Ingredients": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729633,
+    "update_time": 1761729633,
+    "_id": "Coriander<SEP>Hotpot Ingredients"
+  },
+  "Spicy Broth<SEP>Star Anise": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729633,
+    "update_time": 1761729633,
+    "_id": "Spicy Broth<SEP>Star Anise"
+  },
+  "Bay Leaf<SEP>Spicy Broth": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729633,
+    "update_time": 1761729633,
+    "_id": "Bay Leaf<SEP>Spicy Broth"
+  },
+  "Chives Flower Sauce<SEP>Dipping Sauce": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729633,
+    "update_time": 1761729633,
+    "_id": "Chives Flower Sauce<SEP>Dipping Sauce"
+  },
+  "Fennel Seed<SEP>Spicy Broth": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729634,
+    "update_time": 1761729634,
+    "_id": "Fennel Seed<SEP>Spicy Broth"
+  },
+  "Sesame Paste<SEP>White Broth Dipping Sauce": {
+    "chunk_ids": [
+      "chunk-0c6124654f71cd88c872b6e32c123663"
+    ],
+    "count": 1,
+    "create_time": 1761729634,
+    "update_time": 1761729634,
+    "_id": "Sesame Paste<SEP>White Broth Dipping Sauce"
+  },
+  "White Broth Dipping Sauce<SEP>White Fermented Tofu": {
+    "chunk_ids": [
+      "chunk-0c6124654f71cd88c872b6e32c123663"
+    ],
+    "count": 1,
+    "create_time": 1761729634,
+    "update_time": 1761729634,
+    "_id": "White Broth Dipping Sauce<SEP>White Fermented Tofu"
+  },
+  "Spicy Broth<SEP>White Cardamom": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729635,
+    "update_time": 1761729635,
+    "_id": "Spicy Broth<SEP>White Cardamom"
+  },
+  "Monosodium Glutamate<SEP>White Broth Dipping Sauce": {
+    "chunk_ids": [
+      "chunk-0c6124654f71cd88c872b6e32c123663"
+    ],
+    "count": 1,
+    "create_time": 1761729635,
+    "update_time": 1761729635,
+    "_id": "Monosodium Glutamate<SEP>White Broth Dipping Sauce"
+  },
+  "Lard<SEP>Spicy Broth": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729635,
+    "update_time": 1761729635,
+    "_id": "Lard<SEP>Spicy Broth"
+  },
+  "Sugar<SEP>White Broth Dipping Sauce": {
+    "chunk_ids": [
+      "chunk-0c6124654f71cd88c872b6e32c123663"
+    ],
+    "count": 1,
+    "create_time": 1761729635,
+    "update_time": 1761729635,
+    "_id": "Sugar<SEP>White Broth Dipping Sauce"
+  },
+  "Chrysanthemum Greens<SEP>Hotpot Ingredients": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729635,
+    "update_time": 1761729635,
+    "_id": "Chrysanthemum Greens<SEP>Hotpot Ingredients"
+  },
+  "Scallion, Ginger, Garlic Paste<SEP>White Broth Dipping Sauce": {
+    "chunk_ids": [
+      "chunk-0c6124654f71cd88c872b6e32c123663"
+    ],
+    "count": 1,
+    "create_time": 1761729635,
+    "update_time": 1761729635,
+    "_id": "Scallion, Ginger, Garlic Paste<SEP>White Broth Dipping Sauce"
+  },
+  "Fermented Glutinous Rice<SEP>Spicy Broth": {
+    "chunk_ids": [
+      "chunk-f646dacb84de035029f81a6cf5bf3bb2"
+    ],
+    "count": 1,
+    "create_time": 1761729636,
+    "update_time": 1761729636,
+    "_id": "Fermented Glutinous Rice<SEP>Spicy Broth"
+  },
+  "Chinese Chives Flower Sauce<SEP>White Broth Dipping Sauce": {
+    "chunk_ids": [
+      "chunk-0c6124654f71cd88c872b6e32c123663"
+    ],
+    "count": 1,
+    "create_time": 1761729636,
+    "update_time": 1761729636,
+    "_id": "Chinese Chives Flower Sauce<SEP>White Broth Dipping Sauce"
+  },
+  "Peanut Butter<SEP>White Broth Dipping Sauce": {
+    "chunk_ids": [
+      "chunk-0c6124654f71cd88c872b6e32c123663"
+    ],
+    "count": 1,
+    "create_time": 1761729637,
+    "update_time": 1761729637,
+    "_id": "Peanut Butter<SEP>White Broth Dipping Sauce"
+  },
+  "Satay Sauce<SEP>White Broth Dipping Sauce": {
+    "chunk_ids": [
+      "chunk-0c6124654f71cd88c872b6e32c123663"
+    ],
+    "count": 1,
+    "create_time": 1761729637,
+    "update_time": 1761729637,
+    "_id": "Satay Sauce<SEP>White Broth Dipping Sauce"
+  },
+  "Cilantro<SEP>White Broth Dipping Sauce": {
+    "chunk_ids": [
+      "chunk-0c6124654f71cd88c872b6e32c123663"
+    ],
+    "count": 1,
+    "create_time": 1761729638,
+    "update_time": 1761729638,
+    "_id": "Cilantro<SEP>White Broth Dipping Sauce"
+  },
+  "Scallion Flowers<SEP>White Broth Dipping Sauce": {
+    "chunk_ids": [
+      "chunk-0c6124654f71cd88c872b6e32c123663"
+    ],
+    "count": 1,
+    "create_time": 1761729638,
+    "update_time": 1761729638,
+    "_id": "Scallion Flowers<SEP>White Broth Dipping Sauce"
+  },
+  "Kimchi Mixed Mushroom Braised Chicken<SEP>Spicy and Sour": {
+    "chunk_ids": [
+      "chunk-6b221e432780e20ad4b661254116bc62"
+    ],
+    "count": 1,
+    "create_time": 1761729653,
+    "update_time": 1761729653,
+    "_id": "Kimchi Mixed Mushroom Braised Chicken<SEP>Spicy and Sour"
+  },
+  "Kimchi Mixed Mushroom Braised Chicken<SEP>Stewing": {
+    "chunk_ids": [
+      "chunk-6b221e432780e20ad4b661254116bc62"
+    ],
+    "count": 1,
+    "create_time": 1761729653,
+    "update_time": 1761729653,
+    "_id": "Kimchi Mixed Mushroom Braised Chicken<SEP>Stewing"
+  },
+  "Hotpot<SEP>Kimchi Mixed Mushroom Braised Chicken": {
+    "chunk_ids": [
+      "chunk-6b221e432780e20ad4b661254116bc62"
+    ],
+    "count": 1,
+    "create_time": 1761729654,
+    "update_time": 1761729654,
+    "_id": "Hotpot<SEP>Kimchi Mixed Mushroom Braised Chicken"
+  },
+  "30 Minutes<SEP>Kimchi Mixed Mushroom Braised Chicken": {
+    "chunk_ids": [
+      "chunk-6b221e432780e20ad4b661254116bc62"
+    ],
+    "count": 1,
+    "create_time": 1761729654,
+    "update_time": 1761729654,
+    "_id": "30 Minutes<SEP>Kimchi Mixed Mushroom Braised Chicken"
+  },
+  "Kimchi<SEP>Kimchi Mixed Mushroom Braised Chicken": {
+    "chunk_ids": [
+      "chunk-6b221e432780e20ad4b661254116bc62"
+    ],
+    "count": 1,
+    "create_time": 1761729654,
+    "update_time": 1761729654,
+    "_id": "Kimchi<SEP>Kimchi Mixed Mushroom Braised Chicken"
+  },
+  "Chicken Pieces<SEP>Kimchi Mixed Mushroom Braised Chicken": {
+    "chunk_ids": [
+      "chunk-6b221e432780e20ad4b661254116bc62"
+    ],
+    "count": 1,
+    "create_time": 1761729655,
+    "update_time": 1761729655,
+    "_id": "Chicken Pieces<SEP>Kimchi Mixed Mushroom Braised Chicken"
+  },
+  "Dried King Oyster Mushrooms<SEP>Kimchi Mixed Mushroom Braised Chicken": {
+    "chunk_ids": [
+      "chunk-6b221e432780e20ad4b661254116bc62"
+    ],
+    "count": 1,
+    "create_time": 1761729655,
+    "update_time": 1761729655,
+    "_id": "Dried King Oyster Mushrooms<SEP>Kimchi Mixed Mushroom Braised Chicken"
+  },
+  "Dried Shiitake Mushrooms<SEP>Kimchi Mixed Mushroom Braised Chicken": {
+    "chunk_ids": [
+      "chunk-6b221e432780e20ad4b661254116bc62"
+    ],
+    "count": 1,
+    "create_time": 1761729656,
+    "update_time": 1761729656,
+    "_id": "Dried Shiitake Mushrooms<SEP>Kimchi Mixed Mushroom Braised Chicken"
+  },
+  "Kimchi Mixed Mushroom Braised Chicken<SEP>Pressure Cooker": {
+    "chunk_ids": [
+      "chunk-6b221e432780e20ad4b661254116bc62"
+    ],
+    "count": 1,
+    "create_time": 1761729656,
+    "update_time": 1761729656,
+    "_id": "Kimchi Mixed Mushroom Braised Chicken<SEP>Pressure Cooker"
+  },
+  "Medium Spicy<SEP>Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729726,
+    "update_time": 1761729726,
+    "_id": "Medium Spicy<SEP>Spicy Lamb Hotpot"
+  },
+  "Spicy Lamb Hotpot<SEP>Stewing": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729726,
+    "update_time": 1761729726,
+    "_id": "Spicy Lamb Hotpot<SEP>Stewing"
+  },
+  "Hotpot<SEP>Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729727,
+    "update_time": 1761729727,
+    "_id": "Hotpot<SEP>Spicy Lamb Hotpot"
+  },
+  "Fresh Lamb<SEP>Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729727,
+    "update_time": 1761729727,
+    "_id": "Fresh Lamb<SEP>Spicy Lamb Hotpot"
+  },
+  "Chili Oil<SEP>Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729728,
+    "update_time": 1761729728,
+    "_id": "Chili Oil<SEP>Spicy Lamb Hotpot"
+  },
+  "Sichuan Pepper<SEP>Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729728,
+    "update_time": 1761729728,
+    "_id": "Sichuan Pepper<SEP>Spicy Lamb Hotpot"
+  },
+  "Dried Red Chili<SEP>Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729729,
+    "update_time": 1761729729,
+    "_id": "Dried Red Chili<SEP>Spicy Lamb Hotpot"
+  },
+  "Original Flavor<SEP>Sesame Oil Chicken Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729729,
+    "update_time": 1761729729,
+    "_id": "Original Flavor<SEP>Sesame Oil Chicken Vegetable Hotpot"
+  },
+  "Potato<SEP>Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729729,
+    "update_time": 1761729729,
+    "_id": "Potato<SEP>Spicy Lamb Hotpot"
+  },
+  "Onion<SEP>Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729730,
+    "update_time": 1761729730,
+    "_id": "Onion<SEP>Spicy Lamb Hotpot"
+  },
+  "Green and Red Chili<SEP>Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729730,
+    "update_time": 1761729730,
+    "_id": "Green and Red Chili<SEP>Spicy Lamb Hotpot"
+  },
+  "Sesame Oil Chicken Vegetable Hotpot<SEP>Stewing": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729734,
+    "update_time": 1761729734,
+    "_id": "Sesame Oil Chicken Vegetable Hotpot<SEP>Stewing"
+  },
+  "Hotpot<SEP>Sesame Oil Chicken Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729734,
+    "update_time": 1761729734,
+    "_id": "Hotpot<SEP>Sesame Oil Chicken Vegetable Hotpot"
+  },
+  "Chicken Thigh Meat<SEP>Sesame Oil Chicken Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729734,
+    "update_time": 1761729734,
+    "_id": "Chicken Thigh Meat<SEP>Sesame Oil Chicken Vegetable Hotpot"
+  },
+  "20-Minute Cooking Time<SEP>Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729734,
+    "update_time": 1761729734,
+    "_id": "20-Minute Cooking Time<SEP>Spicy Lamb Hotpot"
+  },
+  "Cooking Wine<SEP>Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729735,
+    "update_time": 1761729735,
+    "_id": "Cooking Wine<SEP>Spicy Lamb Hotpot"
+  },
+  "Black Sesame Oil<SEP>Sesame Oil Chicken Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729735,
+    "update_time": 1761729735,
+    "_id": "Black Sesame Oil<SEP>Sesame Oil Chicken Vegetable Hotpot"
+  },
+  "Dark Soy Sauce<SEP>Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729735,
+    "update_time": 1761729735,
+    "_id": "Dark Soy Sauce<SEP>Spicy Lamb Hotpot"
+  },
+  "Sesame Oil Chicken Vegetable Hotpot<SEP>Taiwanese Rice Wine": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729735,
+    "update_time": 1761729735,
+    "_id": "Sesame Oil Chicken Vegetable Hotpot<SEP>Taiwanese Rice Wine"
+  },
+  "Five-Spice Powder<SEP>Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729736,
+    "update_time": 1761729736,
+    "_id": "Five-Spice Powder<SEP>Spicy Lamb Hotpot"
+  },
+  "Old Ginger Slices<SEP>Sesame Oil Chicken Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729736,
+    "update_time": 1761729736,
+    "_id": "Old Ginger Slices<SEP>Sesame Oil Chicken Vegetable Hotpot"
+  },
+  "Sichuan Pepper Powder<SEP>Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729736,
+    "update_time": 1761729736,
+    "_id": "Sichuan Pepper Powder<SEP>Spicy Lamb Hotpot"
+  },
+  "High-Proof Baijiu<SEP>Sesame Oil Chicken Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729736,
+    "update_time": 1761729736,
+    "_id": "High-Proof Baijiu<SEP>Sesame Oil Chicken Vegetable Hotpot"
+  },
+  "Bay Leaf<SEP>Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729736,
+    "update_time": 1761729736,
+    "_id": "Bay Leaf<SEP>Spicy Lamb Hotpot"
+  },
+  "Goji Berries<SEP>Sesame Oil Chicken Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729736,
+    "update_time": 1761729736,
+    "_id": "Goji Berries<SEP>Sesame Oil Chicken Vegetable Hotpot"
+  },
+  "Cassia Bark<SEP>Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729737,
+    "update_time": 1761729737,
+    "_id": "Cassia Bark<SEP>Spicy Lamb Hotpot"
+  },
+  "King Oyster Mushrooms<SEP>Sesame Oil Chicken Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729737,
+    "update_time": 1761729737,
+    "_id": "King Oyster Mushrooms<SEP>Sesame Oil Chicken Vegetable Hotpot"
+  },
+  "Abalone Mushrooms<SEP>Sesame Oil Chicken Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729741,
+    "update_time": 1761729741,
+    "_id": "Abalone Mushrooms<SEP>Sesame Oil Chicken Vegetable Hotpot"
+  },
+  "Black Sesame Oil<SEP>Salt": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729741,
+    "update_time": 1761729741,
+    "_id": "Black Sesame Oil<SEP>Salt"
+  },
+  "Peanut Oil<SEP>Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729741,
+    "update_time": 1761729741,
+    "_id": "Peanut Oil<SEP>Spicy Lamb Hotpot"
+  },
+  "Enoki Mushrooms<SEP>Sesame Oil Chicken Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729742,
+    "update_time": 1761729742,
+    "_id": "Enoki Mushrooms<SEP>Sesame Oil Chicken Vegetable Hotpot"
+  },
+  "Scallion, Ginger, Garlic<SEP>Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729742,
+    "update_time": 1761729742,
+    "_id": "Scallion, Ginger, Garlic<SEP>Spicy Lamb Hotpot"
+  },
+  "Black Sesame Oil<SEP>Old Ginger Slices": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729742,
+    "update_time": 1761729742,
+    "_id": "Black Sesame Oil<SEP>Old Ginger Slices"
+  },
+  "Green Cabbage<SEP>Sesame Oil Chicken Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729742,
+    "update_time": 1761729742,
+    "_id": "Green Cabbage<SEP>Sesame Oil Chicken Vegetable Hotpot"
+  },
+  "Chopped Scallion<SEP>Spicy Lamb Hotpot": {
+    "chunk_ids": [
+      "chunk-fd65e2bce4a2a59c82df705fe14aa3b1"
+    ],
+    "count": 1,
+    "create_time": 1761729742,
+    "update_time": 1761729742,
+    "_id": "Chopped Scallion<SEP>Spicy Lamb Hotpot"
+  },
+  "Five-Flavor Dipping Sauce<SEP>Sesame Oil Chicken Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729743,
+    "update_time": 1761729743,
+    "_id": "Five-Flavor Dipping Sauce<SEP>Sesame Oil Chicken Vegetable Hotpot"
+  },
+  "Sesame Oil Chicken Vegetable Hotpot<SEP>Vermicelli Noodles": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729747,
+    "update_time": 1761729747,
+    "_id": "Sesame Oil Chicken Vegetable Hotpot<SEP>Vermicelli Noodles"
+  },
+  "Sesame Oil Chicken Vegetable Hotpot<SEP>Taiwan": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729748,
+    "update_time": 1761729748,
+    "_id": "Sesame Oil Chicken Vegetable Hotpot<SEP>Taiwan"
+  },
+  "Bing Bing's Good Cooking<SEP>Sesame Oil Chicken Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729748,
+    "update_time": 1761729748,
+    "_id": "Bing Bing's Good Cooking<SEP>Sesame Oil Chicken Vegetable Hotpot"
+  },
+  "Sesame Oil Chicken Vegetable Hotpot<SEP>Winter": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729749,
+    "update_time": 1761729749,
+    "_id": "Sesame Oil Chicken Vegetable Hotpot<SEP>Winter"
+  },
+  "Kinmen Kaoliang Liquor<SEP>Sesame Oil Chicken Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-1ff9e538fff6a20ac9f4a307f455c316"
+    ],
+    "count": 1,
+    "create_time": 1761729749,
+    "update_time": 1761729749,
+    "_id": "Kinmen Kaoliang Liquor<SEP>Sesame Oil Chicken Vegetable Hotpot"
+  },
+  "Carp<SEP>Huohuo's Fish Hotpot": {
+    "chunk_ids": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 1,
+    "create_time": 1761729803,
+    "update_time": 1761729803,
+    "_id": "Carp<SEP>Huohuo's Fish Hotpot"
+  },
+  "Huohuo's Fish Hotpot<SEP>Scallion, Ginger, Garlic": {
+    "chunk_ids": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 1,
+    "create_time": 1761729804,
+    "update_time": 1761729804,
+    "_id": "Huohuo's Fish Hotpot<SEP>Scallion, Ginger, Garlic"
+  },
+  "Chicken Bouillon<SEP>Huohuo's Fish Hotpot": {
+    "chunk_ids": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 1,
+    "create_time": 1761729804,
+    "update_time": 1761729804,
+    "_id": "Chicken Bouillon<SEP>Huohuo's Fish Hotpot"
+  },
+  "Huohuo's Fish Hotpot<SEP>Refined Salt": {
+    "chunk_ids": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 1,
+    "create_time": 1761729805,
+    "update_time": 1761729805,
+    "_id": "Huohuo's Fish Hotpot<SEP>Refined Salt"
+  },
+  "Chinese Cabbage<SEP>Huohuo's Fish Hotpot": {
+    "chunk_ids": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 1,
+    "create_time": 1761729810,
+    "update_time": 1761729810,
+    "_id": "Chinese Cabbage<SEP>Huohuo's Fish Hotpot"
+  },
+  "Enoki Mushrooms<SEP>Huohuo's Fish Hotpot": {
+    "chunk_ids": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 1,
+    "create_time": 1761729810,
+    "update_time": 1761729810,
+    "_id": "Enoki Mushrooms<SEP>Huohuo's Fish Hotpot"
+  },
+  "Dipping Sauce<SEP>Seafood Soy Sauce": {
+    "chunk_ids": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 1,
+    "create_time": 1761729810,
+    "update_time": 1761729810,
+    "_id": "Dipping Sauce<SEP>Seafood Soy Sauce"
+  },
+  "Huohuo's Fish Hotpot<SEP>Spinach": {
+    "chunk_ids": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 1,
+    "create_time": 1761729811,
+    "update_time": 1761729811,
+    "_id": "Huohuo's Fish Hotpot<SEP>Spinach"
+  },
+  "Dipping Sauce<SEP>Scallion, Ginger, Garlic": {
+    "chunk_ids": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 1,
+    "create_time": 1761729811,
+    "update_time": 1761729811,
+    "_id": "Dipping Sauce<SEP>Scallion, Ginger, Garlic"
+  },
+  "Cilantro<SEP>Huohuo's Fish Hotpot": {
+    "chunk_ids": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 1,
+    "create_time": 1761729811,
+    "update_time": 1761729811,
+    "_id": "Cilantro<SEP>Huohuo's Fish Hotpot"
+  },
+  "Huohuo's Fish Hotpot<SEP>Seafood Soy Sauce": {
+    "chunk_ids": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 1,
+    "create_time": 1761729812,
+    "update_time": 1761729812,
+    "_id": "Huohuo's Fish Hotpot<SEP>Seafood Soy Sauce"
+  },
+  "Boiling<SEP>Huohuo's Fish Hotpot": {
+    "chunk_ids": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 1,
+    "create_time": 1761729813,
+    "update_time": 1761729813,
+    "_id": "Boiling<SEP>Huohuo's Fish Hotpot"
+  },
+  "Hotpot<SEP>Huohuo's Fish Hotpot": {
+    "chunk_ids": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 1,
+    "create_time": 1761729813,
+    "update_time": 1761729813,
+    "_id": "Hotpot<SEP>Huohuo's Fish Hotpot"
+  },
+  "Cooking Time: Twenty Minutes<SEP>Huohuo's Fish Hotpot": {
+    "chunk_ids": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 1,
+    "create_time": 1761729814,
+    "update_time": 1761729814,
+    "_id": "Cooking Time: Twenty Minutes<SEP>Huohuo's Fish Hotpot"
+  },
+  "Dipping Sauce<SEP>Huohuo's Fish Hotpot": {
+    "chunk_ids": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 1,
+    "create_time": 1761729814,
+    "update_time": 1761729814,
+    "_id": "Dipping Sauce<SEP>Huohuo's Fish Hotpot"
+  },
+  "Cilantro<SEP>Dipping Sauce": {
+    "chunk_ids": [
+      "chunk-48705bf9cff2287a95fed7b55e4fe284"
+    ],
+    "count": 1,
+    "create_time": 1761729815,
+    "update_time": 1761729815,
+    "_id": "Cilantro<SEP>Dipping Sauce"
+  },
+  "Fish Ball Mushroom Seafood Soup<SEP>Savory Flavor": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729826,
+    "update_time": 1761729826,
+    "_id": "Fish Ball Mushroom Seafood Soup<SEP>Savory Flavor"
+  },
+  "Boiling<SEP>Fish Ball Mushroom Seafood Soup": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729827,
+    "update_time": 1761729827,
+    "_id": "Boiling<SEP>Fish Ball Mushroom Seafood Soup"
+  },
+  "Fish Ball Mushroom Seafood Soup<SEP>Hotpot": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729827,
+    "update_time": 1761729827,
+    "_id": "Fish Ball Mushroom Seafood Soup<SEP>Hotpot"
+  },
+  "45-Minute Cooking Time<SEP>Fish Ball Mushroom Seafood Soup": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729828,
+    "update_time": 1761729828,
+    "_id": "45-Minute Cooking Time<SEP>Fish Ball Mushroom Seafood Soup"
+  },
+  "Button Mushroom<SEP>Fish Ball Mushroom Seafood Soup": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729828,
+    "update_time": 1761729828,
+    "_id": "Button Mushroom<SEP>Fish Ball Mushroom Seafood Soup"
+  },
+  "Fish Ball Mushroom Seafood Soup<SEP>King Oyster Mushroom": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729829,
+    "update_time": 1761729829,
+    "_id": "Fish Ball Mushroom Seafood Soup<SEP>King Oyster Mushroom"
+  },
+  "Fish Ball Mushroom Seafood Soup<SEP>Sausage": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729829,
+    "update_time": 1761729829,
+    "_id": "Fish Ball Mushroom Seafood Soup<SEP>Sausage"
+  },
+  "Fish Ball Mushroom Seafood Soup<SEP>Shrimp": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729829,
+    "update_time": 1761729829,
+    "_id": "Fish Ball Mushroom Seafood Soup<SEP>Shrimp"
+  },
+  "Fish Ball Mushroom Seafood Soup<SEP>Fish Balls": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729830,
+    "update_time": 1761729830,
+    "_id": "Fish Ball Mushroom Seafood Soup<SEP>Fish Balls"
+  },
+  "Fish Ball Mushroom Seafood Soup<SEP>Tofu": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729830,
+    "update_time": 1761729830,
+    "_id": "Fish Ball Mushroom Seafood Soup<SEP>Tofu"
+  },
+  "Fish Ball Mushroom Seafood Soup<SEP>Wood Ear Fungus": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729831,
+    "update_time": 1761729831,
+    "_id": "Fish Ball Mushroom Seafood Soup<SEP>Wood Ear Fungus"
+  },
+  "Chinese Cabbage<SEP>Fish Ball Mushroom Seafood Soup": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729831,
+    "update_time": 1761729831,
+    "_id": "Chinese Cabbage<SEP>Fish Ball Mushroom Seafood Soup"
+  },
+  "Fish Ball Mushroom Seafood Soup<SEP>Vermicelli": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729832,
+    "update_time": 1761729832,
+    "_id": "Fish Ball Mushroom Seafood Soup<SEP>Vermicelli"
+  },
+  "Fish Ball Mushroom Seafood Soup<SEP>Salt": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729832,
+    "update_time": 1761729832,
+    "_id": "Fish Ball Mushroom Seafood Soup<SEP>Salt"
+  },
+  "Fish Ball Mushroom Seafood Soup<SEP>Monosodium Glutamate": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729832,
+    "update_time": 1761729832,
+    "_id": "Fish Ball Mushroom Seafood Soup<SEP>Monosodium Glutamate"
+  },
+  "Fish Ball Mushroom Seafood Soup<SEP>Pepper Powder": {
+    "chunk_ids": [
+      "chunk-2e80fb468218342e758a926f2250cfbb"
+    ],
+    "count": 1,
+    "create_time": 1761729833,
+    "update_time": 1761729833,
+    "_id": "Fish Ball Mushroom Seafood Soup<SEP>Pepper Powder"
+  },
+  "Hot Pot<SEP>Old Duck Broth Meatball Vermicelli Hot Pot": {
+    "chunk_ids": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
+    "count": 1,
+    "create_time": 1761729885,
+    "update_time": 1761729885,
+    "_id": "Hot Pot<SEP>Old Duck Broth Meatball Vermicelli Hot Pot"
+  },
+  "Old Duck<SEP>Old Duck Broth Meatball Vermicelli Hot Pot": {
+    "chunk_ids": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
+    "count": 1,
+    "create_time": 1761729886,
+    "update_time": 1761729886,
+    "_id": "Old Duck<SEP>Old Duck Broth Meatball Vermicelli Hot Pot"
+  },
+  "Old Duck Broth Meatball Vermicelli Hot Pot<SEP>Vermicelli": {
+    "chunk_ids": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
+    "count": 1,
+    "create_time": 1761729886,
+    "update_time": 1761729886,
+    "_id": "Old Duck Broth Meatball Vermicelli Hot Pot<SEP>Vermicelli"
+  },
+  "Electric Pressure Cooker<SEP>Old Duck": {
+    "chunk_ids": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
+    "count": 1,
+    "create_time": 1761729886,
+    "update_time": 1761729886,
+    "_id": "Electric Pressure Cooker<SEP>Old Duck"
+  },
+  "Old Duck Broth<SEP>Soup Pot": {
+    "chunk_ids": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
+    "count": 1,
+    "create_time": 1761729887,
+    "update_time": 1761729887,
+    "_id": "Old Duck Broth<SEP>Soup Pot"
+  },
+  "Meatballs<SEP>Old Duck Broth Meatball Vermicelli Hot Pot": {
+    "chunk_ids": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
+    "count": 1,
+    "create_time": 1761729887,
+    "update_time": 1761729887,
+    "_id": "Meatballs<SEP>Old Duck Broth Meatball Vermicelli Hot Pot"
+  },
+  "Old Duck Broth Meatball Vermicelli Hot Pot<SEP>Tofu": {
+    "chunk_ids": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
+    "count": 1,
+    "create_time": 1761729887,
+    "update_time": 1761729887,
+    "_id": "Old Duck Broth Meatball Vermicelli Hot Pot<SEP>Tofu"
+  },
+  "Old Duck<SEP>Old Duck Broth": {
+    "chunk_ids": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
+    "count": 1,
+    "create_time": 1761729887,
+    "update_time": 1761729887,
+    "_id": "Old Duck<SEP>Old Duck Broth"
+  },
+  "Old Duck Broth Meatball Vermicelli Hot Pot<SEP>Salt": {
+    "chunk_ids": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
+    "count": 1,
+    "create_time": 1761729887,
+    "update_time": 1761729887,
+    "_id": "Old Duck Broth Meatball Vermicelli Hot Pot<SEP>Salt"
+  },
+  "Chicken Essence<SEP>Old Duck Broth Meatball Vermicelli Hot Pot": {
+    "chunk_ids": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
+    "count": 1,
+    "create_time": 1761729888,
+    "update_time": 1761729888,
+    "_id": "Chicken Essence<SEP>Old Duck Broth Meatball Vermicelli Hot Pot"
+  },
+  "Flavor Enhancer<SEP>Old Duck Broth Meatball Vermicelli Hot Pot": {
+    "chunk_ids": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
+    "count": 1,
+    "create_time": 1761729888,
+    "update_time": 1761729888,
+    "_id": "Flavor Enhancer<SEP>Old Duck Broth Meatball Vermicelli Hot Pot"
+  },
+  "Cilantro<SEP>Old Duck Broth Meatball Vermicelli Hot Pot": {
+    "chunk_ids": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
+    "count": 1,
+    "create_time": 1761729889,
+    "update_time": 1761729889,
+    "_id": "Cilantro<SEP>Old Duck Broth Meatball Vermicelli Hot Pot"
+  },
+  "Cooking Method<SEP>Old Duck Broth Meatball Vermicelli Hot Pot": {
+    "chunk_ids": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
+    "count": 1,
+    "create_time": 1761729889,
+    "update_time": 1761729889,
+    "_id": "Cooking Method<SEP>Old Duck Broth Meatball Vermicelli Hot Pot"
+  },
+  "Light Flavor<SEP>Old Duck Broth Meatball Vermicelli Hot Pot": {
+    "chunk_ids": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
+    "count": 1,
+    "create_time": 1761729889,
+    "update_time": 1761729889,
+    "_id": "Light Flavor<SEP>Old Duck Broth Meatball Vermicelli Hot Pot"
+  },
+  "Old Duck Broth<SEP>Old Duck Broth Meatball Vermicelli Hot Pot": {
+    "chunk_ids": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
+    "count": 1,
+    "create_time": 1761729890,
+    "update_time": 1761729890,
+    "_id": "Old Duck Broth<SEP>Old Duck Broth Meatball Vermicelli Hot Pot"
+  },
+  "Half-Hour Cooking Time<SEP>Old Duck Broth Meatball Vermicelli Hot Pot": {
+    "chunk_ids": [
+      "chunk-924f38840508fc7a933ed26552118877"
+    ],
+    "count": 1,
+    "create_time": 1761729890,
+    "update_time": 1761729890,
+    "_id": "Half-Hour Cooking Time<SEP>Old Duck Broth Meatball Vermicelli Hot Pot"
+  },
+  "Red Oil Spicy Hotpot<SEP>Spicy and Numbing": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729907,
+    "update_time": 1761729907,
+    "_id": "Red Oil Spicy Hotpot<SEP>Spicy and Numbing"
+  },
+  "Boiling<SEP>Red Oil Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729908,
+    "update_time": 1761729908,
+    "_id": "Boiling<SEP>Red Oil Spicy Hotpot"
+  },
+  "Hotpot<SEP>Red Oil Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729908,
+    "update_time": 1761729908,
+    "_id": "Hotpot<SEP>Red Oil Spicy Hotpot"
+  },
+  "Hong Shan He Hotpot Base<SEP>Red Oil Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729909,
+    "update_time": 1761729909,
+    "_id": "Hong Shan He Hotpot Base<SEP>Red Oil Spicy Hotpot"
+  },
+  "Dipping Sauce<SEP>Red Oil Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729909,
+    "update_time": 1761729909,
+    "_id": "Dipping Sauce<SEP>Red Oil Spicy Hotpot"
+  },
+  "Potato<SEP>Red Oil Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729909,
+    "update_time": 1761729909,
+    "_id": "Potato<SEP>Red Oil Spicy Hotpot"
+  },
+  "Dipping Sauce<SEP>Garlic": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729909,
+    "update_time": 1761729909,
+    "_id": "Dipping Sauce<SEP>Garlic"
+  },
+  "Dipping Sauce<SEP>Garlic Chives": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729910,
+    "update_time": 1761729910,
+    "_id": "Dipping Sauce<SEP>Garlic Chives"
+  },
+  "Chinese Cabbage<SEP>Red Oil Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729914,
+    "update_time": 1761729914,
+    "_id": "Chinese Cabbage<SEP>Red Oil Spicy Hotpot"
+  },
+  "Glebionis Coronaria<SEP>Red Oil Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729914,
+    "update_time": 1761729914,
+    "_id": "Glebionis Coronaria<SEP>Red Oil Spicy Hotpot"
+  },
+  "Oyster Mushroom<SEP>Red Oil Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729915,
+    "update_time": 1761729915,
+    "_id": "Oyster Mushroom<SEP>Red Oil Spicy Hotpot"
+  },
+  "Enoki Mushroom<SEP>Red Oil Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729915,
+    "update_time": 1761729915,
+    "_id": "Enoki Mushroom<SEP>Red Oil Spicy Hotpot"
+  },
+  "Red Oil Spicy Hotpot<SEP>Wheat Gluten": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729915,
+    "update_time": 1761729915,
+    "_id": "Red Oil Spicy Hotpot<SEP>Wheat Gluten"
+  },
+  "Red Oil Spicy Hotpot<SEP>Tofu Puff": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729916,
+    "update_time": 1761729916,
+    "_id": "Red Oil Spicy Hotpot<SEP>Tofu Puff"
+  },
+  "Red Oil Spicy Hotpot<SEP>Tofu": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729916,
+    "update_time": 1761729916,
+    "_id": "Red Oil Spicy Hotpot<SEP>Tofu"
+  },
+  "Red Oil Spicy Hotpot<SEP>Tofu Skin": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729917,
+    "update_time": 1761729917,
+    "_id": "Red Oil Spicy Hotpot<SEP>Tofu Skin"
+  },
+  "Pork Bones<SEP>Red Oil Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729917,
+    "update_time": 1761729917,
+    "_id": "Pork Bones<SEP>Red Oil Spicy Hotpot"
+  },
+  "Red Oil Spicy Hotpot<SEP>Soybean Sprouts": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729918,
+    "update_time": 1761729918,
+    "_id": "Red Oil Spicy Hotpot<SEP>Soybean Sprouts"
+  },
+  "Red Oil Spicy Hotpot<SEP>Tomato": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729918,
+    "update_time": 1761729918,
+    "_id": "Red Oil Spicy Hotpot<SEP>Tomato"
+  },
+  "Red Oil Spicy Hotpot<SEP>Shiitake Mushroom": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729919,
+    "update_time": 1761729919,
+    "_id": "Red Oil Spicy Hotpot<SEP>Shiitake Mushroom"
+  },
+  "Red Oil Spicy Hotpot<SEP>Scallion": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729919,
+    "update_time": 1761729919,
+    "_id": "Red Oil Spicy Hotpot<SEP>Scallion"
+  },
+  "Garlic<SEP>Red Oil Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729919,
+    "update_time": 1761729919,
+    "_id": "Garlic<SEP>Red Oil Spicy Hotpot"
+  },
+  "Red Oil Spicy Hotpot<SEP>Sichuan Pepper": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729920,
+    "update_time": 1761729920,
+    "_id": "Red Oil Spicy Hotpot<SEP>Sichuan Pepper"
+  },
+  "Dried Chili<SEP>Red Oil Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729920,
+    "update_time": 1761729920,
+    "_id": "Dried Chili<SEP>Red Oil Spicy Hotpot"
+  },
+  "Pig Blood<SEP>Red Oil Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729921,
+    "update_time": 1761729921,
+    "_id": "Pig Blood<SEP>Red Oil Spicy Hotpot"
+  },
+  "Handmade Starch Noodles<SEP>Red Oil Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-f3555c531ea69323534980be920d601e"
+    ],
+    "count": 1,
+    "create_time": 1761729921,
+    "update_time": 1761729921,
+    "_id": "Handmade Starch Noodles<SEP>Red Oil Spicy Hotpot"
+  },
+  "Old Beijing Lamb Scorpion Hotpot<SEP>Savory Sauce Flavor": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729959,
+    "update_time": 1761729959,
+    "_id": "Old Beijing Lamb Scorpion Hotpot<SEP>Savory Sauce Flavor"
+  },
+  "Hotpot<SEP>Old Beijing Lamb Scorpion Hotpot": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729959,
+    "update_time": 1761729959,
+    "_id": "Hotpot<SEP>Old Beijing Lamb Scorpion Hotpot"
+  },
+  "Lamb Scorpion<SEP>Old Beijing Lamb Scorpion Hotpot": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729960,
+    "update_time": 1761729960,
+    "_id": "Lamb Scorpion<SEP>Old Beijing Lamb Scorpion Hotpot"
+  },
+  "Cloves<SEP>Old Beijing Lamb Scorpion Hotpot": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729961,
+    "update_time": 1761729961,
+    "_id": "Cloves<SEP>Old Beijing Lamb Scorpion Hotpot"
+  },
+  "Licorice<SEP>Old Beijing Lamb Scorpion Hotpot": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729961,
+    "update_time": 1761729961,
+    "_id": "Licorice<SEP>Old Beijing Lamb Scorpion Hotpot"
+  },
+  "Dried Tangerine Peel<SEP>Old Beijing Lamb Scorpion Hotpot": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729962,
+    "update_time": 1761729962,
+    "_id": "Dried Tangerine Peel<SEP>Old Beijing Lamb Scorpion Hotpot"
+  },
+  "Cassia Bark<SEP>Old Beijing Lamb Scorpion Hotpot": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729963,
+    "update_time": 1761729963,
+    "_id": "Cassia Bark<SEP>Old Beijing Lamb Scorpion Hotpot"
+  },
+  "Old Beijing Lamb Scorpion Hotpot<SEP>Sand Ginger": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729963,
+    "update_time": 1761729963,
+    "_id": "Old Beijing Lamb Scorpion Hotpot<SEP>Sand Ginger"
+  },
+  "Black Cardamom<SEP>Old Beijing Lamb Scorpion Hotpot": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729964,
+    "update_time": 1761729964,
+    "_id": "Black Cardamom<SEP>Old Beijing Lamb Scorpion Hotpot"
+  },
+  "Old Beijing Lamb Scorpion Hotpot<SEP>White Pepper": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729964,
+    "update_time": 1761729964,
+    "_id": "Old Beijing Lamb Scorpion Hotpot<SEP>White Pepper"
+  },
+  "Old Beijing Lamb Scorpion Hotpot<SEP>Sichuan Pepper": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729964,
+    "update_time": 1761729964,
+    "_id": "Old Beijing Lamb Scorpion Hotpot<SEP>Sichuan Pepper"
+  },
+  "Fennel Seeds<SEP>Old Beijing Lamb Scorpion Hotpot": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729965,
+    "update_time": 1761729965,
+    "_id": "Fennel Seeds<SEP>Old Beijing Lamb Scorpion Hotpot"
+  },
+  "Beijing Dried Yellow Soybean Paste<SEP>Old Beijing Lamb Scorpion Hotpot": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729969,
+    "update_time": 1761729969,
+    "_id": "Beijing Dried Yellow Soybean Paste<SEP>Old Beijing Lamb Scorpion Hotpot"
+  },
+  "Lamb Scorpion<SEP>Lamb Scorpion Segment": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729969,
+    "update_time": 1761729969,
+    "_id": "Lamb Scorpion<SEP>Lamb Scorpion Segment"
+  },
+  "Huangjiu<SEP>Old Beijing Lamb Scorpion Hotpot": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729970,
+    "update_time": 1761729970,
+    "_id": "Huangjiu<SEP>Old Beijing Lamb Scorpion Hotpot"
+  },
+  "Lamb Scorpion Segment<SEP>Water Blanching": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729970,
+    "update_time": 1761729970,
+    "_id": "Lamb Scorpion Segment<SEP>Water Blanching"
+  },
+  "Garlic<SEP>Old Beijing Lamb Scorpion Hotpot": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729970,
+    "update_time": 1761729970,
+    "_id": "Garlic<SEP>Old Beijing Lamb Scorpion Hotpot"
+  },
+  "Ginger<SEP>Old Beijing Lamb Scorpion Hotpot": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729970,
+    "update_time": 1761729970,
+    "_id": "Ginger<SEP>Old Beijing Lamb Scorpion Hotpot"
+  },
+  "Old Beijing Lamb Scorpion Hotpot<SEP>Scallion": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729971,
+    "update_time": 1761729971,
+    "_id": "Old Beijing Lamb Scorpion Hotpot<SEP>Scallion"
+  },
+  "Electric Pressure Cooker<SEP>Old Beijing Lamb Scorpion Hotpot": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729971,
+    "update_time": 1761729971,
+    "_id": "Electric Pressure Cooker<SEP>Old Beijing Lamb Scorpion Hotpot"
+  },
+  "Cooking Duration<SEP>Old Beijing Lamb Scorpion Hotpot": {
+    "chunk_ids": [
+      "chunk-c18cdf256ee2a96a1790565cbcacfca5"
+    ],
+    "count": 1,
+    "create_time": 1761729976,
+    "update_time": 1761729976,
+    "_id": "Cooking Duration<SEP>Old Beijing Lamb Scorpion Hotpot"
+  },
+  "Light Flavor<SEP>Soy Milk Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729977,
+    "update_time": 1761729977,
+    "_id": "Light Flavor<SEP>Soy Milk Vegetable Hotpot"
+  },
+  "Boiling<SEP>Soy Milk Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729977,
+    "update_time": 1761729977,
+    "_id": "Boiling<SEP>Soy Milk Vegetable Hotpot"
+  },
+  "Hotpot<SEP>Soy Milk Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729978,
+    "update_time": 1761729978,
+    "_id": "Hotpot<SEP>Soy Milk Vegetable Hotpot"
+  },
+  "Soy Milk Vegetable Hotpot<SEP>Soybean": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729978,
+    "update_time": 1761729978,
+    "_id": "Soy Milk Vegetable Hotpot<SEP>Soybean"
+  },
+  "Bok Choy<SEP>Soy Milk Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729978,
+    "update_time": 1761729978,
+    "_id": "Bok Choy<SEP>Soy Milk Vegetable Hotpot"
+  },
+  "Carrot<SEP>Soy Milk Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729979,
+    "update_time": 1761729979,
+    "_id": "Carrot<SEP>Soy Milk Vegetable Hotpot"
+  },
+  "Soy Milk Vegetable Hotpot<SEP>Tofu Skin": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729979,
+    "update_time": 1761729979,
+    "_id": "Soy Milk Vegetable Hotpot<SEP>Tofu Skin"
+  },
+  "Soy Milk Vegetable Hotpot<SEP>Wood Ear": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729980,
+    "update_time": 1761729980,
+    "_id": "Soy Milk Vegetable Hotpot<SEP>Wood Ear"
+  },
+  "Shiitake Mushroom<SEP>Soy Milk Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729980,
+    "update_time": 1761729980,
+    "_id": "Shiitake Mushroom<SEP>Soy Milk Vegetable Hotpot"
+  },
+  "Lean Meat<SEP>Soy Milk Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729981,
+    "update_time": 1761729981,
+    "_id": "Lean Meat<SEP>Soy Milk Vegetable Hotpot"
+  },
+  "Jiuyang Soy Milk Maker<SEP>Soy Milk Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729981,
+    "update_time": 1761729981,
+    "_id": "Jiuyang Soy Milk Maker<SEP>Soy Milk Vegetable Hotpot"
+  },
+  "Lean Meat<SEP>Starch": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729981,
+    "update_time": 1761729981,
+    "_id": "Lean Meat<SEP>Starch"
+  },
+  "Lean Meat<SEP>Light Soy Sauce": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729981,
+    "update_time": 1761729981,
+    "_id": "Lean Meat<SEP>Light Soy Sauce"
+  },
+  "Soy Milk<SEP>Soybean": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729981,
+    "update_time": 1761729981,
+    "_id": "Soy Milk<SEP>Soybean"
+  },
+  "Clay Pot<SEP>Soy Milk Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729981,
+    "update_time": 1761729981,
+    "_id": "Clay Pot<SEP>Soy Milk Vegetable Hotpot"
+  },
+  "Jiuyang Soy Milk Maker<SEP>Soybean": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729982,
+    "update_time": 1761729982,
+    "_id": "Jiuyang Soy Milk Maker<SEP>Soybean"
+  },
+  "Cooking Time<SEP>Soy Milk Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729982,
+    "update_time": 1761729982,
+    "_id": "Cooking Time<SEP>Soy Milk Vegetable Hotpot"
+  },
+  "Jiuyang Soy Milk Maker<SEP>Pure Aroma Function": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1",
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 2,
+    "update_time": 1761730034,
+    "_id": "Jiuyang Soy Milk Maker<SEP>Pure Aroma Function"
+  },
+  "Soy Milk<SEP>Soy Milk Vegetable Hotpot": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729982,
+    "update_time": 1761729982,
+    "_id": "Soy Milk<SEP>Soy Milk Vegetable Hotpot"
+  },
+  "Clay Pot<SEP>Soy Milk": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729983,
+    "update_time": 1761729983,
+    "_id": "Clay Pot<SEP>Soy Milk"
+  },
+  "Lean Meat<SEP>Salt": {
+    "chunk_ids": [
+      "chunk-7ace6e39bb35ca10a61fd039f4335af1"
+    ],
+    "count": 1,
+    "create_time": 1761729986,
+    "update_time": 1761729986,
+    "_id": "Lean Meat<SEP>Salt"
+  },
+  "Rice Liangfen<SEP>Shredded Pork Soy Milk Cooked Liangfen": {
+    "chunk_ids": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 1,
+    "create_time": 1761730033,
+    "update_time": 1761730033,
+    "_id": "Rice Liangfen<SEP>Shredded Pork Soy Milk Cooked Liangfen"
+  },
+  "Soy Milk<SEP>Soybeans": {
+    "chunk_ids": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 1,
+    "create_time": 1761730033,
+    "update_time": 1761730033,
+    "_id": "Soy Milk<SEP>Soybeans"
+  },
+  "Shredded Pork<SEP>Shredded Pork Soy Milk Cooked Liangfen": {
+    "chunk_ids": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 1,
+    "create_time": 1761730033,
+    "update_time": 1761730033,
+    "_id": "Shredded Pork<SEP>Shredded Pork Soy Milk Cooked Liangfen"
+  },
+  "Jiuyang Soy Milk Maker<SEP>Soy Milk": {
+    "chunk_ids": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 1,
+    "create_time": 1761730033,
+    "update_time": 1761730033,
+    "_id": "Jiuyang Soy Milk Maker<SEP>Soy Milk"
+  },
+  "Light Soy Sauce<SEP>Shredded Pork": {
+    "chunk_ids": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 1,
+    "create_time": 1761730034,
+    "update_time": 1761730034,
+    "_id": "Light Soy Sauce<SEP>Shredded Pork"
+  },
+  "Shredded Pork Soy Milk Cooked Liangfen<SEP>Soy Milk": {
+    "chunk_ids": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 1,
+    "create_time": 1761730034,
+    "update_time": 1761730034,
+    "_id": "Shredded Pork Soy Milk Cooked Liangfen<SEP>Soy Milk"
+  },
+  "Salt<SEP>Shredded Pork": {
+    "chunk_ids": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 1,
+    "create_time": 1761730034,
+    "update_time": 1761730034,
+    "_id": "Salt<SEP>Shredded Pork"
+  },
+  "Pea Shoots<SEP>Shredded Pork Soy Milk Cooked Liangfen": {
+    "chunk_ids": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 1,
+    "create_time": 1761730034,
+    "update_time": 1761730034,
+    "_id": "Pea Shoots<SEP>Shredded Pork Soy Milk Cooked Liangfen"
+  },
+  "Cooking Oil<SEP>Garlic": {
+    "chunk_ids": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 1,
+    "create_time": 1761730034,
+    "update_time": 1761730034,
+    "_id": "Cooking Oil<SEP>Garlic"
+  },
+  "Hotpot<SEP>Shredded Pork Soy Milk Cooked Liangfen": {
+    "chunk_ids": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 1,
+    "create_time": 1761730035,
+    "update_time": 1761730035,
+    "_id": "Hotpot<SEP>Shredded Pork Soy Milk Cooked Liangfen"
+  },
+  "Cooking Method<SEP>Shredded Pork Soy Milk Cooked Liangfen": {
+    "chunk_ids": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 1,
+    "create_time": 1761730035,
+    "update_time": 1761730035,
+    "_id": "Cooking Method<SEP>Shredded Pork Soy Milk Cooked Liangfen"
+  },
+  "Monosodium Glutamate<SEP>Shredded Pork Soy Milk Cooked Liangfen": {
+    "chunk_ids": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 1,
+    "create_time": 1761730036,
+    "update_time": 1761730036,
+    "_id": "Monosodium Glutamate<SEP>Shredded Pork Soy Milk Cooked Liangfen"
+  },
+  "Salt<SEP>Shredded Pork Soy Milk Cooked Liangfen": {
+    "chunk_ids": [
+      "chunk-838ef9d05cb9c5553f2d5bab9144584e"
+    ],
+    "count": 1,
+    "create_time": 1761730036,
+    "update_time": 1761730036,
+    "_id": "Salt<SEP>Shredded Pork Soy Milk Cooked Liangfen"
+  },
+  "Kimchi Hot Pot<SEP>Mildly Spicy": {
+    "chunk_ids": [
+      "chunk-dd4228124691f29120994c6ce46b056e"
+    ],
+    "count": 1,
+    "create_time": 1761730046,
+    "update_time": 1761730046,
+    "_id": "Kimchi Hot Pot<SEP>Mildly Spicy"
+  },
+  "Boiling<SEP>Kimchi Hot Pot": {
+    "chunk_ids": [
+      "chunk-dd4228124691f29120994c6ce46b056e"
+    ],
+    "count": 1,
+    "create_time": 1761730046,
+    "update_time": 1761730046,
+    "_id": "Boiling<SEP>Kimchi Hot Pot"
+  },
+  "Hot Pot<SEP>Kimchi Hot Pot": {
+    "chunk_ids": [
+      "chunk-dd4228124691f29120994c6ce46b056e"
+    ],
+    "count": 1,
+    "create_time": 1761730046,
+    "update_time": 1761730046,
+    "_id": "Hot Pot<SEP>Kimchi Hot Pot"
+  },
+  "30-Minute Cooking Time<SEP>Kimchi Hot Pot": {
+    "chunk_ids": [
+      "chunk-dd4228124691f29120994c6ce46b056e"
+    ],
+    "count": 1,
+    "create_time": 1761730047,
+    "update_time": 1761730047,
+    "_id": "30-Minute Cooking Time<SEP>Kimchi Hot Pot"
+  },
+  "Enoki Mushroom<SEP>Kimchi Hot Pot": {
+    "chunk_ids": [
+      "chunk-dd4228124691f29120994c6ce46b056e"
+    ],
+    "count": 1,
+    "create_time": 1761730047,
+    "update_time": 1761730047,
+    "_id": "Enoki Mushroom<SEP>Kimchi Hot Pot"
+  },
+  "Kelp<SEP>Kimchi Hot Pot": {
+    "chunk_ids": [
+      "chunk-dd4228124691f29120994c6ce46b056e"
+    ],
+    "count": 1,
+    "create_time": 1761730048,
+    "update_time": 1761730048,
+    "_id": "Kelp<SEP>Kimchi Hot Pot"
+  },
+  "Kimchi<SEP>Kimchi Hot Pot": {
+    "chunk_ids": [
+      "chunk-dd4228124691f29120994c6ce46b056e"
+    ],
+    "count": 1,
+    "create_time": 1761730048,
+    "update_time": 1761730048,
+    "_id": "Kimchi<SEP>Kimchi Hot Pot"
+  },
+  "Frozen Tofu<SEP>Kimchi Hot Pot": {
+    "chunk_ids": [
+      "chunk-dd4228124691f29120994c6ce46b056e"
+    ],
+    "count": 1,
+    "create_time": 1761730049,
+    "update_time": 1761730049,
+    "_id": "Frozen Tofu<SEP>Kimchi Hot Pot"
+  },
+  "Fish Balls<SEP>Kimchi Hot Pot": {
+    "chunk_ids": [
+      "chunk-dd4228124691f29120994c6ce46b056e"
+    ],
+    "count": 1,
+    "create_time": 1761730049,
+    "update_time": 1761730049,
+    "_id": "Fish Balls<SEP>Kimchi Hot Pot"
+  },
+  "Kimchi Hot Pot<SEP>Meat Patties": {
+    "chunk_ids": [
+      "chunk-dd4228124691f29120994c6ce46b056e"
+    ],
+    "count": 1,
+    "create_time": 1761730049,
+    "update_time": 1761730049,
+    "_id": "Kimchi Hot Pot<SEP>Meat Patties"
+  },
+  "Kimchi Hot Pot<SEP>Potato": {
+    "chunk_ids": [
+      "chunk-dd4228124691f29120994c6ce46b056e"
+    ],
+    "count": 1,
+    "create_time": 1761730050,
+    "update_time": 1761730050,
+    "_id": "Kimchi Hot Pot<SEP>Potato"
+  },
+  "Kimchi Hot Pot<SEP>Light Soy Sauce": {
+    "chunk_ids": [
+      "chunk-dd4228124691f29120994c6ce46b056e"
+    ],
+    "count": 1,
+    "create_time": 1761730050,
+    "update_time": 1761730050,
+    "_id": "Kimchi Hot Pot<SEP>Light Soy Sauce"
+  },
+  "Kimchi Hot Pot<SEP>Salt": {
+    "chunk_ids": [
+      "chunk-dd4228124691f29120994c6ce46b056e"
+    ],
+    "count": 1,
+    "create_time": 1761730051,
+    "update_time": 1761730051,
+    "_id": "Kimchi Hot Pot<SEP>Salt"
+  },
+  "Cabbage Kimchi<SEP>Kimchi Hot Pot": {
+    "chunk_ids": [
+      "chunk-dd4228124691f29120994c6ce46b056e"
+    ],
+    "count": 1,
+    "create_time": 1761730051,
+    "update_time": 1761730051,
+    "_id": "Cabbage Kimchi<SEP>Kimchi Hot Pot"
+  },
+  "Spicy And Numbing Flavor<SEP>Suan Cai Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730095,
+    "update_time": 1761730095,
+    "_id": "Spicy And Numbing Flavor<SEP>Suan Cai Spicy Hotpot"
+  },
+  "Garlic<SEP>Garlic Dipping Sauce": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730095,
+    "update_time": 1761730095,
+    "_id": "Garlic<SEP>Garlic Dipping Sauce"
+  },
+  "Boiling<SEP>Suan Cai Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730095,
+    "update_time": 1761730095,
+    "_id": "Boiling<SEP>Suan Cai Spicy Hotpot"
+  },
+  "Garlic Dipping Sauce<SEP>Sesame Oil": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730095,
+    "update_time": 1761730095,
+    "_id": "Garlic Dipping Sauce<SEP>Sesame Oil"
+  },
+  "Hotpot<SEP>Suan Cai Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730096,
+    "update_time": 1761730096,
+    "_id": "Hotpot<SEP>Suan Cai Spicy Hotpot"
+  },
+  "Pickled Mustard Greens<SEP>Suan Cai Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730096,
+    "update_time": 1761730096,
+    "_id": "Pickled Mustard Greens<SEP>Suan Cai Spicy Hotpot"
+  },
+  "Hong Shan He Hotpot Base<SEP>Suan Cai Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730096,
+    "update_time": 1761730096,
+    "_id": "Hong Shan He Hotpot Base<SEP>Suan Cai Spicy Hotpot"
+  },
+  "Suan Cai Spicy Hotpot<SEP>Tofu": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730097,
+    "update_time": 1761730097,
+    "_id": "Suan Cai Spicy Hotpot<SEP>Tofu"
+  },
+  "Hotpot Balls<SEP>Suan Cai Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730097,
+    "update_time": 1761730097,
+    "_id": "Hotpot Balls<SEP>Suan Cai Spicy Hotpot"
+  },
+  "Garlic Dipping Sauce<SEP>Suan Cai Spicy Hotpot": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730098,
+    "update_time": 1761730098,
+    "_id": "Garlic Dipping Sauce<SEP>Suan Cai Spicy Hotpot"
+  },
+  "Garlic Dipping Sauce<SEP>Vinegar": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730098,
+    "update_time": 1761730098,
+    "_id": "Garlic Dipping Sauce<SEP>Vinegar"
+  },
+  "Garlic Dipping Sauce<SEP>Soy Sauce": {
+    "chunk_ids": [
+      "chunk-0a5a81cb83b3f904c9d30cf84454747e"
+    ],
+    "count": 1,
+    "create_time": 1761730098,
+    "update_time": 1761730098,
+    "_id": "Garlic Dipping Sauce<SEP>Soy Sauce"
+  },
+  "Sour Spicy Chicken Braised Fish<SEP>Spicy and Numbing": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730129,
+    "update_time": 1761730129,
+    "_id": "Sour Spicy Chicken Braised Fish<SEP>Spicy and Numbing"
+  },
+  "Braising<SEP>Sour Spicy Chicken Braised Fish": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730129,
+    "update_time": 1761730129,
+    "_id": "Braising<SEP>Sour Spicy Chicken Braised Fish"
+  },
+  "Hotpot<SEP>Sour Spicy Chicken Braised Fish": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730130,
+    "update_time": 1761730130,
+    "_id": "Hotpot<SEP>Sour Spicy Chicken Braised Fish"
+  },
+  "Sour Spicy Chicken Braised Fish<SEP>Three-Yellow Chicken": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730130,
+    "update_time": 1761730130,
+    "_id": "Sour Spicy Chicken Braised Fish<SEP>Three-Yellow Chicken"
+  },
+  "Bighead Carp<SEP>Sour Spicy Chicken Braised Fish": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730130,
+    "update_time": 1761730130,
+    "_id": "Bighead Carp<SEP>Sour Spicy Chicken Braised Fish"
+  },
+  "Fermented Chili<SEP>Sour Spicy Chicken Braised Fish": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730131,
+    "update_time": 1761730131,
+    "_id": "Fermented Chili<SEP>Sour Spicy Chicken Braised Fish"
+  },
+  "Fermented Ginger<SEP>Sour Spicy Chicken Braised Fish": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730131,
+    "update_time": 1761730131,
+    "_id": "Fermented Ginger<SEP>Sour Spicy Chicken Braised Fish"
+  },
+  "Red Oil Chili Paste<SEP>Sour Spicy Chicken Braised Fish": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730131,
+    "update_time": 1761730131,
+    "_id": "Red Oil Chili Paste<SEP>Sour Spicy Chicken Braised Fish"
+  },
+  "Pixian Doubanjiang<SEP>Sour Spicy Chicken Braised Fish": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730132,
+    "update_time": 1761730132,
+    "_id": "Pixian Doubanjiang<SEP>Sour Spicy Chicken Braised Fish"
+  },
+  "Curry Paste<SEP>Sour Spicy Chicken Braised Fish": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730132,
+    "update_time": 1761730132,
+    "_id": "Curry Paste<SEP>Sour Spicy Chicken Braised Fish"
+  },
+  "Sichuan Peppercorns<SEP>Sour Spicy Chicken Braised Fish": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730133,
+    "update_time": 1761730133,
+    "_id": "Sichuan Peppercorns<SEP>Sour Spicy Chicken Braised Fish"
+  },
+  "Garlic<SEP>Sour Spicy Chicken Braised Fish": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730133,
+    "update_time": 1761730133,
+    "_id": "Garlic<SEP>Sour Spicy Chicken Braised Fish"
+  },
+  "Scallion<SEP>Sour Spicy Chicken Braised Fish": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730133,
+    "update_time": 1761730133,
+    "_id": "Scallion<SEP>Sour Spicy Chicken Braised Fish"
+  },
+  "Peanut Oil<SEP>Sour Spicy Chicken Braised Fish": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730134,
+    "update_time": 1761730134,
+    "_id": "Peanut Oil<SEP>Sour Spicy Chicken Braised Fish"
+  },
+  "Monosodium Glutamate<SEP>Sour Spicy Chicken Braised Fish": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730134,
+    "update_time": 1761730134,
+    "_id": "Monosodium Glutamate<SEP>Sour Spicy Chicken Braised Fish"
+  },
+  "Salt<SEP>Sour Spicy Chicken Braised Fish": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730135,
+    "update_time": 1761730135,
+    "_id": "Salt<SEP>Sour Spicy Chicken Braised Fish"
+  },
+  "Chicken Bouillon<SEP>Sour Spicy Chicken Braised Fish": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730135,
+    "update_time": 1761730135,
+    "_id": "Chicken Bouillon<SEP>Sour Spicy Chicken Braised Fish"
+  },
+  "Cooking Wine<SEP>Sour Spicy Chicken Braised Fish": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730135,
+    "update_time": 1761730135,
+    "_id": "Cooking Wine<SEP>Sour Spicy Chicken Braised Fish"
+  },
+  "Sour Spicy Chicken Braised Fish<SEP>Soy Sauce": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730136,
+    "update_time": 1761730136,
+    "_id": "Sour Spicy Chicken Braised Fish<SEP>Soy Sauce"
+  },
+  "Clear Water<SEP>Sour Spicy Chicken Braised Fish": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730136,
+    "update_time": 1761730136,
+    "_id": "Clear Water<SEP>Sour Spicy Chicken Braised Fish"
+  },
+  "Flat-Bottomed Cooking Pot<SEP>Sour Spicy Chicken Braised Fish": {
+    "chunk_ids": [
+      "chunk-bf3012c05b86f237b882134357971799"
+    ],
+    "count": 1,
+    "create_time": 1761730137,
+    "update_time": 1761730137,
+    "_id": "Flat-Bottomed Cooking Pot<SEP>Sour Spicy Chicken Braised Fish"
   }
 }
