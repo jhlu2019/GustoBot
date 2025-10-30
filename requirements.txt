@@ -5,6 +5,7 @@ pydantic==2.10.4
 pydantic-settings==2.4.0
 email-validator>=2.0.0
 gunicorn
+aiofiles
 
 # LLM Integration
 openai>=1.58.1,<2

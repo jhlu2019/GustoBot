@@ -12,7 +12,9 @@
       "Bash(docker:*)",
       "Bash(curl:*)",
       "Bash(touch:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run dev:*)"
     ],
     "deny": [],
     "ask": []

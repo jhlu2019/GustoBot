@@ -1,7 +1,8 @@
 version: '3.8'
 
 services:
-  server:
+  # 后端服务
+  backend:
     build:
       context: .
       dockerfile: Dockerfile
@@ -130,10 +131,15 @@ services:
     volumes:
       - ./gustobot:/app/gustobot
       - ./data:/app/data
+      - ./uploads:/app/uploads
+      - ./.env:/app/.env
     depends_on:
       - neo4j
       - redis
       - milvus
+    networks:
+      - gustobot-network
+    restart: unless-stopped
     command: uvicorn gustobot.main:application --host 0.0.0.0 --port 8000 --reload
 
   neo4j:
@@ -152,6 +158,8 @@ services:
     volumes:
       - neo4j_data:/data
       - neo4j_logs:/logs
+    networks:
+      - gustobot-network
 
   mysql:
     image: mysql:8.0
@@ -167,6 +175,8 @@ services:
       - ./data/init_mysql.sql:/docker-entrypoint-initdb.d/00_init.sql
       - ./data/insert_sample_data.sql:/docker-entrypoint-initdb.d/10_seed.sql
     command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - gustobot-network
 
   redis:
     image: redis:7-alpine
@@ -174,6 +184,8 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    networks:
+      - gustobot-network
 
   # Milvus向量数据库
   etcd:
@@ -186,6 +198,8 @@ services:
     volumes:
       - etcd_data:/etcd
     command: etcd -advertise-client-urls=http://127.0.0.1:2379 -listen-client-urls http://0.0.0.0:2379 --data-dir /etcd
+    networks:
+      - gustobot-network
 
   minio:
     image: minio/minio:RELEASE.2023-03-20T20-16-18Z
@@ -203,6 +217,8 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
+    networks:
+      - gustobot-network
 
   milvus:
     image: milvusdb/milvus:v2.3.3
@@ -218,6 +234,8 @@ services:
     depends_on:
       - etcd
       - minio
+    networks:
+      - gustobot-network
 
   kb_postgres:
     image: ankane/pgvector
@@ -230,6 +248,8 @@ services:
       - "${KB_PG_PORT:-5433}:5432"
     volumes:
       - kb_pgdata:/var/lib/postgresql/data
+    networks:
+      - gustobot-network
 
   kb_ingest:
     build:
@@ -280,7 +300,13 @@ services:
     volumes:
       - ./kb_ingest/data:/app/data
     command: uvicorn kb_service.main:app --host 0.0.0.0 --port 8000
+    networks:
+      - gustobot-network
 
+
+networks:
+  gustobot-network:
+    driver: bridge
 
 volumes:
   redis_data:

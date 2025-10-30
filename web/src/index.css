@@ -1,19 +1,61 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans;
+  }
 }
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif, 'Microsoft YaHei', 'SimSun';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@layer components {
+  .chat-bubble {
+    @apply max-w-[70%] break-words;
+  }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  .chat-bubble.user {
+    @apply bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-2xl p-3;
+  }
+
+  .chat-bubble.assistant {
+    @apply bg-gray-100 text-gray-800 rounded-2xl p-3;
+  }
+
+  .typing-indicator {
+    @apply inline-flex items-center p-3 bg-gray-100 rounded-2xl;
+  }
+
+  .typing-dot {
+    @apply w-2 h-2 mx-0.5 bg-gray-400 rounded-full;
+    animation: typing 1.4s infinite;
+  }
+
+  .typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes typing {
+    0%, 60%, 100% {
+      transform: translateY(0);
+    }
+    30% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .route-badge {
+    @apply inline-block px-2 py-1 text-xs bg-gray-200 text-gray-600 rounded-md mt-2;
+  }
+
+  .source-item {
+    @apply bg-yellow-50 border border-yellow-200 rounded-md p-2 mt-1 text-sm;
+  }
+
+  .file-preview {
+    @apply bg-gray-50 border border-dashed border-gray-300 rounded-md p-2 mt-2 flex items-center gap-2;
+  }
 }

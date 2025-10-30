@@ -3,10 +3,12 @@ GustoBot FastAPI application entry point.
 """
 from __future__ import annotations
 
+import os
 import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from loguru import logger
 
 from gustobot.application.services.lightrag_service import get_lightrag_service
@@ -32,7 +34,7 @@ application = FastAPI(
 # Global middleware -----------------------------------------------------------
 application.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.cors_origins_list,
+    allow_origins=["*"],  # 允许所有来源，方便开发和测试
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -43,8 +45,33 @@ application.include_router(knowledge_router.router, prefix=settings.API_V1_PREFI
 application.include_router(lightrag_router.router, prefix=settings.API_V1_PREFIX)
 application.include_router(api_v1_router, prefix=settings.API_V1_PREFIX)
 
+# Static files ---------------------------------------------------------------
+# 创建上传目录
+uploads_dir = os.path.join(os.path.dirname(__file__), "..", "..", "uploads")
+os.makedirs(uploads_dir, exist_ok=True)
 
-@application.get("/")
+# 挂载静态文件
+application.mount("/uploads", StaticFiles(directory=uploads_dir), name="uploads")
+
+# 挂载前端静态文件
+web_dir = os.path.join(os.path.dirname(__file__), "..", "..", "web")
+if os.path.exists(web_dir):
+    application.mount("/static", StaticFiles(directory=web_dir), name="static")
+
+    @application.get("/")
+    async def read_index():
+        """重定向到聊天页面"""
+        from fastapi.responses import RedirectResponse
+        return RedirectResponse(url="/static/chatbot/")
+
+    @application.get("/favicon.ico")
+    async def favicon():
+        """返回favicon"""
+        from fastapi.responses import Response
+        return Response(content=b"", media_type="image/x-icon")
+
+
+@application.get("/api")
 async def root() -> dict:
     return {
         "name": settings.APP_NAME,
