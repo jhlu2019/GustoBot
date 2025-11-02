@@ -31,7 +31,8 @@
       "Bash(dir:*)",
       "Bash(git add:*)",
       "Bash(timeout:*)",
-      "Bash(ping:*)"
+      "Bash(ping:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
