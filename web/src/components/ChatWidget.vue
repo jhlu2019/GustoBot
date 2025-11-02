@@ -192,6 +192,10 @@ function closeChat() {
   state.isOpen = false;
 }
 
+defineExpose({
+  openChat,
+  closeChat
+});
 function resetSession() {
   state.sessionId = "";
   state.messages = [];
