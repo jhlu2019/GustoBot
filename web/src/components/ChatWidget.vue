@@ -15,16 +15,34 @@
     <transition name="pop">
       <div v-if="isOpen" class="chat-panel">
         <header class="chat-header">
-          <div>
-            <div class="title">GustoBot 智能助手</div>
+          <div class="header-content">
+            <div class="title-row">
+              <div class="title">GustoBot 智能助手</div>
+              <div class="session-chip">
+                {{ sessionId ? "会话ID：" + sessionId : "新会话" }}
+              </div>
+            </div>
             <div class="subtitle">
-              {{ sessionId ? "会话ID：" + sessionId : "新会话" }}
+              <span class="status-dot"></span>
+              在线 · 菜谱知识库
             </div>
           </div>
           <button class="close-btn" type="button" @click="closeChat">×</button>
         </header>
 
         <section ref="messageContainer" class="chat-body">
+          <div class="suggestion-bar">
+            <button
+              v-for="(item, idx) in quickSuggestions"
+              :key="idx"
+              type="button"
+              class="suggestion-chip"
+              @click="sendSuggestion(item.prompt)"
+            >
+              <span class="chip-icon">⚡</span>
+              <span>{{ item.label }}</span>
+            </button>
+          </div>
           <div v-if="messages.length === 0" class="empty-hint">
             <p>你好！我可以帮你查询菜谱知识、历史典故、文件分析等。</p>
             <ul>
@@ -147,6 +165,25 @@ const placeholder = computed(() => {
   return "请输入您的问题，例如“佛跳墙的来历是什么？”";
 });
 
+const quickSuggestions = [
+  {
+    label: "推荐经典鲁菜",
+    prompt: "请推荐几道经典鲁菜，并分别说明它们的特色。"
+  },
+  {
+    label: "菜谱历史典故",
+    prompt: "佛跳墙这道菜的历史典故是什么？"
+  },
+  {
+    label: "上传文件后如何分析？",
+    prompt: "我已经上传了一份菜谱文件，请帮我总结其中的亮点。"
+  },
+  {
+    label: "知识库来源",
+    prompt: "知识库里的历史菜谱来源有哪些？"
+  }
+] as const;
+
 function openChat() {
   state.isOpen = true;
 }
@@ -189,6 +226,12 @@ async function onFileSelected(event: Event) {
     // reset input to allow re-upload same file
     input.value = "";
   }
+}
+
+function sendSuggestion(prompt: string) {
+  if (state.isTyping) return;
+  state.userInput = prompt;
+  void sendMessage();
 }
 
 async function sendMessage() {
@@ -309,16 +352,16 @@ onUnmounted(() => {
   padding: 12px 16px;
   border-radius: 999px;
   border: none;
-  background: linear-gradient(135deg, #2563eb, #38bdf8);
+  background: linear-gradient(135deg, #f97316, #ef4444);
   color: #fff;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 15px 30px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 15px 30px rgba(249, 115, 22, 0.35);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 18px 32px rgba(37, 99, 235, 0.45);
+    box-shadow: 0 20px 34px rgba(239, 68, 68, 0.4);
   }
 
   .icon {
@@ -332,28 +375,68 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  background: #ffffff;
-  box-shadow: 0 28px 60px rgba(15, 23, 42, 0.2);
+  background: #fffdfb;
+  box-shadow: 0 28px 60px rgba(15, 23, 42, 0.18);
   overflow: hidden;
-  border: 1px solid rgba(148, 163, 184, 0.25);
+  border: 1px solid rgba(248, 187, 125, 0.35);
 }
 
 .chat-header {
   padding: 18px 20px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  gap: 12px;
+  background: linear-gradient(135deg, #f97316, #ef4444);
   color: #fff;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+
+  .header-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
 
   .title {
     font-size: 16px;
     font-weight: 600;
+    letter-spacing: 0.5px;
   }
 
   .subtitle {
     font-size: 12px;
-    opacity: 0.8;
+    opacity: 0.85;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .session-chip {
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+    font-size: 11px;
+    font-weight: 500;
+    backdrop-filter: blur(4px);
+    max-width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #fef3c7;
+    box-shadow: 0 0 0 4px rgba(254, 243, 199, 0.25);
   }
 
   .close-btn {
@@ -362,6 +445,13 @@ onUnmounted(() => {
     color: inherit;
     font-size: 24px;
     cursor: pointer;
+    line-height: 1;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.8;
+      transform: scale(1.05);
+    }
   }
 }
 
@@ -369,17 +459,55 @@ onUnmounted(() => {
   flex: 1;
   padding: 16px;
   overflow-y: auto;
-  background: #f8fafc;
+  background: linear-gradient(180deg, rgba(255, 244, 230, 0.6), rgba(255, 251, 247, 0.95));
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
+.suggestion-bar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 12px;
+  margin-bottom: 4px;
+  background: linear-gradient(180deg, rgba(255, 251, 247, 0.92), rgba(255, 251, 247, 0));
+  z-index: 1;
+}
+
+.suggestion-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(249, 115, 22, 0.45);
+  background: rgba(255, 247, 237, 0.85);
+  color: #9a3412;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(239, 68, 68, 0.15));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2);
+  }
+
+  .chip-icon {
+    font-size: 14px;
+  }
+}
+
 .empty-hint {
   padding: 18px;
   border-radius: 12px;
-  background: rgba(37, 99, 235, 0.08);
-  color: #1e3a8a;
+  background: rgba(254, 215, 170, 0.5);
+  border: 1px dashed rgba(249, 115, 22, 0.4);
+  color: #7c2d12;
   font-size: 13px;
 
   ul {
@@ -396,18 +524,20 @@ onUnmounted(() => {
     justify-content: flex-end;
 
     .bubble {
-      background: #2563eb;
+      background: linear-gradient(135deg, #f97316, #f97316 40%, #ef4444);
       color: #fff;
       border-bottom-right-radius: 4px;
+      box-shadow: 0 12px 24px rgba(239, 68, 68, 0.25);
     }
   }
 
   &.assistant {
     .bubble {
-      background: #fff;
+      background: rgba(255, 255, 255, 0.92);
       color: #1f2937;
       border-bottom-left-radius: 4px;
-      border: 1px solid rgba(148, 163, 184, 0.2);
+      border: 1px solid rgba(248, 187, 125, 0.4);
+      backdrop-filter: blur(4px);
     }
   }
 }
@@ -421,8 +551,12 @@ onUnmounted(() => {
   font-size: 13px;
 
   a {
-    color: #2563eb;
+    color: #f97316;
     text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
@@ -430,13 +564,13 @@ onUnmounted(() => {
   margin-top: 10px;
   padding: 12px;
   border-radius: 12px;
-  background: rgba(59, 130, 246, 0.08);
-  border: 1px dashed rgba(37, 99, 235, 0.3);
+  background: rgba(254, 215, 170, 0.35);
+  border: 1px dashed rgba(249, 115, 22, 0.45);
 
   .sources-title {
     font-size: 12px;
     font-weight: 600;
-    color: #1d4ed8;
+    color: #9a3412;
   }
 
   ul {
@@ -450,7 +584,7 @@ onUnmounted(() => {
 .route {
   margin-top: 8px;
   font-size: 11px;
-  color: #475569;
+  color: #b45309;
 }
 
 .typing {
@@ -462,7 +596,7 @@ onUnmounted(() => {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #2563eb;
+    background: #f97316;
     animation: pulse 1.2s infinite ease-in-out;
 
     &:nth-child(2) {
@@ -488,7 +622,7 @@ onUnmounted(() => {
 .chat-footer {
   padding: 12px 16px 16px;
   background: #fff;
-  border-top: 1px solid rgba(148, 163, 184, 0.2);
+  border-top: 1px solid rgba(248, 187, 125, 0.35);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -506,8 +640,8 @@ onUnmounted(() => {
     gap: 6px;
     padding: 6px 10px;
     border-radius: 8px;
-    background: rgba(37, 99, 235, 0.12);
-    color: #2563eb;
+    background: rgba(254, 215, 170, 0.4);
+    color: #c2410c;
     font-weight: 600;
     cursor: pointer;
 
@@ -517,19 +651,19 @@ onUnmounted(() => {
   }
 
   .upload-status {
-    color: #334155;
+    color: #92400e;
   }
 
   .reset-session {
     margin-left: auto;
     border: none;
     background: transparent;
-    color: #64748b;
+    color: #fb923c;
     cursor: pointer;
     font-size: 12px;
 
     &:hover {
-      color: #1f2937;
+      color: #ea580c;
     }
   }
 }
@@ -550,8 +684,8 @@ onUnmounted(() => {
     outline: none;
 
     &:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+      border-color: #f97316;
+      box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.18);
     }
   }
 
@@ -559,7 +693,7 @@ onUnmounted(() => {
     border: none;
     border-radius: 12px;
     padding: 10px 16px;
-    background: linear-gradient(135deg, #2563eb, #38bdf8);
+    background: linear-gradient(135deg, #f97316, #ef4444);
     color: #fff;
     font-weight: 600;
     cursor: pointer;
