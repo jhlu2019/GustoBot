@@ -3,7 +3,7 @@ import json
 
 # API配置
 BASE_URL = "http://localhost:8000"
-CHAT_URL = f"{BASE_URL}/api/v1/chat/chat"
+CHAT_URL = f"{BASE_URL}/api/v1/chat"
 
 # 测试用例
 test_cases = [

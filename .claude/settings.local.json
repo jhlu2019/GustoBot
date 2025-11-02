@@ -16,7 +16,8 @@
       "Bash(npm install:*)",
       "Bash(npm run dev:*)",
       "Bash(docker-compose exec:*)",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "Bash(iconv:*)"
     ],
     "deny": [],
     "ask": []

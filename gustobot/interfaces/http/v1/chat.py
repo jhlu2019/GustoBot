@@ -250,7 +250,7 @@ async def chat(
     )
 
 
-@router.post("/chat/stream")
+@router.post("/stream")
 async def chat_stream(
     request: ChatRequest,
     db: Session = Depends(get_db)
@@ -282,7 +282,7 @@ async def chat_stream(
     )
 
 
-@router.get("/chat/history/{session_id}", response_model=List[ChatMessageResponse])
+@router.get("/history/{session_id}", response_model=List[ChatMessageResponse])
 async def get_chat_history(
     session_id: str,
     db: Session = Depends(get_db),
@@ -311,7 +311,7 @@ async def get_chat_history(
     return messages
 
 
-@router.delete("/chat/session/{session_id}")
+@router.delete("/session/{session_id}")
 async def clear_session(
     session_id: str,
     db: Session = Depends(get_db)
@@ -332,7 +332,7 @@ async def clear_session(
     return {"message": "Session cleared successfully", "session_id": session_id}
 
 
-@router.get("/chat/routes")
+@router.get("/routes")
 async def get_route_info() -> Dict[str, Any]:
     """
     Get information about available routes and their purposes
