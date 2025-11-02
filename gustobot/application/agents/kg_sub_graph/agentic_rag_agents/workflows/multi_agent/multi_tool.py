@@ -592,8 +592,8 @@ def create_kb_multi_tool_workflow(
                     "query": question,
                     "top_k": effective_top_k,
                 }
-                if effective_threshold is not None:
-                    payload["threshold"] = effective_threshold
+                if settings.KB_POSTGRES_SIMILARITY_THRESHOLD is not None:
+                    payload["threshold"] = settings.KB_POSTGRES_SIMILARITY_THRESHOLD
                 try:
                     timeout_cfg = aiohttp.ClientTimeout(total=request_timeout)
                     async with aiohttp.ClientSession(timeout=timeout_cfg) as session:
@@ -602,14 +602,50 @@ def create_kb_multi_tool_workflow(
                                 body = await response.json()
                                 data_results = body.get("results") or []
                                 if isinstance(data_results, list):
-                                    for item in data_results:
+                                    for idx, item in enumerate(data_results):
                                         item_copy = dict(item)
                                         metadata_copy = dict(item_copy.get("metadata") or {})
                                         item_copy["metadata"] = metadata_copy
                                         item_copy["tool"] = "postgres"
+                                        similarity = (
+                                            item_copy.get("similarity")
+                                            if item_copy.get("similarity") is not None
+                                            else item_copy.get("score")
+                                        )
+                                        if similarity is not None:
+                                            try:
+                                                item_copy["similarity"] = float(similarity)
+                                            except (TypeError, ValueError):
+                                                item_copy["similarity"] = 0.0
+                                        item_copy["id"] = str(
+                                            item_copy.get("id")
+                                            or item_copy.get("document_id")
+                                            or item_copy.get("source_id")
+                                            or f"postgres_{idx}"
+                                        )
                                         postgres_results.append(item_copy)
+                                    if postgres_results and knowledge_service.reranker.enabled:
+                                        postgres_results = await knowledge_service.reranker.rerank(
+                                            question, postgres_results, effective_top_k
+                                        )
+                                    filtered_postgres: List[Dict[str, Any]] = []
+                                    for doc in postgres_results:
+                                        similarity = float(doc.get("similarity") or doc.get("score") or 0.0)
+                                        rerank_score = float(doc.get("rerank_score") or 0.0)
+                                        if knowledge_service.reranker.enabled:
+                                            if (
+                                                similarity >= settings.KB_POSTGRES_SIMILARITY_THRESHOLD
+                                                and rerank_score >= settings.KB_POSTGRES_RERANK_THRESHOLD
+                                            ):
+                                                filtered_postgres.append(doc)
+                                        else:
+                                            if similarity >= settings.KB_POSTGRES_SIMILARITY_THRESHOLD:
+                                                filtered_postgres.append(doc)
+                                    postgres_results = filtered_postgres[:effective_top_k]
                                     kb_logger.info(
-                                        "✅ PostgreSQL 返回 {} 条结果（优先使用）", len(postgres_results)
+                                        "✅ PostgreSQL 返回 {} 条结果，过滤后保留 {} 条",
+                                        len(data_results),
+                                        len(postgres_results),
                                     )
                                 else:
                                     kb_logger.warning(
@@ -646,8 +682,9 @@ def create_kb_multi_tool_workflow(
                     docs = await knowledge_service.search(
                         query=question,
                         top_k=effective_top_k,
-                        similarity_threshold=effective_threshold,
+                        similarity_threshold=settings.KB_SIMILARITY_THRESHOLD,
                         filter_expr=filter_expr,
+                        filter_by_similarity=not knowledge_service.reranker.enabled,
                     )
                     for doc in docs:
                         doc_copy = dict(doc)

@@ -126,6 +126,7 @@ class KnowledgeService:
         top_k: Optional[int] = None,
         similarity_threshold: Optional[float] = None,
         filter_expr: Optional[str] = None,
+        filter_by_similarity: bool = True,
     ) -> List[Dict[str, Any]]:
         if not query or not query.strip():
             return []
@@ -148,13 +149,24 @@ class KnowledgeService:
             filter_expr,
         )
 
-        filtered = [r for r in results if r.get("score", 0.0) >= similarity_threshold]
+        candidates = results
+        if filter_by_similarity and similarity_threshold is not None:
+            candidates = [r for r in candidates if r.get("score", 0.0) >= similarity_threshold]
 
         # 使用 reranker 精排
-        if filtered and self.reranker.enabled:
-            filtered = await self.reranker.rerank(query, filtered, top_k)
+        if candidates and self.reranker.enabled:
+            candidates = await self.reranker.rerank(query, candidates, top_k)
 
-        return filtered[:top_k]
+        if self.reranker.enabled:
+            candidates = [
+                r
+                for r in candidates
+                if r.get("rerank_score", 0.0) >= settings.KB_RERANK_SCORE_THRESHOLD
+            ]
+        elif not filter_by_similarity and similarity_threshold is not None:
+            candidates = [r for r in candidates if r.get("score", 0.0) >= similarity_threshold]
+
+        return candidates[:top_k]
 
     async def delete_recipe(self, recipe_id: str) -> bool:
         return await asyncio.to_thread(self.vector_store.delete_documents, [recipe_id])

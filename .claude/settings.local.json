@@ -29,7 +29,8 @@
       "Bash(do echo \"Testing: $msg\" echo \"{\"\"message\"\": \"\"$msg\"\", \"\"session_id\"\": \"\"test\"\"}\")",
       "Bash(findstr:*)",
       "Bash(dir:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(timeout:*)"
     ],
     "deny": [],
     "ask": []

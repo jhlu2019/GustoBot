@@ -207,7 +207,7 @@ class Settings(BaseSettings):
 
     # Knowledge base retrieval
     KB_TOP_K: int = 5
-    KB_SIMILARITY_THRESHOLD: float = 0.7
+    KB_SIMILARITY_THRESHOLD: float = 0.2
     KB_CHUNK_SIZE: int = Field(
         default=512,
         description="Chunk size used when splitting documents for the knowledge base",
@@ -242,6 +242,18 @@ class Settings(BaseSettings):
     KB_RERANK_TIMEOUT: int = Field(default=30, description="Timeout for kb_ingest reranker requests")
     KB_RERANK_SCORE_FUSION_ALPHA: float = Field(
         default=0.5, description="Score fusion alpha for kb_ingest reranker"
+    )
+    KB_POSTGRES_SIMILARITY_THRESHOLD: float = Field(
+        default=0.5,
+        description="Minimum similarity required for PostgreSQL KB results after rerank",
+    )
+    KB_POSTGRES_RERANK_THRESHOLD: float = Field(
+        default=0.8,
+        description="Minimum rerank score required for PostgreSQL KB results",
+    )
+    KB_RERANK_SCORE_THRESHOLD: float = Field(
+        default=0.8,
+        description="Minimum rerank score required for vector results (e.g., Milvus)",
     )
 
     # External ingestion service (test folder FastAPI) configuration
