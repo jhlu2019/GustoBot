@@ -964,3 +964,15 @@ def _heuristic_router(question: str) -> Optional[Router]:
         }
 
     return None
+
+
+def build_supervisor_graph():
+    """向后兼容的 Supervisor Graph 构建接口。"""
+    return graph
+
+
+async def safety_guardrails(
+    state: AgentState, *, config: RunnableConfig
+) -> Dict[str, List[BaseMessage]]:
+    """兼容旧接口，复用 get_additional_info 的护栏逻辑。"""
+    return await get_additional_info(state, config=config)

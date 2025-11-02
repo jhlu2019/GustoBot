@@ -1,14 +1,13 @@
 from pydantic import BaseModel, Field
 from dataclasses import dataclass, field
-from typing import Annotated, Literal, TypedDict, List
+from typing import Annotated, Any, Dict, List, Literal, Optional, TypedDict
 from langchain_core.messages import AnyMessage
 from langgraph.graph import add_messages
 
 
-class Router(TypedDict):
-    """Classify user query."""
+class Router(TypedDict, total=False):
+    """Classify user query (backwards compatible with旧字段)."""
     logic: str
-    # Add "kb-query" to supported router types to enable knowledge base routing
     type: Literal[
         "general-query",
         "additional-query",
@@ -16,9 +15,22 @@ class Router(TypedDict):
         "graphrag-query",
         "image-query",
         "file-query",
-        "text2sql-query",  # Text2SQL 查询
+        "text2sql-query",
     ]
-    question: str = field(default_factory=str)
+    question: str
+    # 兼容旧版本字段
+    decision: str
+    confidence: float
+    reasoning: str
+
+
+@dataclass(kw_only=True)
+class RouteResult:
+    """Route selection result for downstream nodes."""
+    route: str
+    confidence: float = 0.0
+    next_node: str = ""
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
 class GradeHallucinations(BaseModel):
     """Binary score for hallucination present in generation answer."""

@@ -30,7 +30,8 @@
       "Bash(findstr:*)",
       "Bash(dir:*)",
       "Bash(git add:*)",
-      "Bash(timeout:*)"
+      "Bash(timeout:*)",
+      "Bash(ping:*)"
     ],
     "deny": [],
     "ask": []

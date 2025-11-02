@@ -8,12 +8,28 @@ import os
 from pathlib import Path
 import numpy as np
 from pydantic import BaseModel, Field
-from lightrag import LightRAG, QueryParam
-from lightrag.llm.openai import openai_complete_if_cache, openai_embed
-from lightrag.utils import EmbeddingFunc
-from lightrag.kg.shared_storage import initialize_pipeline_status
 
-LIGHTRAG_AVAILABLE = True
+try:
+    from lightrag import LightRAG, QueryParam
+    from lightrag.llm.openai import openai_complete_if_cache, openai_embed
+    from lightrag.utils import EmbeddingFunc
+    from lightrag.kg.shared_storage import initialize_pipeline_status
+    LIGHTRAG_AVAILABLE = True
+except ImportError:  # pragma: no cover - optional dependency
+    LIGHTRAG_AVAILABLE = False
+    LightRAG = QueryParam = None  # type: ignore[assignment]
+    EmbeddingFunc = None  # type: ignore[assignment]
+
+    def _missing_lighttrag(*args: Any, **kwargs: Any) -> Any:
+        raise ImportError("LightRAG 未安装，请运行 'pip install lightrag-hku'")
+
+    initialize_pipeline_status = _missing_lighttrag  # type: ignore[assignment]
+
+    def openai_complete_if_cache(*args: Any, **kwargs: Any) -> Any:  # type: ignore[assignment]
+        return _missing_lighttrag(*args, **kwargs)
+
+    def openai_embed(*args: Any, **kwargs: Any) -> Any:  # type: ignore[assignment]
+        return _missing_lighttrag(*args, **kwargs)
 
 # 导入配置
 from gustobot.config import settings
