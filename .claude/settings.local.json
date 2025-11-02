@@ -20,7 +20,8 @@
       "Bash(iconv:*)",
       "Bash(docker-compose stop:*)",
       "Bash(docker-compose rm:*)",
-      "Bash(pip install:*)"
+      "Bash(pip install:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []
