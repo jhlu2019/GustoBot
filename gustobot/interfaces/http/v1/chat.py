@@ -121,7 +121,18 @@ async def process_agent_query(message: str, session_id: str,
         route_logic = router_info.get("logic")
 
         # Extract sources if available
-        sources = result.get("sources", [])
+        sources_raw = result.get("sources", [])
+
+        # Convert sources to expected format (list of dicts)
+        sources = []
+        if sources_raw:
+            # If sources is a list of strings, convert to list of dicts
+            if isinstance(sources_raw[0], str):
+                for src in sources_raw:
+                    sources.append({"document_id": src, "source": src})
+            else:
+                # Already in correct format
+                sources = sources_raw
 
         return {
             "message": response_text,

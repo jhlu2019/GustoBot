@@ -83,3 +83,5 @@ class AgentState(InputState):
     question: str = field(default_factory=str)
     answer: str = field(default_factory=str)
     hallucination: GradeHallucinations = field(default_factory=lambda: GradeHallucinations(binary_score="0"))
+    sources: list = field(default_factory=list)
+    """Sources from knowledge base queries."""

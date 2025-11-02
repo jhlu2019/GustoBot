@@ -1864,5 +1864,215 @@
     "create_time": 1762071930,
     "update_time": 1762071930,
     "_id": "hybrid:query:aeb419e11503ac632ccbde0a85259018"
+  },
+  "hybrid:keywords:9e4753ba54d725e508b1c300a124d419": {
+    "return": "{\"high_level_keywords\": [\"\\u9505\\u5305\\u8089\", \"\\u8d77\\u6e90\", \"\\u5386\\u53f2\\u80cc\\u666f\", \"\\u83dc\\u80b4\\u5386\\u53f2\", \"\\u996e\\u98df\\u6587\\u5316\"], \"low_level_keywords\": [\"\\u4e1c\\u5317\\u83dc\", \"\\u54c8\\u5c14\\u6ee8\", \"\\u6e05\\u671d\", \"\\u4e2d\\u5f0f\\u70f9\\u996a\", \"\\u7cd6\\u918b\\u53e3\\u5473\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "锅包肉的起源和历史背景是什么",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762074222,
+    "update_time": 1762074222,
+    "_id": "hybrid:keywords:9e4753ba54d725e508b1c300a124d419"
+  },
+  "hybrid:query:9bc253036de813a5b449febe921844e6": {
+    "return": "根据当前提供的知识库内容，其中并未包含关于“锅包肉”的起源或历史背景的信息。知识库主要聚焦于各类火锅（hotpot）菜肴、配料（如盐、葱、料酒）、烹饪方法及其风味特征，但未提及锅包肉这一具体菜品。\n\n因此，基于所提供的资料，无法回答锅包肉的起源和历史背景。\n\n### References",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "锅包肉的起源和历史背景是什么",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "锅包肉, 起源, 历史背景, 菜肴历史, 饮食文化",
+      "ll_keywords": "东北菜, 哈尔滨, 清朝, 中式烹饪, 糖醋口味",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762074231,
+    "update_time": 1762074231,
+    "_id": "hybrid:query:9bc253036de813a5b449febe921844e6"
+  },
+  "hybrid:keywords:eac875da8276619693c4baa1f35a97ef": {
+    "return": "{\"high_level_keywords\": [\"\\u5206\\u5b50\\u6599\\u7406\", \"\\u70f9\\u996a\\u6280\\u672f\", \"\\u73b0\\u4ee3\\u6599\\u7406\\u65b9\\u6cd5\"], \"low_level_keywords\": [\"\\u7403\\u5316\\u6280\\u672f\", \"\\u4e73\\u5316\", \"\\u6db2\\u6c2e\", \"\\u79bb\\u5fc3\\u673a\", \"\\u6ce8\\u5c04\\u5668\", \"\\u6d77\\u85fb\\u9178\\u94a0\", \"\\u6c2f\\u5316\\u9499\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "分子料理的常用技术、工具和基础做法有哪些",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762074368,
+    "update_time": 1762074368,
+    "_id": "hybrid:keywords:eac875da8276619693c4baa1f35a97ef"
+  },
+  "hybrid:query:0bebefa5e8982cf8a1068a586f707dc5": {
+    "return": "根据您提供的查询，我需要回答关于“分子料理的常用技术、工具和基础做法”。然而，在所提供的 **Context**（包括知识图谱数据和文档片段）中，并未包含任何与“分子料理”（Molecular Gastronomy）直接相关的信息。\n\n所提供的内容主要围绕各类**火锅菜肴**（如牛奶火锅、麻油鸡蔬菜锅、鸳鸯火锅等），详细描述了它们的食材、烹饪方法（如煮、炖、拌）、调味料（如盐、芝麻油）以及具体做法步骤。其中提到的烹饪技术包括**Boiling（煮）**、**Stewing（炖）**、**Stir-Frying（炒）**、**Mixing（拌）** 等传统中式烹饪方法，但**没有涉及分子料理特有的技术**（如球化、乳化、低温慢煮、液氮冷冻、凝胶化等），也**未提及任何分子料理专用工具**（如注射器、离心机、均质机、氯化钙、海藻酸钠等）或其基础原理。\n\n因此，基于当前提供的上下文信息，**无法回答关于分子料理的常用技术、工具和基础做法**。\n\n如果您希望了解该主题，建议提供包含分子料理相关内容的知识库或文档。",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "分子料理的常用技术、工具和基础做法有哪些",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "分子料理, 烹饪技术, 现代料理方法",
+      "ll_keywords": "球化技术, 乳化, 液氮, 离心机, 注射器, 海藻酸钠, 氯化钙",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762074378,
+    "update_time": 1762074378,
+    "_id": "hybrid:query:0bebefa5e8982cf8a1068a586f707dc5"
+  },
+  "hybrid:keywords:dcb9a67dc3e2272fbb0dc66fcf7d3f4e": {
+    "return": "{\"high_level_keywords\": [\"\\u8425\\u517b\\u6210\\u5206\", \"\\u5065\\u5eb7\\u529f\\u6548\", \"\\u98df\\u7269\\u8425\\u517b\\u4ef7\\u503c\"], \"low_level_keywords\": [\"\\u7ea2\\u70e7\\u8089\", \"\\u8102\\u80aa\\u542b\\u91cf\", \"\\u86cb\\u767d\\u8d28\", \"\\u80c6\\u56fa\\u9187\", \"\\u70ed\\u91cf\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "红烧肉的营养成分和健康功效是什么",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762075077,
+    "update_time": 1762075077,
+    "_id": "hybrid:keywords:dcb9a67dc3e2272fbb0dc66fcf7d3f4e"
+  },
+  "hybrid:query:f78a086fcc95a78c9e2e6e63998e2433": {
+    "return": "根据当前提供的知识库内容，**没有关于“红烧肉”的营养成分或健康功效的信息**。所提供的资料主要涉及多种火锅类菜肴（如红油麻辣火锅、DIY滋补家庭什锦火锅、美容果茶小火锅等）及其食材、做法和部分食材的健康属性（如枸杞、山楂、红 dates 等），但并未提及“红烧肉”这道菜。\n\n因此，基于现有上下文，**无法回答红烧肉的营养成分和健康功效**。",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "红烧肉的营养成分和健康功效是什么",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "营养成分, 健康功效, 食物营养价值",
+      "ll_keywords": "红烧肉, 脂肪含量, 蛋白质, 胆固醇, 热量",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762075090,
+    "update_time": 1762075090,
+    "_id": "hybrid:query:f78a086fcc95a78c9e2e6e63998e2433"
+  },
+  "hybrid:keywords:86e05a6631577cfdd1117f23a8620f2b": {
+    "return": "{\"high_level_keywords\": [\"\\u7ea2\\u70e7\\u8089\", \"\\u70f9\\u996a\\u65b9\\u6cd5\", \"\\u83dc\\u80b4\\u7279\\u70b9\"], \"low_level_keywords\": [\"\\u4e3b\\u6599\", \"\\u8f85\\u6599\", \"\\u5236\\u4f5c\\u6b65\\u9aa4\", \"\\u53e3\\u5473\\u7279\\u70b9\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "红烧肉的主辅料、制作步骤和口味特点是什么？",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762075119,
+    "update_time": 1762075119,
+    "_id": "hybrid:keywords:86e05a6631577cfdd1117f23a8620f2b"
+  },
+  "hybrid:query:b405415ba4d7f86206db321a442357a3": {
+    "return": "根据提供的知识库和文档内容，**没有关于“红烧肉”的主辅料、制作步骤或口味特点的任何信息**。\n\n所提供的资料主要涵盖各类**火锅**（如红油麻辣火锅、阿胶红枣乌鸡汤、麻油鸡蔬菜锅等）、炖菜、汤品及其他热锅类菜肴，但并未包含“红烧肉”这一经典中式菜肴的相关描述。\n\n因此，**无法回答红烧肉的主辅料、制作步骤和口味特点**，因为这些信息在给定的上下文中不存在。",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "红烧肉的主辅料、制作步骤和口味特点是什么？",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "红烧肉, 烹饪方法, 菜肴特点",
+      "ll_keywords": "主料, 辅料, 制作步骤, 口味特点",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762075130,
+    "update_time": 1762075130,
+    "_id": "hybrid:query:b405415ba4d7f86206db321a442357a3"
+  },
+  "hybrid:keywords:4d91a64e0b67554ece494b9bdf9a7a77": {
+    "return": "{\"high_level_keywords\": [\"\\u8425\\u517b\\u6210\\u5206\", \"\\u5065\\u5eb7\\u529f\\u6548\", \"\\u98df\\u54c1\\u8425\\u517b\\u4ef7\\u503c\"], \"low_level_keywords\": [\"\\u867e\\u997a\", \"\\u86cb\\u767d\\u8d28\", \"\\u80c6\\u56fa\\u9187\", \"\\u70ed\\u91cf\", \"\\u5fae\\u91cf\\u5143\\u7d20\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "虾饺的营养成分和健康功效如何？",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762075653,
+    "update_time": 1762075653,
+    "_id": "hybrid:keywords:4d91a64e0b67554ece494b9bdf9a7a77"
+  },
+  "hybrid:query:ba860c59111012bc043d06283174214a": {
+    "return": "根据提供的知识库信息，**没有关于“虾饺”（shrimp dumplings）的具体描述、营养成分或健康功效的内容**。\n\n知识库中提到了“虾”（Shrimp）作为食材的信息，例如：\n- 虾（特别是基围虾）是一种海鲜，用作汤或菜肴中的蛋白质来源。\n- 在“鱼丸菌类海鲜汤”中，虾的用量为50克。\n- 虾在“茭白爆虾”这道菜中是主要蛋白质原料，需清洗、去肠线、尾部开边。\n\n然而，这些信息均涉及**整虾或虾肉在热炒、火锅或汤品中的使用**，并未涉及以虾为主要馅料、包裹在面皮中蒸制而成的“虾饺”这种特定食品。因此，无法从现有资料中推断虾饺的营养成分或健康功效。\n\n### 结论\n您所询问的“虾饺”的营养成分和健康功效**在当前提供的上下文中没有相关信息**，无法给出准确回答。\n\n### References\n\n（无相关参考文献）",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "虾饺的营养成分和健康功效如何？",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "营养成分, 健康功效, 食品营养价值",
+      "ll_keywords": "虾饺, 蛋白质, 胆固醇, 热量, 微量元素",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762075666,
+    "update_time": 1762075666,
+    "_id": "hybrid:query:ba860c59111012bc043d06283174214a"
   }
 }

@@ -487,6 +487,9 @@ def create_kb_multi_tool_workflow(
                 candidate = (
                     doc.get("source")
                     or doc.get("source_table")
+                    or doc.get("document_id")
+                    or doc.get("source_id")
+                    or doc.get("id")
                     or meta.get("source")
                     or meta.get("source_table")
                     or meta.get("url")
