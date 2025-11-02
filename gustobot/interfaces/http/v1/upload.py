@@ -32,7 +32,7 @@ ALLOWED_IMAGE_TYPES = {
 MAX_FILE_SIZE = 50 * 1024 * 1024
 
 
-@router.post("/upload/file")
+@router.post("/file")
 async def upload_file(file: UploadFile = File(...)) -> JSONResponse:
     """上传文件（txt, excel, pdf等）"""
 
@@ -71,7 +71,7 @@ async def upload_file(file: UploadFile = File(...)) -> JSONResponse:
             "original_name": file.filename,
             "size": len(content),
             "file_path": str(file_path),
-            "file_url": f"/uploads/{filename}",
+            "file_url": f"/api/v1/upload/files/{filename}",
             "file_type": file_ext
         })
 
@@ -83,7 +83,7 @@ async def upload_file(file: UploadFile = File(...)) -> JSONResponse:
         )
 
 
-@router.post("/upload/image")
+@router.post("/image")
 async def upload_image(image: UploadFile = File(...)) -> JSONResponse:
     """上传图片文件"""
 
@@ -127,7 +127,7 @@ async def upload_image(image: UploadFile = File(...)) -> JSONResponse:
             "original_name": image.filename,
             "size": len(content),
             "file_path": str(file_path),
-            "image_url": f"/uploads/images/{filename}",
+            "image_url": f"/api/v1/upload/images/{filename}",
             "file_type": file_ext
         })
 
@@ -139,7 +139,7 @@ async def upload_image(image: UploadFile = File(...)) -> JSONResponse:
         )
 
 
-@router.get("/uploads/{filename}")
+@router.get("/files/{filename}")
 async def get_uploaded_file(filename: str):
     """获取上传的文件"""
     file_path = UPLOAD_DIR / filename
@@ -149,12 +149,25 @@ async def get_uploaded_file(filename: str):
             detail="文件不存在"
         )
 
-    # 返回文件内容
     from fastapi.responses import FileResponse
     return FileResponse(file_path)
 
 
-@router.delete("/upload/{file_id}")
+@router.get("/images/{filename}")
+async def get_uploaded_image(filename: str):
+    """获取上传的图片"""
+    file_path = UPLOAD_DIR / "images" / filename
+    if not file_path.exists():
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="图片不存在"
+        )
+
+    from fastapi.responses import FileResponse
+    return FileResponse(file_path)
+
+
+@router.delete("/{file_id}")
 async def delete_uploaded_file(file_id: str):
     """删除上传的文件"""
     # 查找文件
