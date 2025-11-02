@@ -1822,5 +1822,47 @@
     "create_time": 1762061200,
     "update_time": 1762061200,
     "_id": "hybrid:query:51cff156b01d4af308969175e81d93af"
+  },
+  "hybrid:keywords:999a29a3850b7b5d692803f89a498cf9": {
+    "return": "{\"high_level_keywords\": [\"\\u8425\\u517b\\u6210\\u5206\", \"\\u5065\\u5eb7\\u529f\\u6548\", \"\\u9e21\\u86cb\\u8425\\u517b\\u4ef7\\u503c\"], \"low_level_keywords\": [\"\\u9e21\\u86cb\", \"\\u86cb\\u767d\\u8d28\", \"\\u80c6\\u56fa\\u9187\", \"\\u7ef4\\u751f\\u7d20D\", \"\\u5375\\u78f7\\u8102\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "鸡蛋的营养成分和健康功效是什么",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762071917,
+    "update_time": 1762071917,
+    "_id": "hybrid:keywords:999a29a3850b7b5d692803f89a498cf9"
+  },
+  "hybrid:query:aeb419e11503ac632ccbde0a85259018": {
+    "return": "根据您提供的查询，我需要查找关于鸡蛋（特别是普通鸡蛋）的营养成分和健康功效的信息。然而，在您提供的 **Context**（包括知识图谱数据和文档片段）中，只提到了 **鹌鹑蛋**（Quail Eggs）和 **鸭血**（Duck Blood），并未包含关于普通鸡蛋（Chicken Eggs）的任何信息。\n\n知识图谱中关于鹌鹑蛋的描述如下：\n*   鹌鹑蛋被描述为一种“富含蛋白质的食材”（protein-rich ingredient）。\n*   它被加入火锅中是为了增加“浓郁度和口感”（richness and texture）。\n\n这些信息仅说明了鹌鹑蛋是蛋白质的来源，但并未详细说明其具体的营养成分（如维生素、矿物质含量）或广泛的健康功效。更重要的是，这些信息不能直接等同于普通鸡蛋的营养和功效。\n\n因此，基于您提供的资料，**没有足够的信息来回答关于鸡蛋（Chicken Eggs）的营养成分和健康功效的问题**。\n\n### References",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "鸡蛋的营养成分和健康功效是什么",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "营养成分, 健康功效, 鸡蛋营养价值",
+      "ll_keywords": "鸡蛋, 蛋白质, 胆固醇, 维生素D, 卵磷脂",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762071930,
+    "update_time": 1762071930,
+    "_id": "hybrid:query:aeb419e11503ac632ccbde0a85259018"
   }
 }

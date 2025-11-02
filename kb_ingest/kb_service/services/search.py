@@ -109,14 +109,28 @@ class VectorSearcher:
                 except Exception:  # pragma: no cover - best effort
                     pass
 
+            content = row[4]
+            if isinstance(content, memoryview):
+                content = content.tobytes().decode("utf-8", errors="ignore")
+            elif isinstance(content, bytes):
+                content = content.decode("utf-8", errors="ignore")
+
+            similarity = float(row[5])
+
             item = {
-                "id": row[0],
+                "id": str(row[0]),
                 "source_table": row[1],
-                "source_id": row[2],
+                "source_id": str(row[2]) if row[2] is not None else None,
                 "metadata": metadata_dict,
-                "content": row[4],
-                "similarity": float(row[5]),
+                "content": content,
+                "similarity": similarity,
                 "distance": float(row[6]),
+                "score": similarity,
+                "document_id": str(row[2]) if row[2] is not None else str(row[0]),
+                "source": metadata_dict.get("source")
+                or metadata_dict.get("url")
+                or metadata_dict.get("id")
+                or (str(row[2]) if row[2] is not None else str(row[0])),
             }
             results.append(item)
 
