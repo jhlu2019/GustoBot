@@ -216,6 +216,33 @@ class Settings(BaseSettings):
         default=80,
         description="Chunk overlap used when splitting documents",
     )
+    KB_LLM_PROVIDER: str = Field(default="openai", description="LLM provider used by kb_ingest")
+    KB_LLM_MODEL: Optional[str] = Field(default=None, description="LLM model used by kb_ingest")
+    KB_LLM_API_KEY: Optional[str] = Field(default=None, description="LLM API key for kb_ingest")
+    KB_LLM_BASE_URL: Optional[str] = Field(default=None, description="LLM base URL for kb_ingest")
+    KB_LLM_TEMPERATURE: float = Field(default=0.3, description="LLM temperature for kb_ingest")
+    KB_USE_LLM: bool = Field(default=True, description="Whether kb_ingest uses an LLM pipeline")
+    KB_EMBEDDING_PROVIDER: str = Field(default="openai", description="Embedding provider for kb_ingest")
+    KB_EMBEDDING_MODEL: Optional[str] = Field(default=None, description="Embedding model for kb_ingest")
+    KB_EMBEDDING_API_KEY: Optional[str] = Field(default=None, description="Embedding API key for kb_ingest")
+    KB_EMBEDDING_BASE_URL: Optional[str] = Field(
+        default=None, description="Embedding base URL for kb_ingest"
+    )
+    KB_EMBEDDING_DIMENSION: int = Field(default=1024, description="Embedding dimension for kb_ingest")
+    KB_RERANK_ENABLED: bool = Field(default=False, description="Whether kb_ingest uses a reranker service")
+    KB_RERANK_PROVIDER: Optional[str] = Field(default=None, description="Reranker provider for kb_ingest")
+    KB_RERANK_BASE_URL: Optional[str] = Field(default=None, description="Reranker base URL for kb_ingest")
+    KB_RERANK_ENDPOINT: Optional[str] = Field(default=None, description="Reranker endpoint for kb_ingest")
+    KB_RERANK_API_KEY: Optional[str] = Field(default=None, description="Reranker API key for kb_ingest")
+    KB_RERANK_MODEL: Optional[str] = Field(default=None, description="Reranker model for kb_ingest")
+    KB_RERANK_MAX_CANDIDATES: int = Field(
+        default=20, description="Max candidates for kb_ingest reranker when enabled"
+    )
+    KB_RERANK_TOP_N: int = Field(default=6, description="Top N results returned by kb_ingest reranker")
+    KB_RERANK_TIMEOUT: int = Field(default=30, description="Timeout for kb_ingest reranker requests")
+    KB_RERANK_SCORE_FUSION_ALPHA: float = Field(
+        default=0.5, description="Score fusion alpha for kb_ingest reranker"
+    )
 
     # External ingestion service (test folder FastAPI) configuration
     INGEST_SERVICE_URL: Optional[str] = Field(
