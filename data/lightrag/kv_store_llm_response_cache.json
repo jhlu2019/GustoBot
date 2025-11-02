@@ -1486,5 +1486,299 @@
     "create_time": 1761816314,
     "update_time": 1761816314,
     "_id": "hybrid:query:13f323b69c2e1514a4ca489e51a5c0c6"
+  },
+  "hybrid:keywords:425b1664251d05f20dfa4b47ce342e51": {
+    "return": "{\"high_level_keywords\": [\"\\u7092\\u9752\\u83dc\", \"\\u70f9\\u996a\\u6280\\u5de7\", \"\\u852c\\u83dc\\u8272\\u6cfd\\u4fdd\\u6301\"], \"low_level_keywords\": [\"\\u7fe0\\u7eff\", \"\\u9752\\u83dc\", \"\\u706b\\u5019\\u63a7\\u5236\", \"\\u712f\\u6c34\", \"\\u6cb9\\u6e29\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "炒青菜时保持翠绿的烹饪技巧有哪些",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762055251,
+    "update_time": 1762055251,
+    "_id": "hybrid:keywords:425b1664251d05f20dfa4b47ce342e51"
+  },
+  "hybrid:query:c6d0e3d0515e203e5c9e002de7295fad": {
+    "return": "在您提供的知识库中，并未包含关于“炒青菜时如何保持翠绿”的具体烹饪技巧。相关内容主要聚焦于火锅类菜肴的食材、调味与烹饪方法（如 boiling、stir-frying 等），但未涉及炒制绿叶蔬菜时护色的技术要点（例如焯水加盐、控制火候、避免过早加酸等常见技巧）。\n\n因此，基于当前上下文，**无法提供关于炒青菜保持翠绿的具体技巧**。",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "炒青菜时保持翠绿的烹饪技巧有哪些",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "炒青菜, 烹饪技巧, 蔬菜色泽保持",
+      "ll_keywords": "翠绿, 青菜, 火候控制, 焯水, 油温",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762055258,
+    "update_time": 1762055258,
+    "_id": "hybrid:query:c6d0e3d0515e203e5c9e002de7295fad"
+  },
+  "hybrid:keywords:7d6968f2b172038ac5cadf0ba8eb660a": {
+    "return": "{\"high_level_keywords\": [\"\\u611f\\u5192\\u996e\\u98df\", \"\\u8425\\u517b\\u8c03\\u7406\", \"\\u75be\\u75c5\\u6062\\u590d\"], \"low_level_keywords\": [\"\\u611f\\u5192\\u60a3\\u8005\", \"\\u9002\\u5408\\u98df\\u7528\\u7684\\u83dc\\u54c1\", \"\\u6e05\\u6de1\\u98df\\u7269\", \"\\u5bcc\\u542b\\u7ef4\\u751f\\u7d20C\\u7684\\u98df\\u7269\", \"\\u9e21\\u6c64\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "适合感冒患者食用的菜品有哪些",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762055304,
+    "update_time": 1762055304,
+    "_id": "hybrid:keywords:7d6968f2b172038ac5cadf0ba8eb660a"
+  },
+  "hybrid:query:494a4af1c1a7fc6b72fb59887d6a87ca": {
+    "return": "根据提供的资料，以下几款菜品因其**清淡、温和、滋补**的特性，可能较适合感冒患者食用：\n\n### 1. **阿胶红枣乌鸡汤 (Ejiao Red Date Black Chicken Soup)**\n这道汤品被明确描述为具有**清淡（Mild Flavor）** 的口味，属于火锅类，但采用**煲（Stewing）** 的方式长时间炖煮（数小时）。其食材包括乌鸡、红枣、阿胶、龙眼、桑葚等，这些成分在传统食疗中常被认为具有滋补和调理身体的功效。对于需要温和进补、恢复体力的感冒患者来说，这是一道理想的选择。\n\n### 2. **老鸭汤底清汤火锅 (Old Duck Clear Soup Hotpot)**\n此菜以老鸭熬制清汤，口味为**咸鲜**，同样需要数小时的慢炖来提取精华。其汤底仅用盐、鸡精、姜、葱、干辣椒和八角等简单调味，整体风味**清澈不油腻**。感冒期间食用温热的清汤有助于补充水分和电解质，而鸭肉性凉，有滋阴之效，适合风热感冒或伴有内热的患者。\n\n### 3. **白菜粉丝锅 (Bai Cai Fen Si Guo)**\n这是一道烹饪时间仅需半小时的**清淡**火锅。主要食材为白菜、粉丝和油豆腐，调味也相对简单，使用高汤、盐、鸡精等。白菜富含维生素C，且性质平和，易于消化，非常适合感冒期间肠胃功能较弱时食用。\n\n### 4. **小肠汤锅 (Small Intestine Hotpot)**\n虽然主料是小肠，但其口味被归类为**清淡**，并且经过了反复清洗和焯水处理，汤底也仅用盐、鸡精等简单调味。如果患者对内脏接受度较高，这款汤锅也能提供丰富的蛋白质和热量，帮助身体恢复。\n\n### References\n\n- [1] 阿胶红枣乌鸡汤\n- [2] 老鸭汤底清汤火锅\n- [3] 白菜粉丝锅\n- [4] 小肠汤锅",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "适合感冒患者食用的菜品有哪些",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "感冒饮食, 营养调理, 疾病恢复",
+      "ll_keywords": "感冒患者, 适合食用的菜品, 清淡食物, 富含维生素C的食物, 鸡汤",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762055323,
+    "update_time": 1762055323,
+    "_id": "hybrid:query:494a4af1c1a7fc6b72fb59887d6a87ca"
+  },
+  "hybrid:keywords:2048ad5c7ed662d8e22b4542db6853a8": {
+    "return": "{\"high_level_keywords\": [\"\\u83dc\\u8c31\\u7edf\\u8ba1\", \"\\u53e3\\u5473\\u5206\\u6790\", \"\\u6570\\u91cf\\u7edf\\u8ba1\"], \"low_level_keywords\": [\"\\u53e3\\u5473\", \"\\u83dc\\u8c31\\u6570\\u91cf\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "统计每个口味的菜谱数量",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762055370,
+    "update_time": 1762055370,
+    "_id": "hybrid:keywords:2048ad5c7ed662d8e22b4542db6853a8"
+  },
+  "hybrid:query:7ec6ac7a9030ca74283cd72295c2da07": {
+    "return": "根据提供的知识图谱数据和文档内容，对每种**口味**（风味/味型）的菜谱数量进行统计，结果如下：\n\n- **麻辣 / Spicy and Numbing**：7 道  \n  包括：水煮酸菜杏鲍菇粉丝煲、DIY滋补家庭什锦火锅、酸菜麻辣火锅、红油麻辣火锅、Sour Spicy Chicken Braised Fish、Suan Cai Spicy Hotpot、Shui Zhu Suan Cai Xing Bao Gu Fen Si Pot。\n\n- **清淡 / Light Flavor**：5 道  \n  包括：白菜粉丝锅、鲜汤火锅、清淡萝卜排骨锅、阿胶红枣乌鸡汤、Clear Soup Assorted Hotpot（根据知识图谱归类）。\n\n- **咸鲜 / Savory Flavor**：4 道  \n  包括：杂菌荟火锅、火火的鱼锅、老鸭汤底清汤火锅、Fish Ball Mushroom Seafood Soup。\n\n- **酸辣 / Sour and Spicy Flavor**：2 道  \n  包括：酸菜柠檬鸡火锅、Sour Spicy Chicken Braised Fish（部分重叠，但按菜谱独立计数）。\n\n- **中辣 / Medium Spicy**：2 道  \n  包括：涮锅子、Spicy Sour Cabbage and Pork Rib Hotpot。\n\n- **原味 / Original Flavor**：1 道  \n  麻油鸡蔬菜锅。\n\n- **微辣**：2 道  \n  包括：大杂烩--韩式大酱汤、泡菜小火锅。\n\n- **五香**：1 道  \n  清淡萝卜排骨锅（注：该菜谱在文档中标注为“五香”，但在知识图谱中归为“清淡”，此处按文档内容统计）。\n\n- **香草**：1 道  \n  红酒火锅。\n\n- **甜味 / Sweet Flavor**：1 道  \n  Milk Sweet Corn Hotpot。\n\n- **鱼香味 / Fish Flavor**：1 道  \n  Sheng Gun Yu Pian Huo Guo。\n\n- **咸鲜（Savory And Fresh）**：1 道  \n  Za Jun Hui Hotpot（与“咸鲜”概念略有不同，但风味接近，此处单独列出以符合知识图谱描述）。\n\n> 注：部分菜谱在知识图谱与文档中的口味描述存在细微差异（如“清淡” vs “五香”），统计时优先依据文档中的明确标注，并结合知识图谱中的概念归类进行整合。重复菜名（如 Sour Spicy Chicken Braised Fish 同时具有“酸辣”和“麻辣”特征）按其主要风味归类，避免重复计数。\n\n### References\n\n- [1] 杂菌荟火锅\n- [2] 大杂烩--韩式大酱汤\n- [3] 麻油鸡蔬菜锅\n- [4] 火火的鱼锅\n- [5] 【食尚擂台火锅赛区】：健胃开脾---酸菜柠檬鸡火锅",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "统计每个口味的菜谱数量",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "菜谱统计, 口味分析, 数量统计",
+      "ll_keywords": "口味, 菜谱数量",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762055389,
+    "update_time": 1762055389,
+    "_id": "hybrid:query:7ec6ac7a9030ca74283cd72295c2da07"
+  },
+  "hybrid:keywords:ee897d09593f8c9c29b6fb6c4ae20d61": {
+    "return": "{\"high_level_keywords\": [\"\\u7ea2\\u70e7\\u8089\\u53e3\\u611f\\u95ee\\u9898\", \"\\u70f9\\u996a\\u5931\\u8d25\\u539f\\u56e0\", \"\\u8089\\u7c7b\\u70f9\\u996a\\u6280\\u5de7\"], \"low_level_keywords\": [\"\\u7ea2\\u70e7\\u8089\", \"\\u53d1\\u67f4\", \"\\u706b\\u5019\\u8fc7\\u5927\", \"\\u7096\\u716e\\u65f6\\u95f4\\u4e0d\\u8db3\", \"\\u9009\\u8089\\u90e8\\u4f4d\\u4e0d\\u5f53\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "红烧肉发柴的常见原因有哪些",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762055636,
+    "update_time": 1762055636,
+    "_id": "hybrid:keywords:ee897d09593f8c9c29b6fb6c4ae20d61"
+  },
+  "hybrid:query:5a86c832f71bfd58f906823621edc14a": {
+    "return": "根据您提供的查询“红烧肉发柴的常见原因有哪些”，我仔细检索了所提供的 **Context**（包括知识图谱数据和文档片段）。\n\n在所有提供的资料中，内容主要围绕**火锅类菜肴**（如红油麻辣火锅、萝卜排骨锅、红酒火锅等）的食材、调味料（如盐、酱油、料酒）、烹饪方法（如炖、煮、涮）和具体菜谱展开。其中提到了诸如“五花肉”作为涮锅食材，以及“料酒”、“盐”、“酱油”等用于去腥和调味，但**没有任何一处信息直接或间接讨论“红烧肉”这道菜，更没有分析其“发柴”的原因**。\n\n“红烧肉”是一道经典的中式烧菜，其烹饪要点（如火候、水量、糖色、炖煮时间等）与Context中描述的火锅类炖煮方式有显著区别。由于缺乏相关实体、关系或文档内容的支持，我无法基于给定信息回答您的问题。\n\n因此，根据指令，我必须说明：**在提供的Context中没有足够信息来回答关于红烧肉发柴原因的问题**。",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "红烧肉发柴的常见原因有哪些",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "红烧肉口感问题, 烹饪失败原因, 肉类烹饪技巧",
+      "ll_keywords": "红烧肉, 发柴, 火候过大, 炖煮时间不足, 选肉部位不当",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762055646,
+    "update_time": 1762055646,
+    "_id": "hybrid:query:5a86c832f71bfd58f906823621edc14a"
+  },
+  "hybrid:keywords:0184a170730ec35465f4ffdd67fc89b0": {
+    "return": "{\"high_level_keywords\": [\"\\u611f\\u5192\\u996e\\u98df\", \"\\u9002\\u5b9c\\u83dc\\u54c1\", \"\\u98df\\u7597\"], \"low_level_keywords\": [\"\\u611f\\u5192\\u4eba\\u7fa4\", \"\\u6e05\\u6de1\\u98df\\u7269\", \"\\u5bcc\\u542b\\u7ef4\\u751f\\u7d20C\\u7684\\u852c\\u83dc\", \"\\u9e21\\u6c64\", \"\\u59dc\\u8336\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "适合感冒人群食用的菜品有哪些",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762055654,
+    "update_time": 1762055654,
+    "_id": "hybrid:keywords:0184a170730ec35465f4ffdd67fc89b0"
+  },
+  "hybrid:query:eaa4a16112d8e8acc374162d57239dd0": {
+    "return": "根据提供的资料，以下几款菜品因其温和、清淡或具有滋补特性的风味，可能适合感冒人群食用：\n\n### 1. **阿胶红枣乌鸡汤**  \n这道汤品属于火锅类，采用**炖**的烹饪方式，耗时**数小时**，口味**清淡**。其主要食材包括乌鸡、阿胶、红枣、龙眼、桑葚和覆盆子等，具有滋补养生的作用。由于其**温和不刺激**且富含营养，适合身体虚弱或感冒恢复期的人群食用。\n\n### 2. **鲜汤火锅（汤底）**  \n该汤底口味**清淡**，烹饪时间仅需**十分钟**，主要成分包括史云生高汤、大葱、姜、蒜、枸杞和杏仁。姜和葱具有**驱寒暖身**的功效，而清淡的汤底不会加重肠胃负担，适合感冒初期或食欲不佳时食用。\n\n### 3. **麻油鸡蔬菜锅**  \n虽然烹饪时间较短（**十分钟**），但此锅以**台湾米酒、老姜片和黑麻油**为主要调味，具有**温补驱寒**的作用。需要注意的是，其含酒量较高，若感冒伴有发烧或对酒精敏感，应谨慎食用；但若为风寒感冒且无酒精禁忌，适量食用有助于发汗驱寒。\n\n### 4. **豆浆蔬菜锅 / 瘦肉豆浆煮凉粉**  \n这两道菜均以**豆浆**为基底，口味**咸鲜或清淡**，搭配瘦肉、蔬菜和豆制品，易于消化且富含植物蛋白。豆浆具有润燥作用，适合感冒期间补充水分和营养，尤其适合素食或肠胃敏感者。\n\n### 5. **清淡萝卜排骨锅**  \n此锅以白萝卜和猪排骨炖煮而成，口味为**五香**，烹饪时间约**半小时**。白萝卜具有**化痰止咳、清热生津**的功效，搭配排骨提供蛋白质，整体温和滋补，适合感冒伴有咳嗽或痰多者。\n\n> **注意事项**：感冒期间应避免辛辣、油腻或过于刺激的食物。上述推荐菜品均以**清淡、温补、易消化**为特点，但若感冒症状严重（如高烧、咽喉剧痛），建议遵医嘱饮食。\n\n### References\n\n- [5] 阿胶红枣乌鸡汤\n- [4] 鲜汤火锅（汤底）\n- [17] 麻油鸡蔬菜锅\n- [15] 豆浆蔬菜锅\n- [3] 清淡萝卜排骨锅",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "适合感冒人群食用的菜品有哪些",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "感冒饮食, 适宜菜品, 食疗",
+      "ll_keywords": "感冒人群, 清淡食物, 富含维生素C的蔬菜, 鸡汤, 姜茶",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762055677,
+    "update_time": 1762055677,
+    "_id": "hybrid:query:eaa4a16112d8e8acc374162d57239dd0"
+  },
+  "hybrid:keywords:b4f38d4ec7d065568d7d58ace4f24c9d": {
+    "return": "{\"high_level_keywords\": [\"\\u83dc\\u8c31\\u7edf\\u8ba1\", \"\\u53e3\\u5473\\u5206\\u6790\", \"\\u98df\\u8c31\\u6570\\u91cf\"], \"low_level_keywords\": [\"\\u53e3\\u5473\", \"\\u83dc\\u8c31\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "统计每种口味对应的菜谱数量",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762055711,
+    "update_time": 1762055711,
+    "_id": "hybrid:keywords:b4f38d4ec7d065568d7d58ace4f24c9d"
+  },
+  "hybrid:query:92e86e0b05293722d06e1250b9a526bb": {
+    "return": "根据提供的知识图谱数据和文档内容，对每种口味（风味）对应的菜谱数量进行统计，结果如下：\n\n*   **Spicy and Numbing (麻辣)**: 6道\n    *   Shui Zhu Suan Cai Xing Bao Gu Fen Si Pot (水煮酸菜杏鲍菇粉丝煲)\n    *   Sour Spicy Chicken Braised Fish (泡椒鸡焖鱼)\n    *   DIY Nourishing Family Hotpot (DIY滋补家庭什锦火锅)\n    *   Red Oil Spicy Hotpot (红油麻辣火锅)\n    *   Suan Cai Spicy Hotpot (酸菜麻辣火锅)\n    *   Shuan Guo Zi (涮锅子) - 注：其风味被定义为“Medium Spicy (中辣)”，但“中辣”是“Spicy and Numbing”风味的一个子类或程度描述，在此归入此类。\n\n*   **Light Flavor (清淡)**: 5道\n    *   Bai Cai Fen Si Guo (白菜粉丝锅)\n    *   Fresh Soup Hotpot (鲜汤火锅)\n    *   Clear Soup Assorted Hotpot (清汤什锦火锅)\n    *   Old Duck Broth Meatball Vermicelli Hot Pot (烫锅---高汤肉丸粉丝锅)\n    *   Soy Milk Vegetable Hotpot (豆浆素菜锅) - 注：此菜谱在关系图谱中提及，但未在文档块中详细列出。\n\n*   **Savory Flavor (咸鲜)**: 2道\n    *   Fish Ball Mushroom Seafood Soup (鱼丸菌类海鲜汤)\n    *   Za Jun Hui Hotpot (杂菌荟火锅) - 注：其风味在文档中描述为“咸鲜”，与“Savory And Fresh (咸鲜)”概念对应。\n\n*   **Original Flavor (原味)**: 2道\n    *   Sesame Oil Chicken Vegetable Hotpot (麻油鸡蔬菜锅)\n    *   Balanced Meatball Assorted Hotpot (营养均衡的肉丸什锦火锅)\n\n*   **Five-Spice (五香)**: 2道\n    *   Hot Pot Chicken (火锅鸡)\n    *   Mild Radish Pork Rib Hotpot (清淡萝卜排骨锅)\n\n*   **Sour and Spicy Flavor (酸辣)**: 1道\n    *   Sour Pickled Lemon Chicken Hotpot (酸菜柠檬鸡火锅)\n\n*   **Mild Flavor (清淡)**: 1道\n    *   Ejiao Red Date Black Chicken Soup (阿胶红枣乌鸡汤)\n\n*   **Sweet Flavor (甜)**: 1道\n    *   Milk Sweet Corn Hotpot (牛奶甜玉米锅) - 注：此菜谱在关系图谱中提及，但未在文档块中详细列出。\n\n*   **Savory Sauce Flavor (酱香)**: 1道\n    *   Old Beijing Lamb Scorpion Hotpot (老北京羊蝎子火锅)\n\n*   **Fish Flavor (鱼香)**: 1道\n    *   Fish Head Vegetable Hotpot (鱼头素菜锅)\n\n### References\n\n- [1] 杂菌荟火锅\n- [2] 火锅鸡\n- [3] 麻油鸡蔬菜锅\n- [4] 涮锅子\n- [5] DIY滋补家庭什锦火锅",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "统计每种口味对应的菜谱数量",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "菜谱统计, 口味分析, 食谱数量",
+      "ll_keywords": "口味, 菜谱",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762055740,
+    "update_time": 1762055740,
+    "_id": "hybrid:query:92e86e0b05293722d06e1250b9a526bb"
+  },
+  "hybrid:keywords:349c732ac9e3706cbb0ec1384b9e527e": {
+    "return": "{\"high_level_keywords\": [\"\\u8425\\u517b\\u6210\\u5206\", \"\\u5065\\u5eb7\\u529f\\u6548\", \"\\u852c\\u83dc\\u8425\\u517b\\u4ef7\\u503c\"], \"low_level_keywords\": [\"\\u897f\\u5170\\u82b1\", \"\\u7ef4\\u751f\\u7d20C\", \"\\u81b3\\u98df\\u7ea4\\u7ef4\", \"\\u6297\\u6c27\\u5316\\u7269\\u8d28\", \"\\u53f6\\u9178\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "西兰花的营养成分和健康功效是什么",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762056253,
+    "update_time": 1762056253,
+    "_id": "hybrid:keywords:349c732ac9e3706cbb0ec1384b9e527e"
+  },
+  "hybrid:query:9d241c41bb2967f79c2334a8a34a1398": {
+    "return": "根据当前提供的知识库内容，关于西兰花（Broccoli）的信息仅限于其在烹饪中的应用，特别是在**牛奶火锅**中的使用方式：“西兰花是蔬菜，切成小朵，焯水后冷却，用于牛奶火锅中”。\n\n然而，所提供的**知识图谱数据**和**文档片段**中**并未包含**有关西兰花具体营养成分（如维生素C、膳食纤维、萝卜硫素等含量）或其详细健康功效（如抗氧化、抗癌、支持免疫系统等）的信息。\n\n因此，基于给定的上下文，无法回答西兰花的营养成分和健康功效。\n\n### References\n\n- [1] 【食尚擂台火锅赛区】：浓香四溢---牛奶火锅",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "西兰花的营养成分和健康功效是什么",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "营养成分, 健康功效, 蔬菜营养价值",
+      "ll_keywords": "西兰花, 维生素C, 膳食纤维, 抗氧化物质, 叶酸",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762056262,
+    "update_time": 1762056262,
+    "_id": "hybrid:query:9d241c41bb2967f79c2334a8a34a1398"
   }
 }

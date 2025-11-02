@@ -14,7 +14,9 @@
       "Bash(touch:*)",
       "Bash(python:*)",
       "Bash(npm install:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(docker-compose exec:*)",
+      "Bash(powershell:*)"
     ],
     "deny": [],
     "ask": []

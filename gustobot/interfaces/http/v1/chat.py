@@ -202,7 +202,7 @@ async def stream_agent_response(message: str, session_id: str,
         yield f"data: {error_chunk.model_dump_json()}\n\n"
 
 
-@router.post("/chat", response_model=ChatResponse)
+@router.post("/", response_model=ChatResponse)
 async def chat(
     request: ChatRequest,
     background_tasks: BackgroundTasks,
