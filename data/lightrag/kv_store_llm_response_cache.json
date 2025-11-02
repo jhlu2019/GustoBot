@@ -1780,5 +1780,47 @@
     "create_time": 1762056262,
     "update_time": 1762056262,
     "_id": "hybrid:query:9d241c41bb2967f79c2334a8a34a1398"
+  },
+  "hybrid:keywords:46344374c73296bbc705d890e4f53311": {
+    "return": "{\"high_level_keywords\": [\"\\u70f9\\u996a\\u65b0\\u624b\", \"\\u83dc\\u54c1\\u63a8\\u8350\", \"\\u5165\\u95e8\\u7ea7\\u70f9\\u996a\"], \"low_level_keywords\": [\"\\u7b80\\u5355\\u83dc\\u8c31\", \"\\u5bb6\\u5e38\\u83dc\", \"\\u6613\\u505a\\u83dc\\u54c1\", \"\\u57fa\\u7840\\u70f9\\u996a\\u6280\\u5de7\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "推荐适合烹饪新手制作的菜品",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762061171,
+    "update_time": 1762061171,
+    "_id": "hybrid:keywords:46344374c73296bbc705d890e4f53311"
+  },
+  "hybrid:query:51cff156b01d4af308969175e81d93af": {
+    "return": "对于烹饪新手而言，选择**操作简单、步骤清晰、烹饪时间短**的菜品尤为重要。根据提供的知识库信息，以下几道菜品非常适合初学者尝试：\n\n### 1. **清汤什锦火锅（Clear Soup Assorted Hotpot）**\n这道菜是典型的“快手菜”，**仅需10分钟**即可完成，非常适合新手。其做法主要是将现成的高汤（如史云生原汁上汤）加热，加入葱姜爆香，再放入各种易熟的食材（如羊肉片、鱼丸、鸭血、白菜、萝卜、豆泡等）煮熟即可。无需复杂的刀工或调味技巧，且可自由搭配喜欢的食材。\n\n### 2. **鲜汤火锅（Fresh Soup Hotpot）**\n同样是一道**10分钟内可完成**的清淡汤底火锅。主要步骤是用油爆香姜蒜和大葱，加入高汤煮沸，最后放入枸杞和北杏即可。此汤底清爽，可作为涮煮各类蔬菜、丸子或肉类的基础，操作简单，失败率极低。\n\n### 3. **营养均衡的肉丸什锦火锅**\n这道菜虽然需要手打肉丸，但步骤详细：将肉馅与调味料搅拌上劲，用勺子搓成丸子放入沸水中煮熟，再与其他备好的食材（豆腐、白菜、鱼丸等）一起加热即可。整个过程**约10分钟**，且肉丸可提前制作冷冻，方便重复使用。\n\n### 4. **麻油鸡蔬菜锅（Sesame Oil Chicken Vegetable Hotpot）**\n虽然需要炖煮，但步骤明确，且有台湾电视节目《冰冰好料理》的配方作为参考。关键点在于**小火煸姜、控制盐量以防麻油发苦**。总烹饪时间约10分钟（不含准备配菜时间），适合想尝试台式风味的新手。\n\n### 5. **白菜粉丝锅（Bai Cai Fen Si Guo）**\n这道菜以高汤为基础，依次加入粉条、白菜和油豆腐煮熟，最后用老抽和鸡精调味。步骤简单，**半小时内完成**，味道清淡，适合喜欢素净口味的新手。\n\n以上菜品共同特点是：**以煮或火锅形式为主，无需复杂烹饪技巧，调味简单，且容错率高**，非常适合烹饪新手建立信心。\n\n### References\n\n- [1] 清汤什锦火锅\n- [2] 鲜汤火锅（汤底）\n- [3] 营养均衡的肉丸什锦火锅\n- [4] 麻油鸡蔬菜锅\n- [5] 白菜粉丝锅",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "推荐适合烹饪新手制作的菜品",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "烹饪新手, 菜品推荐, 入门级烹饪",
+      "ll_keywords": "简单菜谱, 家常菜, 易做菜品, 基础烹饪技巧",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762061200,
+    "update_time": 1762061200,
+    "_id": "hybrid:query:51cff156b01d4af308969175e81d93af"
   }
 }
