@@ -1,0 +1,8 @@
+INSERT INTO historical_recipes (dish_name, historical_source, dynasty, region, originator, historical_description) VALUES ('红烧肉', '起源于宋代，苏东坡在黄州时期创制', '宋代', '浙江', '苏东坡', '苏东坡被贬黄州，当地猪肉便宜，他用慢火炖制，创造了这道名菜');
+INSERT INTO historical_recipes (dish_name, historical_source, dynasty, region, originator, historical_description) VALUES ('宫保鸡丁', '清代宫廷菜，由宫保丁宝桢所创', '清代', '四川', '丁宝桢', '丁宝桢在四川总督任上，喜食辣鸡丁，厨师以此命名');
+INSERT INTO historical_recipes (dish_name, historical_source, dynasty, region, originator, historical_description) VALUES ('麻婆豆腐', '清代同治年间，成都陈麻婆豆腐店创制', '清代', '四川', '陈麻婆', '陈麻婆本是成都店主，擅做豆腐，麻辣鲜香独具特色');
+INSERT INTO historical_recipes (dish_name, historical_source, dynasty, region, originator, historical_description) VALUES ('鱼香肉丝', '四川传统名菜，源于民国时期', '民国', '四川', '未知', '传说源于一位厨师误将调料洒入肉丝，意外创造美味');
+INSERT INTO historical_recipes (dish_name, historical_source, dynasty, region, originator, historical_description) VALUES ('东坡肉', '北宋文学家苏东坡在黄州时创制，流传至今', '宋代', '浙江', '苏东坡', '苏轼喜爱烹饪，在黄州时期研究肉类烹饪方法');
+INSERT INTO historical_recipes (dish_name, historical_source, dynasty, region, originator, historical_description) VALUES ('佛跳墙', '清朝道光年间福州官员周莲发明', '清代', '福建', '周莲', '周莲宴请宾客时，厨师将山珍海味集于一坛，香飘四邻');
+INSERT INTO historical_recipes (dish_name, historical_source, dynasty, region, originator, historical_description) VALUES ('糖醋排骨', '江浙菜系，起源于唐代宫廷', '唐代', '江浙', '宫廷御厨', '唐代宫廷御膳，外酥里嫩，酸甜适中');
+INSERT INTO historical_recipes (dish_name, historical_source, dynasty, region, originator, historical_description) VALUES ('北京烤鸭', '明代宫廷菜，距今已有600多年历史', '明代', '北京', '宫廷御厨', '明成祖朱棣定都北京后，宫廷御厨精心烹制');

@@ -1,0 +1,66 @@
+[
+  {
+    "dish_name": "红烧肉",
+    "historical_source": "起源于宋代，苏东坡在黄州时期创制",
+    "dynasty": "宋代",
+    "region": "浙江",
+    "originator": "苏东坡",
+    "historical_description": "苏东坡被贬黄州，当地猪肉便宜，他用慢火炖制，创造了这道名菜"
+  },
+  {
+    "dish_name": "宫保鸡丁",
+    "historical_source": "清代宫廷菜，由宫保丁宝桢所创",
+    "dynasty": "清代",
+    "region": "四川",
+    "originator": "丁宝桢",
+    "historical_description": "丁宝桢在四川总督任上，喜食辣鸡丁，厨师以此命名"
+  },
+  {
+    "dish_name": "麻婆豆腐",
+    "historical_source": "清代同治年间，成都陈麻婆豆腐店创制",
+    "dynasty": "清代",
+    "region": "四川",
+    "originator": "陈麻婆",
+    "historical_description": "陈麻婆本是成都店主，擅做豆腐，麻辣鲜香独具特色"
+  },
+  {
+    "dish_name": "鱼香肉丝",
+    "historical_source": "四川传统名菜，源于民国时期",
+    "dynasty": "民国",
+    "region": "四川",
+    "originator": "未知",
+    "historical_description": "传说源于一位厨师误将调料洒入肉丝，意外创造美味"
+  },
+  {
+    "dish_name": "东坡肉",
+    "historical_source": "北宋文学家苏东坡在黄州时创制，流传至今",
+    "dynasty": "宋代",
+    "region": "浙江",
+    "originator": "苏东坡",
+    "historical_description": "苏轼喜爱烹饪，在黄州时期研究肉类烹饪方法"
+  },
+  {
+    "dish_name": "佛跳墙",
+    "historical_source": "清朝道光年间福州官员周莲发明",
+    "dynasty": "清代",
+    "region": "福建",
+    "originator": "周莲",
+    "historical_description": "周莲宴请宾客时，厨师将山珍海味集于一坛，香飘四邻"
+  },
+  {
+    "dish_name": "糖醋排骨",
+    "historical_source": "江浙菜系，起源于唐代宫廷",
+    "dynasty": "唐代",
+    "region": "江浙",
+    "originator": "宫廷御厨",
+    "historical_description": "唐代宫廷御膳，外酥里嫩，酸甜适中"
+  },
+  {
+    "dish_name": "北京烤鸭",
+    "historical_source": "明代宫廷菜，距今已有600多年历史",
+    "dynasty": "明代",
+    "region": "北京",
+    "originator": "宫廷御厨",
+    "historical_description": "明成祖朱棣定都北京后，宫廷御厨精心烹制"
+  }
+]
