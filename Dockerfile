@@ -1,4 +1,4 @@
-FROM python:3.10-slim AS server
+﻿FROM python:3.10-slim AS server
 
 WORKDIR /app
 
@@ -25,6 +25,8 @@ RUN python -m pip install --upgrade pip -i https://mirrors.tuna.tsinghua.edu.cn/
 COPY gustobot ./gustobot
 COPY data ./data
 COPY scripts ./scripts
+COPY scripts/backend_entrypoint.sh ./backend_entrypoint.sh
+RUN chmod +x /app/backend_entrypoint.sh
 
 # Build-time arguments for LightRAG initialization (使用 .env 文件中的变量名)
 ARG INIT_LIGHTRAG_ON_BUILD=false
@@ -80,6 +82,7 @@ ENV LLM_API_KEY=your_api_key_here
 ENV EMBEDDING_API_KEY=your_api_key_here
 
 EXPOSE 8000
+ENTRYPOINT ["./backend_entrypoint.sh"]
 CMD ["uvicorn", "gustobot.main:application", "--host", "0.0.0.0", "--port", "8000"]
 
 

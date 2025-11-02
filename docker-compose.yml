@@ -1,4 +1,4 @@
-version: '3.8'
+﻿version: '3.8'
 
 services:
   # 后端服务
@@ -106,10 +106,13 @@ services:
 
       # 知识库配置
       - KB_TOP_K=5
-      - KB_SIMILARITY_THRESHOLD=0.3
+      - KB_SIMILARITY_THRESHOLD=${KB_SIMILARITY_THRESHOLD:-0.55}
       - KB_CHUNK_SIZE=512
       - KB_CHUNK_OVERLAP=80
       - KB_ENABLE_EXTERNAL_SEARCH=false
+      - INIT_KB_MILVUS=${INIT_KB_MILVUS:-true}
+      - KB_DATA_FILE=${KB_DATA_FILE:-/app/data/kb/data.txt}
+      - KB_MILVUS_SENTINEL=${KB_MILVUS_SENTINEL:-/app/data/.kb_milvus_ingested}
 
       # 会话配置
       - CONVERSATION_HISTORY_TTL=${CONVERSATION_HISTORY_TTL:-259200}
@@ -248,6 +251,7 @@ services:
       - "${KB_PG_PORT:-5433}:5432"
     volumes:
       - kb_pgdata:/var/lib/postgresql/data
+      - ./docker/pgvector/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - gustobot-network
 

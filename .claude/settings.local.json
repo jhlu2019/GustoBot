@@ -23,7 +23,13 @@
       "Bash(pip install:*)",
       "Bash(cat:*)",
       "Bash(awk:*)",
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "Bash(chmod:*)",
+      "Bash(for:*)",
+      "Bash(do echo \"Testing: $msg\" echo \"{\"\"message\"\": \"\"$msg\"\", \"\"session_id\"\": \"\"test\"\"}\")",
+      "Bash(findstr:*)",
+      "Bash(dir:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []
