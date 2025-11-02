@@ -1,5 +1,4 @@
-﻿from gustobot.application.agents.lg_states import AgentState, Router
-from gustobot.application.agents.lg_prompts import (
+﻿from gustobot.application.agents.lg_prompts import (
     ROUTER_SYSTEM_PROMPT,
     GET_ADDITIONAL_SYSTEM_PROMPT,
     GENERAL_QUERY_SYSTEM_PROMPT,
@@ -14,7 +13,7 @@ from gustobot.application.agents.lg_prompts import (
 from langchain_core.runnables import RunnableConfig
 from gustobot.config import settings
 from gustobot.infrastructure.core.logger import get_logger
-from typing import cast, Literal, TypedDict, List, Dict, Any, Optional
+from typing import cast, Literal, List, Dict, Any, Optional
 from langchain_core.messages import BaseMessage
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, START, StateGraph
@@ -27,8 +26,7 @@ from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.workflows.multi
     create_kb_multi_tool_workflow,
 )
 from gustobot.application.agents.kg_sub_graph.kg_neo4j_conn import get_neo4j_graph
-from pydantic import BaseModel
-from typing import Dict, List
+from pydantic import BaseModel, Field
 from langchain_core.messages import AIMessage
 from langchain_core.runnables.base import Runnable
 from gustobot.application.agents.kg_sub_graph.agentic_rag_agents.components.utils.utils import \
@@ -44,8 +42,6 @@ from pathlib import Path
 from PIL import Image
 import io
 
-from typing import Literal, Optional
-from pydantic import BaseModel, Field
 from langchain_openai import ChatOpenAI
 from gustobot.application.agents.kb_tools import create_knowledge_query_node, KnowledgeQueryInputState
 from gustobot.infrastructure.knowledge import KnowledgeService
@@ -60,6 +56,40 @@ class AdditionalGuardrailsOutput(BaseModel):
 
 # 构建日志记录器
 logger = get_logger(service="lg_builder")
+
+
+def _ensure_router(router_obj: Any, *, fallback_question: str = "") -> Router:
+    """将任意 router 结构转换为 Router 模型，保持字段访问兼容。"""
+    if isinstance(router_obj, Router):
+        return router_obj
+    if isinstance(router_obj, dict):
+        try:
+            return Router.model_validate(router_obj)
+        except Exception:
+            pass
+    return Router(type="kb-query", logic="missing router", question=fallback_question)
+
+
+def _extract_configurable(config: Any) -> Dict[str, Any]:
+    """提取 LangGraph RunnableConfig 中的 configurable 字段，确保返回字典。"""
+    if not config:
+        return {}
+    if isinstance(config, dict):
+        value = config.get("configurable", {})
+        return value if isinstance(value, dict) else {}
+    # LangGraph RunnableConfig 支持属性访问或字典接口
+    configurable = getattr(config, "configurable", None)
+    if isinstance(configurable, dict):
+        return configurable
+    getter = getattr(config, "get", None)
+    if callable(getter):
+        try:
+            value = getter("configurable", {})
+            if isinstance(value, dict):
+                return value
+        except Exception:  # pragma: no cover - 容错
+            pass
+    return {}
 
 
 async def analyze_and_route_query(
@@ -98,13 +128,10 @@ async def analyze_and_route_query(
 
     question_text = state.messages[-1].content if state.messages else ""
     heuristic_router = _heuristic_router(question_text)
-    fallback_router: Router = (
-        heuristic_router
-        or {
-            "type": "kb-query",
-            "logic": "fallback: default to knowledge base routing",
-            "question": question_text,
-        }
+    fallback_router: Router = heuristic_router or Router(
+        type="kb-query",
+        logic="fallback: default to knowledge base routing",
+        question=question_text,
     )
 
     allowed_types: set[str] = {
@@ -123,9 +150,9 @@ async def analyze_and_route_query(
         logger.warning("Router LLM failed: %s. Falling back to KB query.", exc)
         return {"router": fallback_router}
 
-    response = cast(Router, raw_response if isinstance(raw_response, dict) else {})
-    router_type = response.get("type")
-    logic = response.get("logic") or ""
+    response = raw_response if isinstance(raw_response, Router) else Router.model_validate(raw_response)
+    router_type = response.type
+    logic = response.logic or ""
 
     if not router_type or router_type not in allowed_types:
         logger.warning(
@@ -133,18 +160,26 @@ async def analyze_and_route_query(
         )
         heuristic_router = _heuristic_router(question_text)
         if heuristic_router:
-            router_type = heuristic_router["type"]
-            logic = heuristic_router.get("logic", logic)
-        else:
-            router_type = "kb-query"
-            if not logic:
-                logic = "fallback: invalid router output"
+            sanitized = heuristic_router
+            if not sanitized.logic:
+                sanitized.logic = logic or ""
+            return {"router": sanitized}
+        return {
+            "router": Router(
+                type="kb-query",
+                logic=logic or "fallback: invalid router output",
+                question=question_text,
+            )
+        }
 
-    sanitized_router: Router = {
-        "type": router_type,
-        "logic": logic,
-        "question": response.get("question") or question_text,
-    }
+    sanitized_router = Router(
+        type=router_type,
+        logic=logic,
+        question=response.question or question_text,
+        decision=response.decision,
+        confidence=response.confidence,
+        reasoning=response.reasoning,
+    )
 
     # Heuristic router is only used when the LLM output is invalid (handled above).
     logger.info(f"Analyze user query type completed, result: {sanitized_router}")
@@ -163,8 +198,9 @@ def route_query(
     Returns:
         Literal["respond_to_general_query", "get_additional_info", "create_research_plan", "create_image_query", "create_file_query"，"create_kb_query"]: 下一步操作。
     """
-    router = getattr(state, "router", None) or {"type": "kb-query", "logic": "missing router"}
-    _type = router.get("type", "kb-query")
+    router = _ensure_router(getattr(state, "router", None), fallback_question=state.messages[-1].content if state.messages else "")
+    state.router = router
+    _type = router.type or "kb-query"
 
     # 检查配置中是否有图片或文件路径，如果有，优先对应处理
     if hasattr(state, "config") and state.config:
@@ -210,8 +246,10 @@ async def respond_to_general_query(
                        openai_api_base=settings.OPENAI_API_BASE, temperature=0.7,
                        tags=["general_query"])
 
+    router = _ensure_router(getattr(state, "router", None), fallback_question=state.messages[-1].content if state.messages else "")
+    state.router = router
     system_prompt = GENERAL_QUERY_SYSTEM_PROMPT.format(
-        logic=state.router["logic"]
+        logic=router.logic
     )
 
     messages = [{"role": "system", "content": system_prompt}] + state.messages
@@ -323,8 +361,10 @@ async def get_additional_info(
         return {"messages": [AIMessage(content="厨友您好～抱歉哦，这个问题不太属于我们的菜谱范围呢，我主要帮您解答菜谱和烹饪方面的问题～😊")]}
     else:
         logger.info("-----Pass guardrails check-----")
+        router = _ensure_router(getattr(state, "router", None), fallback_question=state.messages[-1].content if state.messages else "")
+        state.router = router
         system_prompt = GET_ADDITIONAL_SYSTEM_PROMPT.format(
-            logic=state.router["logic"]
+            logic=router.logic
         )
         messages = [{"role": "system", "content": system_prompt}] + state.messages
         response = await model.ainvoke(messages)
@@ -665,15 +705,16 @@ async def create_kb_query(
     if not last_message.strip():
         return {"messages": [AIMessage(content="请告诉我具体的问题，我才能帮您查询知识库。")]}
 
-    cfg = (config or {}).get("configurable", {}) if isinstance(config, dict) else {}
-    kb_top_k = cfg.get("kb_top_k") or settings.KB_TOP_K
+    config_opts = _extract_configurable(config)
+    kb_top_k = config_opts.get("kb_top_k") or settings.KB_TOP_K
     kb_similarity_threshold = (
-        cfg.get("kb_similarity_threshold")
-        if cfg.get("kb_similarity_threshold") is not None
+        config_opts.get("kb_similarity_threshold")
+        if config_opts.get("kb_similarity_threshold") is not None
         else settings.KB_SIMILARITY_THRESHOLD
     )
-    kb_filter_expr = cfg.get("kb_filter_expr")
+    kb_filter_expr = config_opts.get("kb_filter_expr")
 
+    knowledge_service: Optional[KnowledgeService] = None
     try:
         if not settings.OPENAI_API_KEY:
             raise RuntimeError("OPENAI_API_KEY is not configured for KB multi-tool workflow.")
@@ -730,7 +771,9 @@ async def create_kb_query(
         logger.warning("KB multi-tool workflow unavailable (%s); falling back to direct search.", exc)
 
     # Fallback: direct KB query
-    knowledge_node = create_knowledge_query_node(knowledge_service=KnowledgeService())
+    if knowledge_service is None:
+        knowledge_service = KnowledgeService()
+    knowledge_node = create_knowledge_query_node(knowledge_service=knowledge_service)
     input_state: KnowledgeQueryInputState = {
         "task": last_message,
         "context": {
@@ -846,7 +889,7 @@ async def create_research_plan(
         "question": last_message,
         "data": [],
         "history": [],
-        "route_type": state.router.get("type"),
+        "route_type": _ensure_router(getattr(state, "router", None)).type,
     }
 
     # 执行工作流
@@ -950,18 +993,18 @@ def _heuristic_router(question: str) -> Optional[Router]:
     text2sql_keywords = ["统计", "多少", "总数", "数量", "排名"]
 
     if any(keyword in lowered for keyword in text2sql_keywords):
-        return {
-            "type": "text2sql-query",
-            "logic": "keyword fallback: text2sql",
-            "question": question,
-        }
+        return Router(
+            type="text2sql-query",
+            logic="keyword fallback: text2sql",
+            question=question,
+        )
 
     if any(keyword in lowered for keyword in graphrag_keywords):
-        return {
-            "type": "graphrag-query",
-            "logic": "keyword fallback: graphrag",
-            "question": question,
-        }
+        return Router(
+            type="graphrag-query",
+            logic="keyword fallback: graphrag",
+            question=question,
+        )
 
     return None
 

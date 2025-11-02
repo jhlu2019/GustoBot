@@ -1,13 +1,14 @@
 from pydantic import BaseModel, Field
 from dataclasses import dataclass, field
-from typing import Annotated, Any, Dict, List, Literal, Optional, TypedDict
+from typing import Annotated, Any, Dict, List, Literal, Optional
 from langchain_core.messages import AnyMessage
 from langgraph.graph import add_messages
 
 
-class Router(TypedDict, total=False):
-    """Classify user query (backwards compatible with旧字段)."""
-    logic: str
+class Router(BaseModel):
+    """Classify user query (同时兼容旧字段/属性访问)."""
+
+    logic: str = ""
     type: Literal[
         "general-query",
         "additional-query",
@@ -16,12 +17,20 @@ class Router(TypedDict, total=False):
         "image-query",
         "file-query",
         "text2sql-query",
-    ]
-    question: str
+    ] = "kb-query"
+    question: str = ""
+
     # 兼容旧版本字段
-    decision: str
-    confidence: float
-    reasoning: str
+    decision: Optional[str] = None
+    confidence: Optional[float] = None
+    reasoning: Optional[str] = None
+
+    class Config:
+        extra = "allow"
+
+    def get(self, key: str, default: Any = None) -> Any:
+        """字典风格访问兼容旧逻辑。"""
+        return getattr(self, key, self.__dict__.get(key, default))
 
 
 @dataclass(kw_only=True)
