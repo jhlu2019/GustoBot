@@ -1,0 +1,2 @@
+# System Report
+This is test referencing /api/v1/chat and /api/v1/upload endpoints.
