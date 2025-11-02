@@ -21,7 +21,9 @@
       "Bash(docker-compose stop:*)",
       "Bash(docker-compose rm:*)",
       "Bash(pip install:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(awk:*)",
+      "Bash(xargs:*)"
     ],
     "deny": [],
     "ask": []

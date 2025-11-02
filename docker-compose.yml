@@ -295,6 +295,10 @@ services:
       BATCH_SIZE: ${KB_BATCH_SIZE:-16}
       RETRY_TIMES: ${KB_RETRY_TIMES:-3}
       RETRY_DELAY: ${KB_RETRY_DELAY:-5}
+      # Excel 初始数据导入
+      INIT_KB_EXCEL: ${INIT_KB_EXCEL:-true}
+      KB_EXCEL_PATH: ${KB_EXCEL_PATH:-/app/data/历史菜谱源头.xlsx}
+      KB_EXCEL_SENTINEL: ${KB_EXCEL_SENTINEL:-/app/data/.kb_excel_ingested}
     ports:
       - "${KB_INGEST_PORT:-8100}:8000"
     volumes:
