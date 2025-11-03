@@ -91,6 +91,14 @@ def _extract_configurable(config: Any) -> Dict[str, Any]:
             pass
     return {}
 
+def _coerce_to_bool(value: Any, *, default: bool = False) -> bool:
+    """Best-effort conversion of dynamic configuration values to boolean."""
+    if value is None:
+        return default
+    if isinstance(value, str):
+        return value.strip().lower() in {"1", "true", "yes", "y", "on"}
+    return bool(value)
+
 
 async def analyze_and_route_query(
         state: AgentState, *, config: RunnableConfig
@@ -617,8 +625,8 @@ async def create_file_query(
     """Handle user-provided files for ingestion."""
 
     logger.info("-----Found User Upload File-----")
-    cfg = (config or {}).get("configurable", {}) if isinstance(config, dict) else {}
-    file_path = cfg.get("file_path")
+    config_opts = _extract_configurable(config)
+    file_path = config_opts.get("file_path")
     ingest_service_url = settings.INGEST_SERVICE_URL
 
     service = KnowledgeService()
@@ -642,10 +650,15 @@ async def create_file_query(
             # Excel must be handled by external ingestion service
             if not ingest_service_url:
                 return {"messages": [AIMessage(content="未配置外部接入服务 INGEST_SERVICE_URL，无法处理 Excel 导入。")]}
+            incremental_flag = _coerce_to_bool(
+                config_opts.get("incremental"),
+                default=settings.INGEST_INCREMENTAL_DEFAULT,
+            )
+            regenerate_flag = _coerce_to_bool(config_opts.get("regenerate"), default=False)
             payload = {
                 "excel_path": str(p),
-                "incremental": bool(cfg.get("incremental", False)),
-                "regenerate": bool(cfg.get("regenerate", False)),
+                "incremental": incremental_flag,
+                "regenerate": regenerate_flag,
             }
             import aiohttp
             async with aiohttp.ClientSession() as session:

@@ -33,6 +33,10 @@ class ChatRequest(BaseModel):
     stream: bool = Field(False, description="Enable streaming response")
     image_path: Optional[str] = Field(None, description="Path to uploaded image file")
     file_path: Optional[str] = Field(None, description="Path to uploaded file")
+    ingest_incremental: Optional[bool] = Field(
+        None,
+        description="Override whether Excel ingestion uses incremental mode (defaults to server setting)",
+    )
 
 
 class ChatResponse(BaseModel):
@@ -92,13 +96,18 @@ async def save_message(db: Session, session_id: str, message: str, is_user: bool
 
 async def process_agent_query(message: str, session_id: str,
                             image_path: Optional[str] = None,
-                            file_path: Optional[str] = None) -> Dict[str, Any]:
+                            file_path: Optional[str] = None,
+                            ingest_incremental: Optional[bool] = None) -> Dict[str, Any]:
     """Process query through agent system"""
+    incremental_flag = (
+        settings.INGEST_INCREMENTAL_DEFAULT if ingest_incremental is None else bool(ingest_incremental)
+    )
     config = {
         "configurable": {
             "thread_id": session_id,
             "image_path": image_path,
             "file_path": file_path,
+            "incremental": incremental_flag,
         }
     }
 
@@ -157,7 +166,8 @@ async def process_agent_query(message: str, session_id: str,
 
 async def stream_agent_response(message: str, session_id: str,
                                image_path: Optional[str] = None,
-                               file_path: Optional[str] = None) -> AsyncGenerator[str, None]:
+                               file_path: Optional[str] = None,
+                               ingest_incremental: Optional[bool] = None) -> AsyncGenerator[str, None]:
     """Stream agent response"""
     # Send initial metadata
     metadata_chunk = ChatStreamChunk(
@@ -169,7 +179,7 @@ async def stream_agent_response(message: str, session_id: str,
 
     try:
         # Process the query
-        result = await process_agent_query(message, session_id, image_path, file_path)
+        result = await process_agent_query(message, session_id, image_path, file_path, ingest_incremental)
 
         # Send route information
         route_chunk = ChatStreamChunk(
@@ -233,11 +243,18 @@ async def chat(
     await save_message(db, session_id, request.message, is_user=True)
 
     # Process through agent
+    effective_incremental = (
+        request.ingest_incremental
+        if request.ingest_incremental is not None
+        else settings.INGEST_INCREMENTAL_DEFAULT
+    )
+
     result = await process_agent_query(
         request.message,
         session_id,
         request.image_path,
-        request.file_path
+        request.file_path,
+        effective_incremental,
     )
 
     # Save assistant message
@@ -277,13 +294,21 @@ async def chat_stream(
     # Save user message
     await save_message(db, session_id, request.message, is_user=True)
 
-    # Save assistant message in background
-    async def save_assistant_message(response_text: str):
-        await save_message(db, session_id, response_text, is_user=False)
+    effective_incremental = (
+        request.ingest_incremental
+        if request.ingest_incremental is not None
+        else settings.INGEST_INCREMENTAL_DEFAULT
+    )
 
     # Return streaming response
     return StreamingResponse(
-        stream_agent_response(request.message, session_id, request.image_path, request.file_path),
+        stream_agent_response(
+            request.message,
+            session_id,
+            request.image_path,
+            request.file_path,
+            effective_incremental,
+        ),
         media_type="text/event-stream",
         headers={
             "Cache-Control": "no-cache",

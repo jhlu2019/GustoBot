@@ -261,6 +261,10 @@ class Settings(BaseSettings):
         default=None,
         description="Base URL for external ingestion service (e.g., http://localhost:8000)",
     )
+    INGEST_INCREMENTAL_DEFAULT: bool = Field(
+        default=True,
+        description="Whether external Excel ingestion should default to incremental updates",
+    )
     FILE_UPLOAD_MAX_MB: int = Field(
         default=2,
         ge=1,

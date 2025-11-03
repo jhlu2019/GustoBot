@@ -36,13 +36,6 @@ MAX_FILE_SIZE = 50 * 1024 * 1024
 async def upload_file(file: UploadFile = File(...)) -> JSONResponse:
     """上传文件（txt, excel, pdf等）"""
 
-    # 检查文件大小
-    if file.size and file.size > MAX_FILE_SIZE:
-        raise HTTPException(
-            status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
-            detail=f"文件太大，最大支持 {MAX_FILE_SIZE // (1024*1024)}MB"
-        )
-
     # 检查文件类型
     file_ext = Path(file.filename).suffix.lower()
     if file_ext not in ALLOWED_FILE_TYPES:
@@ -58,18 +51,26 @@ async def upload_file(file: UploadFile = File(...)) -> JSONResponse:
         file_path = UPLOAD_DIR / filename
 
         # 保存文件
+        content = await file.read()
+        file_size = len(content)
+
+        if file_size > MAX_FILE_SIZE:
+            raise HTTPException(
+                status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+                detail=f"文件太大，最大支持 {MAX_FILE_SIZE // (1024*1024)}MB"
+            )
+
         async with aiofiles.open(file_path, 'wb') as f:
-            content = await file.read()
             await f.write(content)
 
-        logger.info(f"文件上传成功: {filename} ({len(content)} bytes)")
+        logger.info(f"文件上传成功: {filename} ({file_size} bytes)")
 
         return JSONResponse({
             "success": True,
             "file_id": file_id,
             "filename": filename,
             "original_name": file.filename,
-            "size": len(content),
+            "size": file_size,
             "file_path": str(file_path),
             "file_url": f"/api/v1/upload/files/{filename}",
             "file_type": file_ext
@@ -86,13 +87,6 @@ async def upload_file(file: UploadFile = File(...)) -> JSONResponse:
 @router.post("/image")
 async def upload_image(image: UploadFile = File(...)) -> JSONResponse:
     """上传图片文件"""
-
-    # 检查文件大小
-    if image.size and image.size > MAX_FILE_SIZE:
-        raise HTTPException(
-            status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
-            detail=f"图片太大，最大支持 {MAX_FILE_SIZE // (1024*1024)}MB"
-        )
 
     # 检查文件类型
     file_ext = Path(image.filename).suffix.lower()
@@ -114,18 +108,26 @@ async def upload_image(image: UploadFile = File(...)) -> JSONResponse:
         file_path = image_dir / filename
 
         # 保存图片
+        content = await image.read()
+        file_size = len(content)
+
+        if file_size > MAX_FILE_SIZE:
+            raise HTTPException(
+                status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+                detail=f"图片太大，最大支持 {MAX_FILE_SIZE // (1024*1024)}MB"
+            )
+
         async with aiofiles.open(file_path, 'wb') as f:
-            content = await image.read()
             await f.write(content)
 
-        logger.info(f"图片上传成功: {filename} ({len(content)} bytes)")
+        logger.info(f"图片上传成功: {filename} ({file_size} bytes)")
 
         return JSONResponse({
             "success": True,
             "image_id": image_id,
             "filename": filename,
             "original_name": image.filename,
-            "size": len(content),
+            "size": file_size,
             "file_path": str(file_path),
             "image_url": f"/api/v1/upload/images/{filename}",
             "file_type": file_ext

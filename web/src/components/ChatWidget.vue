@@ -258,6 +258,7 @@ async function sendMessage() {
 
     if (state.attachedFilePath) {
       payload.file_path = state.attachedFilePath;
+      payload.ingest_incremental = true;
     }
 
     const { data } = await axios.post(`${API_BASE}/api/v1/chat`, payload);
