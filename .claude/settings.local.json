@@ -38,7 +38,8 @@
       "Bash(pkill:*)",
       "Bash(while ps aux)",
       "Bash(do sleep 10)",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(docker-compose images:*)"
     ],
     "deny": [],
     "ask": []

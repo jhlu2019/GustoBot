@@ -26,7 +26,8 @@ COPY .env .env
 COPY kb_service ./kb_service
 COPY main.py ./
 COPY entrypoint.sh ./entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh && \
+    sed -i 's/\r$//' /app/entrypoint.sh
 
 EXPOSE 8000
 

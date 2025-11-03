@@ -1208,5 +1208,47 @@
     "create_time": 1762149514,
     "update_time": 1762149514,
     "_id": "hybrid:query:6e270d3882b9fbb873d1a41765822b3b"
+  },
+  "hybrid:keywords:786d34c25f614f4adee5061d4db9bf9e": {
+    "return": "{\"high_level_keywords\": [\"\\u5ddd\\u83dc\", \"\\u4ee3\\u8868\\u83dc\\u54c1\", \"\\u4e2d\\u56fd\\u83dc\\u7cfb\"], \"low_level_keywords\": [\"\\u9ebb\\u5a46\\u8c46\\u8150\", \"\\u56de\\u9505\\u8089\", \"\\u6c34\\u716e\\u9c7c\", \"\\u5bab\\u4fdd\\u9e21\\u4e01\", \"\\u9c7c\\u9999\\u8089\\u4e1d\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "川菜有哪些代表菜品？",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762170670,
+    "update_time": 1762170670,
+    "_id": "hybrid:keywords:786d34c25f614f4adee5061d4db9bf9e"
+  },
+  "hybrid:query:bd1b72bf3d4d533f810c716c605932a6": {
+    "return": "根据当前提供的知识库内容，并未明确列出哪些菜品属于川菜（四川菜）的代表菜。虽然部分菜品使用了川菜中常见的调味料（例如“Sichuan Pepper Roast Duck Legs”使用了花椒，“Paojiao Fried Long-Legged Octopus”使用了泡椒），但这些信息不足以确认它们是否被归类为川菜的代表菜品。此外，知识库中提到的“Jia Gan Rou”明确标注为湖北风味，而其他菜品也未注明其所属菜系。\n\n因此，基于现有资料，无法准确回答川菜有哪些代表菜品。\n\n### References",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "川菜有哪些代表菜品？",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "川菜, 代表菜品, 中国菜系",
+      "ll_keywords": "麻婆豆腐, 回锅肉, 水煮鱼, 宫保鸡丁, 鱼香肉丝",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762170675,
+    "update_time": 1762170675,
+    "_id": "hybrid:query:bd1b72bf3d4d533f810c716c605932a6"
   }
 }

@@ -26,7 +26,8 @@ COPY gustobot ./gustobot
 COPY data ./data
 COPY scripts ./scripts
 COPY scripts/backend_entrypoint.sh ./backend_entrypoint.sh
-RUN chmod +x /app/backend_entrypoint.sh
+RUN chmod +x /app/backend_entrypoint.sh && \
+    sed -i 's/\r$//' /app/backend_entrypoint.sh
 
 # Build-time arguments for LightRAG initialization (使用 .env 文件中的变量名)
 ARG INIT_LIGHTRAG_ON_BUILD=false
