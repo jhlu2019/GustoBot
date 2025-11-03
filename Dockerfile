@@ -45,6 +45,7 @@ ENV LLM_MODEL=${LLM_MODEL}
 ENV EMBEDDING_MODEL=${EMBEDDING_MODEL}
 ENV EMBEDDING_BASE_URL=${EMBEDDING_BASE_URL}
 ENV EMBEDDING_DIMENSION=${EMBEDDING_DIMENSION}
+ENV LIGHTRAG_BOOTSTRAP_DIR=/app/bootstrap/lightrag_template
 
 # Initialize LightRAG data during build (if enabled)
 # LightRAG 需要 OPENAI_API_KEY 环境变量，所以这里做映射
@@ -52,6 +53,7 @@ RUN if [ "$INIT_LIGHTRAG_ON_BUILD" = "true" ] && [ -n "$LLM_API_KEY" ]; then \
         echo "========================================"; \
         echo "Initializing LightRAG during build..."; \
         echo "========================================"; \
+        mkdir -p ${LIGHTRAG_BOOTSTRAP_DIR} /app/data/lightrag; \
         export OPENAI_API_KEY=${LLM_API_KEY}; \
         export OPENAI_API_BASE=${LLM_BASE_URL}; \
         export OPENAI_MODEL=${LLM_MODEL}; \
@@ -59,12 +61,12 @@ RUN if [ "$INIT_LIGHTRAG_ON_BUILD" = "true" ] && [ -n "$LLM_API_KEY" ]; then \
         export EMBEDDING_MODEL=${EMBEDDING_MODEL}; \
         export EMBEDDING_BASE_URL=${EMBEDDING_BASE_URL}; \
         export EMBEDDING_DIMENSION=${EMBEDDING_DIMENSION}; \
-        export LIGHTRAG_WORKING_DIR=/app/data/lightrag; \
-        mkdir -p /app/data/lightrag && \
+        export LIGHTRAG_WORKING_DIR=${LIGHTRAG_BOOTSTRAP_DIR}; \
         python scripts/init_lightrag.py \
             --source json \
             --json-path /app/data/recipe.json \
             ${LIGHTRAG_INIT_LIMIT:+--limit $LIGHTRAG_INIT_LIMIT} && \
+        cp -a ${LIGHTRAG_BOOTSTRAP_DIR}/. /app/data/lightrag/ && \
         echo "========================================"; \
         echo "LightRAG initialization completed!"; \
         echo "Generated files:"; \
@@ -74,7 +76,7 @@ RUN if [ "$INIT_LIGHTRAG_ON_BUILD" = "true" ] && [ -n "$LLM_API_KEY" ]; then \
         echo "Skipping LightRAG initialization during build"; \
         echo "  INIT_LIGHTRAG_ON_BUILD=${INIT_LIGHTRAG_ON_BUILD}"; \
         echo "  LLM_API_KEY set: $([ -n \"${LLM_API_KEY}\" ] && echo 'yes' || echo 'no')"; \
-        mkdir -p /app/data/lightrag; \
+        mkdir -p ${LIGHTRAG_BOOTSTRAP_DIR} /app/data/lightrag; \
     fi
 
 # Unset API keys for security

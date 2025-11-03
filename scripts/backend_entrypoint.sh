@@ -4,6 +4,45 @@ set -euo pipefail
 INIT_KB_MILVUS="${INIT_KB_MILVUS:-true}"
 KB_DATA_FILE="${KB_DATA_FILE:-/app/data/kb/data.txt}"
 KB_MILVUS_SENTINEL="${KB_MILVUS_SENTINEL:-/app/data/.kb_milvus_ingested}"
+AUTO_BOOTSTRAP_LIGHTRAG="${AUTO_BOOTSTRAP_LIGHTRAG:-true}"
+LIGHTRAG_BOOTSTRAP_DIR="${LIGHTRAG_BOOTSTRAP_DIR:-/app/bootstrap/lightrag_template}"
+LIGHTRAG_WORKING_DIR="${LIGHTRAG_WORKING_DIR:-./data/lightrag}"
+
+resolve_path() {
+  case "$1" in
+    /*) printf '%s\n' "$1" ;;
+    ""|.) printf '%s\n' "/app" ;;
+    ./*) printf '%s\n' "/app/${1#./}" ;;
+    *) printf '%s\n' "/app/$1" ;;
+  esac
+}
+
+LIGHTRAG_WORKING_DIR_ABS=$(resolve_path "$LIGHTRAG_WORKING_DIR")
+LIGHTRAG_BOOTSTRAP_DIR_ABS=$(resolve_path "$LIGHTRAG_BOOTSTRAP_DIR")
+
+bootstrap_lightrag_data() {
+  if [ "${AUTO_BOOTSTRAP_LIGHTRAG,,}" != "true" ]; then
+    echo "[backend] LightRAG bootstrap disabled via AUTO_BOOTSTRAP_LIGHTRAG=${AUTO_BOOTSTRAP_LIGHTRAG}"
+    return
+  fi
+
+  if [ ! -d "${LIGHTRAG_BOOTSTRAP_DIR_ABS}" ] || [ -z "$(ls -A "${LIGHTRAG_BOOTSTRAP_DIR_ABS}" 2>/dev/null)" ]; then
+    echo "[backend] LightRAG bootstrap目录不存在或为空，跳过自动导入。"
+    return
+  fi
+
+  mkdir -p "${LIGHTRAG_WORKING_DIR_ABS}"
+  if [ -n "$(ls -A "${LIGHTRAG_WORKING_DIR_ABS}" 2>/dev/null)" ]; then
+    echo "[backend] LightRAG 工作目录已存在内容，跳过自动导入。"
+    return
+  fi
+
+  echo "[backend] LightRAG 工作目录为空，正在从模板复制初始数据..."
+  cp -a "${LIGHTRAG_BOOTSTRAP_DIR_ABS}/." "${LIGHTRAG_WORKING_DIR_ABS}/"
+  echo "[backend] LightRAG 初始数据复制完成。"
+}
+
+bootstrap_lightrag_data
 
 wait_for_milvus() {
   python - <<'PY'
