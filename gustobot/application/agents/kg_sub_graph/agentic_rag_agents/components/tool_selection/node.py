@@ -56,13 +56,14 @@ SQL_PATTERN = re.compile(r"\b(select|count|sum|avg|max|min|group\s+by|order\s+by
 DESCRIPTIVE_KEYWORDS = [
     "口味",
     "特色",
-    "适合",
     "风味",
     "营养",
     "功效",
     "健康",
     "介绍",
     "概况",
+    "食材",
+    "材料",
 ]
 
 

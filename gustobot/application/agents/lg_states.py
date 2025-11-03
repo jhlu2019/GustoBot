@@ -19,8 +19,6 @@ class Router(BaseModel):
         "text2sql-query",
     ] = "kb-query"
     question: str = ""
-
-    # 兼容旧版本字段
     decision: Optional[str] = None
     confidence: Optional[float] = None
     reasoning: Optional[str] = None
@@ -48,7 +46,6 @@ class GradeHallucinations(BaseModel):
         description="Answer is grounded in the facts, '1' or '0'"
     )
 
-# @dataclass(kw_only=True)： 强制要求数据类中的所有字段必须以关键字参数的形式提供。即不能以位置参数的方式传递。
 @dataclass(kw_only=True)
 class InputState:
     """Represents the input state for the agent.
@@ -91,7 +88,6 @@ class InputState:
         message from `right` will replace the message from `left`."""
     
 
-# @dataclass(kw_only=True)： 强制要求数据类中的所有字段必须以关键字参数的形式提供。即不能以位置参数的方式传递。
 @dataclass(kw_only=True)
 class AgentState(InputState):
     """State of the retrieval graph / agent."""

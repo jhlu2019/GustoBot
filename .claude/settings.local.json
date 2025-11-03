@@ -33,7 +33,9 @@
       "Bash(timeout:*)",
       "Bash(ping:*)",
       "Bash(git commit:*)",
-      "Bash(tee:*)"
+      "Bash(tee:*)",
+      "Bash(unset:*)",
+      "Bash(pkill:*)"
     ],
     "deny": [],
     "ask": []

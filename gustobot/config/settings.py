@@ -320,9 +320,11 @@ class Settings(BaseSettings):
             return [origin.strip() for origin in self.CORS_ORIGINS.split(",")]
         return list(self.CORS_ORIGINS)
 
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
+    model_config = {
+        "env_file": ".env",
+        "case_sensitive": True,
+        "extra": "ignore"
+    }
 
     @property
     def NEO4J_USERNAME(self) -> Optional[str]:  # pragma: no cover - convenience alias

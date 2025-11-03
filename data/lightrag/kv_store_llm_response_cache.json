@@ -998,5 +998,215 @@
     "create_time": 1762141137,
     "update_time": 1762141137,
     "_id": "default:extract:02ac407b8b957dc8b46c8a9493a69499"
+  },
+  "hybrid:keywords:b17d968bb01a3f0dd9ee109a6529f573": {
+    "return": "{\"high_level_keywords\": [\"\\u7092\\u8089\\u6280\\u5de7\", \"\\u8089\\u8d28\\u5ae9\\u5316\", \"\\u70f9\\u996a\\u65b9\\u6cd5\"], \"low_level_keywords\": [\"\\u814c\\u5236\", \"\\u6dc0\\u7c89\", \"\\u86cb\\u6e05\", \"\\u5ae9\\u8089\\u7c89\", \"\\u706b\\u5019\\u63a7\\u5236\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "炒肉时有哪些技巧或处理方法可以让肉质更嫩",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762148097,
+    "update_time": 1762148097,
+    "_id": "hybrid:keywords:b17d968bb01a3f0dd9ee109a6529f573"
+  },
+  "hybrid:query:a445221c31e36e9012e8aca8284fb751": {
+    "return": "根据您提供的查询，您想了解在炒肉时让肉质更嫩的技巧或处理方法。\n\n然而，在您提供的 **Context**（包括知识图谱数据和文档片段）中，虽然提到了多个包含“炒肉”的菜肴（例如“玉米胡萝卜炒肉”），但**并未包含任何关于肉类嫩化技巧、腌制方法、烹饪手法或其他相关处理步骤的具体信息**。\n\n因此，基于当前提供的资料，我无法给出能让肉质更嫩的具体技巧或处理方法。\n\n### References",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "炒肉时有哪些技巧或处理方法可以让肉质更嫩",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "炒肉技巧, 肉质嫩化, 烹饪方法",
+      "ll_keywords": "腌制, 淀粉, 蛋清, 嫩肉粉, 火候控制",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762148111,
+    "update_time": 1762148111,
+    "_id": "hybrid:query:a445221c31e36e9012e8aca8284fb751"
+  },
+  "hybrid:keywords:a9d5b4434f1662b885b0954774ff6d5d": {
+    "return": "{\"high_level_keywords\": [\"\\u8089\\u7c7b\\u5ae9\\u5316\", \"\\u70f9\\u996a\\u6280\\u5de7\", \"\\u98df\\u6750\\u5904\\u7406\\u65b9\\u6cd5\"], \"low_level_keywords\": [\"\\u8089\\u7092\\u5f97\\u5ae9\", \"\\u814c\\u5236\", \"\\u6dc0\\u7c89\\u4e0a\\u6d46\", \"\\u4f4e\\u6e29\\u5feb\\u7092\", \"\\u5ae9\\u8089\\u7c89\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "让肉炒得嫩的常用处理方法和烹饪技巧有哪些",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762148421,
+    "update_time": 1762148421,
+    "_id": "hybrid:keywords:a9d5b4434f1662b885b0954774ff6d5d"
+  },
+  "hybrid:query:0f60975d25d77f97f7e2763c739e3ff8": {
+    "return": "根据您提供的查询，您希望了解让肉炒得嫩的常用处理方法和烹饪技巧。\n\n然而，在您提供的 **Context**（包括知识图谱数据和文档片段）中，虽然提到了多个包含“肉”或具体肉类（如牛腩、猪肉、腊肉等）的菜肴，例如“玉米胡萝卜炒肉”、“土豆丝炒培根”、“腊肉炒芸豆丝”等，但**并未包含任何关于如何处理肉类以使其口感更嫩的具体方法或烹饪技巧**。\n\n因此，基于当前提供的信息，我无法回答您的问题。\n\n### References",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "让肉炒得嫩的常用处理方法和烹饪技巧有哪些",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "肉类嫩化, 烹饪技巧, 食材处理方法",
+      "ll_keywords": "肉炒得嫩, 腌制, 淀粉上浆, 低温快炒, 嫩肉粉",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762148436,
+    "update_time": 1762148436,
+    "_id": "hybrid:query:0f60975d25d77f97f7e2763c739e3ff8"
+  },
+  "hybrid:keywords:443803d7796e506606edc30cae508029": {
+    "return": "{\"high_level_keywords\": [\"\\u8425\\u517b\\u5747\\u8861\\u7ec4\\u5408\", \"\\u83dc\\u54c1\\u8bbe\\u8ba1\", \"\\u98df\\u6750\\u642d\\u914d\"], \"low_level_keywords\": [\"\\u4e94\\u82b1\\u8089\", \"\\u9752\\u6912\", \"\\u571f\\u8c46\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "基于五花肉、青椒、土豆这三种食材，设计一个包含三道菜的营养均衡组合",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762149339,
+    "update_time": 1762149339,
+    "_id": "hybrid:keywords:443803d7796e506606edc30cae508029"
+  },
+  "hybrid:query:2f4ae0ef9517509ef805064a5c1faaab": {
+    "return": "根据您提供的三种主要食材——**五花肉**、**青椒**和**土豆**，结合知识库中的菜品信息，可以设计出一个营养均衡的三道菜组合。该组合兼顾蛋白质、膳食纤维、维生素及碳水化合物，同时体现中式烹饪的多样性（炖、炒、蒸/扣）。\n\n### 第一道：梅菜扣肉（Mei Cai Kou Rou）  \n这道菜以**五花肉**为主料，搭配**梅干菜（Preserved Mustard Greens）**，采用蒸制或慢炖的方式，使五花肉肥而不腻，富含优质蛋白质和脂肪。梅干菜提供膳食纤维和独特风味，有助于解腻并促进消化。此菜体现了五花肉的经典中式做法。\n\n### 第二道：豆豉牛筋炒青椒（Douchi Beef Tendon Stir-Fried with Green Pepper）  \n虽然原菜使用牛筋，但可灵活调整为**五花肉炒青椒**，保留“豆豉+青椒”的风味组合。**青椒**富含维生素C和抗氧化物质，与五花肉同炒，既能补充蔬菜摄入，又能平衡油脂。豆豉提供发酵风味和植物蛋白，增强食欲。\n\n### 第三道：土豆丝炒培根（Shredded Potato Stir-Fried with Bacon）  \n此菜以**土豆**为主，搭配培根（可用五花肉替代）。土豆提供丰富的碳水化合物、维生素C和钾，作为主食类蔬菜，能有效补充能量。快炒方式保留土豆脆嫩口感，同时五花肉增添香气和蛋白质，实现荤素搭配。\n\n此三道菜组合中：  \n- **五花肉**作为优质蛋白和脂肪来源，贯穿三道菜但用量适中；  \n- **青椒**提供维生素和膳食纤维；  \n- **土豆**作为复合碳水来源，替代部分主食；  \n整体实现**荤素搭配、营养互补、烹饪方式多样**的均衡膳食结构。\n\n### References\n\n- [4] 梅菜扣肉\n- [5] 豆豉牛筋炒青椒\n- [10] 土豆丝炒培根",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "基于五花肉、青椒、土豆这三种食材，设计一个包含三道菜的营养均衡组合",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "营养均衡组合, 菜品设计, 食材搭配",
+      "ll_keywords": "五花肉, 青椒, 土豆",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762149356,
+    "update_time": 1762149356,
+    "_id": "hybrid:query:2f4ae0ef9517509ef805064a5c1faaab"
+  },
+  "hybrid:keywords:f979d11ba1427283319c0aaed6c35f23": {
+    "return": "{\"high_level_keywords\": [\"\\u9ad8\\u8840\\u538b\\u996e\\u98df\", \"\\u4f4e\\u94a0\\u9ad8\\u94be\\u98df\\u8c31\", \"\\u5065\\u5eb7\\u83dc\\u8c31\\u63a8\\u8350\"], \"low_level_keywords\": [\"\\u9ad8\\u8840\\u538b\\u60a3\\u8005\", \"\\u4f4e\\u94a0\", \"\\u9ad8\\u94be\", \"\\u83dc\\u8c31\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "推荐三道适合高血压患者的低钠高钾菜谱",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762149373,
+    "update_time": 1762149373,
+    "_id": "hybrid:keywords:f979d11ba1427283319c0aaed6c35f23"
+  },
+  "hybrid:query:0df19449abdc458c5bb3725efe581bdd": {
+    "return": "根据您提供的知识库内容，目前没有直接说明哪些菜肴适合高血压患者，也没有提供关于菜肴钠、钾含量的具体信息。高血压患者通常需要低钠高钾的饮食，但判断一道菜是否符合这一标准，需要详细的营养成分数据或明确的烹饪方式说明（例如是否少盐、是否使用高钾食材如土豆、南瓜、百合、韭菜等）。\n\n不过，我们可以基于菜肴的**主要食材**进行初步推测。以下三道菜的主要食材天然富含钾且在清淡烹饪的前提下可能适合高血压患者：\n\n1.  **火麻仁南瓜炒百合 (Hemp Seed Pumpkin Stir-Fried Lily Bulb)**：这道菜包含南瓜和百合（Lily Bulb）。南瓜和百合都是钾的良好来源，且本身钠含量很低。如果烹饪时控制盐和酱油的用量，这道菜可以成为不错的选择。\n\n2.  **土豆丝炒培根 (Shredded Potato Stir-Fried with Bacon)**：土豆（Potato）是著名的高钾低钠食材。然而，这道菜中的培根（Bacon）通常含有极高的钠和脂肪，对高血压患者非常不利。因此，**只有将培根替换为低脂、无盐或低钠的蛋白质来源（如鸡胸肉）**，这道菜才可能适合。\n\n3.  **酸辣藕带 (Suan La Ou Dai / Sour and Spicy Lotus Root Strips)**：莲藕（Lotus Root）是钾的良好来源。但“酸辣”口味通常意味着使用较多的盐、醋和辣椒油，钠含量可能很高。**只有采用低钠的调味方式（如用香料、柠檬汁代替部分盐和酱油）来制作**，这道菜才可能适合高血压患者。\n\n**重要提示**：以上推荐是基于食材的天然属性进行的理论推测。菜肴最终的钠含量极大程度取决于烹饪过程中添加的盐、酱油、味精等调味品的量。高血压患者在选择或制作菜肴时，必须严格控制这些高钠调味品的使用。\n\n### References\n\n- [1] 火麻仁南瓜炒百合\n- [2] 土豆丝炒培根\n- [3] 酸辣藕带",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "推荐三道适合高血压患者的低钠高钾菜谱",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "高血压饮食, 低钠高钾食谱, 健康菜谱推荐",
+      "ll_keywords": "高血压患者, 低钠, 高钾, 菜谱",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762149388,
+    "update_time": 1762149388,
+    "_id": "hybrid:query:0df19449abdc458c5bb3725efe581bdd"
+  },
+  "hybrid:keywords:b9a9767b2475e1abc16c0c9863c92e92": {
+    "return": "{\"high_level_keywords\": [\"\\u5c0f\\u7092\\u8089\", \"\\u98df\\u6750\\u51c6\\u5907\", \"\\u4e2d\\u5f0f\\u70f9\\u996a\"], \"low_level_keywords\": [\"\\u732a\\u8089\", \"\\u9752\\u6912\", \"\\u849c\", \"\\u9171\\u6cb9\", \"\\u6599\\u9152\", \"\\u76d0\", \"\\u98df\\u7528\\u6cb9\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "小炒肉需要哪些食材？",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762149500,
+    "update_time": 1762149500,
+    "_id": "hybrid:keywords:b9a9767b2475e1abc16c0c9863c92e92"
+  },
+  "hybrid:query:6e270d3882b9fbb873d1a41765822b3b": {
+    "return": "根据提供的知识库信息，没有直接名为“小炒肉”的菜肴的详细食材列表。不过，有一个名称相近的菜肴是 **“玉米胡萝卜炒肉”**（Corn Carrot Stir-Fried Meat），这是一道中式小炒类菜肴。\n\n该菜肴所需的食材包括：\n- **肉**（Meat）：作为主要的蛋白质来源。\n- **玉米**（Corn）：作为蔬菜配料。\n- **胡萝卜**（Carrot）：作为另一主要蔬菜成分。\n\n这道菜属于家常小炒类型，结合了肉类与蔬菜，营养均衡且适合搭配米饭食用。\n\n### References\n\n- [1] 玉米胡萝卜炒肉",
+    "cache_type": "query",
+    "chunk_id": null,
+    "original_prompt": "小炒肉需要哪些食材？",
+    "queryparam": {
+      "mode": "hybrid",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "hl_keywords": "小炒肉, 食材准备, 中式烹饪",
+      "ll_keywords": "猪肉, 青椒, 蒜, 酱油, 料酒, 盐, 食用油",
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1762149514,
+    "update_time": 1762149514,
+    "_id": "hybrid:query:6e270d3882b9fbb873d1a41765822b3b"
   }
 }
