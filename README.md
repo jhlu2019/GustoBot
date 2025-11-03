@@ -72,7 +72,7 @@ GustoBot 是一个智能菜谱助手系统，采用 Multi-Agent 架构，能够�
 
 ### 环境要求
 
-- Python 3.9+
+- Python 3.10
 - Node.js 16+
 - Docker & Docker Compose（可选）
 
