@@ -187,9 +187,11 @@ async def import_from_json(lightrag: LightRAGAPI, json_path: str, limit: int = N
         logger.info(f"开始从 JSON 文件导入: {json_path}")
 
         with open(json_path, "r", encoding="utf-8") as f:
-            recipes = json.load(f)
+            raw_recipes = json.load(f)
 
-        if limit:
+        recipes = _normalize_recipe_payload(raw_recipes)
+
+        if limit is not None and limit > 0:
             recipes = recipes[:limit]
 
         documents = []
@@ -215,6 +217,49 @@ async def import_from_json(lightrag: LightRAGAPI, json_path: str, limit: int = N
     except Exception as e:
         logger.error(f"从 JSON 导入失败: {str(e)}", exc_info=True)
         raise
+
+
+def _normalize_recipe_payload(raw: Any) -> List[Dict[str, Any]]:
+    """
+    将 JSON 原始数据统一转换为列表格式，确保包含 dish_name 等关键字段。
+    支持以下输入格式：
+      1. 列表: [ {...}, {...} ]
+      2. 字典: { "菜名": {...}, ... }
+    """
+    records: List[Dict[str, Any]] = []
+
+    if isinstance(raw, dict):
+        for idx, (dish_name, payload) in enumerate(raw.items(), start=1):
+            record = _coerce_recipe_entry(payload)
+            if "dish_name" not in record or not record["dish_name"]:
+                record["dish_name"] = dish_name or f"菜谱{idx}"
+            records.append(record)
+        return records
+
+    if isinstance(raw, list):
+        for idx, payload in enumerate(raw, start=1):
+            record = _coerce_recipe_entry(payload)
+            if "dish_name" not in record or not record["dish_name"]:
+                fallback_name = (
+                    record.get("dishName")
+                    or record.get("name")
+                    or record.get("title")
+                )
+                if fallback_name:
+                    record["dish_name"] = fallback_name
+                else:
+                    record["dish_name"] = f"菜谱{idx}"
+            records.append(record)
+        return records
+
+    raise ValueError("不支持的菜谱数据格式，期望为 list 或 dict。")
+
+
+def _coerce_recipe_entry(entry: Any) -> Dict[str, Any]:
+    """确保每个菜谱条目是 dict，并复制一份以避免修改原对象。"""
+    if isinstance(entry, dict):
+        return dict(entry)
+    return {"dish_name": str(entry), "instructions": ""}  # 最少保留菜名
 
 
 async def main():
