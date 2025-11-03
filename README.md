@@ -99,33 +99,7 @@ npm run dev
 # 前端: http://localhost:3000
 # 后端API: http://localhost:8000/docs
 ```
-
-### 方式二：本地开发
-
-```bash
-# 1. 后端启动
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-python scripts/run.py start
-
-# 2. 前端启动（新终端）
-cd web
-npm install
-npm run dev
-```
-
-### 方式三：使用启动脚本
-
-```bash
-# Windows
-scripts\start-dev.bat
-
-# Linux/Mac
-chmod +x scripts/start-dev.sh
-./scripts/start-dev.sh
-```
-
+ 
 ---
 
 ## 🏗️ 技术架构
