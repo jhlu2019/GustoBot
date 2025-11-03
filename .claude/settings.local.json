@@ -35,7 +35,10 @@
       "Bash(git commit:*)",
       "Bash(tee:*)",
       "Bash(unset:*)",
-      "Bash(pkill:*)"
+      "Bash(pkill:*)",
+      "Bash(while ps aux)",
+      "Bash(do sleep 10)",
+      "Bash(done)"
     ],
     "deny": [],
     "ask": []
