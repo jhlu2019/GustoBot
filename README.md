@@ -158,31 +158,6 @@ npm run dev
 
 ### 系统架构图
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                        用户界面 (Web)                        │
-│                   React + Vite + Axios                      │
-└────────────────────────┬────────────────────────────────────┘
-                         │ HTTP/REST API
-GustoBot 的核心调度由 LangGraph 构建的多节点工作流完成：
-
-- **analyze_and_route_query**：LLM 驱动的路由节点，根据用户问题在 `kb-query`、`general-query`、`graphrag-query` 等路径之间做出判断。
-- **create_kb_query**：触发 `create_kb_multi_tool_workflow`，按需调用 Milvus、PostgreSQL（pgvector）以及外部检索源，并融合多源答案。
-- **respond_to_general_query / create_research_plan**：处理闲聊、常识问答或生成研究计划的 LangGraph 节点，依赖统一的对话历史。
-- **safety_guardrails**：在 Guardrails 判定为越界时直接生成礼貌拒答。
-
-知识检索链路依旧由 `KnowledgeService` 负责：
-
-1. OpenAI 兼容 Embedding → 生成向量
-2. Milvus VectorStore → 语义检索
-3. 可选 Reranker → 结果精排
-4. PostgreSQL（pgvector）→ 结构化 Excel 数据查询
-
-底层持久化仍包括 Milvus、Redis、SQLite 等组件，对话和中间态统一写入 LangGraph 的检查点存储。
-
-### Agent工作流程 - 超级完整架构图
-
-#### 完整三层架构流程图（包含所有子图详细节点）
 
 ```mermaid
 graph TB
