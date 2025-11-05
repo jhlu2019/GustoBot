@@ -153,7 +153,7 @@ rerank_score >= KB_POSTGRES_RERANK_THRESHOLD    # 重排分数阈值
 
 ```bash
 # 克隆项目
-git clone <repository-url>
+[git clone <repository-url>](https://github.com/jhlu2019/GustoBot.git)
 cd GustoBot
 
 # 配置环境变量
