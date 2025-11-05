@@ -399,33 +399,6 @@ graph TB
 7. **安全防护**: 每个查询都经过 Guardrails 检查
 
 ---
-
-## Docker 快速部署
-
-### 一键启动所有服务
-
-```bash
-# 克隆项目
-git clone <repository-url>
-cd GustoBot
-
-# 配置环境变量
-cp .env.example .env
-# 编辑 .env 文件，配置必要的 API 密钥
-
-# 启动所有服务（Docker Compose）
-docker-compose up -d
-
-# 查看服务状态
-docker-compose ps
-
-# 查看日志
-docker-compose logs -f
-
-# 停止服务
-docker-compose down
-```
-
  
 ## 许可证
 
