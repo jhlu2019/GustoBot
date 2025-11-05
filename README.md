@@ -3,7 +3,7 @@
 <div align="center">
   <h2>基于 Multi-Agent 架构的智能菜谱客服</h2>
 
-  ![Python](https://img.shields.io/badge/Python-3.11-blue?style=flat&logo=python)
+  ![Python](https://img.shields.io/badge/Python-3.10-blue?style=flat&logo=python)
   ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi)
   ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=ffffff)
   ![LangGraph](https://img.shields.io/badge/LangGraph-Flow-green?style=flat&logo=databricks)
