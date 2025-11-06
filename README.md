@@ -153,7 +153,7 @@ rerank_score >= KB_POSTGRES_RERANK_THRESHOLD    # 重排分数阈值
 
 ```bash
 # 克隆项目
-git clone https://github.com/jhlu2019/GustoBot.git
+git clone https://github.com/skygazer42/GustoBot.git
 cd GustoBot
 
 # 配置环境变量
@@ -418,8 +418,8 @@ graph TB
 
 ## 联系方式
 
-- 项目主页: https://github.com/jhlu2019/GustoBot
-- 问题反馈: https://github.com/jhlu2019/GustoBot/issues
+- 项目主页: https://github.com/skygazer42/GustoBot
+- 问题反馈: https://github.com/jhlu2019/skygazer42/issues
 - 邮箱: 207829897@qq.com
 
  
