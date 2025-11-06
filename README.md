@@ -418,21 +418,11 @@ graph TB
 
 ## 联系方式
 
-- 项目主页: https://github.com/yourusername/GustoBot
-- 问题反馈: https://github.com/yourusername/GustoBot/issues
-- 邮箱: your.email@example.com
+- 项目主页: https://github.com/jhlu2019/GustoBot
+- 问题反馈: https://github.com/jhlu2019/GustoBot/issues
+- 邮箱: 207829897@qq.com
 
----
-
-## 项目状态
-
-- [已完成] 核心功能已完成
-- [已完成] API接口完整
-- [已完成] 前端界面可用
-- [进行中] LLM集成待完善
-- [进行中] 生产环境优化中
-- [进行中] 文档持续完善中
-
+ 
 ---
 
 <div align="center">
