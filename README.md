@@ -419,7 +419,7 @@ graph TB
 ## 联系方式
 
 - 项目主页: https://github.com/skygazer42/GustoBot
-- 问题反馈: https://github.com/jhlu2019/skygazer42/issues
+- 问题反馈: https://github.com/skygazer42/skygazer42/issues
 - 邮箱: 207829897@qq.com
 
  
